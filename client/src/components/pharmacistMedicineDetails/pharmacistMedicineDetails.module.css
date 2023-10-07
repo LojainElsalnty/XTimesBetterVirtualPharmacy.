@@ -1,0 +1,35 @@
+div {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+tr {
+    transition: background-color 0.1s;
+}
+
+tr:hover {
+    background-color: #efefef;
+}
+
+li,
+ul {
+    text-align: justify;
+}

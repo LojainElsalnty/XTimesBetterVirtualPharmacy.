@@ -10,9 +10,10 @@ const getMedicines = async (req, res) => {
 //get medicine based on given name -> search
 const searchMedicineByName = async (req, res) => {
     const name = req.params.name
-    //in order to get search results that INCLUDE given name (e.g. if user types fu -> search result includes fucicort,fucidin,..)
+    //in order to get search results that START given name (e.g. if user types fu -> search result includes fucicort,fucidin,..)
     //i => case-insensitive
-    const regex = new RegExp(`${name}`, 'i');
+    const regex = new RegExp(`^${name}`, 'i');
+
     const searchResult = await Medicine.find({ name: regex })
     if (!searchResult || searchResult.length == 0) {
         return res.status(404).json({ error: 'medicine not found' })
