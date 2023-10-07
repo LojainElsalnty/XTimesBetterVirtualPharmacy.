@@ -4,28 +4,39 @@ const MedicineSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
-    },
-    picture: {
-        type: String,
-        requried: true,
-    },
-    active_ingredients: {
+        unique: true,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      activeIngredients: {
         type: [String],
         required: true,
-    },
-    available_quantity: {
+      },
+      availableQuantity: {
         type: Number,
         required: true,
-    },
-    medicinal_use: {
-        type: String,
+      },
+      medicinalUses: {
+        type: [String],
         required: true,
-    },
-    price: {
+      },
+      sales: {
         type: Number,
-        required: true,
-    },
-}, {timestamps: true});
+        default: 0,
+      },
+        // Add an image field
+    
+    image: {
+     data: Buffer, // Binary image data lesa hashof ah alle byhsl
+    contentType: String, // Content type (e.g., 'image/jpeg', 'image/png') //lesa bardo 
+    filename: String, // Original filename of the image
+   }
+
+}
+
+, {timestamps: true});
 
 
 const Medicine = mongoose.model('Medicine', MedicineSchema);

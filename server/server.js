@@ -4,11 +4,17 @@ const colors = require('colors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const pharmaRoutes = require('../server/routes/pharmaRoute');
+const patientRoutes = require('../server/routes/patientRoute');
+const medicineRoutes = require('../server/routes/medicineRoute');
+
 
 mongoose.set('strictQuery', false);
 
 // Express app
 const app = express();
+
+
 
 // App variables
 const Port = process.env.PORT || 5000;
@@ -17,6 +23,9 @@ const MongoURI = process.env.MONGO_URI;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//const pharmaRoutes = require('server/routes/pharmaRoutes');
+
 
 // Middleware for allowing react to fetch() from server
 app.use(function(req, res, next) {
@@ -37,3 +46,6 @@ mongoose.connect(MongoURI)
   })
 })
 .catch(err => console.log(err));
+app.use('/pharmaRoutes',pharmaRoutes);
+app.use('/patientRoutes',patientRoutes);
+app.use('/medicineRoutes',medicineRoutes);
