@@ -21,7 +21,7 @@ const MedicineCatalog = () => {
     useEffect(() => {
         const fetchAllMedicines = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/admin/medicineCatalog', {
+                const response = await axios.get('http://localhost:5000/pharmacist/medicineCatalog', {
                     headers: {
                         'Content-Type': 'application/json',
                     },

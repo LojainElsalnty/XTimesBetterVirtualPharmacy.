@@ -1,12 +1,12 @@
 .result-container {
-    margin-top: 180px;
+    margin-top: 100px;
 }
 
 .ddl-container {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 40px;
     margin-left: 90px;
-    position: fixed;
+    position: relative;
     top: 0;
     z-index: 100;
     align-items: center;
@@ -31,9 +31,8 @@
 
 .list-title {
     text-align: center;
-    margin-top: 100px;
-    margin-right: 470px;
-    position: fixed;
-    top: 0;
+    margin-right: 800px;
+    transform: translateY(150px);
+    position: relative;
     z-index: 100;
 }

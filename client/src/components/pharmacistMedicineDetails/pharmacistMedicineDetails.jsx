@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import styles from './pharmacistMedicineDetails.module.css'
+import medImage from '../../assests/images/medicineImage.jpg';
 
 const PharmacistMedicineDetails = ({ medicine }) => {
     // Convert the Buffer data into a data URL
@@ -11,7 +12,8 @@ const PharmacistMedicineDetails = ({ medicine }) => {
     //console.log(medicine.sales)
     return (
         <tr>
-            <td><img src={imageDataUrl} alt={medicine.image.filename} /></td>
+            {/* <td><img src={imageDataUrl} alt={medicine.image.filename} /></td> */}
+            <td><img src={medImage} className={styles.medimage} /></td>
             <td>{medicine.name}</td>
             <td>{medicine.price}</td>
             <td>{medicine.activeIngredients.map((ingredient, index) => (
