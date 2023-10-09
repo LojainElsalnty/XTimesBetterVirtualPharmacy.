@@ -35,6 +35,11 @@ const PatientSchema = mongoose.Schema({
     emergency_contact: {
         type: [],
         required: true,
+    },
+    medicalHistory: {
+        data:Buffer,
+        contentType: String,
+        //required: false,
     }
 }, {timestamps: true});
 

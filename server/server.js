@@ -37,3 +37,10 @@ mongoose.connect(MongoURI)
   })
 })
 .catch(err => console.log(err));
+
+// Routes
+// Patient
+app.use('/patient/register', require('./routes/patient/registerRoute'));
+
+// Pharmacist
+app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
