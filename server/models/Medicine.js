@@ -32,6 +32,7 @@ const MedicineSchema = mongoose.Schema({
      data: Buffer, // Binary image data lesa hashof ah alle byhsl
     contentType: String, // Content type (e.g., 'image/jpeg', 'image/png') //lesa bardo 
     filename: String, // Original filename of the image
+    
    }
 
 }

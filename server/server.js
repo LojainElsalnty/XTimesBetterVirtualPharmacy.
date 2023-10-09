@@ -4,15 +4,32 @@ const colors = require('colors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 const pharmaRoutes = require('../server/routes/pharmaRoute');
 const patientRoutes = require('../server/routes/patientRoute');
 const medicineRoutes = require('../server/routes/medicineRoute');
 
-
-mongoose.set('strictQuery', false);
-
 // Express app
 const app = express();
+
+const allowedOrigins = ['http://localhost:5173'];
+// Set up CORS options.
+
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+// Enable CORS for all routes or specify it for specific routes.
+app.use(cors(corsOptions));
+mongoose.set('strictQuery', false);
+
 
 
 
@@ -36,6 +53,7 @@ app.use(function(req, res, next) {
 });
 
 // Connect to MongoDB
+
 mongoose.connect(MongoURI)
 .then(()=>{
   console.log("MongoDB is now connected!")

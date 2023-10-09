@@ -46,6 +46,7 @@ const addMedicine = async (req, res) => {
 
   const updateMedicine = async (req, res) => {
     try {
+      //console.log("iam here3")
       // Extract Medicine details from the request body
       const {
         name,
