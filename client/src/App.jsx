@@ -11,12 +11,14 @@ import RemovePharmacist from './pages/admin/removepharmacist';
 import RemovePatient from './pages/admin/removepatient';
 //import './pages/admin/addadmin.module.css';
 
+import ViewRequestedPharmacistInfo from './pages/admin/viewRequestedPharmacistInfo';
 
 // Styles
 import './App.css'
 import PatientView from './pages/patient/patientView.jsx';
 import MedicineAdd from './pages/medicine/medicineAdd.jsx';
 import MedicineEdit from './pages/medicine/madicineEdit.jsx';
+
 
 function App() {
 
@@ -47,7 +49,9 @@ function App() {
         <Route path="/admin/addadmin" element={<AddAdmin />} />
         <Route path="/admin/removepharmacist" element={<RemovePharmacist />} />
         <Route path="/admin/removepatient" element={<RemovePatient />} />
-      </Routes>
+
+        <Route path="/admin/requestedPharmacistInfoPage" element={<ViewRequestedPharmacistInfo />} />
+      </Routes >
     </>
   )
 }
