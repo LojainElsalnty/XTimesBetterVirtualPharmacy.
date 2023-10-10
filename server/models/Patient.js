@@ -8,7 +8,7 @@ const PatientSchema = mongoose.Schema({
     },
     name: {
         type: String,
-        requried: true,
+        required: true,
     },
     email: {
         type: String,
@@ -33,7 +33,7 @@ const PatientSchema = mongoose.Schema({
         required: true,
     },
     emergency_contact: {
-        type: [],
+        type: mongoose.Schema.Types.Mixed,
         required: true,
     },
     medicalHistory: {

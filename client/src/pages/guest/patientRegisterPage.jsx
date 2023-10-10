@@ -10,27 +10,52 @@ const PatientRegister = () => {
         dob: '',
         gender: 'male', // Default value
         mobile: '',
-        emergency_contact: [{}], // Initialize with an empty contact object
+        emergency_contact:{
+          name: '',
+          mobile: '',
+          relation:'',
+        }, 
       });
 
     // Handle input changes
-    const handleEmergencyContactChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          emergency_contact: {
-            ...formData.emergency_contact,
-            [name]: value,
-          },
-        });
-      };
+    // const handleEmergencyContactChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormData({
+    //       ...formData,
+    //       emergency_contact: {
+    //         ...formData.emergency_contact,
+    //         [name]: value,
+    //       },
+    //     });
+    //   };
       
+      // const handleInputChange = (e) => {
+      //   const { name, value } = e.target;
+      //   setFormData({
+      //     ...formData,
+      //     [name]: value,
+      //   });
+      // };
+
       const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value,
-        });
+        if (name.startsWith('emergency_contact.')) {
+          // Handle changes in the emergency_contact object
+          const field = name.split('.')[1];
+          setFormData({
+            ...formData,
+            emergency_contact: {
+              ...formData.emergency_contact,
+              [field]: value,
+            },
+          });
+        } else {
+          // Handle changes in other form fields
+          setFormData({
+            ...formData,
+            [name]: value,
+          });
+        }
       };
 
     // Handle form submission
@@ -62,6 +87,7 @@ const PatientRegister = () => {
                 emergency_contact: {
                   name: '',
                   mobile: '',
+                  relation:'',
                 },
               });
         } else {
@@ -126,6 +152,7 @@ const PatientRegister = () => {
             type="date"
             name="dob"
             value={formData.dob}
+            max={new Date().toISOString().split('T')[0]}
             onChange={handleInputChange}
             required
           />
@@ -166,24 +193,34 @@ const PatientRegister = () => {
           />
         </div>
         <div>
-        <label>Emergency Contact Full Name:</label>
-            <input
-                type="text"
-                name="emergencyName" // Use a different name attribute
-                value={formData.emergency_contact.name}
-                onChange={handleEmergencyContactChange}
-                required
-             />
+          <label>Emergency Contact Full Name:</label>
+          <input
+            type="text"
+            name="emergency_contact.name"
+            value={formData.emergency_contact.name}
+            onChange={handleInputChange}
+            required
+          />
         </div>
         <div>
-        <label>Emergency Contact Mobile Number:</label>
-        <input
-         type="text"
-         name="emergencyMobile" // Use a different name attribute
-         value={formData.emergency_contact.mobile}
-         onChange={handleEmergencyContactChange}
-         required
-         />
+          <label>Emergency Contact Mobile Number:</label>
+          <input
+            type="text"
+            name="emergency_contact.mobile"
+            value={formData.emergency_contact.mobile}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Emergency Contact Relation:</label>
+          <input
+            type="text"
+            name="emergency_contact.relation"
+            value={formData.emergency_contact.relation}
+            onChange={handleInputChange}
+            required
+          />
         </div>
         
         {/* Submit button */}
