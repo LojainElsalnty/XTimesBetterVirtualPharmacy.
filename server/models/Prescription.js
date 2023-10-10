@@ -7,7 +7,7 @@ const PrescriptionSchema = mongoose.Schema({
     },
     doctor_username: {
         type: String,
-        requried: true,
+        required: true,
     },
     visit_date: {
         type: String,

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const{viewPharmaInfo,addPharmacist, viewAllPharmaInfo} = require('../controllers/pharmaContoller')
+const{viewPharmaInfo,addPharmacist, viewAllPharmaInfo} = require('../../controllers/admin/pharmaContoller')
 
 //search for a pharmacist by username
 router.get('/viewPharmaInfo/:username', viewPharmaInfo);

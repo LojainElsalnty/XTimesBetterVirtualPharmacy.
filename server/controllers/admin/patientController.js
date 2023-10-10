@@ -1,4 +1,4 @@
-const Patient = require('../models/Patient');
+const Patient = require('../../models/Patient')
 
 const mongoose = require('mongoose')
 
@@ -7,16 +7,16 @@ const viewPatientInfo = async (req, res) => {
     console.log(username)
     try {
       // Use the `findOne` method to find a Patient by their username
-      const Patient = await Patient.findOne({ username });
-  
-      if (!Patient) {
+      const response = await Patient.findOne({ username });
+      
+      if (!response) {
         return res.status(404).json({ error: "Patient not found" });
       }
   
       // For debugging, log the found Patient
-      console.log("Found Patient:", Patient);
+      console.log("Found Patient:", response);
   
-      res.status(200).json(Patient);
+      res.status(200).json(response);
     } catch (error) {
       // Handle any errors that may occur during the database query
       console.error("Database error:", error);

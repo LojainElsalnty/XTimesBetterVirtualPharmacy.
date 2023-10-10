@@ -16,23 +16,20 @@ function App() {
    <div className="pages">
       <Routes>
       <Route  
-        path = "/"
+        path = "/EditMedicine"
         element = {<MedicineEdit/>}
         />
       <Route  
-        path = "/"
+        path = "/AddMedicine"
         element = {<MedicineAdd/>}
         />
       
-      
-      
-        
          <Route  
-        path = "/"
+        path = "/patientInformation"
         element = {<PatientView/>}
         />
         <Route
-         path = "/"
+         path = "/pharmacistInformation"
          element = {<PharmacistView/>}
         />
       

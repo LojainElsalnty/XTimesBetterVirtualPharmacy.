@@ -66,6 +66,14 @@ function MedicineEdit() {
       })
       .then((data) => {
         console.log('Medicine updated:', data);
+        setMedicineData({
+          name: '',
+          price: '',
+          activeIngredients: [],
+          availableQuantity: '',
+          medicinalUses: [],
+          image: null,
+        });
       })
       .catch((error) => {
         console.error('Error updating medicine:', error);
@@ -146,7 +154,7 @@ function MedicineEdit() {
             
           />
         </div>
-        <button type="submit">Add Medicine</button>
+        <button type="submit">Edit Medicine</button>
       </form>
     </div>
   );

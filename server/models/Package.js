@@ -7,7 +7,7 @@ const PackageSchema = mongoose.Schema({
     },
     price: {
         type: Number,
-        requried: true,
+        required: true,
     },
     doctor_discount: {
         type: Number,
@@ -21,6 +21,9 @@ const PackageSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    subscribed_patients :{
+        type:[]
+    }
 }, {timestamps: true});
 
 

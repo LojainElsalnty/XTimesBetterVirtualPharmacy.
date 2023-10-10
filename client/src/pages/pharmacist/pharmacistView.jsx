@@ -25,8 +25,9 @@ function PharmacistView() {
     setPharmacist(data);
   } catch (error) {
     console.error('Error fetching pharmacist information:', error);
-    // You can set an error state or display an error message to the user here.
+    
   }
+  
 };
 
 
@@ -49,7 +50,7 @@ function PharmacistView() {
           <p>Email: {pharmacist.email}</p>
           <p>Date of Birth: {pharmacist.dob}</p>
           <p>Hourly Rate: ${pharmacist.hourly_rate.toFixed(2)}</p>
-          <p>Affiliation: {pharmacist.affilitation}</p>
+          <p>Affiliation: {pharmacist.affiliation}</p>
           <p>Educational Background: {pharmacist.educational_background}</p>
         </div>
       )}

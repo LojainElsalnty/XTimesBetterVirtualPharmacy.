@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-const pharmaRoutes = require('../server/routes/pharmaRoute');
-const patientRoutes = require('../server/routes/patientRoute');
-const medicineRoutes = require('../server/routes/medicineRoute');
+const pharmaRoutes = require('./routes/admin/pharmaRoute');
+const patientRoutes = require('./routes/admin/patientRoute');
+const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 
 // Express app
 const app = express();

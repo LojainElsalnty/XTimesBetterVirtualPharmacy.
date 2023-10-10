@@ -1,4 +1,4 @@
-const Pharmacist = require('../models/Pharmacist')
+const Pharmacist = require('../../models/Pharmacist')
 const mongoose = require('mongoose')
 
 const viewPharmaInfo = async (req, res) => {
@@ -77,5 +77,3 @@ const viewAllPharmaInfo = async(req, res) => {
   
 
 module.exports= {viewPharmaInfo,addPharmacist,viewAllPharmaInfo}
-
-

@@ -9,6 +9,8 @@ function MedicineAdd() {
     medicinalUses: [],
     image: null,
   });
+  const [isRecordAdded, setIsRecordAdded] = useState(false);
+  const [error, setError] = useState(null); // Initialize error state
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -51,15 +53,30 @@ function MedicineAdd() {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
+        
       })
       .then((data) => {
         console.log('Medicine added:', data);
+        
+      // Reset the input fields to their initial empty state
+      setMedicineData({
+        name: '',
+        price: '',
+        activeIngredients: [],
+        availableQuantity: '',
+        medicinalUses: [],
+        image: null,
+      });
       })
       .catch((error) => {
         console.error('Error adding medicine:', error);
         // Handle the error here, e.g., display an error message to the user.
+         // Set the error state
       });
+      
   };
+
+  
   
   
   

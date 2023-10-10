@@ -7,7 +7,7 @@ const FamilySchema = mongoose.Schema({
     },
     national_id: {
         type: String,
-        requried: true,
+        required: true,
     },
     age: {
         type: Number,

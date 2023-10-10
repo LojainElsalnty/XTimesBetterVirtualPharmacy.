@@ -1,5 +1,5 @@
-const Medicine = require('../models/Medicine');
-const Pharmacist = require('../models/Medicine')
+const Medicine = require('../../models/Medicine');
+const Pharmacist = require('../../models/Medicine')
 const mongoose = require('mongoose')
 
 
