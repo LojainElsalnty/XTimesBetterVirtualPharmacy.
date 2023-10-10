@@ -1,15 +1,18 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PharmacistView from './pages/pharmacist/pharmacistView.jsx'
-import { Routes, Route } from 'react-router-dom'
+//import { Routes, Route } from 'react-router-dom'
 import AdminMedicineCatalog from './pages/admin/medicineCatalogPage';
 import PatientMedicineCatalog from './pages/patient/medicineCatalogPage';
 import PharmacistMedicineCatalog from './pages/pharmacist/medicineCatalogPage';
+import ViewRequestedPharmacistInfo from './pages/admin/viewRequestedPharmacistInfo';
+
 // Styles
 import './App.css'
 import PatientView from './pages/patient/patientView.jsx';
 import MedicineAdd from './pages/medicine/medicineAdd.jsx';
 import MedicineEdit from './pages/medicine/madicineEdit.jsx';
+
 
 function App() {
 
@@ -36,6 +39,7 @@ function App() {
         <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
         <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
         <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
+        <Route path = "/admin/requestedPharmacistInfoPage" element = {<ViewRequestedPharmacistInfo/>} />
       </Routes>
     </>
   )
