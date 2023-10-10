@@ -5,6 +5,13 @@ import PharmacistView from './pages/pharmacist/pharmacistView.jsx'
 import AdminMedicineCatalog from './pages/admin/medicineCatalogPage';
 import PatientMedicineCatalog from './pages/patient/medicineCatalogPage';
 import PharmacistMedicineCatalog from './pages/pharmacist/medicineCatalogPage';
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import AddAdmin from './pages/admin/addadmin';
+import RemovePharmacist from './pages/admin/removepharmacist';
+import RemovePatient from './pages/admin/removepatient';
+//import './pages/admin/addadmin.module.css';
+
+
 // Styles
 import './App.css'
 import PatientView from './pages/patient/patientView.jsx';
@@ -14,6 +21,7 @@ import MedicineEdit from './pages/medicine/madicineEdit.jsx';
 function App() {
 
   return (
+<<<<<<< HEAD
     <>
       <Routes>
         <Route
@@ -36,9 +44,14 @@ function App() {
         <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
         <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
         <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
+        <Route path="/admin/addadmin" element={<AddAdmin />} />
+        <Route path="/admin/removepharmacist" element={<RemovePharmacist />} />
+        <Route path="/admin/removepatient" element={<RemovePatient />} />
       </Routes>
     </>
   )
 }
 
 export default App
+
+>>>>>>> origin/Hend

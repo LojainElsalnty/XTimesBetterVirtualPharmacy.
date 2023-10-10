@@ -4,6 +4,11 @@ const colors = require('colors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const adminRoutes = require('./routes/admin/adminRoute');
+const cors = require('cors');
+// const patientRoutes= require('./routes/patient/patientRoute');
+// const pharmacistRoutes= require('./routes/pharmacist/pharmacistRoute');
+
 
 const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute')
 const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute')
@@ -18,7 +23,6 @@ const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 
 // Express app
 const app = express();
-
 const allowedOrigins = ['http://localhost:5173'];
 // Set up CORS options.
 
@@ -35,6 +39,8 @@ const corsOptions = {
 
 // Enable CORS for all routes or specify it for specific routes.
 app.use(cors(corsOptions));
+
+
 mongoose.set('strictQuery', false);
 
 
@@ -84,5 +90,11 @@ app.use('/pharmaRoutes', pharmaRoutes);
 app.use('/patientRoutes', patientRoutes);
 app.use('/medicineRoutes', medicineRoutes);
 
+app.use('/admin/addremove', adminRoutes);
 
+
+
+
+// app.use('/patient/remove', patientRoutes);
+// app.use('/pharmacist/remove', pharmacistRoutes);
 
