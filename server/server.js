@@ -16,7 +16,7 @@ const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCat
 
 
 mongoose.set('strictQuery', false);
-const cors = require('cors');
+//const cors = require('cors');
 const pharmaRoutes = require('./routes/admin/pharmaRoute');
 const patientRoutes = require('./routes/admin/patientRoute');
 const medicineRoutes = require('./routes/pharmacist/medicineRoute');
