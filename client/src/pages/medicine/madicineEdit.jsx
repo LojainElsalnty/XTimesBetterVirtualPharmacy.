@@ -108,7 +108,7 @@ function MedicineEdit() {
             name="price"
             value={medicineData.price}
             onChange={handleChange}
-            required
+            
           />
         </div>
         <div>
@@ -119,7 +119,7 @@ function MedicineEdit() {
             name="activeIngredients"
             value={medicineData.activeIngredients.join(', ')}
             onChange={handleChange}
-            required
+            
           />
         </div>
         <div>
@@ -130,7 +130,7 @@ function MedicineEdit() {
             name="availableQuantity"
             value={medicineData.availableQuantity}
             onChange={handleChange}
-            required
+            
           />
         </div>
         <div>
@@ -141,7 +141,7 @@ function MedicineEdit() {
             name="medicinalUses"
             value={medicineData.medicinalUses.join(', ')}
             onChange={handleChange}
-            required
+            
           />
         </div>
         <div>
