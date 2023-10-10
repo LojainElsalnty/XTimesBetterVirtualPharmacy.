@@ -21,6 +21,9 @@ const PackageSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    subscribed_patients: {
+        type: []
+    },
 }, { timestamps: true });
 
 
