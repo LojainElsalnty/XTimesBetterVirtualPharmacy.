@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PharmacistView from './pages/pharmacist/pharmacistView.jsx'
-import { Routes, Route } from 'react-router-dom'
+//import { Routes, Route } from 'react-router-dom'
 import AdminMedicineCatalog from './pages/admin/medicineCatalogPage';
 import PatientMedicineCatalog from './pages/patient/medicineCatalogPage';
 import PharmacistMedicineCatalog from './pages/pharmacist/medicineCatalogPage';

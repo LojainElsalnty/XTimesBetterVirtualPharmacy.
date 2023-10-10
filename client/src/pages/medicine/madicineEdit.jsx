@@ -30,26 +30,26 @@ function MedicineEdit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const requestBody = {};
-    requestBody.name  = medicineData.name;
-  
+    requestBody.name = medicineData.name;
+
     if (medicineData.price !== '') {
       requestBody.price = medicineData.price;
     }
-  
+
     if (medicineData.activeIngredients.length > 0) {
       requestBody.activeIngredients = medicineData.activeIngredients;
     }
-  
+
     if (medicineData.availableQuantity !== '') {
       requestBody.availableQuantity = medicineData.availableQuantity;
     }
-  
+
     if (medicineData.medicinalUses.length > 0) {
       requestBody.medicinalUses = medicineData.medicinalUses;
     }
-  
+
     fetch(`http://localhost:5000/medicineRoutes/updateMedicine`, {
       method: 'PATCH',
       headers: {
@@ -59,7 +59,7 @@ function MedicineEdit() {
     })
       .then((response) => {
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`);
 
         }
         return response.json();
@@ -81,9 +81,9 @@ function MedicineEdit() {
       });
   };
 
-  
-  
-  
+
+
+
 
   return (
     <div>
@@ -108,7 +108,6 @@ function MedicineEdit() {
             name="price"
             value={medicineData.price}
             onChange={handleChange}
-            required
           />
         </div>
         <div>
@@ -119,7 +118,6 @@ function MedicineEdit() {
             name="activeIngredients"
             value={medicineData.activeIngredients.join(', ')}
             onChange={handleChange}
-            required
           />
         </div>
         <div>
@@ -130,7 +128,6 @@ function MedicineEdit() {
             name="availableQuantity"
             value={medicineData.availableQuantity}
             onChange={handleChange}
-            required
           />
         </div>
         <div>
@@ -141,7 +138,6 @@ function MedicineEdit() {
             name="medicinalUses"
             value={medicineData.medicinalUses.join(', ')}
             onChange={handleChange}
-            required
           />
         </div>
         <div>
@@ -150,8 +146,8 @@ function MedicineEdit() {
             type="file"
             id="image"
             name="image"
-           // onChange={handleChange}
-            
+          // onChange={handleChange}
+
           />
         </div>
         <button type="submit">Edit Medicine</button>

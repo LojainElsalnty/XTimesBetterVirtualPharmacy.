@@ -5,7 +5,7 @@ import medImage from '../../assests/images/medicineImage.jpg';
 
 const PharmacistMedicineDetails = ({ medicine }) => {
     // Convert the Buffer data into a data URL
-    const imageDataUrl = `data:${medicine.image.contentType};base64,${medicine.image.data.toString('base64')}`;
+    // const imageDataUrl = `data:${medicine.image.contentType};base64,${medicine.image.data.toString('base64')}`;
 
     //console.log(imageDataUrl);
     //console.log('medicine:', medicine);

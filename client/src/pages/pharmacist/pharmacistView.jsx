@@ -7,28 +7,29 @@ import React, { useState } from 'react'
 function PharmacistView() {
   const [username, setUsername] = useState('');
   const [pharmacist, setPharmacist] = useState(null);
-   
+
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
- // console.log(username)
- //console.log("iam here")
+  // console.log(username)
+  //console.log("iam here")
   const fetchPharmacistInfo = async () => {
-  try {
-    const response = await fetch(`http://localhost:5000/pharmaRoutes/viewPharmaInfo/${username}`);
+    try {
+      const response = await fetch(`http://localhost:5000/pharmaRoutes/viewPharmaInfo/${username}`);
 
-    console.log(response);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      console.log(response);
+      if (!response.ok) {
+        //throw new Error(`HTTP error! Status: ${response.status}`);
+        return alert('Pharmacist not found')
+      }
+      const data = await response.json();
+      setPharmacist(data);
+    } catch (error) {
+      console.error('Error fetching pharmacist information:', error);
+
     }
-    const data = await response.json();
-    setPharmacist(data);
-  } catch (error) {
-    console.error('Error fetching pharmacist information:', error);
-    
-  }
-  
-};
+
+  };
 
 
   return (
