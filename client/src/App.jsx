@@ -12,6 +12,11 @@ import RemovePatient from './pages/admin/removepatient';
 //import './pages/admin/addadmin.module.css';
 
 import ViewRequestedPharmacistInfo from './pages/admin/viewRequestedPharmacistInfo';
+//import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import PatientRegister from './pages/guest/patientRegisterPage';
+import PharmacistRequest from './pages/pharmacist/pharmacistRequestPage';
+import './pages/guest/patientRegisterPage.css'; // Import the CSS file
+import './pages/pharmacist/pharmacistRequestPage.css'; // Import the CSS file
 
 // Styles
 import './App.css'
@@ -51,6 +56,9 @@ function App() {
         <Route path="/admin/removepatient" element={<RemovePatient />} />
 
         <Route path="/admin/requestedPharmacistInfoPage" element={<ViewRequestedPharmacistInfo />} />
+
+        <Route path="/guest/patientRegister" element={<PatientRegister />} />
+        <Route path="/pharmacist/pharmacistRequest" element={<PharmacistRequest />} />
       </Routes >
     </>
   )

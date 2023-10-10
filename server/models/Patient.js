@@ -33,7 +33,7 @@ const PatientSchema = mongoose.Schema({
         required: true,
     },
     emergency_contact: {
-        type: [],
+        type: mongoose.Schema.Types.Mixed,
         required: true,
     },
     subscribed_package: {
