@@ -27,7 +27,7 @@ const PharmacistRequestsSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    affilitation: {
+    affiliation: {
         type: String,
         required: true,
     },

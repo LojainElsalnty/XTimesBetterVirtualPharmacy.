@@ -11,9 +11,34 @@ const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCat
 
 
 mongoose.set('strictQuery', false);
+const cors = require('cors');
+const pharmaRoutes = require('./routes/admin/pharmaRoute');
+const patientRoutes = require('./routes/admin/patientRoute');
+const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 
 // Express app
 const app = express();
+
+const allowedOrigins = ['http://localhost:5173'];
+// Set up CORS options.
+
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+// Enable CORS for all routes or specify it for specific routes.
+app.use(cors(corsOptions));
+mongoose.set('strictQuery', false);
+
+
+
 
 // App variables
 const Port = process.env.PORT || 5000;
@@ -22,6 +47,9 @@ const MongoURI = process.env.MONGO_URI;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//const pharmaRoutes = require('server/routes/pharmaRoutes');
+
 
 // Middleware for allowing react to fetch() from server
 app.use(function (req, res, next) {
@@ -32,6 +60,7 @@ app.use(function (req, res, next) {
 });
 
 // Connect to MongoDB
+
 mongoose.connect(MongoURI)
   .then(() => {
     console.log("MongoDB is now connected!")
@@ -50,3 +79,10 @@ app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
 app.use('/patient/medicineCatalog', patientMedicineCatalogRoutes)
 //pharmacist
 app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
+
+app.use('/pharmaRoutes', pharmaRoutes);
+app.use('/patientRoutes', patientRoutes);
+app.use('/medicineRoutes', medicineRoutes);
+
+
+
