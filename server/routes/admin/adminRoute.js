@@ -6,14 +6,14 @@ const {addAdmin,removeAdmin, getAdmins, removePatient, removePharmacist } = requ
 
 
 // APIs
-router.delete('/', removePatient);
+router.delete('/removePatient', removePatient);
 
 // APIs
-router.delete('/', removePharmacist);
+router.delete('/removePharmacist', removePharmacist);
 
 // APIs
 router.post('/', addAdmin);
-router.delete('/', removeAdmin);
+router.delete('/removeAdmin', removeAdmin);
 router.get('/', getAdmins);
 
 module.exports = router;

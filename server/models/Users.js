@@ -8,11 +8,10 @@ const UsersSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        requried: true,
+        required: true,
     },
-}, {timestamps: true});
+}, { timestamps: true });
 
 
 const Users = mongoose.model('Users', UsersSchema);
 module.exports = Users;
-

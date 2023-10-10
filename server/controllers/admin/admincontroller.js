@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const asyncHandler = require('express-async-handler');
 const adminModel = require('../../models/Admin');
-//const patientModel = require('../../models/Patient');
-//const pharmacistModel = require('../../models/Pharmacist');
+const patientModel = require('../../models/Patient');
+const pharmacistModel = require('../../models/Pharmacist');
 const bcrypt = require('bcrypt');
 
 const addAdmin = asyncHandler( async(req,res) => {
@@ -66,10 +66,10 @@ const removePatient= asyncHandler( async(req,res) => {
     const patient=req.body;
     let existUsername = null;
 
-    existUsername =  await adminModel.findOne({ username: patient.username });
+    existUsername =  await patientModel.findOne({ username: patient.username });
 
 if (existUsername) {
-        const deleted =  await adminModel.findOneAndDelete({ username: patient.username});
+        const deleted =  await patientModel.findOneAndDelete({ username: patient.username});
         res.status(200).send(deleted);
 }
 else{    
@@ -82,10 +82,10 @@ const removePharmacist= asyncHandler( async(req,res) => {
     const pharmacist=req.body;
     let existUsername = null;
 
-    existUsername =  await adminModel.findOne({ username: pharmacist.username });
+    existUsername =  await pharmacistModel.findOne({ username: pharmacist.username });
 
 if (existUsername) {
-        const deleted =  await adminModel.findOneAndDelete({ username: pharmacist.username});
+        const deleted =  await pharmacistModel.findOneAndDelete({ username: pharmacist.username});
         res.status(200).send(deleted);
 }
 else{    

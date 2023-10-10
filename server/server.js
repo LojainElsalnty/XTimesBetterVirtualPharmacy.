@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const adminRoutes= require('./routes/admin/adminRoute');
+const cors = require('cors');
 // const patientRoutes= require('./routes/patient/patientRoute');
 // const pharmacistRoutes= require('./routes/pharmacist/pharmacistRoute');
 
@@ -13,6 +14,22 @@ mongoose.set('strictQuery', false);
 
 // Express app
 const app = express();
+const allowedOrigins = ['http://localhost:5173'];
+// Set up CORS options.
+
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+// Enable CORS for all routes or specify it for specific routes.
+app.use(cors(corsOptions));
 
 // App variables
 const Port = process.env.PORT || 5000;

@@ -7,7 +7,7 @@ const FamilySchema = mongoose.Schema({
     },
     national_id: {
         type: String,
-        requried: true,
+        required: true,
     },
     age: {
         type: Number,
@@ -27,7 +27,7 @@ const FamilySchema = mongoose.Schema({
         type: String,
         required: true,
     },
-}, {timestamps: true});
+}, { timestamps: true });
 
 
 const Family = mongoose.model('Family', FamilySchema);

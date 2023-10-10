@@ -7,7 +7,7 @@ const PrescriptionSchema = mongoose.Schema({
     },
     doctor_username: {
         type: String,
-        requried: true,
+        required: true,
     },
     visit_date: {
         type: String,
@@ -17,7 +17,7 @@ const PrescriptionSchema = mongoose.Schema({
         type: Boolean,
         required: true,
     },
-}, {timestamps: true});
+}, { timestamps: true });
 
 
 const Prescription = mongoose.model('Prescription', PrescriptionSchema);
