@@ -8,7 +8,7 @@ const DoctorSchema = mongoose.Schema({
     },
     name: {
         type: String,
-        requried: true,
+        required: true,
     },
     email: {
         type: String,
@@ -27,7 +27,7 @@ const DoctorSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    affilitation: {
+    affiliation: {
         type: String,
         required: true,
     },
@@ -35,6 +35,14 @@ const DoctorSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    speciality: {
+        type: String,
+        required: true
+    },
+    availableTimeSlots: {
+        type: [Date],
+        required: false,
+    }
 }, { timestamps: true });
 
 

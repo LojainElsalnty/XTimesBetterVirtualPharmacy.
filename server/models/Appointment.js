@@ -7,7 +7,7 @@ const AppointmentSchema = mongoose.Schema({
     },
     doctor_username: {
         type: String,
-        requried: true,
+        required: true,
     },
     date: {
         type: String,
@@ -18,7 +18,11 @@ const AppointmentSchema = mongoose.Schema({
         enum: ['upcoming', 'completed', 'canceled', 'reschedule'],
         required: true,
     },
-}, {timestamps: true});
+    time: {
+        type: Date,
+        required: true,
+    },
+}, { timestamps: true });
 
 
 const Appointment = mongoose.model('Appointment', AppointmentSchema);

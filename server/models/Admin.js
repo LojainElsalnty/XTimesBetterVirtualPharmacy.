@@ -8,9 +8,9 @@ const AdminstratorSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        requried: true,
+        required: true,
     },
-}, {timestamps: true});
+}, { timestamps: true });
 
 
 const Admin = mongoose.model('Admin', AdminstratorSchema);
