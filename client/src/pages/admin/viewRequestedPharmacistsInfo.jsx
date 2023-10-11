@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 
 function viewRequestedPharmacistsInfo() {
-  
+
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
-  
+
   useEffect(() => {
     const url = `http://localhost:5000/admin/viewREQPharmacists`
     // Make an HTTP PATCH request to send the data to the backend using the requestBody
@@ -13,16 +13,16 @@ function viewRequestedPharmacistsInfo() {
       headers: {
         'Content-Type': 'application/json',
       }
-      
+
     }).then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
-       
+
       }
       return response.json();
     }).then((data) => {
-      
-      
+
+
       if (data.length > 0) {
         console.log('Requested Pharmacist:', data);
         setRequestedPharmacists(data);
@@ -39,7 +39,7 @@ function viewRequestedPharmacistsInfo() {
         console.log('This Requested pharmacists does not exist');
         alert('This Requested pharmacist does not exist')
       });
-  },[]);
+  }, []);
   return (
     <div>
       <h1>Requested Pharmacists List</h1>
@@ -66,7 +66,7 @@ function viewRequestedPharmacistsInfo() {
               <td>{pharmacist.password}</td>
               <td>{pharmacist.dob}</td>
               <td>{pharmacist.hourly_rate}</td>
-              <td>{pharmacist.affilitation}</td>
+              <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
               <td>{pharmacist.status}</td>
             </tr>

@@ -1,5 +1,4 @@
-.root {
-}
+/* .root {} */
 
 body {
   display: flex;
@@ -20,11 +19,11 @@ body {
 }
 
 .navbar-list {
-  width: 15vw;
+  width: 10vw;
   height: 7vh;
   list-style-type: none;
   display: flex;
-  margin: 0px;
+  margin: 0px 0px 0px 100px;
   padding: 0px;
   justify-content: center;
   align-items: center;
@@ -39,19 +38,21 @@ body {
   justify-items: center;
   align-items: center;
   align-content: center;
-
+  margin-right: 300px;
   padding: 0px 0px 0px 10px;
   cursor: pointer;
 }
 
-.navbar-logo > a {
+.navbar-logo>a {
   width: 100%;
   text-decoration: none;
   color: white;
   border-right: 2px solid rgb(100, 97, 97);
+  margin-right: 300px;
+
 }
 
-.navbar-list > li > a{
+.navbar-list>li>a {
   text-decoration: none;
   color: white;
 }

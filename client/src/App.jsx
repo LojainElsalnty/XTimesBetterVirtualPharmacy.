@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import PharmacistView from './pages/pharmacist/pharmacistView.jsx'
 //import { Routes, Route } from 'react-router-dom'
 import AdminMedicineCatalog from './pages/admin/medicineCatalogPage';
@@ -23,6 +23,10 @@ import PatientView from './pages/patient/patientView.jsx';
 import MedicineAdd from './pages/medicine/medicineAdd.jsx';
 import MedicineEdit from './pages/medicine/madicineEdit.jsx';
 
+import { MainPage } from './Temp';
+import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPatientMainPage';
+import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
+import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMainPage';
 
 function App() {
 
@@ -58,6 +62,12 @@ function App() {
 
         <Route path="/guest/patientRegister" element={<PatientRegister />} />
         <Route path="/pharmacist/pharmacistRequest" element={<PharmacistRequest />} />
+
+        <Route path='/' element={<MainPage />} ></Route>
+        <Route path='/patient/*' element={<ViewPatientMainPage />} ></Route>
+        <Route path='/pharmacist/*' element={<ViewPharmacistMainPage />} ></Route>
+        <Route path='/admin/*' element={<ViewAdminMainPage />} ></Route>
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes >
     </>
   )

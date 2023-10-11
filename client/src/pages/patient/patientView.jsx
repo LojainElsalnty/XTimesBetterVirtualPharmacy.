@@ -44,7 +44,10 @@ function PatientView() {
           <p>Date of Birth: {patient.dob}</p>
           <p>Gender: {patient.gender}</p>
           <p>Mobile: {patient.mobile}</p>
-          <p>Emergency Contact: {patient.emergency_contact.join(', ')}</p>
+          {/* <p>Emergency Contact: {patient.emergency_contact.join(', ')}</p> */}
+          <p>Emergency Contact Name: {patient.emergency_contact.name}</p>
+          <p>Emergency Contact Mobile: {patient.emergency_contact.mobile}</p>
+          <p>Emergency Contact Relation: {patient.emergency_contact.relation}</p>
         </div>
 
       )}
