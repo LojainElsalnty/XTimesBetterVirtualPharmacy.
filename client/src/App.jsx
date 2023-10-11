@@ -15,8 +15,7 @@ import ViewRequestedPharmacistInfo from './pages/admin/viewRequestedPharmacistIn
 //import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import PatientRegister from './pages/guest/patientRegisterPage';
 import PharmacistRequest from './pages/pharmacist/pharmacistRequestPage';
-import './pages/guest/patientRegisterPage.css'; // Import the CSS file
-import './pages/pharmacist/pharmacistRequestPage.css'; // Import the CSS file
+
 
 // Styles
 import './App.css'
