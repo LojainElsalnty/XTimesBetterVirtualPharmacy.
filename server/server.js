@@ -81,7 +81,7 @@ mongoose.connect(MongoURI)
 //Routes
 //admin
 app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
-app.use('/admin/viewREQPharmacist', require('./routes/admin/viewRequestedPharmacistInfo'));
+app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
 //patient
 app.use('/patient/medicineCatalog', patientMedicineCatalogRoutes)
 //pharmacist

@@ -11,7 +11,7 @@ import RemovePharmacist from './pages/admin/removepharmacist';
 import RemovePatient from './pages/admin/removepatient';
 //import './pages/admin/addadmin.module.css';
 
-import ViewRequestedPharmacistInfo from './pages/admin/viewRequestedPharmacistInfo';
+import ViewRequestedPharmacistsInfo from './pages/admin/viewRequestedPharmacistsInfo';
 //import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import PatientRegister from './pages/guest/patientRegisterPage';
 import PharmacistRequest from './pages/pharmacist/pharmacistRequestPage';
@@ -54,7 +54,7 @@ function App() {
         <Route path="/admin/removepharmacist" element={<RemovePharmacist />} />
         <Route path="/admin/removepatient" element={<RemovePatient />} />
 
-        <Route path="/admin/requestedPharmacistInfoPage" element={<ViewRequestedPharmacistInfo />} />
+        <Route path="/admin/requestedPharmacistsInfoPage" element={<ViewRequestedPharmacistsInfo />} />
 
         <Route path="/guest/patientRegister" element={<PatientRegister />} />
         <Route path="/pharmacist/pharmacistRequest" element={<PharmacistRequest />} />
