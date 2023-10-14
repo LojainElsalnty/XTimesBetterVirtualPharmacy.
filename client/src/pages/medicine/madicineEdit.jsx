@@ -59,7 +59,8 @@ function MedicineEdit() {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          //throw new Error(`HTTP error! Status: ${response.status}`);
+          alert("This medicine does not exist!")
 
         }
         return response.json();

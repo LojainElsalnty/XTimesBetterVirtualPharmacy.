@@ -32,7 +32,7 @@ function MedicineAdd() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+
     const requestBody = {
       name: medicineData.name,
       price: medicineData.price,
@@ -40,7 +40,7 @@ function MedicineAdd() {
       availableQuantity: medicineData.availableQuantity,
       medicinalUses: medicineData.medicinalUses,
     };
-  
+
     fetch('http://localhost:5000/medicineRoutes/addMedicine', {
       method: 'POST',
       headers: {
@@ -51,35 +51,38 @@ function MedicineAdd() {
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
+          //alert("Please revise data entered and try again!")
         }
         return response.json();
-        
+
       })
       .then((data) => {
         console.log('Medicine added:', data);
-        
-      // Reset the input fields to their initial empty state
-      setMedicineData({
-        name: '',
-        price: '',
-        activeIngredients: [],
-        availableQuantity: '',
-        medicinalUses: [],
-        image: null,
-      });
+
+        // Reset the input fields to their initial empty state
+        setMedicineData({
+          name: '',
+          price: '',
+          activeIngredients: [],
+          availableQuantity: '',
+          medicinalUses: [],
+          image: null,
+        });
       })
       .catch((error) => {
         console.error('Error adding medicine:', error);
+        //alert("Please revise data entered and try again!")
+
         // Handle the error here, e.g., display an error message to the user.
-         // Set the error state
+        // Set the error state
       });
-      
+
   };
 
-  
-  
-  
-  
+
+
+
+
 
   return (
     <div>
@@ -146,8 +149,8 @@ function MedicineAdd() {
             type="file"
             id="image"
             name="image"
-           // onChange={handleChange}
-            
+          // onChange={handleChange}
+
           />
         </div>
         <button type="submit">Add Medicine</button>
