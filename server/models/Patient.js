@@ -45,6 +45,10 @@ const PatientSchema = mongoose.Schema({
         contentType: String,
         //required: false,
     },
+    deliveryAddress: {
+        type: [String],
+        default: [],
+    },
 }, { timestamps: true });
 
 

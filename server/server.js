@@ -13,6 +13,8 @@ const cors = require('cors');
 const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute')
 const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute')
 const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCatalogRoute')
+const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRoute')
+const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute')
 
 
 mongoose.set('strictQuery', false);
@@ -84,6 +86,8 @@ app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
 app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
 //patient
 app.use('/patient/medicineCatalog', patientMedicineCatalogRoutes)
+app.use('/patient/checkoutAddress', patientCheckoutAddressRoutes)
+app.use('/patient/pastOrders', patientPastOrdersRoutes)
 //pharmacist
 app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
 

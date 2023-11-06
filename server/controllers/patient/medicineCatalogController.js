@@ -49,8 +49,47 @@ const filterMedicineByUse = async (req, res) => {
 
 }
 
+//Cart functions - sprint 2
+//this is user-specific (logged in user's cart)
+
+//cart variable - should belong to a specific username
+const cartItems = []
+
+const addToCart = async (req, res) => {
+    const { medName } = req.body;
+    //console.log(cartItems)
+    const existingItem = cartItems.find((cartItem) => cartItem.medName === medName);
+    const medicine = await Medicine.findOne({ name: medName });
+    if (existingItem) {
+        if (existingItem.quantity + 1 > medicine.availableQuantity) {
+            return res.status(400).json({ message: 'Insufficient stock! Cannot add another to cart' });
+        }
+        else {
+            existingItem.quantity += 1;
+        }
+        //console.log('item quantity updated', existingItem.medName, ' new quantuty: ', existingItem.quantity)
+
+    } else {
+        const item = {
+            medName: medName,
+            quantity: 1,
+            price_per_item: medicine.price
+        };
+        cartItems.push(item);
+        //console.log('new item added', item.medName)
+    }
+
+    res.json({ success: true, message: 'Item added to the cart' });
+}
+
+const viewCart = async (req, res) => {
+    res.json({ cartItems });
+}
+
 module.exports = {
     getMedicines,
     searchMedicineByName,
-    filterMedicineByUse
+    filterMedicineByUse,
+    addToCart,
+    viewCart
 }
