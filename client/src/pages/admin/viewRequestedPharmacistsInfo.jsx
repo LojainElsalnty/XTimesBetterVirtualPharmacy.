@@ -1,9 +1,74 @@
 import React, { useEffect, useState } from 'react';
+// import { acceptPharmacist,rejectPharmacist } from '../../../../server/controllers/admin/viewReqPharmacistsInfo';
 
 
 function viewRequestedPharmacistsInfo() {
 
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
+  const fetchRequestedPharmacists = () => {
+    const url = 'http://localhost:5000/admin/viewREQPharmacists';
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setRequestedPharmacists(data);
+
+        } else {
+          console.error('Cannot view requested Pharmacists:', data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error viewing pharmacist information:', error);
+      });
+  };
+
+  const acceptPharmacist = (pharmacistId) => {
+    const url = `http://localhost:5000/admin/viewREQPharmacists/accept/${pharmacistId}`;
+
+    fetch(url, { method: 'GET' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Fetch the updated doctor data again to reflect the changes
+       fetchRequestedPharmacists();
+        alert('Pharmacist request is accepted successfully');
+
+      })
+      .catch((error) => {
+        console.error('Error accepting pharmacist:', error);
+        alert('Error accepting pharmacist');
+
+      });
+  };
+
+  // Function to handle rejecting a doctor
+  const rejectPharmacist = (pharmacistId) => {
+    const url = `http://localhost:5000/admin/viewREQPharmacists/reject/${pharmacistId}`;
+  
+    fetch(url, { method: 'GET' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Fetch the updated doctor data again to reflect the changes
+       fetchRequestedPharmacists();
+        alert('Pharmacist request is rejected successfully');
+
+      })
+      .catch((error) => {
+        console.error('Error rejecting pharmacist:', error);
+        alert('Error rejecting pharmacist');
+
+      });
+  };
+  
 
   useEffect(() => {
     const url = `http://localhost:5000/admin/viewREQPharmacists`
@@ -69,6 +134,11 @@ function viewRequestedPharmacistsInfo() {
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
               <td>{pharmacist.status}</td>
+              <td>
+      <button onClick={() => acceptPharmacist(pharmacist._id)}>Accept</button>
+      <br       />
+      <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button>
+    </td>
             </tr>
           ))}
         </tbody>
