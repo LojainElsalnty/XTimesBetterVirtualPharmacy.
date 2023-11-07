@@ -20,7 +20,7 @@ const getAllOrders = async (req, res) => {
 
 //cancel an order
 const cancelOrder = async (req, res) => {
-    const orderId = req.body.orderId;
+    const orderId = req.body.orderId
     const order = await MedOrder.findOne({ _id: orderId });
     if (order.status === "Cancelled") {
         return res.status(400).json({ message: "Order is already cancelled" });
@@ -48,7 +48,7 @@ const cancelOrder = async (req, res) => {
         // console.log("1st promise successful")
         //update wallet amount in Patient in case payment method is wallet or credit card
         if (order.paymentMethod === 'Wallet' || order.paymentMethod === 'Credit Card') {
-            console.log("inside payment")
+            //console.log("inside payment")
             await Promise.all(
                 order.orderItems.map(async (item) => {
                     const itemsPrice = item.quantity * item.price_per_item
@@ -57,7 +57,7 @@ const cancelOrder = async (req, res) => {
                         { username: username },
                         { $inc: { walletAmount: itemsPrice } } //inc means current found in db + given total price
                     );
-                    console.log("hena")
+                    //console.log("hena")
                 })
             );
         }

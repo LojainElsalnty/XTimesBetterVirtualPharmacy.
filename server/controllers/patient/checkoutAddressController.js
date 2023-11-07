@@ -6,10 +6,11 @@ const mongoose = require('mongoose')
 //Hardcoded username till I get real logged in username
 const username = "john_doe123"
 
+let cartItems;
 //view order details
 const getOrderDetails = async (req, res) => {
-    const finalCartItems = req.body.cartItems;
-    res.json({ finalCartItems });
+    cartItems = req.body.cartItems;
+    res.json({ cartItems });
 }
 
 let deliveryAddress = "";
@@ -36,8 +37,14 @@ const chooseExistingAddress = async (req, res) => {
 
 }
 
+//get next checkout step (send final cartItems & delivery address)
+const proceedToPayment = async (req, res) => {
+    res.json({ cartItems, deliveryAddress })
+}
+
 module.exports = {
     getOrderDetails,
     addNewAddress,
-    chooseExistingAddress
+    chooseExistingAddress,
+    proceedToPayment
 }
