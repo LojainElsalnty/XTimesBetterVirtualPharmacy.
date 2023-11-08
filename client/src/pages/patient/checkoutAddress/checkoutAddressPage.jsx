@@ -72,6 +72,7 @@ const CheckoutAddress = () => {
         if (deliveryAddress === "" || deliveryAddress === " ") {
             return alert('Please enter a valid address!')
         }
+
         setIsAddingNewAddress(false); //since done addition of new address 
         if (existingAddresses.includes(deliveryAddress)) {
             return alert('This address already exists! Please select it directly from the list')
@@ -103,11 +104,15 @@ const CheckoutAddress = () => {
 
     //redirect to payment
     const redirectToPayment = async () => {
+        if (deliveryAddress === "") {
+            return alert('Please select delivery address!')
+        }
         try {
             // Fetch cartItems from BE
             const response = await axios.get('http://localhost:5000/patient/checkoutAddress/payment');
             const cartItems = response.data.cartItems;
-            const deliveryAddress = response.data.deliveryAddress;
+
+
             const queryParams = new URLSearchParams();
             queryParams.append('cartItems', JSON.stringify(cartItems));
             queryParams.append('deliveryAddress', deliveryAddress);

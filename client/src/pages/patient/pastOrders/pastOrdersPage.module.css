@@ -1,0 +1,31 @@
+div {
+    width: 100%;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+
+th {
+    background-color: #e9e9e9;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.cancel-button {
+    background-color: #f12738;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}

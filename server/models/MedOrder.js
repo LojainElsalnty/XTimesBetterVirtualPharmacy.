@@ -25,6 +25,10 @@ const MedOrderSchema = mongoose.Schema({
         type: String,
         enum: ['Processing', 'Delivered', 'Cancelled'],
         required: true,
+    },
+    orderPrice: {
+        type: Number,
+        required: true
     }
 }, { timestamps: true });
 

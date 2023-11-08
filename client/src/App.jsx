@@ -20,6 +20,7 @@ import PharmacistRequest from './pages/pharmacist/pharmacistRequestPage';
 import MyCart from './pages/patient/myCart/myCart';
 import CheckoutAddress from './pages/patient/checkoutAddress/checkoutAddressPage.jsx';
 import MedicinePayment from './pages/patient/medicinePayment/medicinePaymentPage.jsx';
+import PastOrders from './pages/patient/pastOrders/pastOrdersPage.jsx';
 
 
 // Styles
@@ -32,6 +33,7 @@ import { MainPage } from './Temp';
 import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPatientMainPage';
 import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
 import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMainPage';
+
 
 
 
@@ -74,6 +76,7 @@ function App() {
         <Route path="/myCart" element={<MyCart />} />
         <Route path="/patient/checkoutAddress" element={<CheckoutAddress />} />
         <Route path="/patient/payment" element={<MedicinePayment />} />
+        <Route path="/patient/myOrders" element={<PastOrders />} />
 
 
         <Route path='/' element={<MainPage />} ></Route>

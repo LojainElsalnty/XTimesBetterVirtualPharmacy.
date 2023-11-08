@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 
 //Hardcoded username till I get real logged in username
-const username = "john_doe123"
+const username = "alice_smith"
 
 //view all past orders
 const getAllOrders = async (req, res) => {
