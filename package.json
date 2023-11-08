@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/advanced-computer-lab-2023/XTimesBetter-Pharmacy/issues"
   },
-  "homepage": "https://github.com/advanced-computer-lab-2023/XTimesBetter-Pharmacy#readme"
+  "homepage": "https://github.com/advanced-computer-lab-2023/XTimesBetter-Pharmacy#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "i": "^0.3.7",
+    "npm": "^10.2.3"
+  }
 }
