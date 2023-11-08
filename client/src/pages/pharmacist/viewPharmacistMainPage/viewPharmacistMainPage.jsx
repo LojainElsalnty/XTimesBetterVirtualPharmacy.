@@ -25,11 +25,7 @@ export const ViewPharmacistMainPage = () => {
     const list = [
         {
           url: "/pharmacist/profile",
-          ppageName: "Profile"
-        },
-        {
-            url: "/pharmacist/pharmacistRequest",
-            pageName: "Pharmacist Request",
+          pageName: "Profile",
         },
         {
             url: "/pharmacist/medicineCatalog",
@@ -53,7 +49,6 @@ export const ViewPharmacistMainPage = () => {
             <>
                 <Routes>
                     <Route path="/profile" element={<PharmacistProfile />}/>
-                    <Route path="/pharmacistRequest" element={<PharmacistRequest />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />

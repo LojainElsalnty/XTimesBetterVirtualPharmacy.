@@ -31,15 +31,15 @@ const updatePassword = asyncHandler(async (req, res) => {
     if ((patientResults.length != 0 && pharmacistResults.length != 0) || (patientResults.length != 0 && adminResults.length != 0) || (pharmacistResults.length != 0 && adminResults.length != 0)) {
         return res.status(400).json({ message: 'Username is not unique', changePassword: false});
     }
-    if (patientResults) {
+    if (patientResults.length != 0) {
         user = patientResults[0];
         userType = 'patient';
     }
-    else if (pharmacistResults) {
+    else if (pharmacistResults.length != 0) {
         user = pharmacistResults[0];
         userType = 'pharmacist';
     }
-    else if (adminResults) {
+    else if (adminResults.length != 0) {
         user = adminResults[0];
         userType = 'admin';
     }

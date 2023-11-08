@@ -30,6 +30,7 @@ export const SendOtpPage = () => {
         if (!userEmail.match(/^[a-zA-Z0-9.+_-]+@gmail.com$/)) {
             setAlertMessage("Please enter a valid email!");
             setShowAlertMessage(true);
+            return;
         }
 
         if (userEmail) {

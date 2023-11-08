@@ -4,7 +4,7 @@ import * as React from 'react';
 import './App.css'
 
 // User Type Main Pages
-import { MainPage } from './Temp';
+import { MainPage } from './pages/default/DefaultPage';
 import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPatientMainPage';
 import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
 import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMainPage';

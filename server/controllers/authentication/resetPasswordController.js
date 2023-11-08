@@ -48,8 +48,9 @@ const UpdatePassword = asyncHandler(async (req, res) => {
         else {
             if (patient) {
                 await patientModel.findOneAndUpdate({email: email}, {password: newPassword});
-                res.status(200).json({ message: 'Password updated successfully' });            }
-            if (doctor) {
+                res.status(200).json({ message: 'Password updated successfully' });            
+            }
+            if (pharmacist) {
                 await pharmacistModel.findOneAndUpdate({email: email}, {password: newPassword});
                 res.status(200).json({ message: 'Password updated successfully' }); 
             }
@@ -78,7 +79,7 @@ const SendEmail = (req, res) => {
             pass: process.env.APP_PASSWORD,
         },
         tls:{
-            rejectUnAuthorized:true
+            rejectUnAuthorized:false
         }
     });
     

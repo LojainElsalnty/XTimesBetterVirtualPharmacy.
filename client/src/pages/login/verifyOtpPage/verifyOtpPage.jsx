@@ -45,7 +45,7 @@ export const VerifyOtpPage = () => {
       }
       else {
         setShowMessage(true);
-        setAlertMessage("The code you have entered is not correct, try again re-send the link");
+        setAlertMessage("The code you have entered is not correct, try again!");
       }
     }
 

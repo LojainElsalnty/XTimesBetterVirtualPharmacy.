@@ -64,10 +64,10 @@ export const LoginPage = () => {
                     setUserType("patient");
                     navigate('/patient');
                 } 
-                else if (response.data.userType === "doctor") {
+                else if (response.data.userType === "pharmacist") {
                     setError(false);
-                    setUserType("doctor");
-                    navigate('/doctor');
+                    setUserType("pharmacist");
+                    navigate('/pharmacist');
                 }
                 else if (response.data.userType === "admin") {
                     setError(false);

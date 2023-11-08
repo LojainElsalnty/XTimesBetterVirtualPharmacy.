@@ -88,7 +88,7 @@ app.use('/medicineRoutes', medicineRoutes);
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
 app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
 
-// Admin
+// Admin 
 app.use('/admin/addremove', adminRoutes);
 app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
 app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
