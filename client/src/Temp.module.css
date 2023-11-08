@@ -1,5 +1,5 @@
 .container {
-    width: 100vw;
+    width: 100%;
     background-image: linear-gradient(35deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
     display: flex;
     justify-content: center;

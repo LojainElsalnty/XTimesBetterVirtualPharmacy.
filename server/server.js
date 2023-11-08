@@ -4,29 +4,27 @@ const colors = require('colors');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const adminRoutes = require('./routes/admin/adminRoute');
 const cors = require('cors');
-// const patientRoutes= require('./routes/patient/patientRoute');
-// const pharmacistRoutes= require('./routes/pharmacist/pharmacistRoute');
 
-
+const adminRoutes = require('./routes/admin/adminRoute');
 const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute')
 const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute')
 const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCatalogRoute')
-
-
-mongoose.set('strictQuery', false);
-//const cors = require('cors');
 const pharmaRoutes = require('./routes/admin/pharmaRoute');
 const patientRoutes = require('./routes/admin/patientRoute');
 const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 
+mongoose.set('strictQuery', false);
+
+// App variables
+const Port = process.env.PORT || 5000;
+const MongoURI = process.env.MONGO_URI;
+
 // Express app
 const app = express();
 const allowedOrigins = ['http://localhost:5173'];
+
 // Set up CORS options.
-
-
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
@@ -37,25 +35,10 @@ const corsOptions = {
   },
 };
 
-// Enable CORS for all routes or specify it for specific routes.
-app.use(cors(corsOptions));
-
-
-mongoose.set('strictQuery', false);
-
-
-
-
-// App variables
-const Port = process.env.PORT || 5000;
-const MongoURI = process.env.MONGO_URI;
-
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-//const pharmaRoutes = require('server/routes/pharmaRoutes');
-
+app.use(cors(corsOptions)); // Enable CORS for all routes or specify it for specific routes.
 
 // Middleware for allowing react to fetch() from server
 app.use(function (req, res, next) {
@@ -66,7 +49,6 @@ app.use(function (req, res, next) {
 });
 
 // Connect to MongoDB
-
 mongoose.connect(MongoURI)
   .then(() => {
     console.log("MongoDB is now connected!")
@@ -78,29 +60,38 @@ mongoose.connect(MongoURI)
   })
   .catch(err => console.log(err));
 
-//Routes
-//admin
-app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
-app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
-//patient
-app.use('/patient/medicineCatalog', patientMedicineCatalogRoutes)
-//pharmacist
-app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
+// -- Routes -- //
+// LogIn
+app.use('/login', require('./routes/login/loginRoute'));
 
-app.use('/pharmaRoutes', pharmaRoutes);
+// LogOut
+app.use('/logout', require('./routes/login/logoutRoute'));
+
+// Authentication
+app.use('/authentication/checkAccessToken', require('./routes/authentication/checkAuthenticationRoute'));
+app.use('/authentication/getAccessToken', require('./routes/authentication/getAccessTokenRoute'));
+app.use('/authentication/changePassword', require('./routes/authentication/changePasswordRoute'));
+
+// Reset Password
+app.use('/resetPassword', require('./routes/authentication/resetPasswordRoute.js'));
+
+// Patient
+app.use('/patient/medicineCatalog', patientMedicineCatalogRoutes);
 app.use('/patientRoutes', patientRoutes);
-app.use('/medicineRoutes', medicineRoutes);
-
-app.use('/admin/addremove', adminRoutes);
-
 app.use('/patient/register', require('./routes/patient/registerRoute'));
+app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Get information about logged in patient using his/her username
 
 // Pharmacist
+app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
+app.use('/pharmaRoutes', pharmaRoutes);
+app.use('/medicineRoutes', medicineRoutes);
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
+app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
 
-
-// app.use('/patient/remove', patientRoutes);
-// app.use('/pharmacist/remove', pharmacistRoutes);
-
+// Admin
+app.use('/admin/addremove', adminRoutes);
+app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
+app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
+app.use('/admin/info', require('./routes/admin/adminInfoRoute.js')); // Get information about logged in admin using his/her username
 
 

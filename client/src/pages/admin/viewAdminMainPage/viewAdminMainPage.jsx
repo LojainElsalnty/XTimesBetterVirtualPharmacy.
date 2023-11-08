@@ -12,14 +12,24 @@ import RemovePatient from '../removepatient';
 import RemovePharmacist from '../removepharmacist';
 import MedicineCatalog from '../medicineCatalogPage';
 import RequestedPharmacistsInfo from '../viewRequestedPharmacistsInfo';
-import PharmacistView from '../../pharmacist/pharmacistView'
-import PatientView from '../../patient/patientView'
+import PharmacistView from '../../pharmacist/pharmacistView';
+import PatientView from '../../patient/patientView';
+import { AdminProfile } from '../AdminProfile/AdminProfile';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
 
+// User Defined Hooks
+import { useAuth } from '../../../components/hooks/useAuth'; 
+
 export const ViewAdminMainPage = () => {
+    const {accessToken} = useAuth();
+
     const list = [
+        {
+            url: "/admin/profile",
+            pageName: "Profile",
+        },
         {
             url: "/admin/medicineCatalog",
             pageName: "Medicines List",
@@ -50,11 +60,14 @@ export const ViewAdminMainPage = () => {
         },
     ];
 
+    if (accessToken.split(' ')[1] === "") return (<Navigate to="/login" />);
+
     return (
         <div className={styles['main-div']}>
             <Navbar name="Admin" list={list} />
             <>
                 <Routes>
+                    <Route path="/profile" element={<AdminProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/requestedPharmacistsInfo" element={<RequestedPharmacistsInfo />} />
                     <Route path="/pharmacistInformation" element={<PharmacistView />} />

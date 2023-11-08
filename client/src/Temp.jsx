@@ -6,10 +6,19 @@ import styles from './Temp.module.css';
 // React Router Components
 import { useNavigate } from 'react-router-dom';
 
+// User Defined Hooks
+import { useAuthUpdate, useUsername } from './components/hooks/useAuth';
 
 export const MainPage = () => {
     const [isHovered, setIsHovered] = useState({ patient: false, pharmacist: false, admin: false });
     const navigate = useNavigate();
+    const {updateAccessToken, updateRefreshToken} = useAuthUpdate();
+    const {username, setUsername} = useUsername();
+  
+    // clear access token and refresh token and username stored in the frontend
+    updateAccessToken("Bearer  ");
+    updateRefreshToken("");
+    setUsername("");
 
     return (
         <div className={styles.container}>
