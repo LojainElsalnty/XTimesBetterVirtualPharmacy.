@@ -44,7 +44,6 @@ const rejectPharmacist = asyncHandler(async(req, res)=>{
                 if (!pharmacist) {
                     return res.status(404).json({ message: 'Pharmacist not found' });
                 }
-                await pharmacist.deleteOne();
 
                 return res.status(200).json({ message: 'Pharmacist request is rejected successfully', pharmacist });
             } catch (error) {
