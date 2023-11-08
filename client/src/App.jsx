@@ -16,6 +16,11 @@ import ViewRequestedPharmacistsInfo from './pages/admin/viewRequestedPharmacists
 import PatientRegister from './pages/guest/patientRegisterPage';
 import PharmacistRequest from './pages/pharmacist/pharmacistRequestPage';
 
+//sprint2
+import MyCart from './pages/patient/myCart/myCart';
+import CheckoutAddress from './pages/patient/checkoutAddress/checkoutAddressPage.jsx';
+import MedicinePayment from './pages/patient/medicinePayment/medicinePaymentPage.jsx';
+
 
 // Styles
 import './App.css'
@@ -27,6 +32,8 @@ import { MainPage } from './Temp';
 import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPatientMainPage';
 import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
 import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMainPage';
+
+
 
 function App() {
 
@@ -62,6 +69,12 @@ function App() {
 
         <Route path="/guest/patientRegister" element={<PatientRegister />} />
         <Route path="/pharmacist/pharmacistRequest" element={<PharmacistRequest />} />
+
+        //sprint2
+        <Route path="/myCart" element={<MyCart />} />
+        <Route path="/patient/checkoutAddress" element={<CheckoutAddress />} />
+        <Route path="/patient/payment" element={<MedicinePayment />} />
+
 
         <Route path='/' element={<MainPage />} ></Route>
         <Route path='/patient/*' element={<ViewPatientMainPage />} ></Route>

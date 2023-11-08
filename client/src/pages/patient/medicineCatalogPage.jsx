@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './medicinalUsesDDL.module.css';
 
+
 //components
-import MedicineDetails from '../../components/medicineDetails/medicineDetails';
+import PatientMedicineDetails from '../../components/patientMedicineDetails/patientMedicineDetails';
 import MedicineSearchBar from '../../components/medicineSearchBar/medicineSearchBar'
 
 const MedicineCatalog = () => {
@@ -87,8 +88,38 @@ const MedicineCatalog = () => {
 
     };
 
+    //Add to cart method
+    const addToCart = async (medName) => {
+        try {
+            const response = await axios.post('http://localhost:5000/patient/medicineCatalog', { medName });
+            if (response.data.success) {
+                alert('added successfully!')
+            } else {
+                console.log(response.data.message);
+            }
+        } catch (error) {
+            console.error('Error adding item to cart:', error);
+        }
+    };
+
+    //Redirect to View Cart
+    const redirectToViewCart = async () => {
+        try {
+            // Fetch cartItems from BE
+            const response = await axios.get('http://localhost:5000/patient/medicineCatalog/viewCart');
+            const cartItems = response.data.cartItems;
+            // Redirect to myCart
+            window.location.href = `/myCart?cartItems=${JSON.stringify(cartItems)}`;
+        } catch (error) {
+            console.error('Error retrieving cartItems:', error);
+        }
+    };
+
+
+
     return (
         <>
+
             <h1 className={styles["list-title"]}>Medicines List</h1>
             <MedicineSearchBar onSearch={handleSearch} onClear={handleClearSearch} />
             <div className={styles["ddl-container"]}>
@@ -113,12 +144,13 @@ const MedicineCatalog = () => {
                             <th>Active Ingredients</th>
                             <th>Medicinal Uses</th>
                             <th>Availability</th>
+                            <th className={styles["cart-th"]}> <button className={styles["cart-button"]} onClick={redirectToViewCart}>View Cart  </button></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             medicinesToBeDisplay && medicinesToBeDisplay.map((medicine) => {
-                                return <MedicineDetails key={medicine._id} medicine={medicine} />
+                                return <PatientMedicineDetails key={medicine._id} medicine={medicine} addToCart={addToCart} />
                             })
                         }
                     </tbody>

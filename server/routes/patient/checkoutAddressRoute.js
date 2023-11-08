@@ -1,6 +1,6 @@
 const express = require('express')
 const {
-    getOrderDetails, addNewAddress, chooseExistingAddress, proceedToPayment
+    getOrderDetails, addNewAddress, chooseExistingAddress, proceedToPayment, getAllExistingAddresses
 } = require('../../controllers/patient/checkoutAddressController');
 
 
@@ -19,6 +19,9 @@ router.post('/existing', chooseExistingAddress)
 
 //GET to payment step
 router.get('/payment', proceedToPayment)
+
+//GET all existing addresses
+router.get('/allExisting', getAllExistingAddresses)
 
 
 module.exports = router

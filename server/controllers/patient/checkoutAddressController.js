@@ -42,9 +42,18 @@ const proceedToPayment = async (req, res) => {
     res.json({ cartItems, deliveryAddress })
 }
 
+
+//get all existing addresses of logged in user
+const getAllExistingAddresses = async (req, res) => {
+    const loggedInPatient = await Patient.findOne({ username: username });
+    const existingAddresses = loggedInPatient.deliveryAddress
+    res.status(200).json(existingAddresses);
+}
+
 module.exports = {
     getOrderDetails,
     addNewAddress,
     chooseExistingAddress,
-    proceedToPayment
+    proceedToPayment,
+    getAllExistingAddresses
 }
