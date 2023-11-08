@@ -19,13 +19,25 @@ import { useRecoveryContext } from "../../../components/hooks/useAuth";
 import { AlertMessageCard } from '../../../components/alertMessageCard/alertMessageCard'
 
 export const VerifyOtpPage = () => {
-    const {otp, setOTP, email, setEmail} = useRecoveryContext();
-    const [OTPinput, setOTPinput] = useState();
-    const [disable, setDisable] = useState(true);
-    const [timerCount, setTimer] = useState(60);
-    const [showMessage, setShowMessage] = useState(true);
-    const [alertMessage, setAlertMessage] = useState('');
-    const navigate = useNavigate();
+  const {otp, setOTP, email, setEmail} = useRecoveryContext();
+  const [OTPinput, setOTPinput] = useState();
+  const [disable, setDisable] = useState(true);
+  const [timerCount, setTimer] = useState(60);
+  const [showMessage, setShowMessage] = useState(true);
+  const [alertMessage, setAlertMessage] = useState(`An OTP is sent to your email: ${email}`);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      setTimer(lastCount => {
+        lastCount <= 1 && clearInterval(interval);
+        if (lastCount <= 1) setDisable(false);
+        return lastCount - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [disable]);
 
     function verifyOTP() {
       if (!isNaN(parseInt(OTPinput)) && parseInt(OTPinput) === otp) {
@@ -37,7 +49,7 @@ export const VerifyOtpPage = () => {
       }
     }
 
-      //function to resend OTP 
+  //function to resend OTP 
   function resendOTP() {
     if (disable) return;
     // generate another OTP
@@ -50,25 +62,12 @@ export const VerifyOtpPage = () => {
       })
       .then(() => setDisable(true))
       .then(() => {
-        showMessage(true);
         setAlertMessage("A new OTP has succesfully been sent to your email.");
+        setShowMessage(true);
       })
       .then(() => setTimer(60))
       .catch(console.log);
-
   }
-  //timer function
-  useEffect(() => {
-    let interval = setInterval(() => {
-      setTimer(lastTimerCount => {
-        lastTimerCount <= 1 && clearInterval(interval);
-        if (lastTimerCount <= 1) setDisable(false);
-        return lastTimerCount - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [disable]);
 
     return (
       <div className={styles['verify-otp-main-div']}>

@@ -15,13 +15,23 @@ import { useNavigate } from 'react-router-dom';
 // User Defined Hooks
 import { useRecoveryContext } from '../../../components/hooks/useAuth';
 
+// User Defined Components
+import {AlertMessageCard} from '../../../components/alertMessageCard/alertMessageCard';
+
 
 export const SendOtpPage = () => {
     const {otp, setOTP, email, setEmail} = useRecoveryContext();
     const [userEmail, setUserEmail] = useState("");
+    const [alertMessage, setAlertMessage] = useState("");
+    const [showAlertMessage, setShowAlertMessage] = useState("");
     const navigate = useNavigate();
 
     function sendOtp() {
+        if (!userEmail.match(/^[a-zA-Z0-9.+_-]+@gmail.com$/)) {
+            setAlertMessage("Please enter a valid email!");
+            setShowAlertMessage(true);
+        }
+
         if (userEmail) {
             axios.get(`http://localhost:5000/resetPassword/checkEmail?email=${userEmail}`)
             .then((response) => {
@@ -46,10 +56,14 @@ export const SendOtpPage = () => {
                     alert("User with this email does not exist!");
                     console.log(response.data.message);
                 }})
-                .catch((error) => {console.log(error)});
+                .catch((error) => {
+                    setAlertMessage("Email does not exist!");
+                    setShowAlertMessage(true);
+                });
         }
         else {
-            alert("Please enter your email");
+            setAlertMessage("Please enter your email!");
+            setShowAlertMessage(true);
         }
     }
 
@@ -73,6 +87,7 @@ export const SendOtpPage = () => {
             <div className={styles['send-otp-button-div']}>
                 <button className={styles['send-otp-button']} onClick={sendOtp}>Send OTP</button>
             </div>
+            {showAlertMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={setShowAlertMessage}></AlertMessageCard>)}
         </div>
     );
 }
