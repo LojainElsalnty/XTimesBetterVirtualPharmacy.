@@ -142,14 +142,27 @@ function ViewRequestedPharmacistsInfo() {
               <td>{pharmacist.educational_background}</td>
               <td>{pharmacist.status}</td>
               <td>
-              <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
+              {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
                 Accept
                 </button>              
                 <br />
                 <br />
                 {pharmacist.status !== 'accepted' && (
-                 <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button>
-      )}
+                 <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button> */}
+                <button
+  onClick={() => acceptPharmacist(pharmacist._id)}
+  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+>
+  Accept
+</button>
+<br />
+<button
+  onClick={() => rejectPharmacist(pharmacist._id)}
+  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+>
+  Reject
+</button>
+      
                  </td>              
             </tr>
           ))}
