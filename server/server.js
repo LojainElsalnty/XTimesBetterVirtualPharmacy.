@@ -94,6 +94,11 @@ app.use('/medicineRoutes', medicineRoutes);
 app.use('/admin/addremove', adminRoutes);
 
 app.use('/patient/register', require('./routes/patient/registerRoute'));
+app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
+app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
+app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePayments/medicineCashOnDeliveryPayment'));
+app.use('/patient/afterCreditCardPayment', require('./routes/patient/medicinePayments/afterCreditCardPayment'));
+// app.use('/patient/receipt', require('./routes/patient/medicinePayments/paymentReceipt'));
 
 // Pharmacist
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));

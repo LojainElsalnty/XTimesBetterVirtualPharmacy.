@@ -45,6 +45,10 @@ const PatientSchema = mongoose.Schema({
         contentType: String,
         //required: false,
     },
+    walletAmount:{
+        type: Number,
+    }
+
 }, { timestamps: true });
 
 

@@ -28,6 +28,7 @@ import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPat
 import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
 import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMainPage';
 
+
 function App() {
 
   return (
@@ -51,7 +52,6 @@ function App() {
           element={<PharmacistView />}
         />
         <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
-        <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
         <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
 
         <Route path="/admin/addadmin" element={<AddAdmin />} />
