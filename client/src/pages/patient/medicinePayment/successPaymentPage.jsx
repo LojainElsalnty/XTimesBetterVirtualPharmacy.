@@ -7,6 +7,7 @@ function SuccessPayment() {
     const receipt = location.state.receipt;
     console.log(receipt);
     const handleSubmit = () => {
+        localStorage.removeItem('cartItems');
         window.location.href = 'http://localhost:5173/patient';
     }
     return (

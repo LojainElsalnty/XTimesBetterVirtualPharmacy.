@@ -53,10 +53,11 @@ const filterMedicineByUse = async (req, res) => {
 //this is user-specific (logged in user's cart)
 
 //cart variable - should belong to a specific username
-const cartItems = []
+let cartItems = []
 
 const addToCart = async (req, res) => {
     const { medName } = req.body;
+    cartItems = req.body.cartItems;
     //console.log(cartItems)
     const existingItem = cartItems.find((cartItem) => cartItem.medName === medName);
     const medicine = await Medicine.findOne({ name: medName });
@@ -79,12 +80,12 @@ const addToCart = async (req, res) => {
         //console.log('new item added', item.medName)
     }
 
-    res.json({ success: true, message: 'Item added to the cart' });
+    res.json({ success: true, message: 'Item added to the cart', cartItems });
 }
 
 const viewCart = async (req, res) => {
     res.json({ cartItems });
-    cartItems.length = 0; //ADDED
+    //cartItems.length = 0; //ADDED
 }
 
 module.exports = {

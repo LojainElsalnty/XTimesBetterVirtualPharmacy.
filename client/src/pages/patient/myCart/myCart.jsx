@@ -23,7 +23,9 @@ const MyCart = () => {
   useEffect(() => {
     if (location.state && location.state.cartItems) {
       // Use a condition to prevent unnecessary updates
-      setCartItems(location.state.cartItems);
+      //setCartItems(location.state.cartItems);
+      setCartItems(JSON.parse(localStorage.getItem('cartItems'))) //Added-Nour
+
     }
   }, [location.state]);
   // useEffect(() => {
@@ -51,6 +53,7 @@ const MyCart = () => {
 
         // Set the state with the updated cart items
         setCartItems(updatedCartItems);
+        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); //Added - Nour
       })
       .catch((error) => {
         console.error('Error updating quantity:', error);
@@ -78,6 +81,7 @@ const MyCart = () => {
 
         // Set the state with the updated cart items
         setCartItems(updatedCartItems);
+        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); //Added - Nour
       })
       .catch((error) => {
         console.error('Error decrementing quantity:', error);
@@ -96,6 +100,7 @@ const MyCart = () => {
     axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
       .then(() => {
         setCartItems((prevItems) => prevItems.filter((item) => item.medName !== medName));
+        localStorage.setItem('cartItems', JSON.stringify(cartItems)); //Added - Nour
       })
       .catch((error) => console.error('Error deleting item:', error));
   };
@@ -105,6 +110,7 @@ const MyCart = () => {
       if (cartItems.length <= 0) {
         return alert('Your Cart is Empty!')
       }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems)); //Added - Nour
       navigate('/patient/checkoutAddress', { state: { cartItems: cartItems } })
     } catch (error) {
       console.error('Error retrieving cartItems:', error);

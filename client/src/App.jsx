@@ -81,7 +81,7 @@ function App() {
         <Route path="/myCart" element={<MyCart />} />
         <Route path="/patient/checkoutAddress" element={<CheckoutAddress />} />
         <Route path="/patient/payment" element={<MedicinePayment />} />
-        <Route path="/patient/myOrders" element={<PastOrders />} />
+        {/* <Route path="/patient/myOrders" element={<PastOrders />} /> */}
 
 
         <Route path='/' element={<MainPage />} ></Route>

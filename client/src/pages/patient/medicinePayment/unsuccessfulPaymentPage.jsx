@@ -5,16 +5,17 @@ function unsuccessPayment() {
     const navigate = useNavigate();
 
     const receivedInfo = {
-        cartItems:[{
+        cartItems: [{
             medName: "Medicine1",
             quantity: 2,
-            price_per_item : 20
+            price_per_item: 20
         }], deliveryAddress: " ",
         username: "john_doe123"
     };
-    
+
     const handleSubmit = () => {
-        window.location.href="http://localhost:5173/patient/";
+        localStorage.removeItem('cartItems'); //if redirect changed to another payment method remove this line!!!!
+        window.location.href = "http://localhost:5173/patient/";
 
     };
 
