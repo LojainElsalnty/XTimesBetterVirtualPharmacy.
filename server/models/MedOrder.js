@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const MedOrderSchema = mongoose.Schema({
     patientUsername: {
         type: String,
-        required: true
+        required: true,
     },
     orderItems: [
         {

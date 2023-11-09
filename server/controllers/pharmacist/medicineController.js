@@ -4,44 +4,45 @@ const mongoose = require('mongoose')
 
 
 
-// add a new Medicine
 const addMedicine = async (req, res) => {
-    try {
-      // Extract Medicine details from the request body
-      console.log(req.body)
-      const {
-        name,
-        price,
-        activeIngredients,
-        availableQuantity,
-        medicinalUses,
-        sales
-        
-      } = req.body;
-      //console.log("iam here")
-      // Create a new pharmacist document
-      const newMedicine = new Medicine({
-       name,
-        price,
-        activeIngredients,
-        availableQuantity,
-        medicinalUses,
-        sales
-      });
-      //console.log(pharmacist)
-      //console.log("iam here2")
-      // Save the new pharmacist record to the database
-      const savedMedicine = await newMedicine.save()
-      .catch((error) => {
-          console.error('Database save error:', error);
-        });
-        
-     // console.log("iam here3")
-      res.status(201).json(savedMedicine); // Return the saved pharmacist document
-    } catch (error) {
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  };
+  try {
+    //console.log("req body:",req.body)
+    // Extract Medicine details from the request body
+    const {
+      name,
+      price,
+      activeIngredients,
+      availableQuantity,
+      medicinalUses,
+      sales,
+      image,
+    } = req.body;
+    //console.log(req.body)
+
+    // Access the uploaded medicine image from the request file
+    //const image = req.file;
+//console.log("image:",image)
+    // Create a new Medicine document with the image
+    const newMedicine = new Medicine({
+      name,
+      price,
+      activeIngredients,
+      availableQuantity,
+      medicinalUses,
+      sales,
+      image, // Store the image filename in your Medicine model
+    });
+console.log("New med: ",newMedicine)
+    // Save the new Medicine record to the database
+    const savedMedicine = await newMedicine.save()
+    console.log('saved medicine:');
+    console.log(savedMedicine);
+    res.status(201).json(savedMedicine); // Return the saved Medicine document
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 
   const updateMedicine = async (req, res) => {

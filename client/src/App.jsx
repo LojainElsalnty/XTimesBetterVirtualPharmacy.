@@ -29,6 +29,10 @@ import PatientView from './pages/patient/patientView.jsx';
 import MedicineAdd from './pages/medicine/medicineAdd.jsx';
 import MedicineEdit from './pages/medicine/madicineEdit.jsx';
 
+
+//yasS2
+import MyCart from './pages/patient/myCart/myCart.jsx';
+
 import { MainPage } from './Temp';
 import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPatientMainPage';
 import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
@@ -59,6 +63,8 @@ function App() {
           path="/pharmacistInformation"
           element={<PharmacistView />}
         />
+         //yasS2
+        <Route path = "/myCart" element = {<MyCart/>}></Route>
         <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
         <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
         <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
@@ -84,6 +90,7 @@ function App() {
         <Route path='/pharmacist/*' element={<ViewPharmacistMainPage />} ></Route>
         <Route path='/admin/*' element={<ViewAdminMainPage />} ></Route>
         <Route path='*' element={<Navigate to='/' />} />
+       
       </Routes >
     </>
   )

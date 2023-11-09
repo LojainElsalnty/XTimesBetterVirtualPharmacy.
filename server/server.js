@@ -6,25 +6,20 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const adminRoutes = require('./routes/admin/adminRoute');
 const cors = require('cors');
+const multer = require('multer');
+const path = require('path');
+//const upload = require('./upload'); // Import the Multer configuration
+const router = express.Router();
 // const patientRoutes= require('./routes/patient/patientRoute');
 // const pharmacistRoutes= require('./routes/pharmacist/pharmacistRoute');
 
 
-const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute')
-const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute')
-const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCatalogRoute')
-const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRoute')
-const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute')
-
-
-mongoose.set('strictQuery', false);
-//const cors = require('cors');
-const pharmaRoutes = require('./routes/admin/pharmaRoute');
-const patientRoutes = require('./routes/admin/patientRoute');
-const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 
 // Express app
 const app = express();
+
+
+
 const allowedOrigins = ['http://localhost:5173'];
 // Set up CORS options.
 
@@ -43,7 +38,18 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 
+
+const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute')
+const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute')
+const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCatalogRoute')
+const myCartRoutes = require('./routes/patient/myCartRoute')
+
+
 mongoose.set('strictQuery', false);
+
+const pharmaRoutes = require('./routes/admin/pharmaRoute');
+const patientRoutes = require('./routes/admin/patientRoute');
+const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 
 
 
@@ -86,8 +92,11 @@ app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
 app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
 //patient
 app.use('/patient/medicineCatalog', patientMedicineCatalogRoutes)
+
 app.use('/patient/checkoutAddress', patientCheckoutAddressRoutes)
 app.use('/patient/pastOrders', patientPastOrdersRoutes)
+app.use('/patient/myCartRoute', myCartRoutes)
+
 //pharmacist
 app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
 
