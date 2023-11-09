@@ -62,7 +62,7 @@ const addToCart = async (req, res) => {
     const medicine = await Medicine.findOne({ name: medName });
     if (existingItem) {
         if (existingItem.quantity + 1 > medicine.availableQuantity) {
-            return res.status(400).json({ message: 'Insufficient stock! Cannot add another to cart' });
+            return res.status(400).json({ success: false, message: 'Insufficient stock! Cannot add another to cart' });
         }
         else {
             existingItem.quantity += 1;

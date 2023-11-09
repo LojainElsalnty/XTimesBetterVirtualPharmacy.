@@ -39,7 +39,7 @@ const chooseExistingAddress = async (req, res) => {
 
 //get next checkout step (send final cartItems & delivery address)
 const proceedToPayment = async (req, res) => {
-    res.json({ cartItems, deliveryAddress })
+    res.json({ cartItems, deliveryAddress, username }) //added username
 }
 
 

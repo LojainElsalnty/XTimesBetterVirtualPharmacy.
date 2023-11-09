@@ -99,10 +99,14 @@ const MedicineCatalog = () => {
             if (response.data.success) {
                 alert('added successfully!')
             } else {
-                console.log(response.data.message);
+                //console.log(response.data.message);
+                alert("insufficient stock!")
             }
         } catch (error) {
             console.error('Error adding item to cart:', error);
+            if (error.response && error.response.status === 400) {
+                alert("Bad Request: " + error.response.data.message);
+            }
         }
     };
 

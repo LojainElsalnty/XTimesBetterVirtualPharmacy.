@@ -3,9 +3,9 @@ import axios from 'axios';
 import styles from './checkoutAddressPage.module.css';
 
 import { useLocation } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 const CheckoutAddress = () => {
-
+    const navigate = useNavigate();
     //for testing purposes 
     //const cartItems = [{ "medName": "med123", "quantity": 1, "price_per_item": 7 }, { "medName": "Lisinopril", "quantity": 1, "price_per_item": 7.99 }, { "medName": "Amoxicillin", "quantity": 2, "price_per_item": 15.99 }]
 
@@ -113,14 +113,16 @@ const CheckoutAddress = () => {
             // Fetch cartItems from BE
             const response = await axios.get('http://localhost:5000/patient/checkoutAddress/payment');
             const cartItems = response.data.cartItems;
+            const username = response.data.username;
 
+            navigate('/patient/payment', { state: { cartItems: cartItems, deliveryAddress: deliveryAddress, username: username } })
 
-            const queryParams = new URLSearchParams();
-            queryParams.append('cartItems', JSON.stringify(cartItems));
-            queryParams.append('deliveryAddress', deliveryAddress);
+            // const queryParams = new URLSearchParams();
+            // queryParams.append('cartItems', JSON.stringify(cartItems));
+            // queryParams.append('deliveryAddress', deliveryAddress);
 
-            // Redirect to the payment page with the query string
-            window.location.href = `/patient/payment?${queryParams.toString()}`;
+            // // Redirect to the payment page with the query string
+            // window.location.href = `/patient/payment?${queryParams.toString()}`;
         } catch (error) {
             console.error('Error retrieving cartItems:', error);
         }
