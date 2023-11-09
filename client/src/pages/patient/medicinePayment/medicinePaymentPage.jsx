@@ -22,7 +22,7 @@ function MedicinePayment() {
         username: location.state.username,
     }
 
-
+    console.log("receivedInfo ", receivedInfo)
 
 
     const handleButtonClick = (buttonId) => {
@@ -32,7 +32,7 @@ function MedicinePayment() {
     };
 
     const handleSubmit = async (buttonId) => {
-
+        //console.log(receivedInfo)
         if (buttonId === "creditCard") {
             let receiptCreditCard;
 

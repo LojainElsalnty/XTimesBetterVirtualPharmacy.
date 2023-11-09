@@ -84,6 +84,7 @@ const addToCart = async (req, res) => {
 
 const viewCart = async (req, res) => {
     res.json({ cartItems });
+    cartItems.length = 0; //ADDED
 }
 
 module.exports = {

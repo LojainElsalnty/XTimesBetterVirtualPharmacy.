@@ -10,6 +10,7 @@ let cartItems;
 //view order details
 const getOrderDetails = async (req, res) => {
     cartItems = req.body.cartItems;
+    console.log("get order det: ", cartItems)
     res.json({ cartItems });
 }
 
@@ -39,6 +40,7 @@ const chooseExistingAddress = async (req, res) => {
 
 //get next checkout step (send final cartItems & delivery address)
 const proceedToPayment = async (req, res) => {
+    console.log(cartItems)
     res.json({ cartItems, deliveryAddress, username }) //added username
 }
 

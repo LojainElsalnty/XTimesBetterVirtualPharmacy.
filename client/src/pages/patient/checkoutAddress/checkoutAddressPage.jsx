@@ -112,11 +112,14 @@ const CheckoutAddress = () => {
         try {
             // Fetch cartItems from BE
             const response = await axios.get('http://localhost:5000/patient/checkoutAddress/payment');
-            const cartItems = response.data.cartItems;
             const username = response.data.username;
 
-            navigate('/patient/payment', { state: { cartItems: cartItems, deliveryAddress: deliveryAddress, username: username } })
 
+            //console.log("cartItems at address: ", cartItems)
+
+
+            navigate('/patient/payment', { state: { cartItems: cartItems, deliveryAddress: deliveryAddress, username: username } })
+            setCartItems([])
             // const queryParams = new URLSearchParams();
             // queryParams.append('cartItems', JSON.stringify(cartItems));
             // queryParams.append('deliveryAddress', deliveryAddress);
