@@ -11,7 +11,8 @@ const MedicineDetails = ({ medicine }) => {
     return (
         <tr>
             {/* <td><img src={imageDataUrl} alt={medicine.image.filename} /></td> */}
-            <td><img src={medImage} className={styles.medimage} /></td>
+            {/* <td><img src={medImage} className={styles.medimage} /></td> */}
+            <td><img src={medicine.image} alt="Medicine Image" style={{ width: '150px', height: 'auto' }} /></td>
             <td>{medicine.name}</td>
             <td>{medicine.price}</td>
             <td>{medicine.activeIngredients.map((ingredient, index) => (

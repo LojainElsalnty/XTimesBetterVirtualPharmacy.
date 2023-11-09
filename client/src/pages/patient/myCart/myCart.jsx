@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 //import './styles.css';
 import MyCartC from '../../../components/MyCartC';
-//import styles from '../../components/myCart/myCart.module.css';
+
+
 
 //import MyCartComponent from '../components/myCart/myCart'; // Import the component from components/myCart
 
@@ -10,6 +11,8 @@ import MyCartC from '../../../components/MyCartC';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
+import styles from './myCartPage.module.css'
 
 const MyCart = () => {
   const navigate = useNavigate();
@@ -133,12 +136,12 @@ const MyCart = () => {
 
               </td>
               <td>{item.price_per_item}</td>
-              <td><button onClick={() => deleteItem(item.medName)}>Delete</button></td>
+              <td><button className={styles["button-delete"]} onClick={() => deleteItem(item.medName)}>Delete</button></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={redirectToCheckout}>CheckOut</button>
+      <button className={styles["button-checkoutAddress"]} onClick={redirectToCheckout}>CheckOut</button>
 
     </div>
   );

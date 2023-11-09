@@ -40,7 +40,12 @@ const cancelOrder = async (req, res) => {
                 if (medicine) {
                     await Medicine.updateOne(
                         { name: medicine.name },
-                        { $inc: { availableQuantity: item.quantity } } //inc means current found in db+ given item.quantity
+                        {
+                            $inc: {
+                                availableQuantity: item.quantity,
+                                sales: -item.quantity,
+                            }
+                        } //inc means current found in db+ given item.quantity
                     );
                 }
             })
