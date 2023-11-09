@@ -30,7 +30,8 @@ export const PasswordCard = () => {
     const [passwordNumber, setPasswordNumber] = useState(false);
     const [passwordLength, setPasswordLength] = useState(false);
     const [displayPasswordValidation, setDisplayPasswordValidation] = useState(false);
-    const {accessToken} = useAuth();
+    // const {accessToken} = useAuth();
+    const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
         if (newPassword.length > 0) {

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 const patientModel = require('../../models/Patient');
@@ -12,26 +13,26 @@ const checkAccessToken = asyncHandler( async (req, res) => {
     
     if (accessToken == null) return res.status(401).json({ message: "No access token provided" });
 
-    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
         if (err) return res.status(403).json({ message: "Invalid access token" });
         const username = decoded.username;
 
-        if (userType == 'patient') {
-            const patient = patientModel.findOne({username: username});
+        if (userType === 'patient') {
+            const patient = await patientModel.find({username: username});
 
-            if (!patient) return res.status(400).json({ message: "User does not exist" })
+            if (patient.length === 0) return res.status(400).json({ message: "User does not exist" })
             else return res.status(200).json({ message: "Success", username: decoded.username });
         }
-        else if (userType == 'pharmacist') {
-            const pharmacist = pharmacistModel.findOne({username: username});
+        else if (userType === 'pharmacist') {
+            const pharmacist = await pharmacistModel.find({username: username});
 
-            if (!pharmacist) return res.status(400).json({ message: "User does not exist" })
+            if (pharmacist.length === 0) return res.status(400).json({ message: "User does not exist" })
             else return res.status(200).json({ message: "Success", username: decoded.username });
         }
-        else if (userType == 'admin') {
-            const admin = adminModel.findOne({username: username});
+        else if (userType === 'admin') {
+            const admin = await adminModel.find({username: username});
 
-            if (!admin) return res.status(400).json({ message: "User does not exist" })
+            if (admin.length === 0) return res.status(400).json({ message: "User does not exist" })
             else return res.status(200).json({ message: "Success", username: decoded.username });
         }
         else {

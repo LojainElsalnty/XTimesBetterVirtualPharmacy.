@@ -36,8 +36,9 @@ export const ResponsiveAppBar = () => {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [displayLogOutMessage, setDisplayLogOutMessage] = useState(false);
   const navigate = useNavigate();
-  const {accessToken, refreshToken} = useAuth();
-
+  // const {accessToken, refreshToken} = useAuth();
+  const accessToken = localStorage.getItem("accessToken");
+  
   useEffect(() => {
     if (accessToken.split(' ')[1] != "") {
       setUserLoggedIn(true);

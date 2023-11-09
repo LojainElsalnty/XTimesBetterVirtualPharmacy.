@@ -34,7 +34,8 @@ export const AdminProfile = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [image, setImage] = useState('');
-    const {accessToken} = useAuth();
+    // const {accessToken} = useAuth();
+    const accessToken = localStorage.getItem('accessToken');
 
     async function checkAuthentication() {
       await axios ({
@@ -50,7 +51,7 @@ export const AdminProfile = () => {
           console.log(response);
       })
       .catch((error) => {
-        navigate('/');
+        navigate('/login');
       });
     }
 

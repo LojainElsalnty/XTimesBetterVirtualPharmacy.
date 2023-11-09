@@ -19,6 +19,12 @@ export const MainPage = () => {
   updateRefreshToken("");
   setUsername("");
 
+  // clear access token and refresh token and username stored in the browser
+  localStorage.setItem("accessToken", "Bearer  ");
+  localStorage.setItem("refreshToken", "");
+  localStorage.setItem("username", "");
+  localStorage.setItem("userType", "");
+
   return (
     <div className={styles.container}>
         

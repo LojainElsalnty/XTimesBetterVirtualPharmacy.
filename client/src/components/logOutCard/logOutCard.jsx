@@ -16,7 +16,8 @@ import { useAuth, useAuthUpdate, useUsername } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 export const LogOutCard = ({showLogOutCard}) => {
-    const {accessToken, refreshToken} = useAuth();
+    // const {accessToken, refreshToken} = useAuth();
+    const refreshToken = localStorage.getItem('refreshToken');
     const {updateAccessToken, updateRefreshToken} = useAuthUpdate();
     const {username, setUsername} = useUsername();
     const navigate = useNavigate(); // A hook that allow me to navigate between routes
@@ -25,8 +26,6 @@ export const LogOutCard = ({showLogOutCard}) => {
         // hide component in the frontend
         showLogOutCard(false);
         // remove refresh token from the database
-        console.log(`Log Out Refresh Token ${refreshToken}`);
-        console.log(`Log Out Access Token ${accessToken}`);
         await axios({
             method: 'DELETE',
             url: 'http://localhost:5000/logout',
@@ -41,6 +40,12 @@ export const LogOutCard = ({showLogOutCard}) => {
             updateAccessToken("Bearer  ");
             updateRefreshToken("");
             setUsername("");
+
+            // clear access token and refresh token and username stored in the browser
+            localStorage.setItem("accessToken", "Bearer  ");
+            localStorage.setItem("refreshToken", "");
+            localStorage.setItem("username", "");
+            localStorage.setItem("userType", "");
     
             // navigate to the home page of the website
             navigate('/');

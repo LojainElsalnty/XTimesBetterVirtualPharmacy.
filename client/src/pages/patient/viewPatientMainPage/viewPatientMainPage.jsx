@@ -1,10 +1,16 @@
 import React from 'react';
 
+// Axios
+import axios from 'axios';
+
 // Styles
 import styles from './viewPatientMainPage.module.css'
 
 // React Router Dom Components
 import { Routes, Route, Navigate } from 'react-router-dom';
+
+// React Router Dom Components
+import { useNavigate } from 'react-router-dom';
 
 // Pages
 import MedicineCatalog from '../medicineCatalogPage';
@@ -18,7 +24,29 @@ import { Navbar } from '../../../components/navbar/navbar';
 import { useAuth } from '../../../components/hooks/useAuth'; 
 
 export const ViewPatientMainPage = () => {
-    const {accessToken} = useAuth();
+    // const {accessToken} = useAuth();
+    const accessToken = localStorage.getItem('accessToken');
+    const navigate = useNavigate();
+
+    async function checkAuthentication() {
+        await axios ({
+            method: 'get',
+            url: `http://localhost:5000/authentication/checkAccessToken`,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken,
+                'User-type': 'patient',
+            },
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+          navigate('/login');
+        });
+      }
+
+    checkAuthentication();
 
     const list = [
         {
