@@ -66,7 +66,6 @@ function App() {
          //yasS2
         <Route path="/myCart" element={<MyCart />}></Route>
         <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
-        <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
         <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
 
         <Route path="/admin/addadmin" element={<AddAdmin />} />

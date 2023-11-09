@@ -8,8 +8,13 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Pages
 import MedicineCatalog from '../medicineCatalogPage';
-import PatientRegister from '../../guest/patientRegisterPage'
+
 import PastOrders from '../../patient/pastOrders/pastOrdersPage.jsx';
+import PatientRegister from '../../guest/patientRegisterPage';
+import MedicinePayment from '../medicinePayment/medicinePaymentPage';
+import SuccessPayment from '../medicinePayment/successPaymentPage';
+import SuccessPaymentCreditCard from '../medicinePayment/successPaymentCreditCard';
+import UnsuccessPayment from '../medicinePayment/unsuccessfulPaymentPage';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -38,8 +43,12 @@ export const ViewPatientMainPage = () => {
                     <Route path="/patientRegister" element={<PatientRegister />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/myOrders" element={<PastOrders />} />
-                </Routes>
+                    <Route path="/payment" element={<MedicinePayment />} />
+                    <Route path="/successPayment" element={<SuccessPayment />} />
+                    <Route path="/unsuccessPayment" element={<UnsuccessPayment />} />
+                    <Route path="/successPaymentCC" element={<SuccessPaymentCreditCard />} />
+                </Routes >
             </>
-        </div>
+        </div >
     )
 }
