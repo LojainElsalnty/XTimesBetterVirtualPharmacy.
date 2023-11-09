@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const adminRoutes = require('./routes/admin/adminRoute');
 const cors = require('cors');
-const multer = require('multer');
+
 const path = require('path');
 //const upload = require('./upload'); // Import the Multer configuration
 const router = express.Router();
@@ -42,6 +42,8 @@ app.use(cors(corsOptions));
 const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute')
 const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute')
 const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCatalogRoute')
+const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRoute')
+const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute')
 const myCartRoutes = require('./routes/patient/myCartRoute')
 
 

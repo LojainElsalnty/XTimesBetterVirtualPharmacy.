@@ -7,7 +7,11 @@ import styles from './medicinalUsesDDL.module.css';
 import PatientMedicineDetails from '../../components/patientMedicineDetails/patientMedicineDetails';
 import MedicineSearchBar from '../../components/medicineSearchBar/medicineSearchBar'
 
+import { useNavigate } from 'react-router-dom';
+
 const MedicineCatalog = () => {
+    const navigate = useNavigate();
+
     const [medicines, setMedicines] = useState([]);
 
     //search related
@@ -104,12 +108,14 @@ const MedicineCatalog = () => {
 
     //Redirect to View Cart
     const redirectToViewCart = async () => {
+
         try {
             // Fetch cartItems from BE
             const response = await axios.get('http://localhost:5000/patient/medicineCatalog/viewCart');
             const cartItems = response.data.cartItems;
             // Redirect to myCart
-            window.location.href = `/myCart?cartItems=${JSON.stringify(cartItems)}`;
+            //window.location.href = `/myCart?cartItems=${JSON.stringify(cartItems)}`;
+            navigate('/myCart', { state: { cartItems: cartItems } })
         } catch (error) {
             console.error('Error retrieving cartItems:', error);
         }

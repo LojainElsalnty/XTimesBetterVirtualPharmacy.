@@ -17,7 +17,7 @@ import PatientRegister from './pages/guest/patientRegisterPage';
 import PharmacistRequest from './pages/pharmacist/pharmacistRequestPage';
 
 //sprint2
-import MyCart from './pages/patient/myCart/myCart';
+//import MyCart from './pages/patient/myCart/myCart';
 import CheckoutAddress from './pages/patient/checkoutAddress/checkoutAddressPage.jsx';
 import MedicinePayment from './pages/patient/medicinePayment/medicinePaymentPage.jsx';
 import PastOrders from './pages/patient/pastOrders/pastOrdersPage.jsx';
@@ -64,7 +64,7 @@ function App() {
           element={<PharmacistView />}
         />
          //yasS2
-        <Route path = "/myCart" element = {<MyCart/>}></Route>
+        <Route path="/myCart" element={<MyCart />}></Route>
         <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
         <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
         <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
@@ -90,7 +90,7 @@ function App() {
         <Route path='/pharmacist/*' element={<ViewPharmacistMainPage />} ></Route>
         <Route path='/admin/*' element={<ViewAdminMainPage />} ></Route>
         <Route path='*' element={<Navigate to='/' />} />
-       
+
       </Routes >
     </>
   )

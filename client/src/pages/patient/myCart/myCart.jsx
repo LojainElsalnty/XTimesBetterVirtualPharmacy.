@@ -8,32 +8,34 @@ import MyCartC from '../../../components/MyCartC';
 
 
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyCart = () => {
+  const navigate = useNavigate();
+
   const [cartItems, setCartItems] = useState([]);
 
+  const location = useLocation();
   useEffect(() => {
-    // Fetch cart items from the backend when the component mounts
-    axios.get('http://localhost:5000/patient/myCartRoute/viewAllCartItems')
-      .then((response) => setCartItems(response.data))
-      .catch((error) => console.error('Error fetching cart items:', error));
-  }, []);
+    if (location.state && location.state.cartItems) {
+      // Use a condition to prevent unnecessary updates
+      setCartItems(location.state.cartItems);
+    }
+  }, [location.state]);
+  // useEffect(() => {
+  //   // Fetch cart items from the backend when the component mounts
+  //   axios.get('http://localhost:5000/patient/myCartRoute/viewAllCartItems')
+  //     .then((response) => setCartItems(response.data))
+  //     .catch((error) => console.error('Error fetching cart items:', error));
+  // }, []);
 
-  /*const updateQuantity = (medName) => {
-    // Send a PUT request to update the quantity of a cart item
-    axios.put(`http://localhost:5000/patient/myCartRoute/updateCartItemQuantity/${medName}`)
-      .then((response) => {
-        setCartItems((prevItems) =>
-          prevItems.map((item) =>
-            item.medName === medName ? { ...item, quantity: response.data.quantity } : item
-          )
-        );
-      })
-      .catch((error) => console.error('Error updating quantity:', error));
-  };*/
+
+
   const updateCartItemQuantity = (medName) => {
+    console.log(medName)
     // Send a PUT request to update the quantity of a cart item
-    axios.put(`http://localhost:5000/patient/myCartRoute/updateCartItemQuantity/${medName}`)
+    axios.put(`http://localhost:5000/patient/myCartRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {
         // Find the item in your cartItems state by its medName
         const updatedCartItems = cartItems.map((item) => {
@@ -60,7 +62,7 @@ const MyCart = () => {
 
   const decrementCartItemQuantity = (medName) => {
     // Send a PUT request to decrement the quantity of a cart item
-    axios.put(`http://localhost:5000/patient/myCartRoute/decrementCartItemQuantity/${medName}`)
+    axios.put(`http://localhost:5000/patient/myCartRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {
         // Find the item in your cartItems state by its medName
         const updatedCartItems = cartItems.map((item) => {
@@ -88,27 +90,23 @@ const MyCart = () => {
 
   const deleteItem = (medName) => {
     // Send a DELETE request to delete a cart item
-    axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`)
+    axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
       .then(() => {
         setCartItems((prevItems) => prevItems.filter((item) => item.medName !== medName));
       })
       .catch((error) => console.error('Error deleting item:', error));
   };
 
-  /*const redirectToFriendPage = async () => {
+  const redirectToCheckout = async () => {
     try {
-      // Fetch cartItems from your own backend's viewCart endpoint
-      const response = await axios.get('/viewCart');
-
-      // Extract cartItems from the response
-      const cartItems = response.data.cartItems;
-
-      // Redirect to your friend's page and pass cartItems
-      window.location.href =  /friendPage b /patient/checkoutAddress?cartItems=${JSON.stringify(cartItems)};
+      if (cartItems.length <= 0) {
+        return alert('Your Cart is Empty!')
+      }
+      navigate('/patient/checkoutAddress', { state: { cartItems: cartItems } })
     } catch (error) {
       console.error('Error retrieving cartItems:', error);
     }
-  };*/
+  };
 
 
 
@@ -140,11 +138,11 @@ const MyCart = () => {
           ))}
         </tbody>
       </table>
-
+      <button onClick={redirectToCheckout}>CheckOut</button>
 
     </div>
   );
 };
 
 export default MyCart;
-/*<button onClick={redirectToFriendPage}>CheckOut</button>*/
+

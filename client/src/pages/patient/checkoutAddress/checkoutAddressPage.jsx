@@ -2,26 +2,28 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './checkoutAddressPage.module.css';
 
-
+import { useLocation } from 'react-router-dom';
 
 const CheckoutAddress = () => {
 
     //for testing purposes 
-    const cartItems = [{ "medName": "med123", "quantity": 1, "price_per_item": 7 }, { "medName": "Lisinopril", "quantity": 1, "price_per_item": 7.99 }, { "medName": "Amoxicillin", "quantity": 2, "price_per_item": 15.99 }]
+    //const cartItems = [{ "medName": "med123", "quantity": 1, "price_per_item": 7 }, { "medName": "Lisinopril", "quantity": 1, "price_per_item": 7.99 }, { "medName": "Amoxicillin", "quantity": 2, "price_per_item": 15.99 }]
 
 
     //existing address related
     const [existingAddresses, setExistingAddresses] = useState([]);
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
-    // const [cartItems, setCartItems] = useState([]); //UNCOMMENT
+    const [cartItems, setCartItems] = useState([]); //UNCOMMENT
+
+    const location = useLocation();
     useEffect(() => {
-        //UNCOMMENT
-        //     const currentUrl = window.location.href;
-        //     const urlSearchParams = new URLSearchParams(currentUrl);
-        //     const cartItemsParam = urlSearchParams.get('cartItems');
-        //     const parsedCartItems = JSON.parse(cartItemsParam);
-        //     setCartItems(parsedCartItems);
+        if (location.state && location.state.cartItems) {
+            // Use a condition to prevent unnecessary updates
+            setCartItems(location.state.cartItems);
+        }
+    }, [location.state]);
+    useEffect(() => {
 
         const fetchAllExistingAddresses = async () => {
             try {
