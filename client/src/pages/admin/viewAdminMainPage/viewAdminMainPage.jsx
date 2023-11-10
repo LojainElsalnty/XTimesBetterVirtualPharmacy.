@@ -30,7 +30,7 @@ import { useAuth } from '../../../components/hooks/useAuth';
 
 export const ViewAdminMainPage = () => {
     // const {accessToken} = useAuth();
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = sessionStorage.getItem('accessToken');
     const navigate = useNavigate();
 
     async function checkAuthentication() {

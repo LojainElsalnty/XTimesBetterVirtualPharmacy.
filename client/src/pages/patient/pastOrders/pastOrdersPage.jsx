@@ -8,7 +8,7 @@ const PastOrders = () => {
 
     const [pastOrdersList, setPastOrdersList] = useState([]);
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken')
+    const accessToken = sessionStorage.getItem('accessToken')
 
     async function checkAuthentication() {
         await axios({

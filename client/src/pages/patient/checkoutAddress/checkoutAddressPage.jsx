@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const CheckoutAddress = () => {
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken')
+    const accessToken = sessionStorage.getItem('accessToken')
     //for testing purposes 
     //const cartItems = [{ "medName": "med123", "quantity": 1, "price_per_item": 7 }, { "medName": "Lisinopril", "quantity": 1, "price_per_item": 7.99 }, { "medName": "Amoxicillin", "quantity": 2, "price_per_item": 15.99 }]
 
@@ -144,7 +144,7 @@ const CheckoutAddress = () => {
         try {
             // Fetch cartItems from BE
             // const response = await axios.get('http://localhost:5000/patient/checkoutAddress/payment');
-            const username = localStorage.getItem("username");
+            const username = sessionStorage.getItem("username");
 
 
             //console.log("cartItems at address: ", cartItems)

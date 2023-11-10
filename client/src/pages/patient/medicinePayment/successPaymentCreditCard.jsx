@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function SuccessPaymentCreditCard() {
     const navigate = useNavigate();
+    const accessToken = sessionStorage.getItem('accessToken');
 
     // const receivedInfo = {
     //     cartItems:[{

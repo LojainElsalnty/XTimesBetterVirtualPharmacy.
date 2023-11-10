@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
 
   async function checkAuthentication() {

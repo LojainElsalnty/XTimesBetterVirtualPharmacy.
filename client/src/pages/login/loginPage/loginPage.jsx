@@ -60,26 +60,26 @@ export const LoginPage = () => {
                 setUsername(name);
 
                 // Setting local storage
-                localStorage.setItem("accessToken", response.data.accessToken);
-                localStorage.setItem("refreshToken", response.data.refreshToken);
-                localStorage.setItem("username", name);
+                sessionStorage.setItem("accessToken", response.data.accessToken);
+                sessionStorage.setItem("refreshToken", response.data.refreshToken);
+                sessionStorage.setItem("username", name);
     
                 if (response.data.userType === "patient") {
                     setError(false);
                     setUserType("patient");
-                    localStorage.setItem("userType", "patient");
+                    sessionStorage.setItem("userType", "patient");
                     navigate('/patient');
                 } 
                 else if (response.data.userType === "pharmacist") {
                     setError(false);
                     setUserType("pharmacist");
-                    localStorage.setItem("userType", "pharmacist");
+                    sessionStorage.setItem("userType", "pharmacist");
                     navigate('/pharmacist');
                 }
                 else if (response.data.userType === "admin") {
                     setError(false);
                     setUserType("admin");
-                    localStorage.setItem("userType", "admin");
+                    sessionStorage.setItem("userType", "admin");
                     navigate('/admin');
                 }
             })

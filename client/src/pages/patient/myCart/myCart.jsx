@@ -16,7 +16,7 @@ import styles from './myCartPage.module.css'
 
 const MyCart = () => {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = sessionStorage.getItem('accessToken');
 
   const [cartItems, setCartItems] = useState([]);
 

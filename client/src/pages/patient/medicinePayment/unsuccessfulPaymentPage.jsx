@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function UnsuccessPayment() {
     const navigate = useNavigate();
+    const accessToken = sessionStorage.getItem('accessToken');
 
     const receivedInfo = {
         cartItems: [{

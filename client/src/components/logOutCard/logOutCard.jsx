@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const LogOutCard = ({showLogOutCard}) => {
     // const {accessToken, refreshToken} = useAuth();
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = sessionStorage.getItem('refreshToken');
     const {updateAccessToken, updateRefreshToken} = useAuthUpdate();
     const {username, setUsername} = useUsername();
     const navigate = useNavigate(); // A hook that allow me to navigate between routes
@@ -42,10 +42,10 @@ export const LogOutCard = ({showLogOutCard}) => {
             setUsername("");
 
             // clear access token and refresh token and username stored in the browser
-            localStorage.setItem("accessToken", "Bearer  ");
-            localStorage.setItem("refreshToken", "");
-            localStorage.setItem("username", "");
-            localStorage.setItem("userType", "");
+            sessionStorage.setItem("accessToken", "Bearer  ");
+            sessionStorage.setItem("refreshToken", "");
+            sessionStorage.setItem("username", "");
+            sessionStorage.setItem("userType", "");
     
             // navigate to the home page of the website
             navigate('/');

@@ -20,10 +20,10 @@ export const MainPage = () => {
   setUsername("");
 
   // clear access token and refresh token and username stored in the browser
-  localStorage.setItem("accessToken", "Bearer  ");
-  localStorage.setItem("refreshToken", "");
-  localStorage.setItem("username", "");
-  localStorage.setItem("userType", "");
+  sessionStorage.setItem("accessToken", "Bearer  ");
+  sessionStorage.setItem("refreshToken", "");
+  sessionStorage.setItem("username", "");
+  sessionStorage.setItem("userType", "");
 
   return (
     <div className={styles.container}>

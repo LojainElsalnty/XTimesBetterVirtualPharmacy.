@@ -18,7 +18,7 @@ function MedicineAdd() {
   const [isRecordAdded, setIsRecordAdded] = useState(false);
   const [error, setError] = useState(null); // Initialize error state
 
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
 
   async function checkAuthentication() {

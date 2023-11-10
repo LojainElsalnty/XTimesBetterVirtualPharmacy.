@@ -8,6 +8,7 @@ function SuccessPayment() {
     const navigate = useNavigate();
     const location = useLocation();
     const receipt = location.state.receipt;
+    const accessToken = sessionStorage.getItem('accessToken');
     console.log(receipt);
     const handleSubmit = () => {
         sessionStorage.removeItem('cartItems');

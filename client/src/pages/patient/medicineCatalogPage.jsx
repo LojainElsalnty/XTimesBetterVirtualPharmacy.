@@ -96,8 +96,7 @@ const MedicineCatalog = () => {
     const addToCart = async (medName) => {
         try {
             const existingCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
-            //localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
-            //console.log(localStorage.getItem('cartItems'))
+
 
             const response = await axios.post('http://localhost:5000/patient/medicineCatalog', { cartItems: existingCartItems, medName });
             if (response.data.success) {

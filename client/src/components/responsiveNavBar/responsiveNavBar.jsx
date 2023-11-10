@@ -37,7 +37,7 @@ export const ResponsiveAppBar = () => {
   const [displayLogOutMessage, setDisplayLogOutMessage] = useState(false);
   const navigate = useNavigate();
   // const {accessToken, refreshToken} = useAuth();
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
     if (accessToken.split(' ')[1] != "") {

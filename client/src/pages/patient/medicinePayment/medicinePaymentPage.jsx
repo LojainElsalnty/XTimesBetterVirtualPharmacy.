@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function MedicinePayment() {
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = sessionStorage.getItem("accessToken");
     const location = useLocation();
     // const receipt = location.state.receipt;
     const [selectedButton, setSelectedButton] = useState(null);
