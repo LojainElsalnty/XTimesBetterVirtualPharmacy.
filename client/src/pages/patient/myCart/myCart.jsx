@@ -16,36 +16,41 @@ import styles from './myCartPage.module.css'
 
 const MyCart = () => {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem('accessToken')
 
   const [cartItems, setCartItems] = useState([]);
 
   const location = useLocation();
 
   async function checkAuthentication() {
-    await axios ({
-        method: 'get',
-        url: `http://localhost:5000/authentication/checkAccessToken`,
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': accessToken,
-            'User-type': 'patient',
-        },
+    await axios({
+      method: 'get',
+      url: `http://localhost:5000/authentication/checkAccessToken`,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'patient',
+      },
     })
-    .then((response) => {
+      .then((response) => {
         console.log(response);
-    })
-    .catch((error) => {
-      navigate('/login');
-    });
-}
+      })
+      .catch((error) => {
+        navigate('/login');
+      });
+  }
 
-checkAuthentication();
+  checkAuthentication();
 
   useEffect(() => {
     if (location.state && location.state.cartItems) {
       // Use a condition to prevent unnecessary updates
       //setCartItems(location.state.cartItems);
-      setCartItems(JSON.parse(localStorage.getItem('cartItems'))) //Added-Nour
+      // setCartItems(JSON.parse(sessionStorage.getItem('cartItems'))) 
+      //Added-Nour
+      const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+      const initialCartItems = storedCartItems || []; //in case cart is still empty/undefined -> []
+      setCartItems(initialCartItems);
 
     }
   }, [location.state]);
@@ -74,7 +79,7 @@ checkAuthentication();
 
         // Set the state with the updated cart items
         setCartItems(updatedCartItems);
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); //Added - Nour
+        sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // Added - Nour
       })
       .catch((error) => {
         console.error('Error updating quantity:', error);
@@ -102,7 +107,7 @@ checkAuthentication();
 
         // Set the state with the updated cart items
         setCartItems(updatedCartItems);
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); //Added - Nour
+        sessionStorage.setItem('cartItems', JSON.stringify(updatedCartItems)); // Added - Nour
       })
       .catch((error) => {
         console.error('Error decrementing quantity:', error);
@@ -116,12 +121,24 @@ checkAuthentication();
 
 
 
+  // const deleteItem = (medName) => {
+  //   // Send a DELETE request to delete a cart item
+  //   axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
+  //     .then(() => {
+  //       setCartItems((prevItems) => prevItems.filter((item) => item.medName !== medName));
+  //       console.log("after deletion--", )
+  //       sessionStorage.setItem('cartItems', JSON.stringify((prevItems) => prevItems.filter((item) => item.medName !== medName))); //Added - Nour
+  //     })
+  //     .catch((error) => console.error('Error deleting item:', error));
+  // };
+
   const deleteItem = (medName) => {
     // Send a DELETE request to delete a cart item
     axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
       .then(() => {
-        setCartItems((prevItems) => prevItems.filter((item) => item.medName !== medName));
-        localStorage.setItem('cartItems', JSON.stringify(cartItems)); //Added - Nour
+        setCartItems(cartItems.filter((item) => item.medName !== medName));
+        console.log("after deletion--", cartItems.filter((item) => item.medName !== medName))
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems.filter((item) => item.medName !== medName))); //Added - Nour
       })
       .catch((error) => console.error('Error deleting item:', error));
   };
@@ -129,12 +146,12 @@ checkAuthentication();
   const redirectToCheckout = async () => {
     try {
       if (cartItems.length <= 0) {
-        return alert('Your Cart is Empty!')
+        return alert('Your Cart is Empty!');
       }
-      localStorage.setItem('cartItems', JSON.stringify(cartItems)); //Added - Nour
-      navigate('/patient/checkoutAddress', { state: { cartItems: cartItems } })
+      sessionStorage.setItem('cartItems', JSON.stringify(cartItems)); // Added - Nour
+      navigate('/patient/checkoutAddress', { state: { cartItems: cartItems } });
     } catch (error) {
-      console.error('Error retrieving cartItems:', error);
+      console.error('Error redirecting to checkout:', error);
     }
   };
 

@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const CheckoutAddress = () => {
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken')
     //for testing purposes 
     //const cartItems = [{ "medName": "med123", "quantity": 1, "price_per_item": 7 }, { "medName": "Lisinopril", "quantity": 1, "price_per_item": 7.99 }, { "medName": "Amoxicillin", "quantity": 2, "price_per_item": 15.99 }]
 
@@ -17,7 +18,7 @@ const CheckoutAddress = () => {
     const [cartItems, setCartItems] = useState([]); //UNCOMMENT
 
     async function checkAuthentication() {
-        await axios ({
+        await axios({
             method: 'get',
             url: `http://localhost:5000/authentication/checkAccessToken`,
             headers: {
@@ -26,15 +27,15 @@ const CheckoutAddress = () => {
                 'User-type': 'patient',
             },
         })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
-      }
-    
-      checkAuthentication();
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                navigate('/login');
+            });
+    }
+
+    checkAuthentication();
 
     const location = useLocation();
     useEffect(() => {

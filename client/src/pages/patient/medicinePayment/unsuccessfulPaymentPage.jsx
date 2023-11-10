@@ -16,7 +16,7 @@ function UnsuccessPayment() {
     };
 
     async function checkAuthentication() {
-        await axios ({
+        await axios({
             method: 'get',
             url: `http://localhost:5000/authentication/checkAccessToken`,
             headers: {
@@ -25,18 +25,18 @@ function UnsuccessPayment() {
                 'User-type': 'patient',
             },
         })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                navigate('/login');
+            });
     }
-    
+
     checkAuthentication();
 
     const handleSubmit = () => {
-        localStorage.removeItem('cartItems'); //if redirect changed to another payment method remove this line!!!!
+        sessionStorage.removeItem('cartItems');//if redirect changed to another payment method remove this line!!!!
         window.location.href = "http://localhost:5173/patient/";
 
     };

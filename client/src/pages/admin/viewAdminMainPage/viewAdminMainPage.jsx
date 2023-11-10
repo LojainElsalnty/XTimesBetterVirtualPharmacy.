@@ -26,7 +26,7 @@ import { AdminProfile } from '../AdminProfile/AdminProfile';
 import { Navbar } from '../../../components/navbar/navbar';
 
 // User Defined Hooks
-import { useAuth } from '../../../components/hooks/useAuth'; 
+import { useAuth } from '../../../components/hooks/useAuth';
 
 export const ViewAdminMainPage = () => {
     // const {accessToken} = useAuth();
@@ -34,21 +34,21 @@ export const ViewAdminMainPage = () => {
     const navigate = useNavigate();
 
     async function checkAuthentication() {
-      await axios ({
-          method: 'get',
-          url: `http://localhost:5000/authentication/checkAccessToken`,
-          headers: {
-              "Content-Type": "application/json",
-              'Authorization': accessToken,
-              'User-type': 'admin',
-          },
-      })
-      .then((response) => {
-          console.log(response);
-      })
-      .catch((error) => {
-        navigate('/login');
-      });
+        await axios({
+            method: 'get',
+            url: `http://localhost:5000/authentication/checkAccessToken`,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken,
+                'User-type': 'admin',
+            },
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                navigate('/login');
+            });
     }
 
     checkAuthentication();
@@ -67,11 +67,11 @@ export const ViewAdminMainPage = () => {
             pageName: "Pharmacists Requests",
         },
         {
-            url: "/pharmacistInformation",
+            url: "/admin/pharmacistInformation",
             pageName: "Pharmacists Info",
         },
         {
-            url: "/patientInformation ",
+            url: "/admin/patientInformation ",
             pageName: "Patient Info",
         },
         {
@@ -97,7 +97,7 @@ export const ViewAdminMainPage = () => {
                 <Routes>
                     <Route path="/profile" element={<AdminProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
-                    <Route path="/requestedPharmacistsInfo" element={<RequestedPharmacistsInfo />} />
+                    <Route path="/requestedPharmacistsInfoPage" element={<RequestedPharmacistsInfo />} />
                     <Route path="/pharmacistInformation" element={<PharmacistView />} />
                     <Route path="/patientInformation" element={<PatientView />} />
                     <Route path="/addadmin" element={<AddAdmin />} />

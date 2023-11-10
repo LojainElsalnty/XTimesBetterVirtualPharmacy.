@@ -23,7 +23,7 @@ import MedicineCatalog from '../medicineCatalogPage';
 import { Navbar } from '../../../components/navbar/navbar';
 
 // User Defined Hooks
-import { useAuth } from '../../../components/hooks/useAuth'; 
+import { useAuth } from '../../../components/hooks/useAuth';
 
 export const ViewPharmacistMainPage = () => {
     // const {accessToken} = useAuth();
@@ -31,7 +31,7 @@ export const ViewPharmacistMainPage = () => {
     const navigate = useNavigate();
 
     async function checkAuthentication() {
-        await axios ({
+        await axios({
             method: 'get',
             url: `http://localhost:5000/authentication/checkAccessToken`,
             headers: {
@@ -40,31 +40,31 @@ export const ViewPharmacistMainPage = () => {
                 'User-type': 'pharmacist',
             },
         })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
-      }
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                navigate('/login');
+            });
+    }
 
-      checkAuthentication();
+    checkAuthentication();
 
     const list = [
         {
-          url: "/pharmacist/profile",
-          pageName: "Profile",
+            url: "/pharmacist/profile",
+            pageName: "Profile",
         },
         {
             url: "/pharmacist/medicineCatalog",
             pageName: "Medicines List",
         },
         {
-            url: "/addMedicine",
+            url: "/pharmacist/addMedicine",
             pageName: "Add Medicine",
         },
         {
-            url: "/editMedicine",
+            url: "/pharmacist/editMedicine",
             pageName: "Edit Medicine",
         },
     ];
@@ -76,7 +76,7 @@ export const ViewPharmacistMainPage = () => {
             <Navbar name="Pharmacist" list={list} />
             <>
                 <Routes>
-                    <Route path="/profile" element={<PharmacistProfile />}/>
+                    <Route path="/profile" element={<PharmacistProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />

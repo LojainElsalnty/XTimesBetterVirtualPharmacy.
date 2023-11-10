@@ -8,9 +8,10 @@ const PastOrders = () => {
 
     const [pastOrdersList, setPastOrdersList] = useState([]);
     const navigate = useNavigate();
+    const accessToken = localStorage.getItem('accessToken')
 
     async function checkAuthentication() {
-        await axios ({
+        await axios({
             method: 'get',
             url: `http://localhost:5000/authentication/checkAccessToken`,
             headers: {
@@ -19,14 +20,14 @@ const PastOrders = () => {
                 'User-type': 'patient',
             },
         })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                navigate('/login');
+            });
     }
-    
+
     checkAuthentication();
 
 
@@ -49,13 +50,14 @@ const PastOrders = () => {
     //handle cancel order
     const cancelOrder = async (orderId) => {
         try {
-            const response = await axios.post('http://localhost:5000/patient/pastOrders', 
+            const response = await axios.post('http://localhost:5000/patient/pastOrders',
                 { orderId },
-                { headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': accessToken,
-                },
-            });
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': accessToken,
+                    },
+                });
 
             if (response.data) {
                 alert('Order Cancelled!')

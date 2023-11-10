@@ -17,7 +17,7 @@ function SuccessPaymentCreditCard() {
     // };
 
     async function checkAuthentication() {
-        await axios ({
+        await axios({
             method: 'get',
             url: `http://localhost:5000/authentication/checkAccessToken`,
             headers: {
@@ -26,18 +26,18 @@ function SuccessPaymentCreditCard() {
                 'User-type': 'patient',
             },
         })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                navigate('/login');
+            });
     }
-    
+
     checkAuthentication();
 
     const handleSubmit = () => {
-        localStorage.removeItem('cartItems');
+        sessionStorage.removeItem('cartItems');
         window.location.href = "http://localhost:5173/patient/";
     };
 

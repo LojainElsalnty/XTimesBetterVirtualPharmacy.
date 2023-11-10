@@ -95,14 +95,14 @@ const MedicineCatalog = () => {
     //Add to cart method
     const addToCart = async (medName) => {
         try {
-            const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const existingCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
             //localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
             //console.log(localStorage.getItem('cartItems'))
 
             const response = await axios.post('http://localhost:5000/patient/medicineCatalog', { cartItems: existingCartItems, medName });
             if (response.data.success) {
                 alert('added successfully!')
-                localStorage.setItem('cartItems', JSON.stringify(response.data.cartItems));
+                sessionStorage.setItem('cartItems', JSON.stringify(response.data.cartItems));
             } else {
                 //console.log(response.data.message);
                 alert("insufficient stock!")
