@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+// Axios
+import axios from 'axios';
+
+// React Router DOM
+import { useNavigate } from 'react-router-dom';
+
 function MedicineAdd() {
   const [medicineData, setMedicineData] = useState({
     name: '',
@@ -11,6 +17,46 @@ function MedicineAdd() {
   });
   const [isRecordAdded, setIsRecordAdded] = useState(false);
   const [error, setError] = useState(null); // Initialize error state
+
+  const accessToken = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
+  async function checkAuthentication() {
+    await axios ({
+        method: 'get',
+        url: `http://localhost:5000/authentication/checkAccessToken`,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': accessToken,
+            'User-type': 'pharmacist',
+        },
+    })
+    .then((response) => {
+        console.log(response);
+    })
+    .catch((error) => {
+      navigate('/login');
+    });
+  }
+
+  checkAuthentication();
+   
+
+ const handleChangeImage = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+  
+    reader.onload = (e) => {
+      setMedicineData({ ...medicineData, image: e.target.result });
+    };
+  
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+  
+  
+
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -39,7 +85,13 @@ function MedicineAdd() {
       activeIngredients: medicineData.activeIngredients,
       availableQuantity: medicineData.availableQuantity,
       medicinalUses: medicineData.medicinalUses,
+      image:medicineData.image,
     };
+
+    console.log("request body",requestBody)
+    //console.log(requestBody.file)
+    console.log("hena")
+    console.log(medicineData)
 
     fetch('http://localhost:5000/medicineRoutes/addMedicine', {
       method: 'POST',
@@ -70,6 +122,8 @@ function MedicineAdd() {
         });
       })
       .catch((error) => {
+        console.log('Request Body:', JSON.stringify(requestBody));
+       // console.log("iam here fe");
         console.error('Error adding medicine:', error);
         //alert("Please revise data entered and try again!")
 
@@ -82,12 +136,10 @@ function MedicineAdd() {
 
 
 
-
-
   return (
     <div>
       <h2>Add a New Medicine</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label htmlFor="name">Medicine Name:</label>
           <input
@@ -143,16 +195,32 @@ function MedicineAdd() {
             required
           />
         </div>
-        <div>
-          <label htmlFor="image">Medicine Image:</label>
-          <input
+        {/* <div>
+       
+
+           <label htmlFor="image">Medicine Image:</label>
+           <input
             type="file"
             id="image"
             name="image"
-          // onChange={handleChange}
-
+            accept="image/*"
+          onChange={handleChangeImage}
+             required
+                />
+        </div>
+         */}
+           <div>
+          <label htmlFor="image">Image URL:</label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={medicineData.image}
+            onChange={handleChange}
+            required
           />
         </div>
+   
         <button type="submit">Add Medicine</button>
       </form>
     </div>

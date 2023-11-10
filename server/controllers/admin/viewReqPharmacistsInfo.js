@@ -18,4 +18,40 @@ const viewReqPharmacistsInfo = asyncHandler(async (req, res) => {
     }
 
 })
-module.exports = { viewReqPharmacistsInfo };
+const acceptPharmacist = asyncHandler(async(req, res)=>{
+    const pharmacistId = req.params.id;
+    try {
+        // Assuming you have a Mongoose model named "Doctor" representing doctors
+        const pharmacist = await pharmacistREQsModel.findByIdAndUpdate(pharmacistId, { status: 'accepted' }, { new: true });
+
+        if (!pharmacist) {
+            return res.status(404).json({ message: 'Pharmacist not found' });
+        }
+
+        return res.status(200).json({ message: 'Pharmacist request accepted successfully', pharmacist });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ message: 'An error occurred while accepting the request of the pharmacist' });
+    }
+})
+
+const rejectPharmacist = asyncHandler(async(req, res)=>{
+    const pharmacistId = req.params.id;
+            try {
+                // Assuming you have a Mongoose model named "Doctor" representing doctors
+                const pharmacist  = await pharmacistREQsModel.findByIdAndUpdate(pharmacistId, { status: 'rejected' }, { new: true });
+        
+                if (!pharmacist) {
+                    return res.status(404).json({ message: 'Pharmacist not found' });
+                }
+
+                return res.status(200).json({ message: 'Pharmacist request is rejected successfully', pharmacist });
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ message: 'An error occurred while accepting the request of the pharmacist' });
+            }
+       
+    
+    });
+
+module.exports = { viewReqPharmacistsInfo ,acceptPharmacist,rejectPharmacist};

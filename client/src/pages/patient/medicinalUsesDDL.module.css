@@ -1,5 +1,5 @@
 .result-container {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .ddl-container {
@@ -35,4 +35,29 @@
     transform: translateY(150px);
     position: relative;
     z-index: 100;
+}
+
+
+.cart-button {
+    background-color: #FFD700;
+    color: #333;
+    font-weight: bold;
+    width: 100%;
+    height: 60px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.cart-th {
+    border: none;
+    background-color: transparent;
+}
+
+th:hover button {
+    background-color: #FFC000;
+    color: #222;
 }

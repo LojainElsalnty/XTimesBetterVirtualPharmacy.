@@ -14,8 +14,14 @@ import { useNavigate } from 'react-router-dom';
 
 // Pages
 import MedicineCatalog from '../medicineCatalogPage';
-import PatientRegister from '../../guest/patientRegisterPage';
 import { PatientProfile } from '../PatientProfile/PatientProfile';
+import PastOrders from '../../patient/pastOrders/pastOrdersPage.jsx';
+import MedicinePayment from '../medicinePayment/medicinePaymentPage';
+import SuccessPayment from '../medicinePayment/successPaymentPage';
+import SuccessPaymentCreditCard from '../medicinePayment/successPaymentCreditCard';
+import UnsuccessPayment from '../medicinePayment/unsuccessfulPaymentPage';
+import MyCart from '../myCart/myCart.jsx';
+import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -54,12 +60,12 @@ export const ViewPatientMainPage = () => {
             pageName: "Profile",
         },
         {
-            url: "/guest/patientRegister",
-            pageName: "Patient Registration",
-        },
-        {
             url: "/patient/medicineCatalog",
             pageName: "Medicine Catalog",
+        },
+        {
+            url: "/patient/myOrders",
+            pageName: "My Orders",
         },
     ];
 
@@ -70,11 +76,18 @@ export const ViewPatientMainPage = () => {
             <Navbar name="Patient" list={list} />
             <>
                 <Routes>
-                    <Route path="/patientRegister" element={<PatientRegister />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/profile" element={<PatientProfile />} />
+                    <Route path="/myOrders" element={<PastOrders />} />
+                    <Route path="/payment" element={<MedicinePayment />} />
+                    <Route path="/successPayment" element={<SuccessPayment />} />
+                    <Route path="/unsuccessPayment" element={<UnsuccessPayment />} />
+                    <Route path="/successPaymentCC" element={<SuccessPaymentCreditCard />} />
+                    <Route path="/myCart" element={<MyCart />} />
+                    <Route path="/checkoutAddress" element={<CheckoutAddress />} />
+                    <Route path="/payment" element={<MedicinePayment />} />
                 </Routes>
             </>
-        </div>
+        </div >
     )
 }

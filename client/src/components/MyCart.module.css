@@ -1,0 +1,52 @@
+.App {
+  text-align: center;
+}
+
+.counter {
+  font-size: 24px;
+  background-color: rgb(75, 148, 108);
+  /* Change the background color of the counter to gold */
+  padding: 10px;
+  /* Add padding for spacing within the counter */
+  width: 100px;
+  /* Make the background of the counter wider */
+  color: rgb(221, 230, 236);
+  /* Change the font color of the counter to a shade of red */
+  border-radius: 80px;
+}
+
+
+.square-button {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(89, 204, 160);
+  /* Change the color to baby blue */
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 80px;
+  margin: 15px;
+  outline: none;
+  /* Remove button focus outline */
+}
+
+/* Add margin to create space between buttons */
+.square-button.increment {
+  margin-right: 50px;
+}
+
+/* Add margin to create space between buttons */
+.square-button.decrement {
+  margin-left: 10px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  /* Vertically center the items */
+  justify-content: center;
+  /* Horizontally center the items */
+  font-family: 'Arial', sans-serif;
+  /* Change the font-family here */
+}

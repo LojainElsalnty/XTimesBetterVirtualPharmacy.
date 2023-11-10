@@ -42,7 +42,14 @@ const DoctorSchema = mongoose.Schema({
     availableTimeSlots: {
         type: [Date],
         required: false,
+    },
+        
+    walletAmount:{
+        type: Number,
+
     }
+    
+    
 }, { timestamps: true });
 
 

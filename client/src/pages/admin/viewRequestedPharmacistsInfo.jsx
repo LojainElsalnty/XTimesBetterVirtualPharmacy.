@@ -1,9 +1,112 @@
 import React, { useEffect, useState } from 'react';
 
+// Axios
+import axios from 'axios';
 
-function viewRequestedPharmacistsInfo() {
+// React Router DOM
+import { useNavigate } from 'react-router-dom';
 
+
+function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
+  const accessToken = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
+  async function checkAuthentication() {
+    await axios ({
+        method: 'get',
+        url: `http://localhost:5000/authentication/checkAccessToken`,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': accessToken,
+            'User-type': 'admin',
+        },
+    })
+    .then((response) => {
+        console.log(response);
+    })
+    .catch((error) => {
+      navigate('/login');
+    });
+  }
+
+  checkAuthentication();
+
+  const fetchRequestedPharmacists = () => {
+    const url = 'http://localhost:5000/admin/viewREQPharmacists';
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data) {
+          setRequestedPharmacists(data);
+        } else {
+          console.error('Cannot view requested Pharmacists:', data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error viewing pharmacist information:', error);
+      });
+  };
+
+
+  const acceptPharmacist = (pharmacistId) => {
+    const confirmed = window.confirm('Are you sure you want to accept this pharmacist request?');
+    if (!confirmed) {
+      return;
+    }
+    const url = `http://localhost:5000/admin/viewREQPharmacists/accept/${pharmacistId}`;
+
+    fetch(url, { method: 'GET' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Fetch the updated pharmacist data again to reflect the changes
+        fetchRequestedPharmacists();
+        alert('Pharmacist request is accepted successfully');
+      })
+      .catch((error) => {
+        console.error('Error accepting pharmacist:', error);
+        alert('Error accepting pharmacist');
+      });
+  };
+  const showConfirmAcceptDialog = () => {
+    setConfirmAcceptDialog(true);
+  };
+
+  // Function to hide the confirmation dialog
+  const hideConfirmAcceptDialog = () => {
+    setConfirmAcceptDialog(false);
+  };
+  // Function to handle rejecting a doctor
+  const rejectPharmacist = (pharmacistId) => {
+    const confirmed = window.confirm('Are you sure you want to reject this pharmacist request?');
+    if (!confirmed) {
+      return;
+    }
+    const url = `http://localhost:5000/admin/viewREQPharmacists/reject/${pharmacistId}`;
+
+    fetch(url, { method: 'GET' })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // Fetch the updated pharmacist data again to reflect the changes
+        fetchRequestedPharmacists();
+        alert('Pharmacist request is rejected successfully');
+      })
+      .catch((error) => {
+        console.error('Error rejecting pharmacist:', error);
+        alert('Error rejecting pharmacist');
+      });
+  };
+  
 
   useEffect(() => {
     const url = `http://localhost:5000/admin/viewREQPharmacists`
@@ -49,7 +152,6 @@ function viewRequestedPharmacistsInfo() {
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Password</th>
             <th>Date of Birth</th>
             <th>Hourly Rate</th>
             <th>Affiliation</th>
@@ -63,12 +165,34 @@ function viewRequestedPharmacistsInfo() {
               <td>{pharmacist.name}</td>
               <td>{pharmacist.username}</td>
               <td>{pharmacist.email}</td>
-              <td>{pharmacist.password}</td>
               <td>{pharmacist.dob}</td>
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
               <td>{pharmacist.status}</td>
+              <td>
+              {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
+                Accept
+                </button>              
+                <br />
+                <br />
+                {pharmacist.status !== 'accepted' && (
+                 <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button> */}
+                <button
+  onClick={() => acceptPharmacist(pharmacist._id)}
+  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+>
+  Accept
+</button>
+<br />
+<button
+  onClick={() => rejectPharmacist(pharmacist._id)}
+  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+>
+  Reject
+</button>
+      
+                 </td>              
             </tr>
           ))}
         </tbody>
@@ -78,4 +202,4 @@ function viewRequestedPharmacistsInfo() {
 }
 
 
-export default viewRequestedPharmacistsInfo;
+export default ViewRequestedPharmacistsInfo;

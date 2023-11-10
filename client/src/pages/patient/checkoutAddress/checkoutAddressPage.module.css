@@ -1,0 +1,119 @@
+div {
+    width: 100%;
+}
+
+.checkout-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+}
+
+
+th {
+    background-color: #e9e9e9;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+
+.totalprice-container {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: right;
+    background-color: #dfdfdf;
+}
+
+.Delivery-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+    text-align: left;
+    color: #333;
+    padding: 10px;
+
+}
+
+.ddl-container {
+    text-align: center;
+    top: 0;
+    z-index: 100;
+    align-items: center;
+
+}
+
+.ddl-select {
+    margin-left: 6px;
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.address-container {
+    margin-top: 30px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.newAddress-input {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+
+}
+
+.addAddress-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #77D970;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.saveAddress-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #66B3FF;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.cancel-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #a4a4a4;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.proceedPayment-button {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #87CEEB;
+    cursor: pointer;
+    margin-top: 50px
+}

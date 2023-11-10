@@ -45,6 +45,13 @@ const PatientSchema = mongoose.Schema({
         contentType: String,
         //required: false,
     },
+    deliveryAddress: {
+        type: [String],
+        default: [],
+    },
+    walletAmount: {
+        type: Number,
+    },
 }, { timestamps: true });
 
 

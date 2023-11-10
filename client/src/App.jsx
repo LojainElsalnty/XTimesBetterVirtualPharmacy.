@@ -1,25 +1,35 @@
 import * as React from 'react';
 
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+
+//sprint2
+import CheckoutAddress from './pages/patient/checkoutAddress/checkoutAddressPage.jsx';
+import MedicinePayment from './pages/patient/medicinePayment/medicinePaymentPage.jsx';
+import PastOrders from './pages/patient/pastOrders/pastOrdersPage.jsx';
+//yasS2
+import MyCart from './pages/patient/myCart/myCart.jsx';
+
 // Styles
 import './App.css'
 
 // User Type Main Pages
 import { MainPage } from './pages/default/DefaultPage';
+
 import { ViewPatientMainPage } from './pages/patient/viewPatientMainPage/viewPatientMainPage';
 import { ViewPharmacistMainPage } from './pages/pharmacist/viewPharmacistMainPage/viewPharmacistMainPage';
 import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMainPage';
 
-import PatientView from './pages/patient/patientView.jsx';
-import MedicineAdd from './pages/medicine/medicineAdd.jsx';
-import MedicineEdit from './pages/medicine/madicineEdit.jsx';
-import PharmacistView from './pages/pharmacist/pharmacistView.jsx'
-import AdminMedicineCatalog from './pages/admin/medicineCatalogPage';
-import PatientMedicineCatalog from './pages/patient/medicineCatalogPage';
-import PharmacistMedicineCatalog from './pages/pharmacist/medicineCatalogPage';
-import AddAdmin from './pages/admin/addadmin';
-import RemovePharmacist from './pages/admin/removepharmacist';
-import RemovePatient from './pages/admin/removepatient';
-import ViewRequestedPharmacistsInfo from './pages/admin/viewRequestedPharmacistsInfo';
+// import PatientView from './pages/patient/patientView.jsx';
+// import MedicineAdd from './pages/medicine/medicineAdd.jsx';
+// import MedicineEdit from './pages/medicine/madicineEdit.jsx';
+// import PharmacistView from './pages/pharmacist/pharmacistView.jsx'
+// import AdminMedicineCatalog from './pages/admin/medicineCatalogPage';
+// import PatientMedicineCatalog from './pages/patient/medicineCatalogPage';
+// import PharmacistMedicineCatalog from './pages/pharmacist/medicineCatalogPage';
+// import AddAdmin from './pages/admin/addadmin';
+// import RemovePharmacist from './pages/admin/removepharmacist';
+// import RemovePatient from './pages/admin/removepatient';
+// import ViewRequestedPharmacistsInfo from './pages/admin/viewRequestedPharmacistsInfo';
 
 // Login Page
 import { LoginPage } from './pages/login/loginPage/loginPage';
@@ -37,7 +47,7 @@ import PatientRegister from './pages/guest/patientRegisterPage';
 import { AuthProvider } from './components/hooks/useAuth';
 
 // React Router Dom Components
-import { Routes, Route, Navigate } from 'react-router-dom';
+// import { Routes, Route, Navigate } from 'react-router-dom';
 
 // MUI Components
 import { ResponsiveAppBar } from './components/responsiveNavBar/responsiveNavBar';

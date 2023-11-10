@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './medicinalUsesDDL.module.css';
 
+
 //components
-import MedicineDetails from '../../components/medicineDetails/medicineDetails';
+import PatientMedicineDetails from '../../components/patientMedicineDetails/patientMedicineDetails';
 import MedicineSearchBar from '../../components/medicineSearchBar/medicineSearchBar'
 
+import { useNavigate } from 'react-router-dom';
+
 const MedicineCatalog = () => {
+    const navigate = useNavigate();
+
     const [medicines, setMedicines] = useState([]);
 
     //search related
@@ -87,8 +92,49 @@ const MedicineCatalog = () => {
 
     };
 
+    //Add to cart method
+    const addToCart = async (medName) => {
+        try {
+            const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            //localStorage.setItem('cartItems', JSON.stringify(existingCartItems));
+            //console.log(localStorage.getItem('cartItems'))
+
+            const response = await axios.post('http://localhost:5000/patient/medicineCatalog', { cartItems: existingCartItems, medName });
+            if (response.data.success) {
+                alert('added successfully!')
+                localStorage.setItem('cartItems', JSON.stringify(response.data.cartItems));
+            } else {
+                //console.log(response.data.message);
+                alert("insufficient stock!")
+            }
+        } catch (error) {
+            console.error('Error adding item to cart:', error);
+            if (error.response && error.response.status === 400) {
+                alert("Bad Request: " + error.response.data.message);
+            }
+        }
+    };
+
+    //Redirect to View Cart
+    const redirectToViewCart = async () => {
+
+        try {
+            // Fetch cartItems from BE
+            const response = await axios.get('http://localhost:5000/patient/medicineCatalog/viewCart');
+            const cartItems = response.data.cartItems;
+            // Redirect to myCart
+            //window.location.href = `/myCart?cartItems=${JSON.stringify(cartItems)}`;
+            navigate('/patient/myCart', { state: { cartItems: cartItems } })
+        } catch (error) {
+            console.error('Error retrieving cartItems:', error);
+        }
+    };
+
+
+
     return (
         <>
+
             <h1 className={styles["list-title"]}>Medicines List</h1>
             <MedicineSearchBar onSearch={handleSearch} onClear={handleClearSearch} />
             <div className={styles["ddl-container"]}>
@@ -113,12 +159,13 @@ const MedicineCatalog = () => {
                             <th>Active Ingredients</th>
                             <th>Medicinal Uses</th>
                             <th>Availability</th>
+                            <th className={styles["cart-th"]}> <button className={styles["cart-button"]} onClick={redirectToViewCart}>View Cart  </button></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             medicinesToBeDisplay && medicinesToBeDisplay.map((medicine) => {
-                                return <MedicineDetails key={medicine._id} medicine={medicine} />
+                                return <PatientMedicineDetails key={medicine._id} medicine={medicine} addToCart={addToCart} />
                             })
                         }
                     </tbody>
