@@ -40,7 +40,7 @@ export const ResponsiveAppBar = () => {
   const accessToken = sessionStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (accessToken.split(' ')[1] != "") {
+    if (accessToken != null && accessToken != undefined && accessToken.split(' ')[1] != "") {
       setUserLoggedIn(true);
     }
     else {
