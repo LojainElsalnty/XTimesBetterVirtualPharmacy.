@@ -13,17 +13,13 @@ function MedicineEdit() {
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
-    if (type === 'file') {
-      const file = e.target.files[0];
-      setMedicineData({ ...medicineData, [name]: file });
+    if (name === 'activeIngredients' || name === 'medicinalUses') {
+      // Handle the case where the input is a comma-separated list
+      const values = value.split(',').map((v) => v.trim());
+      setMedicineData({ ...medicineData, [name]: values });
     } else {
-      if (name === 'activeIngredients' || name === 'medicinalUses') {
-        // Handle the case where the input is a comma-separated list
-        const values = value.split(',').map((v) => v.trim());
-        setMedicineData({ ...medicineData, [name]: values });
-      } else {
-        setMedicineData({ ...medicineData, [name]: value });
-      }
+      setMedicineData({ ...medicineData, [name]: value });
+
     }
   };
   console.log(medicineData)
@@ -49,6 +45,10 @@ function MedicineEdit() {
     if (medicineData.medicinalUses.length > 0) {
       requestBody.medicinalUses = medicineData.medicinalUses;
     }
+    if (medicineData.image.length > 0) {
+      requestBody.image = medicineData.image;
+    }
+
 
     fetch(`http://localhost:5000/medicineRoutes/updateMedicine`, {
       method: 'PATCH',
@@ -73,7 +73,7 @@ function MedicineEdit() {
           activeIngredients: [],
           availableQuantity: '',
           medicinalUses: [],
-          image: null,
+          image: '',
         });
       })
       .catch((error) => {
@@ -142,12 +142,13 @@ function MedicineEdit() {
           />
         </div>
         <div>
-          <label htmlFor="image">Medicine Image:</label>
+          <label htmlFor="name">Medicine Image:</label>
           <input
-            type="file"
+            type="text"
             id="image"
             name="image"
-          // onChange={handleChange}
+            value={medicineData.image}
+            onChange={handleChange}
 
           />
         </div>
