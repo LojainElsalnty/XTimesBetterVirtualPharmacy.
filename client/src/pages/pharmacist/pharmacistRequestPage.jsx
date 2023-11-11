@@ -13,8 +13,26 @@ const PharmacistRequest = () => {
     hourly_rate: '',
     affiliation: '',
     educational_background: '',
+    
   });
+  const [emailError, setEmailError] = useState('');
+  const [passError, setPassError] = useState('');
+  const [nationalID, setNationalID] = useState(null);
+  const [workingLicense, setWorkingLicense] = useState(null);
+  const [pharmacyDegree, setPharmacyDegree] = useState(null);
 
+  const handleFileInputChange = (e) => {
+    const { name, files } = e.target;
+    console.log("files[0]", files[0])
+    // Assuming you allow only one file per input
+    if (name === 'nationalID') {
+      setNationalID(files[0]);
+    } else if (name === 'workingLicense') {
+      setWorkingLicense(files[0]);
+    } else if (name === 'pharmacyDegree') {
+      setPharmacyDegree(files[0]);
+    }
+  };
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,16 +42,56 @@ const PharmacistRequest = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    const pattern = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
+    return pattern.test(email);
+  };
+
+  const validatePass = (pass) =>{
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;        ;
+    return pattern.test(pass);
+  }
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateEmail(formData.email)) {
+          setEmailError('Email must be in Gmail format (e.g., example@gmail.com)');
+        } else{
+          setEmailError(''); // Clear the error message if the email is valid
+        }
+
+        if (!validatePass(formData.password)) {
+          setPassError("password must have the following 1. at least one lowercase letter 2. at least one uppercase letter 3. at least one number 4. the minimum length is 8");
+        } else {
+          setPassError(''); // Clear the error message if the pass is valid
+        }
+        if (validateEmail(formData.email) && validatePass(formData.password )){
+        setEmailError(''); // Clear the error message if the email is valid
+        setPassError(''); // Clear the error message if the pass is valid
+        const formDataToSend = new FormData();
+        console.log('workingLicense:', workingLicense);
+        console.log('pharmacyDegree:', pharmacyDegree);
+        
+        // Append form data
+        for (const key in formData) {
+          formDataToSend.append(key, formData[key]);
+        }
+  
+        // Append uploaded files
+        formDataToSend.append('nationalID', nationalID);
+        formDataToSend.append('workingLicense', workingLicense);
+        formDataToSend.append('pharmacyDegree', pharmacyDegree);
+
+        console.log(...formDataToSend)
     try {
       const response = await fetch('http://localhost:5000/pharmacist/register/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        //headers: {
+        //  'Content-Type': 'application/json',
+        //},
+        //body: JSON.stringify(formData),
+        body: formDataToSend, // Use the FormData object
+
       });
       //console.log(response)
       if (response.ok) {
@@ -50,7 +108,12 @@ const PharmacistRequest = () => {
           hourly_rate: '',
           affiliation: '',
           educational_background: '',
-          speciality: '',
+          nationalID: '',
+          workingLicense: '',
+          pharmacyDegree: '',
+          status:'',
+
+          //speciality: '',
         });
       } else {
         // Registration failed, handle error scenario
@@ -61,6 +124,7 @@ const PharmacistRequest = () => {
       console.error('An error occurred:', error);
       alert('An error occurred:', error);
     }
+  }
   };
 
   return (
@@ -97,16 +161,26 @@ const PharmacistRequest = () => {
             onChange={handleInputChange}
             required
           />
+          {emailError && (
+          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
+            {emailError}
+          </div>
+          )}  
         </div>
         <div>
           <label>Password:</label>
           <input
-            type="text"
+            type="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
             required
           />
+          {passError && (
+          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
+            {passError}
+          </div>
+        )} 
         </div>
         <div>
           <label>Date Of Birth:</label>
@@ -149,7 +223,36 @@ const PharmacistRequest = () => {
             required
           />
         </div>
-
+        <div>
+          <label>National ID:</label>
+          <input 
+            type="file" 
+            name="nationalID"
+            accept=".pdf, .jpg, .jpeg, .png" 
+            onChange={handleFileInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Working License:</label>
+          <input 
+          type="file" 
+          name="workingLicense" 
+          accept=".pdf, .jpg, .jpeg, .png" 
+          onChange={handleFileInputChange}
+          required
+          />
+        </div>
+        <div>
+          <label>Pharmacy Degree:</label>
+          <input 
+            type="file" 
+            name="pharmacyDegree" 
+            accept=".pdf, .jpg, .jpeg, .png" 
+            onChange={handleFileInputChange} 
+            required
+          />
+        </div>
         {/* Submit button */}
         <button type="submit">Register</button>
       </form>
