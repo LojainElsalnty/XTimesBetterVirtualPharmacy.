@@ -35,6 +35,34 @@ const PharmacistRequestsSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    nationalID: {
+       //type: mongoose.Schema.Types.Mixed,
+       name: String,
+       path: String,
+       contentType: String,
+       //required: true
+       //type: String,
+       //required: true,
+
+    },
+    workingLicense: {
+        //type: mongoose.Schema.Types.Mixed,
+        name: String,
+        path: String,
+        contentType: String,
+        //required: true
+        //type: String,
+        //required: true,
+    },
+    pharmacyDegree: {
+        //type: mongoose.Schema.Types.Mixed,
+        name: String,
+        path: String,
+        contentType: String,
+        //required: true
+        //type: String,
+        //required: true,
+    },
     status: {
         type: String,
         enum: ['accepted', 'onhold', 'rejected'],

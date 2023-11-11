@@ -35,6 +35,34 @@ const PharmacistSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    nationalID: {
+        //type: mongoose.Schema.Types.Mixed,
+        name: String,
+        path: String,
+        contentType: String,
+        //required: true
+        //type: String,
+        //required: true,
+ 
+     },
+     workingLicense: {
+         //type: mongoose.Schema.Types.Mixed,
+         name: String,
+         path: String,
+         contentType: String,
+         //required: true
+         //type: String,
+         //required: true,
+     },
+     pharmacyDegree: {
+         //type: mongoose.Schema.Types.Mixed,
+         name: String,
+         path: String,
+         contentType: String,
+         //required: true
+         //type: String,
+         //required: true,
+     },
 }, { timestamps: true });
 
 
