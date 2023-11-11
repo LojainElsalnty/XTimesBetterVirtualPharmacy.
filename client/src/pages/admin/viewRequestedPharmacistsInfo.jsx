@@ -156,6 +156,9 @@ function ViewRequestedPharmacistsInfo() {
             <th>Hourly Rate</th>
             <th>Affiliation</th>
             <th>Educational Background</th>
+            <th>National ID</th>
+            <th>Working License</th>
+            <th>Pharmacy Degree</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -169,6 +172,10 @@ function ViewRequestedPharmacistsInfo() {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
+              <td><a href={`http://localhost:5000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a>x</td>
+              <td><a href={`http://localhost:5000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a>x</td>
+              <td><a href={`http://localhost:5000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a>x</td>
+
               <td>{pharmacist.status}</td>
               <td>
               {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>

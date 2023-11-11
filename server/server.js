@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const path = require('path');
 
 const adminRoutes = require('./routes/admin/adminRoute');
 const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute');
@@ -17,7 +18,6 @@ const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRo
 const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute');
 const myCartRoutes = require('./routes/patient/myCartRoute');
 
-const path = require('path');
 //const upload = require('./upload'); // Import the Multer configuration
 const router = express.Router();
 // const patientRoutes= require('./routes/patient/patientRoute');
@@ -116,5 +116,6 @@ app.use('/admin/addremove', adminRoutes);
 app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
 app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
 app.use('/admin/info', require('./routes/admin/adminInfoRoute.js')); // Get information about logged in admin using his/her username
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
