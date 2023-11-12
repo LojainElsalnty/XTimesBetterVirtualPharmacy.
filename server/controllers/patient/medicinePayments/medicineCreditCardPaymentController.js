@@ -7,6 +7,13 @@ const stripe = require('stripe')(process.env.STRIPE_PRIV_KEY);
 
 
 const payMedicine = asyncHandler(async (req, res) => {
+
+    req.body.cartItems.map(async item => {
+        const medToAdjust = await medicines.findOne({ name: item.medName });
+        if (item.quantity > medToAdjust.availableQuantity) {
+            return res.status(400).json({ success: false, message: 'Out of stock!' });
+        }
+    })
     try {
         //console.log(req.body)
         const session = await stripe.checkout.sessions.create({

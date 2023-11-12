@@ -11,7 +11,6 @@ export const Navbar = ({ className, name, list }) => {
     return (
         <div className={classNames(styles.root, className, styles.navbar)}>
             <div className={styles['navbar-logo']}>
-                <Link to="/">Hello, {name}</Link>
             </div>
             <ul className={styles['navbar-list']}>
                 {

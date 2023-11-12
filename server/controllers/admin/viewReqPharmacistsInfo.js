@@ -32,7 +32,10 @@ const acceptPharmacist = asyncHandler(async (req, res) => {
             dob: pharmacist.dob,
             hourly_rate: pharmacist.hourly_rate,
             affiliation: pharmacist.affiliation,
-            educational_background: pharmacist.educational_background
+            educational_background: pharmacist.educational_background,
+            nationalID:pharmacist.nationalID,
+            workingLicense:pharmacist.workingLicense,
+            pharmacyDegree:pharmacist.pharmacyDegree
         })
 
         if (!pharmacist) {
