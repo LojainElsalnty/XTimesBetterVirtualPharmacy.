@@ -24,7 +24,7 @@ import { PasswordCard } from '../../../components/changePasswordCard/changePassw
 import { useNavigate } from 'react-router-dom';
 
 // Hooks
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -32,10 +32,17 @@ import { useAuth } from '../../../components/hooks/useAuth';
 
 export const AdminProfile = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
     const [image, setImage] = useState('');
     // const {accessToken} = useAuth();
     const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    
+    useEffect(() => {
+       if (username.length != 0) {
+        setLoad(false);
+      }
+    }, [username]);
 
     async function checkAuthentication() {
       await axios ({
@@ -49,10 +56,17 @@ export const AdminProfile = () => {
       })
       .then((response) => {
           console.log(response);
+          setUsername(response.data.username);
       })
       .catch((error) => {
         navigate('/login');
       });
+    }
+
+    checkAuthentication();
+
+    if (load) {
+      return (<div>Loading</div>)
     }
 
     const getAdminInfo = async () => {
@@ -69,15 +83,12 @@ export const AdminProfile = () => {
   
           // Choosing image based on the gender of the patient
           setImage(manImage);
-  
-          setUsername(admin.username);
-        })
+          })
         .catch((error) => {
           console.log(error);
         })
       };
 
-    checkAuthentication();
     getAdminInfo();
 
     return (

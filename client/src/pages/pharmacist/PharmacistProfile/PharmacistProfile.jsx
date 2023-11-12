@@ -24,7 +24,7 @@ import { PasswordCard } from '../../../components/changePasswordCard/changePassw
 import { useNavigate } from 'react-router-dom';
 
 // Hooks
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -32,13 +32,20 @@ import { useAuth } from '../../../components/hooks/useAuth';
 
 export const PharmacistProfile = () => {
     const navigate = useNavigate();
-    const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [dob, setDOB] = useState('');
     const [image, setImage] = useState('');
     // const {accessToken} = useAuth();
     const accessToken = sessionStorage.getItem("accessToken");
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+
+    useEffect(() => {
+      if (username.length != 0) {
+       setLoad(false);
+     }
+   }, [username]);
 
     async function checkAuthentication() {
       await axios ({
@@ -52,10 +59,17 @@ export const PharmacistProfile = () => {
       })
       .then((response) => {
           console.log(response);
+          setUsername(response.data.username);
       })
       .catch((error) => {
         navigate('/login');
       });
+    }
+    
+    checkAuthentication();
+
+    if (load) {
+      return (<div>Loading</div>)
     }
 
     const getPharmacistInfo = async () => {
@@ -89,7 +103,6 @@ export const PharmacistProfile = () => {
             pharmacist.name = arr.join(" ");
           }
   
-          setUsername(pharmacist.username);
           setName(pharmacist.name);
           setEmail(pharmacist.email);
           setDOB(pharmacist.dob);
@@ -99,7 +112,6 @@ export const PharmacistProfile = () => {
         })
       };
 
-    checkAuthentication();
     getPharmacistInfo();
 
     return (
