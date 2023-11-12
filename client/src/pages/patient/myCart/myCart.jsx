@@ -16,16 +16,26 @@ import styles from './myCartPage.module.css'
 
 const MyCart = () => {
   const navigate = useNavigate();
-  const accessToken = sessionStorage.getItem('accessToken');
+  //const accessToken = sessionStorage.getItem('accessToken');
 
   const [cartItems, setCartItems] = useState([]);
 
   const location = useLocation();
 
+  //new part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
+    }
+  }, [username]);
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: `http://localhost:5000/authentication/checkAccessToken`,
+      url: 'http://localhost:5000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -34,13 +44,17 @@ const MyCart = () => {
     })
       .then((response) => {
         console.log(response);
+        setUsername(response.data.username);
+        //setLoad(false);
       })
       .catch((error) => {
+        //setLoad(false);
         navigate('/login');
+
       });
   }
 
-  checkAuthentication();
+  const xTest = checkAuthentication();
 
   useEffect(() => {
     if (location.state && location.state.cartItems) {
@@ -155,6 +169,9 @@ const MyCart = () => {
     }
   };
 
+  if (load) {
+    return (<div>Loading</div>)
+  }
 
 
   return (

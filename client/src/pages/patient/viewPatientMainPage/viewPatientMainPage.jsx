@@ -8,6 +8,7 @@ import styles from './viewPatientMainPage.module.css'
 
 // React Router Dom Components
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 // React Router Dom Components
 import { useNavigate } from 'react-router-dom';
@@ -27,32 +28,46 @@ import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
 import { Navbar } from '../../../components/navbar/navbar';
 
 // User Defined Hooks
-import { useAuth } from '../../../components/hooks/useAuth'; 
+import { useAuth } from '../../../components/hooks/useAuth';
 
 export const ViewPatientMainPage = () => {
     // const {accessToken} = useAuth();
-    const accessToken = sessionStorage.getItem('accessToken');
+    //const accessToken = sessionStorage.getItem('accessToken');
     const navigate = useNavigate();
 
+    //new part
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
     async function checkAuthentication() {
-        await axios ({
+        await axios({
             method: 'get',
-            url: `http://localhost:5000/authentication/checkAccessToken`,
+            url: 'http://localhost:5000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
                 'User-type': 'patient',
             },
         })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
-      }
+            .then((response) => {
+                console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
+            })
+            .catch((error) => {
+                //setLoad(false);
+                navigate('/login');
 
-    checkAuthentication();
+            });
+    }
+
+    const xTest = checkAuthentication();
 
     const list = [
         {
@@ -70,6 +85,10 @@ export const ViewPatientMainPage = () => {
     ];
 
     if (accessToken.split(' ')[1] === "") return (<Navigate to="/login" />);
+
+    if (load) {
+        return (<div>Loading</div>)
+    }
 
     return (
         <div className={styles['main-div']}>

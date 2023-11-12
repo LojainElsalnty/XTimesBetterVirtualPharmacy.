@@ -12,6 +12,40 @@ import { useNavigate } from 'react-router-dom';
 const MedicineCatalog = () => {
     const navigate = useNavigate();
 
+    //new part
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
+    async function checkAuthentication() {
+        await axios({
+            method: 'get',
+            url: 'http://localhost:5000/authentication/checkAccessToken',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken,
+                'User-type': 'patient',
+            },
+        })
+            .then((response) => {
+                console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
+            })
+            .catch((error) => {
+                //setLoad(false);
+                navigate('/login');
+
+            });
+    }
+
+    const xTest = checkAuthentication();
+
     const [medicines, setMedicines] = useState([]);
 
     //search related
@@ -129,6 +163,9 @@ const MedicineCatalog = () => {
         }
     };
 
+    if (load) {
+        return (<div>Loading</div>)
+    }
 
 
     return (

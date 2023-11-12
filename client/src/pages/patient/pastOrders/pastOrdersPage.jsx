@@ -8,12 +8,21 @@ const PastOrders = () => {
 
     const [pastOrdersList, setPastOrdersList] = useState([]);
     const navigate = useNavigate();
-    const accessToken = sessionStorage.getItem('accessToken')
 
+    //new part
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: `http://localhost:5000/authentication/checkAccessToken`,
+            url: 'http://localhost:5000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -22,13 +31,18 @@ const PastOrders = () => {
         })
             .then((response) => {
                 console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
             })
             .catch((error) => {
+                //setLoad(false);
                 navigate('/login');
+
             });
     }
 
-    checkAuthentication();
+    const xTest = checkAuthentication();
+    console.log("Xtest ", xTest);
 
 
     const fetchAllPastOrders = async () => {
@@ -70,12 +84,15 @@ const PastOrders = () => {
             console.error('Error adding item to cart:', error);
         }
     };
+
     useEffect(() => {
         fetchAllPastOrders();
     }, []);
 
 
-
+    if (load) {
+        return (<div>Loading</div>)
+    }
 
     return (
         <>

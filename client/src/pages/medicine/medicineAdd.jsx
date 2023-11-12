@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Axios
 import axios from 'axios';
@@ -13,49 +13,63 @@ function MedicineAdd() {
     activeIngredients: [],
     availableQuantity: '',
     medicinalUses: [],
-    image: null,
+    image: '',
   });
   const [isRecordAdded, setIsRecordAdded] = useState(false);
   const [error, setError] = useState(null); // Initialize error state
 
-  const accessToken = sessionStorage.getItem('accessToken');
+  //const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
 
+  //new part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
+    }
+  }, [username]);
   async function checkAuthentication() {
-    await axios ({
-        method: 'get',
-        url: `http://localhost:5000/authentication/checkAccessToken`,
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': accessToken,
-            'User-type': 'pharmacist',
-        },
+    await axios({
+      method: 'get',
+      url: 'http://localhost:5000/authentication/checkAccessToken',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'pharmacist',
+      },
     })
-    .then((response) => {
+      .then((response) => {
         console.log(response);
-    })
-    .catch((error) => {
-      navigate('/login');
-    });
+        setUsername(response.data.username);
+        //setLoad(false);
+      })
+      .catch((error) => {
+        //setLoad(false);
+        navigate('/login');
+
+      });
   }
 
-  checkAuthentication();
-   
+  const xTest = checkAuthentication();
 
- const handleChangeImage = (e) => {
+
+  const handleChangeImage = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-  
+
     reader.onload = (e) => {
       setMedicineData({ ...medicineData, image: e.target.result });
     };
-  
+
     if (file) {
       reader.readAsDataURL(file);
     }
   };
-  
-  
+
+
 
 
   const handleChange = (e) => {
@@ -85,10 +99,10 @@ function MedicineAdd() {
       activeIngredients: medicineData.activeIngredients,
       availableQuantity: medicineData.availableQuantity,
       medicinalUses: medicineData.medicinalUses,
-      image:medicineData.image,
+      image: medicineData.image,
     };
 
-    console.log("request body",requestBody)
+    console.log("request body", requestBody)
     //console.log(requestBody.file)
     console.log("hena")
     console.log(medicineData)
@@ -118,12 +132,12 @@ function MedicineAdd() {
           activeIngredients: [],
           availableQuantity: '',
           medicinalUses: [],
-          image: null,
+          image: '',
         });
       })
       .catch((error) => {
         console.log('Request Body:', JSON.stringify(requestBody));
-       // console.log("iam here fe");
+        // console.log("iam here fe");
         console.error('Error adding medicine:', error);
         //alert("Please revise data entered and try again!")
 
@@ -134,7 +148,9 @@ function MedicineAdd() {
   };
 
 
-
+  if (load) {
+    return (<div>Loading</div>)
+  }
 
   return (
     <div>
@@ -209,7 +225,7 @@ function MedicineAdd() {
                 />
         </div>
          */}
-           <div>
+        <div>
           <label htmlFor="image">Image URL:</label>
           <input
             type="text"
@@ -220,7 +236,7 @@ function MedicineAdd() {
             required
           />
         </div>
-   
+
         <button type="submit">Add Medicine</button>
       </form>
     </div>

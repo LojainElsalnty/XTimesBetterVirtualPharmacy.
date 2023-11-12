@@ -9,28 +9,42 @@ import { useNavigate } from 'react-router-dom';
 
 function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
-  const accessToken = sessionStorage.getItem('accessToken');
+  //const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
 
+  //new part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
+    }
+  }, [username]);
   async function checkAuthentication() {
-    await axios ({
-        method: 'get',
-        url: `http://localhost:5000/authentication/checkAccessToken`,
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': accessToken,
-            'User-type': 'admin',
-        },
+    await axios({
+      method: 'get',
+      url: 'http://localhost:5000/authentication/checkAccessToken',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'admin',
+      },
     })
-    .then((response) => {
+      .then((response) => {
         console.log(response);
-    })
-    .catch((error) => {
-      navigate('/login');
-    });
+        setUsername(response.data.username);
+        //setLoad(false);
+      })
+      .catch((error) => {
+        //setLoad(false);
+        navigate('/login');
+
+      });
   }
 
-  checkAuthentication();
+  const xTest = checkAuthentication();
 
   const fetchRequestedPharmacists = () => {
     const url = 'http://localhost:5000/admin/viewREQPharmacists';
@@ -106,7 +120,7 @@ function ViewRequestedPharmacistsInfo() {
         alert('Error rejecting pharmacist');
       });
   };
-  
+
 
   useEffect(() => {
     const url = `http://localhost:5000/admin/viewREQPharmacists`
@@ -143,6 +157,11 @@ function ViewRequestedPharmacistsInfo() {
         alert('This Requested pharmacist does not exist')
       });
   }, []);
+
+  if (load) {
+    return (<div>Loading</div>)
+  }
+
   return (
     <div>
       <h1>Requested Pharmacists List</h1>
@@ -172,13 +191,13 @@ function ViewRequestedPharmacistsInfo() {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a>x</td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a>x</td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a>x</td>
+              <td><a href={`http://localhost:5000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
+              <td><a href={`http://localhost:5000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
+              <td><a href={`http://localhost:5000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
 
               <td>{pharmacist.status}</td>
               <td>
-              {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
+                {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
                 Accept
                 </button>              
                 <br />
@@ -186,20 +205,20 @@ function ViewRequestedPharmacistsInfo() {
                 {pharmacist.status !== 'accepted' && (
                  <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button> */}
                 <button
-  onClick={() => acceptPharmacist(pharmacist._id)}
-  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
->
-  Accept
-</button>
-<br />
-<button
-  onClick={() => rejectPharmacist(pharmacist._id)}
-  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
->
-  Reject
-</button>
-      
-                 </td>              
+                  onClick={() => acceptPharmacist(pharmacist._id)}
+                  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+                >
+                  Accept
+                </button>
+                <br />
+                <button
+                  onClick={() => rejectPharmacist(pharmacist._id)}
+                  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+                >
+                  Reject
+                </button>
+
+              </td>
             </tr>
           ))}
         </tbody>
