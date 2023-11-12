@@ -48,7 +48,7 @@ const PharmacistRequest = () => {
   };
 
   const validatePass = (pass) =>{
-    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;        ;
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     return pattern.test(pass);
   }
   // Handle form submission
