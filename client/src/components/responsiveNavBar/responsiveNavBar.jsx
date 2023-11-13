@@ -261,7 +261,7 @@ export const ResponsiveAppBar = () => {
                   >
 
                     {/* Change Password */}
-                    <MenuItem key={'Change Password'} onClick={() => {
+                    {/* <MenuItem key={'Change Password'} onClick={() => {
                       handleCloseRegisterMenu();
                       navigate('/changePassword');
                     }}>
@@ -270,7 +270,7 @@ export const ResponsiveAppBar = () => {
                       >
                         {'Change Password'}
                       </Typography>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     {/* Log Out */}
                     <MenuItem key={'Log Out'} onClick={() => {
