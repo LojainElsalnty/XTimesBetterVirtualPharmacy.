@@ -8,12 +8,12 @@ const stripe = require('stripe')(process.env.STRIPE_PRIV_KEY);
 
 const payMedicine = asyncHandler(async (req, res) => {
 
-    req.body.cartItems.map(async item => {
-        const medToAdjust = await medicines.findOne({ name: item.medName });
-        if (item.quantity > medToAdjust.availableQuantity) {
-            return res.status(400).json({ success: false, message: 'Out of stock!' });
-        }
-    })
+    // req.body.cartItems.map(async item => {
+    //     const medToAdjust = await medicines.findOne({ name: item.medName });
+    //     if (item.quantity > medToAdjust.availableQuantity) {
+    //         return res.status(400).json({ success: false, message: medToAdjust.name +' Out of stock!' , outofstock: true});
+    //     }
+    // })
     try {
         //console.log(req.body)
         const session = await stripe.checkout.sessions.create({
@@ -35,14 +35,18 @@ const payMedicine = asyncHandler(async (req, res) => {
                 }
             }),
 
-            success_url: 'http://localhost:5173/patient/successPaymentCC',
+            success_url: 'http://localhost:5173/patient/successPayment',
             cancel_url: 'http://localhost:5173/patient/unsuccessPayment'  // will change it
         })
 
         // Adjust medicine availableQuantity & Sales
         let totalAmount = 0;
         for (const item of req.body.cartItems) {
+            
             const medToAdjust = await medicines.findOne({ name: item.medName });
+            if (item.quantity > medToAdjust.availableQuantity) {
+                return res.status(400).json({ success: false, message: medToAdjust.name +' is now Out of stock!' , outofstock: true});
+            }
 
             if (medToAdjust) {
                 const newAvailableQuantity = medToAdjust.availableQuantity - item.quantity;
@@ -64,7 +68,7 @@ const payMedicine = asyncHandler(async (req, res) => {
             status: 'Processing', orderPrice: totalAmount
         });
 
-        return res.status(201).json({ success: true, url: session.url, successURL: session.success_url });
+        return res.status(201).json({ success: true, url: session.url, successURL: session.success_url, orderInfo: recentMedOrder});
     } catch (error) {
         // Respond with an error message if there is an error
         return res.status(500).json({ success: false, error: 'An error occurred while creating the session.' });

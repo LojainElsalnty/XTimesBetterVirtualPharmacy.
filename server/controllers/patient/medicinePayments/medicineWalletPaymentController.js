@@ -14,14 +14,11 @@ const payMedicine = asyncHandler(async (req, res) => {
             const medToAdjust = await medicines.findOne({ name: item.medName });
 
 
-
-
             if (item.quantity > medToAdjust.availableQuantity) {
-                return res.status(400).json({ success: false, message: 'Out of stock!' });
+                return res.status(400).json({ success: false, message: medToAdjust.name +' is now Out of stock!' });
             }
 
             //console.log('item quantity updated', existingItem.medName, ' new quantuty: ', existingItem.quantity)
-
 
 
             if (medToAdjust) {

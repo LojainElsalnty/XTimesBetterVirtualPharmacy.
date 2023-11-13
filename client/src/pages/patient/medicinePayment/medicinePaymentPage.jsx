@@ -1,15 +1,51 @@
 import axios from 'axios';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
 function MedicinePayment() {
     const navigate = useNavigate();
-    const accessToken = sessionStorage.getItem("accessToken");
+    // const accessToken = sessionStorage.getItem("accessToken");
     const location = useLocation();
     // const receipt = location.state.receipt;
     const [selectedButton, setSelectedButton] = useState(null);
+
+    //new part
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
+    async function checkAuthentication() {
+        await axios({
+            method: 'get',
+            url: 'http://localhost:5000/authentication/checkAccessToken',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken,
+                'User-type': 'patient',
+            },
+        })
+            .then((response) => {
+                // console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
+            })
+            .catch((error) => {
+                //setLoad(false);
+                navigate('/login');
+
+            });
+    }
+
+    const xTest = checkAuthentication();
+
+
 
     // To add from mazen
     // const receivedInfo = {
@@ -20,33 +56,12 @@ function MedicinePayment() {
     //     }], deliveryAddress: " ",
     //     username: "john_doe123"
     // };
+
     const receivedInfo = {
         cartItems: location.state.cartItems,
         deliveryAddress: location.state.deliveryAddress,
         username: location.state.username,
     }
-
-    console.log("receivedInfo ", receivedInfo)
-
-    async function checkAuthentication() {
-        await axios ({
-            method: 'get',
-            url: `http://localhost:5000/authentication/checkAccessToken`,
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': accessToken,
-                'User-type': 'patient',
-            },
-        })
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((error) => {
-          navigate('/login');
-        });
-      }
-    
-      checkAuthentication();
 
 
     const handleButtonClick = (buttonId) => {
@@ -71,12 +86,23 @@ function MedicinePayment() {
 
 
             }).then(res => {
+                console.log("Response", res)
                 return res.json();
+
             }).then((data) => {
-                console.log(data.url);
-                console.log(data.successURL);
-                receiptCreditCard = data.orderInfo;
-                window.location = data.url;
+
+                console.log("Response data", data)
+                if (data.outofstock) {
+                    alert(data.message);
+                    // window.location= 'http://localhost:5173/patient/unsuccessPayment';
+                    navigate('/patient/unsuccessPayment');
+
+                }
+
+                else {
+                    sessionStorage.setItem('orderInfo', JSON.stringify(data.orderInfo))
+                    window.location = data.url;
+                }
 
             })
 
@@ -98,13 +124,15 @@ function MedicinePayment() {
                 }).then((data) => {
                     if (data.order) {
                         const receipt = data.order;
+                        sessionStorage.setItem('orderInfo', JSON.stringify(receipt));
                         // console.log(data.order);
-                        navigate('/patient/successPayment', { state: { receipt: receipt, } });
+                        navigate('/patient/successPayment');
                         //window.location = data.url;
                     }
                     else {
                         alert(data.message);
-                        window.location = 'http://localhost:5173/patient/unsuccessPayment';
+                        // window.location = 'http://localhost:5173/patient/unsuccessPayment';
+                        navigate('/patient/unsuccessPayment');
                     }
 
                 })
@@ -126,22 +154,20 @@ function MedicinePayment() {
                     },
                     body: JSON.stringify(receivedInfo)
 
-                    // body: JSON.stringify({
-                    //     cartItems: [{
-                    //         "medName": "med123",
-                    //         "quantity": 0,
-                    //         "price_per_item": 10
-                    //     }],
-                    //     deliveryAddress: " ",
-                    //     username: "john_doe123"
-                    // })
                 }).then(res => {
                     console.log(res);
                     return res.json();
                 }).then((data) => {
-                    const receipt = data.order;
-                    // console.log(data.order);
-                    navigate('/patient/successPayment', { state: { receipt: receipt, } });
+                    if (data.outofstock) {
+                        alert(data.message);
+                        navigate('/patient/unsuccessPayment');
+                    }
+                    else {
+                        const receipt = data.order;
+                        sessionStorage.setItem('orderInfo', JSON.stringify(receipt));
+                        // console.log(data.order);
+                        navigate('/patient/successPayment');
+                    }
 
                     //window.location = data.url;
 
@@ -154,6 +180,9 @@ function MedicinePayment() {
 
         }
 
+    }
+    if (load) {
+        return (<div>Loading</div>)
     }
     return (
         <div className="payment">

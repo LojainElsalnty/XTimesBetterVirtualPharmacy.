@@ -7,18 +7,29 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 function SuccessPayment() {
     const navigate = useNavigate();
     const location = useLocation();
-    const receipt = location.state.receipt;
-    const accessToken = sessionStorage.getItem('accessToken');
+    //const receipt = location.state.receipt;
+    const receipt= JSON.parse(sessionStorage.getItem('orderInfo'))
+    // const accessToken = sessionStorage.getItem('accessToken');
     console.log(receipt);
     const handleSubmit = () => {
         sessionStorage.removeItem('cartItems');
         window.location.href = 'http://localhost:5173/patient';
     }
 
+    //new part
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: `http://localhost:5000/authentication/checkAccessToken`,
+            url: 'http://localhost:5000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -26,14 +37,22 @@ function SuccessPayment() {
             },
         })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
             })
             .catch((error) => {
+                //setLoad(false);
                 navigate('/login');
+
             });
     }
 
-    checkAuthentication();
+    const xTest = checkAuthentication();
+
+    if (load) {
+        return (<div>Loading</div>)
+    }
 
     return (
         <div className="Success Payment">

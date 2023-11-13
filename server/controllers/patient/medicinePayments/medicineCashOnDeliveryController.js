@@ -8,6 +8,9 @@ const payMedicine = asyncHandler(async (req, res) => {
     for (const item of req.body.cartItems) {
 
         const medToAdjust = await medicines.findOne({ name: item.medName });
+        if (item.quantity > medToAdjust.availableQuantity) {
+            return res.status(400).json({ success: false, message: medToAdjust.name +' is now Out of stock!', outofstock: true });
+        }
 
         if (medToAdjust) {
             const newAvailableQuantity = medToAdjust.availableQuantity - item.quantity;

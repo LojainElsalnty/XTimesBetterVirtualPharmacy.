@@ -38,7 +38,10 @@ const PatientRegister = () => {
       //     [name]: value,
       //   });
       // };
+
       const [emailError, setEmailError] = useState('');
+      const [passError, setPassError] = useState('');
+
 
       const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -64,15 +67,28 @@ const PatientRegister = () => {
         const pattern = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
         return pattern.test(email);
       };
+      const validatePass = (pass) =>{
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return pattern.test(pass);
+      }
     // Handle form submission
     const handleSubmit = async (e) => {
          e.preventDefault();
          if (!validateEmail(formData.email)) {
           setEmailError('Email must be in Gmail format (e.g., example@gmail.com)');
-        } 
-        else {
-        setEmailError(''); // Clear the error message if the email is valid
-    
+        } else{
+          setEmailError(''); // Clear the error message if the email is valid
+        }
+
+        if (!validatePass(formData.password)) {
+          setPassError("password must have the following 1. at least one lowercase letter 2. at least one uppercase letter 3. at least one number 4. the minimum length is 8");
+        } else {
+          setPassError(''); // Clear the error message if the pass is valid
+        }
+        if (validateEmail(formData.email) && validatePass(formData.password )){
+          setEmailError(''); // Clear the error message if the email is valid
+          setPassError(''); // Clear the error message if the pass is valid
+  
         try {
              // Send the formData object to your backend API for registration
             const response = await fetch('http://localhost:5000/patient/register/', {
@@ -163,6 +179,11 @@ const PatientRegister = () => {
             onChange={handleInputChange}
             required
           />
+          {passError && (
+          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
+            {passError}
+          </div>
+        )}  
         </div>
         <div>
           <label>Date Of Birth:</label>

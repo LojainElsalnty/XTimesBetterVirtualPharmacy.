@@ -19,7 +19,6 @@ import { PatientProfile } from '../PatientProfile/PatientProfile';
 import PastOrders from '../../patient/pastOrders/pastOrdersPage.jsx';
 import MedicinePayment from '../medicinePayment/medicinePaymentPage';
 import SuccessPayment from '../medicinePayment/successPaymentPage';
-import SuccessPaymentCreditCard from '../medicinePayment/successPaymentCreditCard';
 import UnsuccessPayment from '../medicinePayment/unsuccessfulPaymentPage';
 import MyCart from '../myCart/myCart.jsx';
 import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
@@ -56,7 +55,7 @@ export const ViewPatientMainPage = () => {
             },
         })
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 setUsername(response.data.username);
                 //setLoad(false);
             })
@@ -101,7 +100,6 @@ export const ViewPatientMainPage = () => {
                     <Route path="/payment" element={<MedicinePayment />} />
                     <Route path="/successPayment" element={<SuccessPayment />} />
                     <Route path="/unsuccessPayment" element={<UnsuccessPayment />} />
-                    <Route path="/successPaymentCC" element={<SuccessPaymentCreditCard />} />
                     <Route path="/myCart" element={<MyCart />} />
                     <Route path="/checkoutAddress" element={<CheckoutAddress />} />
                     <Route path="/payment" element={<MedicinePayment />} />
