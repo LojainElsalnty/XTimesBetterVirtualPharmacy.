@@ -42,6 +42,9 @@ export const ViewPharmacistMainPage = () => {
              setLoad(false);
          }
      }, [username]);
+
+     if (accessToken === undefined || accessToken === null || accessToken === "Bearer  " || accessToken === "" || accessToken === " " || accessToken.split(' ')[1] === "") return (<Navigate to="/login" />);
+
      async function checkAuthentication() {
          await axios({
              method: 'get',
@@ -85,8 +88,6 @@ export const ViewPharmacistMainPage = () => {
             pageName: "Edit Medicine",
         },
     ];
-
-    if (accessToken.split(' ')[1] === "") return (<Navigate to="/login" />);
 
     if (load) {
         return (<div>Loading</div>)
