@@ -5,8 +5,10 @@ import styles from './medicinalUsesDDL.module.css';
 //components
 import PharmacistMedicineDetails from '../../components/pharmacistMedicineDetails/pharmacistMedicineDetails';
 import MedicineSearchBar from '../../components/medicineSearchBar/medicineSearchBar'
+import { useNavigate } from 'react-router-dom';
 
 const MedicineCatalog = () => {
+    const navigate = useNavigate();
     const [medicines, setMedicines] = useState([]);
 
     //search related
@@ -87,6 +89,16 @@ const MedicineCatalog = () => {
 
     };
 
+    //Redirect to View Cart
+    const redirectToEdit = async (medName) => {
+
+        try {
+            navigate('/pharmacist/editMedicine', { state: { medName: medName } })
+        } catch (error) {
+            console.error('Failed to edit: ', error);
+        }
+    };
+
     return (
         <>
             <h1 className={styles["list-title"]}>Medicines List</h1>
@@ -120,7 +132,7 @@ const MedicineCatalog = () => {
                     <tbody>
                         {
                             medicinesToBeDisplay && medicinesToBeDisplay.map((medicine) => {
-                                return <PharmacistMedicineDetails key={medicine._id} medicine={medicine} />
+                                return <PharmacistMedicineDetails key={medicine._id} medicine={medicine} redirectToEdit={redirectToEdit} />
                             })
                         }
                     </tbody>

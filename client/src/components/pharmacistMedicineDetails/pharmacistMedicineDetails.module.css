@@ -38,3 +38,11 @@ li,
 ul {
     text-align: justify;
 }
+
+.green-button {
+    background-color: #0054ae;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}

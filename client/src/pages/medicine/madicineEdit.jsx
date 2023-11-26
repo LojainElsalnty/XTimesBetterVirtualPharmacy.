@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
+import styles from './medicineEdit.module.css';
 
 function MedicineEdit() {
   const [medicineData, setMedicineData] = useState({
@@ -14,6 +17,17 @@ function MedicineEdit() {
   const accessToken = sessionStorage.getItem('accessToken');
   const [load, setLoad] = useState(true);
   const [username, setUsername] = useState('');
+
+  //new!! ~S3
+  const [medicineName, setMedicineName] = useState('');
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state && location.state.medName) {
+      setMedicineName(location.state.medName);
+    }
+  }, [location.state]);
+
+  medicineData.name = medicineName;
   console.log(accessToken);
   useEffect(() => {
     if (username.length != 0) {
@@ -69,7 +83,7 @@ function MedicineEdit() {
       requestBody.price = medicineData.price;
     }
 
-    if (medicineData.activeIngredients.length > 0) {
+    if (medicineData.activeIngredients && medicineData.activeIngredients.length > 0) {
       requestBody.activeIngredients = medicineData.activeIngredients;
     }
 
@@ -77,10 +91,10 @@ function MedicineEdit() {
       requestBody.availableQuantity = medicineData.availableQuantity;
     }
 
-    if (medicineData.medicinalUses.length > 0) {
+    if (medicineData.medicinalUses && medicineData.medicinalUses.length > 0) {
       requestBody.medicinalUses = medicineData.medicinalUses;
     }
-    if (medicineData.image.length > 0) {
+    if (medicineData.image && medicineData.image.length > 0) {
       requestBody.image = medicineData.image;
     }
 
@@ -125,23 +139,22 @@ function MedicineEdit() {
 
 
   return (
-    <div>
-      <h2>Edit Medicine</h2>
+    <div className={styles["containerEditMed"]}>
+      <h2 className={styles["headerEditMed"]}>Edit Medicine</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Medicine Name:</label>
-          <input
+          <label className={styles["labelEditMed"]} htmlFor="name">Medicine Name:</label>
+          <input className={styles["inputEditMed"]}
             type="text"
             id="name"
             name="name"
             value={medicineData.name}
-            onChange={handleChange}
-            required
+            readOnly
           />
         </div>
         <div>
-          <label htmlFor="price">Price:</label>
-          <input
+          <label className={styles["labelEditMed"]} htmlFor="price">Price:</label>
+          <input className={styles["inputEditMed"]}
             type="number"
             id="price"
             name="price"
@@ -150,8 +163,8 @@ function MedicineEdit() {
           />
         </div>
         <div>
-          <label htmlFor="activeIngredients">Active Ingredients (comma-separated):</label>
-          <input
+          <label className={styles["labelEditMed"]} htmlFor="activeIngredients">Active Ingredients (comma-separated):</label>
+          <input className={styles["inputEditMed"]}
             type="text"
             id="activeIngredients"
             name="activeIngredients"
@@ -160,8 +173,8 @@ function MedicineEdit() {
           />
         </div>
         <div>
-          <label htmlFor="availableQuantity">Available Quantity:</label>
-          <input
+          <label className={styles["labelEditMed"]} htmlFor="availableQuantity">Available Quantity:</label>
+          <input className={styles["inputEditMed"]}
             type="number"
             id="availableQuantity"
             name="availableQuantity"
@@ -170,8 +183,8 @@ function MedicineEdit() {
           />
         </div>
         <div>
-          <label htmlFor="medicinalUses">Medicinal Uses (comma-separated):</label>
-          <input
+          <label className={styles["labelEditMed"]} htmlFor="medicinalUses">Medicinal Uses (comma-separated):</label>
+          <input className={styles["inputEditMed"]}
             type="text"
             id="medicinalUses"
             name="medicinalUses"
@@ -180,8 +193,8 @@ function MedicineEdit() {
           />
         </div>
         <div>
-          <label htmlFor="name">Medicine Image:</label>
-          <input
+          <label className={styles["labelEditMed"]} htmlFor="name">Medicine Image:</label>
+          <input className={styles["inputEditMed"]}
             type="text"
             id="image"
             name="image"
@@ -190,7 +203,7 @@ function MedicineEdit() {
 
           />
         </div>
-        <button type="submit">Edit Medicine</button>
+        <button className={styles["buttonEditMed"]} type="submit">Edit Medicine</button>
       </form>
     </div>
   );

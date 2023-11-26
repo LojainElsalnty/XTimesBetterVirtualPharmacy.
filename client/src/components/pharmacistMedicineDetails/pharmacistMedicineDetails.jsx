@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './pharmacistMedicineDetails.module.css'
 import medImage from '../../assests/images/medicineImage.jpg';
 
-const PharmacistMedicineDetails = ({ medicine }) => {
+const PharmacistMedicineDetails = ({ medicine, redirectToEdit }) => {
     // Convert the Buffer data into a data URL
     // const imageDataUrl = `data:${medicine.image.contentType};base64,${medicine.image.data.toString('base64')}`;
 
@@ -26,6 +26,7 @@ const PharmacistMedicineDetails = ({ medicine }) => {
             {/* <td>{!medicine.sales ? '0' : medicine.sales}</td> */}
             <td>{!medicine.availableQuantity ? '0' : medicine.availableQuantity}</td>
             <td>{!medicine.availableQuantity ? 'Out of Stock' : 'Available'}</td>
+            <td><button className={styles["green-button"]} onClick={() => redirectToEdit(medicine.name)}>Edit</button></td>
         </tr>
     )
 }
