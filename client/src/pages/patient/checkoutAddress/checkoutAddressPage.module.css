@@ -58,6 +58,22 @@ td {
     text-align: center;
 }
 
+.ddl-newAddContainer {
+    max-width: 400px;
+    text-align: center;
+    top: 0;
+
+}
+
+.ddl-newAddselect {
+    margin-left: 600px;
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
 .address-container {
     margin-top: 30px;
     justify-content: space-between;
@@ -71,6 +87,7 @@ td {
     border-radius: 4px;
     font-size: 16px;
     color: #333;
+    text-align: center;
 
 }
 

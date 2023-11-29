@@ -106,19 +106,28 @@ const CheckoutAddress = () => {
 
     };
 
+    const [streetApartment, setStreetApartment] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
+
     //handle saving into db after save is clicked
     const handleSaveNewAddress = async () => {
-        if (deliveryAddress === "" || deliveryAddress === " ") {
-            return alert('Please enter a valid address!')
+        if (streetApartment === "" || selectedCity === "") {
+            return alert('Please enter a valid address!');
         }
 
-        setIsAddingNewAddress(false); //since done addition of new address 
-        if (existingAddresses.includes(deliveryAddress)) {
-            return alert('This address already exists! Please select it directly from the list')
+        const fullAddress = `${streetApartment}, ${selectedCity}`;
+
+        setIsAddingNewAddress(false);
+
+        // Check if the full address already exists
+        if (existingAddresses.includes(fullAddress)) {
+            return alert('This address already exists! Please select it directly from the list');
         }
+
         try {
-            const response = await axios.post('http://localhost:5000/patient/checkoutAddress/addNew',
-                { address: deliveryAddress },
+            const response = await axios.post(
+                'http://localhost:5000/patient/checkoutAddress/addNew',
+                { address: fullAddress },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -127,15 +136,16 @@ const CheckoutAddress = () => {
                 }
             );
 
-            //alert('Address added successfully!')
-            const updatedAddressesResponse = await axios.get('http://localhost:5000/patient/checkoutAddress/allExisting', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': accessToken,
-                },
-            });
+            const updatedAddressesResponse = await axios.get(
+                'http://localhost:5000/patient/checkoutAddress/allExisting',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': accessToken,
+                    },
+                }
+            );
 
-            // Update the state with the new list of addresses
             if (updatedAddressesResponse && updatedAddressesResponse.data) {
                 setExistingAddresses(updatedAddressesResponse.data);
             }
@@ -143,7 +153,7 @@ const CheckoutAddress = () => {
             console.error('Failed to add a new address:', error);
             throw error;
         }
-    }
+    };
 
     //handle cancel in case user changes his mind about wanting to add new address
     const handleCancelNewAddress = () => {
@@ -215,14 +225,46 @@ const CheckoutAddress = () => {
             <div>
                 {isAddingNewAddress ? (
                     <div>
-                        <input className={styles["newAddress-input"]}
+                        <input
+                            className={styles["newAddress-input"]}
                             type="text"
-                            placeholder="Enter new address"
-                            value={deliveryAddress}
-                            onChange={handleNewAddressChange}
+                            placeholder="Enter your street address"
+                            value={streetApartment}
+                            onChange={(e) => setStreetApartment(e.target.value)}
                         />
-                        <button className={styles["saveAddress-button"]} onClick={handleSaveNewAddress}>Save Address</button>
-                        <button className={styles["cancel-button"]} onClick={handleCancelNewAddress}>Cancel</button>
+                        <div className={styles["ddl-newAddContainer"]}>
+                            <select
+                                className={styles["ddl-newAddselect"]}
+                                value={selectedCity}
+                                onChange={(e) => setSelectedCity(e.target.value)}
+                            >
+                                <option value="">Select City</option>
+                                <option value="Cairo">Cairo</option>
+                                <option value="Giza">Giza</option>
+                                <option value="Alexandria">Alexandria</option>
+                                <option value="Port Said">Port Said</option>
+                                <option value="Suez">Suez</option>
+                                <option value="Luxor">Luxor</option>
+                                <option value="Asyut">Asyut</option>
+                                <option value="Tanta">Tanta</option>
+                                <option value="Ismailia">Ismailia</option>
+                                <option value="Faiyum">Faiyum</option>
+                                <option value="Zagazig">Zagazig</option>
+                                <option value="Aswan">Aswan</option>
+                                <option value="Damietta">Damietta</option>
+                                <option value="Mansoura">Mansoura</option>
+                                <option value="Beni Suef">Beni Suef</option>
+                                <option value="Sohag">Sohag</option>
+                                <option value="Hurghada">Hurghada</option>
+                                <option value="6th of October City">6th of October City</option>
+                            </select>
+                        </div>
+                        <button className={styles["saveAddress-button"]} onClick={handleSaveNewAddress}>
+                            Save Address
+                        </button>
+                        <button className={styles["cancel-button"]} onClick={handleCancelNewAddress}>
+                            Cancel
+                        </button>
                     </div>
                 ) : (
                     <button className={styles["addAddress-button"]} onClick={handleAddNewAddress}>Add New Address</button>

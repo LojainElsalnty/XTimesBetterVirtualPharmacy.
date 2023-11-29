@@ -6,7 +6,43 @@ import styles from './medicinalUsesDDL.module.css';
 import MedicineDetails from '../../components/medicineDetails/medicineDetails';
 import MedicineSearchBar from '../../components/medicineSearchBar/medicineSearchBar'
 
+import { useNavigate } from 'react-router-dom';
 const MedicineCatalog = () => {
+    //new part
+    const navigate = useNavigate();
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
+    async function checkAuthentication() {
+        await axios({
+            method: 'get',
+            url: 'http://localhost:5000/authentication/checkAccessToken',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken,
+                'User-type': 'admin',
+            },
+        })
+            .then((response) => {
+                console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
+            })
+            .catch((error) => {
+                //setLoad(false);
+                navigate('/login');
+
+            });
+    }
+
+    const xTest = checkAuthentication();
+
     const [medicines, setMedicines] = useState([]);
 
     //search related
@@ -87,6 +123,10 @@ const MedicineCatalog = () => {
         }
 
     };
+
+    if (load) {
+        return (<div>Loading</div>)
+    }
 
     return (
         <>

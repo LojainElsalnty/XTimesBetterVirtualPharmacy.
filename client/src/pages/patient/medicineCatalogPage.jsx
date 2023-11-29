@@ -65,24 +65,24 @@ const MedicineCatalog = () => {
                         'Content-Type': 'application/json',
                     },
                 });
-                // console.log('Response:', response);
-                //console.log('Response Data:', response.data);
-                if (response && response.data) {
-                    setMedicines(response.data);
-                    setMedicinesToBeDisplay(response.data) //so that initially all medicines are displayed
 
-                    //get unique medicinal uses to populate the filter ddl
+                if (response && response.data) {
+                    // Filter medicines based on isOTC property
+                    const otcMedicines = response.data.filter(medicine => medicine.isOTC === true);
+
+                    setMedicines(otcMedicines);
+                    setMedicinesToBeDisplay(otcMedicines);
+
+                    // get unique medicinal uses to populate the filter ddl
                     const uniqueMedicinalUses = [];
-                    for (const med of response.data) {
+                    for (const med of otcMedicines) {
                         for (const use of med.medicinalUses) {
                             if (!uniqueMedicinalUses.includes(use.toLowerCase())) {
-                                uniqueMedicinalUses.push(use.toLowerCase())
+                                uniqueMedicinalUses.push(use.toLowerCase());
                             }
-
                         }
                     }
                     setMedicinalUses(uniqueMedicinalUses);
-
                 }
             } catch (error) {
                 throw new Error('Invalid response data');
@@ -90,8 +90,8 @@ const MedicineCatalog = () => {
         };
 
         fetchAllMedicines();
-
     }, []);
+
 
     //search function
     const handleSearch = (name) => {

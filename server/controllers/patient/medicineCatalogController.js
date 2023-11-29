@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 
 //get all medicines (including picture of medicine, name, price, description [medicinalUses & activeIngredients]) 
 const getMedicines = async (req, res) => {
-    const medicines = await Medicine.find({}).sort({ createdAt: -1 }).select('name price medicinalUses activeIngredients image availableQuantity sales');
+    const medicines = await Medicine.find({}).sort({ createdAt: -1 }).select('name price medicinalUses activeIngredients image availableQuantity sales isOTC');
     res.status(200).json(medicines)
 }
 //get medicine based on given name -> search
