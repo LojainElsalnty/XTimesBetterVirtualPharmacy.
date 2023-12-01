@@ -4,7 +4,8 @@ const {
     searchMedicineByName,
     filterMedicineByUse,
     addToCart,
-    viewCart
+    viewCart,
+    getAlternatives
 } = require('../../controllers/patient/medicineCatalogController');
 
 
@@ -25,5 +26,8 @@ router.post('/', addToCart)
 
 //GET to view cart details
 router.get('/viewCart', viewCart)
+
+//GET to get Alternatives
+router.get('/alternatives/:actIng', getAlternatives)
 
 module.exports = router

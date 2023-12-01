@@ -30,6 +30,10 @@ const MedicineSchema = mongoose.Schema({
   image: {
     type:String, // Original filename of the image
   },
+  archived: {
+    type:Boolean, // if archived or not
+    default: false,
+  },
 
 }, { timestamps: true });
 

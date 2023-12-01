@@ -16,7 +16,7 @@ const MedicineCatalog = () => {
     const accessToken = sessionStorage.getItem('accessToken');
     const [load, setLoad] = useState(true);
     const [username, setUsername] = useState('');
-    console.log(accessToken);
+    //console.log(accessToken);
     useEffect(() => {
         if (username.length != 0) {
             setLoad(false);
@@ -33,7 +33,7 @@ const MedicineCatalog = () => {
             },
         })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 setUsername(response.data.username);
                 //setLoad(false);
             })
@@ -148,9 +148,30 @@ const MedicineCatalog = () => {
         }
     };
 
+    //GetAlternatives Method
+    const getAlternatives = async (actveIng) => {
+        try {
+            //const existingCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+            const response = await axios.get(`http://localhost:5000/patient/medicineCatalog/alternatives/${actveIng}`);
+            if (response.data.success) {
+                //alert('alternatives success!')
+                //console.log(response.data.medicineNames)
+                return response.data.medicineNames;
+
+            } else {
+                console.log(response.data.message);
+                //alert("insufficient stock!")
+            }
+        } catch (error) {
+            //console.error('Error adding item to cart:', error);
+            if (error.response && error.response.status === 400) {
+                alert("Bad Request: " + error.response.data.message);
+            }
+        }
+    };
+
     //Redirect to View Cart
     const redirectToViewCart = async () => {
-
         try {
             // Fetch cartItems from BE
             const response = await axios.get('http://localhost:5000/patient/medicineCatalog/viewCart');
@@ -201,7 +222,7 @@ const MedicineCatalog = () => {
                     <tbody>
                         {
                             medicinesToBeDisplay && medicinesToBeDisplay.map((medicine) => {
-                                return <PatientMedicineDetails key={medicine._id} medicine={medicine} addToCart={addToCart} />
+                                return <PatientMedicineDetails key={medicine._id} medicine={medicine} addToCart={addToCart} getAlternatives={getAlternatives} />
                             })
                         }
                     </tbody>
