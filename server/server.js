@@ -13,6 +13,7 @@ const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRo
 const pharmacistMedicineCatalogRoutes = require('./routes/pharmacist/medicineCatalogRoute');
 const pharmaRoutes = require('./routes/admin/pharmaRoute');
 const patientRoutes = require('./routes/admin/patientRoute');
+const totalRoutes=require('./routes/pharmacist/medicineSalesRoute');
 const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRoute');
 const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute');
@@ -108,6 +109,7 @@ app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePaym
 app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
 app.use('/pharmaRoutes', pharmaRoutes);
 app.use('/medicineRoutes', medicineRoutes);
+app.use('/totalRoutes', totalRoutes);
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
 app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
 
