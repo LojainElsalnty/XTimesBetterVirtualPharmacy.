@@ -54,7 +54,7 @@ const filterMedicineByUse = async (req, res) => {
 //archiveMedicine
 const archiveMedicine = async (req, res) => {
     const name = req.params.name
-    console.log('Medicine Name Backend:', name);
+    //console.log('Medicine Name Backend:', name);
 
     const med = await Medicine.findOneAndUpdate({name: name}, {archived: true}); // update the medicine's archive status
     if (!med) {
@@ -66,7 +66,7 @@ const archiveMedicine = async (req, res) => {
 //UnarchiveMedicine
 const UnarchiveMedicine = async (req, res) => {
     const name = req.params.name
-    console.log('Medicine Name Backend:', name);
+    //console.log('Medicine Name Backend:', name);
 
     const med = await Medicine.findOneAndUpdate({name: name}, {archived: false}); // update the medicine's archive status
     if (!med) {

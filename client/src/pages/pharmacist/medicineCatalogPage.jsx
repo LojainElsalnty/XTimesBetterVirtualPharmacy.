@@ -104,6 +104,8 @@ const MedicineCatalog = () => {
                   }));
 
                 alert('archived successfully!')
+                window.location.reload()
+
             } else {
                 console.log(response.data.message);
             }
@@ -130,6 +132,7 @@ const MedicineCatalog = () => {
                     return med;
                   }));
                 alert('Unarchived successfully!')
+                window.location.reload()
             } else {
                 console.log(response.data.message);
             }
