@@ -20,6 +20,7 @@ import AddMedicine from '../../medicine/medicineAdd';
 import EditMedicine from '../../medicine/madicineEdit';
 import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
+import { ChatPage } from '../ChatPage/chatPage';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -87,6 +88,10 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/editMedicine",
             pageName: "Edit Medicine",
         },
+        {
+            url: "/pharmacist/chat",
+            pageName: "Chat"
+        }
     ];
 
     if (load) {
@@ -104,6 +109,7 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />
+                    <Route path="/chat" element={<ChatPage />} />
                 </Routes>
             </>
         </div>

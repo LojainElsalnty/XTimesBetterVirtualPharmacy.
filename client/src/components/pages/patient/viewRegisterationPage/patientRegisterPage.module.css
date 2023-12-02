@@ -1,0 +1,48 @@
+.doctorRequest {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 400px;
+}
+
+.doctorRequest h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.doctorRequest form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.doctorRequest label {
+  margin: 10px 0;
+}
+
+.doctorRequest input {
+  width: 100%;
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.doctorRequest button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.doctorRequest button:hover {
+  background-color: #0058a0;
+}

@@ -1,0 +1,39 @@
+.result-container {
+    margin-top: 180px;
+}
+
+/* .ddl-container {
+    text-align: center;
+    margin-top: 150px;
+    margin-left: 90px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    align-items: center;
+} */
+/* 
+.ddl-select {
+    margin-left: 6px;
+    height: 40px;
+    width: 240px;
+    padding: 10px;
+    border: 1px solid #ccc;
+} */
+
+/* .ddl-select option {
+    text-align: center;
+}
+
+.ddl-label {
+    margin-left: 350px;
+    font-weight: bold;
+} */
+
+.list-title {
+    text-align: center;
+    margin-top: 100px;
+    margin-right: 470px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}

@@ -1,0 +1,39 @@
+.h1 {
+    text-align: center;
+
+}
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 800px; 
+  }
+
+  .button {
+    width: 300px; 
+    background-color: #053564;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .button-2 {
+    width: 300px; /* Adjust as needed */
+    background-color: #053564;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+
+
+  .button:hover {
+    background-color: #0A63B7; 
+  }
+
+  .button-2:hover {
+    background-color: #0A63B7; 
+  }
