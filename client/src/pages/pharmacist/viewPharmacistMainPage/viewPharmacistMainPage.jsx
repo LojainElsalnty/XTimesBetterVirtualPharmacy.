@@ -22,6 +22,7 @@ import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
 import FilterSales from '../filterSalesPage';
 import ViewSales from '../viewSalesPage';
+import ViewPharmacistWalletPage from '../viewPharmacistWalletPage';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -97,6 +98,10 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/filterSales",
             pageName: "filter sales",
         },
+        {
+            url: "/pharmacist/viewWalletNumber",
+            pageName: "Wallet",
+        },
     ];
 
     if (load) {
@@ -116,6 +121,7 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/editMedicine" element={<EditMedicine />} />
                     <Route path="/viewSales" element={<ViewSales />} />
                     <Route path="/filterSales" element={<FilterSales />} />
+                    <Route path="/viewWalletNumber" element={<ViewPharmacistWalletPage />} />
                 </Routes>
             </>
         </div>

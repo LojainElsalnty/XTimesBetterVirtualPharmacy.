@@ -105,6 +105,7 @@ app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Ge
 app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
 app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
 app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePayments/medicineCashOnDeliveryPayment'));
+app.use('/patient/viewWalletNumber', require('./routes/patient/viewWallet'));
 
 
 // Pharmacist
@@ -114,7 +115,8 @@ app.use('/medicineRoutes', medicineRoutes);
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
 app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js'));
 app.use('/pharmacist/filterSales', filterSalesRoute);
-app.use('/pharmacist/viewSales',viewSalesRoute) // Get information about logged in pharmacist using his/her username
+app.use('/pharmacist/viewSales',viewSalesRoute)
+app.use('/pharmacist/viewWalletNumber', require('./routes/pharmacist/viewPharmacistWallet')); // Get information about logged in pharmacist using his/her username
 
 // Admin 
 app.use('/admin/addremove', adminRoutes);

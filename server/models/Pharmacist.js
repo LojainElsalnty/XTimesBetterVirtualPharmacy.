@@ -63,6 +63,10 @@ const PharmacistSchema = mongoose.Schema({
          //type: String,
          //required: true,
      },
+     walletAmount: {
+        type: Number,
+        default: 0
+    },
 }, { timestamps: true });
 
 
