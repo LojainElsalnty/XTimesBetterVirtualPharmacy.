@@ -63,6 +63,21 @@ const PharmacistSchema = mongoose.Schema({
          //type: String,
          //required: true,
      },
+     notifications: {
+        type: [
+            {
+                message: {
+                    type: String,
+                    required: true,
+                },
+                timestamp: {
+                    type: Date,
+                    default: Date.now,
+                },
+            },
+        ],
+        default: [],
+    },
 }, { timestamps: true });
 
 

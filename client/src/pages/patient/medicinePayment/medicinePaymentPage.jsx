@@ -46,17 +46,6 @@ function MedicinePayment() {
     const xTest = checkAuthentication();
 
 
-
-    // To add from mazen
-    // const receivedInfo = {
-    //     cartItems:[{
-    //         medName: "Medicine1",
-    //         quantity: 2,
-    //         price_per_item : 2000000
-    //     }], deliveryAddress: " ",
-    //     username: "john_doe123"
-    // };
-
     const receivedInfo = {
         cartItems: location.state.cartItems,
         deliveryAddress: location.state.deliveryAddress,
@@ -91,7 +80,7 @@ function MedicinePayment() {
 
             }).then((data) => {
 
-                console.log("Response data", data)
+                //console.log("Response data", data)
                 if (data.outofstock) {
                     alert(data.message);
                     // window.location= 'http://localhost:5173/patient/unsuccessPayment';

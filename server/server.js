@@ -110,6 +110,7 @@ app.use('/pharmaRoutes', pharmaRoutes);
 app.use('/medicineRoutes', medicineRoutes);
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
 app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
+app.use('/pharmacist/notifications', require('./routes/pharmacist/pharmacistNotificationsRoute.js'));
 
 // Admin 
 app.use('/admin/addremove', adminRoutes);

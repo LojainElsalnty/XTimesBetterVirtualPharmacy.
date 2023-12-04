@@ -20,6 +20,7 @@ import AddMedicine from '../../medicine/medicineAdd';
 import EditMedicine from '../../medicine/madicineEdit';
 import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
+import Notifications from '../viewNotificationsPage';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -84,6 +85,10 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/editMedicine",
             pageName: "Edit Medicine",
         },
+        {
+            url: "/pharmacist/notifications",
+            pageName: "notifications",
+        },
     ];
 
     if (accessToken.split(' ')[1] === "") return (<Navigate to="/login" />);
@@ -103,6 +108,7 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />
+                    <Route path="/notifications" element={<Notifications />} />
                 </Routes>
             </>
         </div>
