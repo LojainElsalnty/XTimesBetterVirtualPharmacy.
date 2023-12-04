@@ -20,6 +20,8 @@ import AddMedicine from '../../medicine/medicineAdd';
 import EditMedicine from '../../medicine/madicineEdit';
 import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
+import FilterSales from '../filterSalesPage';
+import ViewSales from '../viewSalesPage';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -87,6 +89,14 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/editMedicine",
             pageName: "Edit Medicine",
         },
+        {
+            url: "/pharmacist/viewSales",
+            pageName: "view sales",
+        },
+        {
+            url: "/pharmacist/filterSales",
+            pageName: "filter sales",
+        },
     ];
 
     if (load) {
@@ -104,6 +114,8 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />
+                    <Route path="/viewSales" element={<ViewSales />} />
+                    <Route path="/filterSales" element={<FilterSales />} />
                 </Routes>
             </>
         </div>
