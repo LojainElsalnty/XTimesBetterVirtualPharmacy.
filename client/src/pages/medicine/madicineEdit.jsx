@@ -11,6 +11,7 @@ function MedicineEdit() {
     activeIngredients: [],
     availableQuantity: '',
     medicinalUses: [],
+    
     image: null,
   });
   //new part

@@ -22,6 +22,7 @@ import SuccessPayment from '../medicinePayment/successPaymentPage';
 import UnsuccessPayment from '../medicinePayment/unsuccessfulPaymentPage';
 import MyCart from '../myCart/myCart.jsx';
 import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
+import MyPCart from '../myPCart.jsx';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -104,6 +105,9 @@ export const ViewPatientMainPage = () => {
                     <Route path="/myCart" element={<MyCart />} />
                     <Route path="/checkoutAddress" element={<CheckoutAddress />} />
                     <Route path="/payment" element={<MedicinePayment />} />
+                    <Route path="/myPCart" element={<MyPCart />} />
+                   
+                  
                 </Routes>
             </>
         </div >

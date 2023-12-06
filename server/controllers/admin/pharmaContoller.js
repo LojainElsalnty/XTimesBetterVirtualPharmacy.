@@ -70,10 +70,16 @@ const addPharmacist = async (req, res) => {
 };
 //view all pharma 
 const viewAllPharmaInfo = async (req, res) => {
-  const pharmacist = await Pharmacist.find({})
-  res.status(200).json({ pharmacist })
-
+   try {
+        const pharmacists = await Pharmacist.find();
+        res.json(pharmacists);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 }
+
+
 
 
 module.exports = { viewPharmaInfo, addPharmacist, viewAllPharmaInfo }

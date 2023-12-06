@@ -8,6 +8,8 @@ import MedicinePayment from './pages/patient/medicinePayment/medicinePaymentPage
 import PastOrders from './pages/patient/pastOrders/pastOrdersPage.jsx';
 //yasS2
 import MyCart from './pages/patient/myCart/myCart.jsx';
+//yassS3
+//import MyPCart from './pages/patient/myPCart.jsx';
 
 // Styles
 import './App.css'
@@ -67,6 +69,7 @@ function App() {
           <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
           <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
           <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
+          
 
           <Route path="/admin/addadmin" element={<AddAdmin />} />
           <Route path="/admin/removepharmacist" element={<RemovePharmacist />} />

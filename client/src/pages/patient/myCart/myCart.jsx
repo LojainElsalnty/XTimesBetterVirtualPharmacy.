@@ -78,7 +78,7 @@ const MyCart = () => {
 
 
   const updateCartItemQuantity = (medName) => {
-    console.log(medName)
+   // console.log(medName)
     // Send a PUT request to update the quantity of a cart item
     axios.put(`http://localhost:5000/patient/myCartRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {

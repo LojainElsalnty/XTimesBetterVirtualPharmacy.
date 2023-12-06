@@ -15,6 +15,7 @@ const addMedicine = async (req, res) => {
       availableQuantity,
       medicinalUses,
       sales,
+      isOTC,
       image,
     } = req.body;
     //console.log(req.body)
@@ -30,6 +31,7 @@ const addMedicine = async (req, res) => {
       availableQuantity,
       medicinalUses,
       sales,
+      isOTC,
       image, // Store the image filename in your Medicine model
     });
     console.log("New med: ", newMedicine)
@@ -56,6 +58,7 @@ const updateMedicine = async (req, res) => {
       availableQuantity,
       medicinalUses,
       sales,
+      isOTC,
       image,
     } = req.body;
 
@@ -69,6 +72,7 @@ const updateMedicine = async (req, res) => {
       availableQuantity,
       medicinalUses,
       sales,
+      isOTC,
       image,
     };
 

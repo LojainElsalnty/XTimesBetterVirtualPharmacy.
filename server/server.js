@@ -17,6 +17,7 @@ const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRoute');
 const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute');
 const myCartRoutes = require('./routes/patient/myCartRoute');
+const myPrescriptionRoutes = require('./routes/patient/myPrescriptionRoute');
 
 //const upload = require('./upload'); // Import the Multer configuration
 const router = express.Router();
@@ -98,6 +99,9 @@ app.use('/patient/register', require('./routes/patient/registerRoute'));
 app.use('/patient/checkoutAddress', patientCheckoutAddressRoutes);
 app.use('/patient/pastOrders', patientPastOrdersRoutes);
 app.use('/patient/myCartRoute', myCartRoutes);
+app.use('/patient/myPrescriptionRoute', myPrescriptionRoutes);
+
+
 app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Get information about logged in patient using his/her username
 app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
 app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
