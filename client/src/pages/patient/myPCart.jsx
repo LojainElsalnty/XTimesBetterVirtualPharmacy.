@@ -11,7 +11,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/patient/myPrescriptionRoute/getPrescriptionById/${prescriptionId}`);
+                const response = await axios.get(`http://localhost:8000/patient/myPrescriptionRoute/getPrescriptionById/${prescriptionId}`);
                 setCartItems(response.data);
             } catch (error) {
                 console.error('Error fetching cart items:', error);
@@ -25,7 +25,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
     const updateCartItemQuantity = (medName) => {
         // console.log(medName)
          // Send a PUT request to update the quantity of a cart item
-         axios.put(`http://localhost:5000/patient/myPrescriptionRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
+         axios.put(`http://localhost:8000/patient/myPrescriptionRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
            .then((response) => {
              // Find the item in your cartItems state by its medName
              const updatedCartItems = cartItems.map((item) => {
@@ -52,7 +52,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
 
        const decrementCartItemQuantity = (medName) => {
         // Send a PUT request to decrement the quantity of a cart item
-        axios.put(`http://localhost:5000/patient/myPrescriptionRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
+        axios.put(`http://localhost:8000/patient/myPrescriptionRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
           .then((response) => {
             // Find the item in your cartItems state by its medName
             const updatedCartItems = cartItems.map((item) => {
@@ -79,7 +79,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
     
       const deleteMedicineFromPrescription = (medName) => {
         // Send a DELETE request to delete a cart item
-        axios.delete(`http://localhost:5000/patient/myPrescriptionRoute/deleteMedicineFromPrescription/${medName}`, { data: { medName, cartItems } })
+        axios.delete(`http://localhost:8000/patient/myPrescriptionRoute/deleteMedicineFromPrescription/${medName}`, { data: { medName, cartItems } })
           .then(() => {
             setCartItems(cartItems.filter((item) => item.medName !== medName));
             console.log("after deletion--", cartItems.filter((item) => item.medName !== medName))

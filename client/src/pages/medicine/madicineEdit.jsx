@@ -38,7 +38,7 @@ function MedicineEdit() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -100,7 +100,7 @@ function MedicineEdit() {
     }
 
 
-    fetch(`http://localhost:5000/medicineRoutes/updateMedicine`, {
+    fetch(`http://localhost:8000/medicineRoutes/updateMedicine`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

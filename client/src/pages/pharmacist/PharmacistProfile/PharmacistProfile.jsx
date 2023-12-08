@@ -50,7 +50,7 @@ export const PharmacistProfile = () => {
     async function checkAuthentication() {
       await axios ({
           method: 'get',
-          url: `http://localhost:5000/authentication/checkAccessToken`,
+          url: `http://localhost:8000/authentication/checkAccessToken`,
           headers: {
               "Content-Type": "application/json",
               'Authorization': accessToken,
@@ -75,7 +75,7 @@ export const PharmacistProfile = () => {
     const getPharmacistInfo = async () => {
         await axios ({
           method: 'get',
-          url: `http://localhost:5000/pharmacist/info`,
+          url: `http://localhost:8000/pharmacist/info`,
           headers: {
               "Content-Type": "application/json",
               'Authorization': accessToken,

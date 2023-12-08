@@ -24,7 +24,7 @@ function MedicinePayment() {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -75,7 +75,7 @@ function MedicinePayment() {
         if (buttonId === "creditCard") {
             let receiptCreditCard;
 
-            fetch('http://localhost:5000/patient/paymentCreditCard', {
+            fetch('http://localhost:8000/patient/paymentCreditCard', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ function MedicinePayment() {
         }
         if (buttonId === "wallet") {
             try {
-                fetch('http://localhost:5000/patient/paymentWallet', {
+                fetch('http://localhost:8000/patient/paymentWallet', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ function MedicinePayment() {
         if (buttonId === "cashOnDelivery") {
 
             try {
-                fetch('http://localhost:5000/patient/paymentCashOnDelivery', {
+                fetch('http://localhost:8000/patient/paymentCashOnDelivery', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -12,7 +12,7 @@ function PatientView() {
 
   const fetchPatientInfo = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/patientRoutes/viewPatientInfo/${username}`);
+      const response = await axios.get(`http://localhost:8000/patientRoutes/viewPatientInfo/${username}`);
 
       if (!response.data) {
         // Handle the case where no patient is found for the entered username
@@ -30,7 +30,7 @@ function PatientView() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/patientRoutes/viewAllPatientsInfo');
+        const response = await axios.get('http://localhost:8000/patientRoutes/viewAllPatientsInfo');
         setPatients(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);

@@ -29,7 +29,7 @@ const router = express.Router();
 mongoose.set('strictQuery', false);
 
 // App variables
-const Port = process.env.PORT || 5000;
+const Port = process.env.PORT || 8000;
 const MongoURI = process.env.MONGO_URI;
 
 // Express app
@@ -37,7 +37,7 @@ const app = express();
 
 
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5174'];
 
 // Set up CORS options.
 const corsOptions = {

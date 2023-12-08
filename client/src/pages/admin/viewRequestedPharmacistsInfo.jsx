@@ -11,7 +11,8 @@ function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
   //const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
-
+  const [filteredPharmacists, setfilteredPharmacists] = useState([]);
+  const [filter, setFilter] = useState('all');
   //new part
   const accessToken = sessionStorage.getItem('accessToken');
   const [load, setLoad] = useState(true);
@@ -25,7 +26,7 @@ function ViewRequestedPharmacistsInfo() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -43,11 +44,29 @@ function ViewRequestedPharmacistsInfo() {
 
       });
   }
-
+  const applyFilter = () => {
+    const filtered = requestedPharmacists.filter(doctor => {
+      if (filter === 'accepted') {
+        return doctor.status === 'accepted';
+      } else if (filter === 'rejected') {
+        return doctor.status === 'rejected';
+      }
+      return true; // No filter or 'all' filter selected
+    });
+    setfilteredPharmacists(filtered);
+  };
+  
+  useEffect(() => {
+    applyFilter();
+  }, [requestedPharmacists, filter]); // Reapply filter when doctors list or filter changes
+  
+const handleFilterChange = (event) => {
+  setFilter(event.target.value);
+};
   const xTest = checkAuthentication();
 
   const fetchRequestedPharmacists = () => {
-    const url = 'http://localhost:5000/admin/viewREQPharmacists';
+    const url = 'http://localhost:8000/admin/viewREQPharmacists';
 
     fetch(url)
       .then((response) => {
@@ -74,7 +93,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/accept/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/accept/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -104,7 +123,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/reject/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/reject/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -123,7 +142,7 @@ function ViewRequestedPharmacistsInfo() {
 
 
   useEffect(() => {
-    const url = `http://localhost:5000/admin/viewREQPharmacists`
+    const url = `http://localhost:8000/admin/viewREQPharmacists`
     // Make an HTTP PATCH request to send the data to the backend using the requestBody
     fetch(url, {
       method: 'GET',
@@ -165,6 +184,17 @@ function ViewRequestedPharmacistsInfo() {
   return (
     <div>
       <h1>Requested Pharmacists List</h1>
+      <div>
+  <label htmlFor="filterSelect">Filter By Status: </label>
+  <select id="filterSelect" value={filter} onChange={handleFilterChange}>
+    <option value="all">All</option>
+    <option value="accepted">Accepted</option>
+    <option value="rejected">Rejected</option>
+  </select>
+  &nbsp;
+</div>
+&nbsp;
+&nbsp;
       <table>
         <thead>
           <tr>
@@ -182,7 +212,7 @@ function ViewRequestedPharmacistsInfo() {
           </tr>
         </thead>
         <tbody>
-          {requestedPharmacists.map((pharmacist) => (
+          {filteredPharmacists.map((pharmacist) => (
             <tr key={pharmacist._id}>
               <td>{pharmacist.name}</td>
               <td>{pharmacist.username}</td>
@@ -191,9 +221,9 @@ function ViewRequestedPharmacistsInfo() {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
 
               <td>{pharmacist.status}</td>
               <td>
@@ -221,10 +251,13 @@ function ViewRequestedPharmacistsInfo() {
               </td>
             </tr>
           ))}
+          
+
         </tbody>
       </table>
     </div>
   );
+
 }
 
 

@@ -33,7 +33,7 @@ function RemovePharmacist() {
       };
 
     // Make an HTTP PATCH request to send the data to the backend using the requestBody
-    fetch('http://localhost:5000/admin/addremove/removePharmacist', {
+    fetch('http://localhost:8000/admin/addremove/removePharmacist', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

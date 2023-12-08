@@ -9,7 +9,7 @@ const PharmacistView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/pharmaRoutes/viewAllPharma'); // Adjust the API endpoint as needed
+        const response = await axios.get('http://localhost:8000/pharmaRoutes/viewAllPharma'); // Adjust the API endpoint as needed
         setPharmacists(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -25,7 +25,7 @@ const PharmacistView = () => {
 
   const fetchPharmacistInfo = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/pharmaRoutes/viewPharmaInfo/${username}`);
+      const response = await axios.get(`http://localhost:8000/pharmaRoutes/viewPharmaInfo/${username}`);
 
       if (!response.data) {
         return alert('Pharmacist not found');

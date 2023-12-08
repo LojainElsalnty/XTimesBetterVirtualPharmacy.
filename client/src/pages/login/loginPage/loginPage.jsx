@@ -47,7 +47,7 @@ export const LoginPage = () => {
         try {
             await axios({
                 method: 'POST',
-                url: 'http://localhost:5000/login',
+                url: 'http://localhost:8000/login',
                 headers: {
                     "Content-Type": "application/json",
                 },

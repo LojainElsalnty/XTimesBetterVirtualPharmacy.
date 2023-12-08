@@ -37,7 +37,7 @@ function MedicineAdd() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -113,7 +113,7 @@ function MedicineAdd() {
     console.log("hena")
     console.log(medicineData)
 
-    fetch('http://localhost:5000/medicineRoutes/addMedicine', {
+    fetch('http://localhost:8000/medicineRoutes/addMedicine', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
