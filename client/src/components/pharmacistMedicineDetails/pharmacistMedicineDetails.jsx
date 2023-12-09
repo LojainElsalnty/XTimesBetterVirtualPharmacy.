@@ -25,11 +25,12 @@ const PharmacistMedicineDetails = ({ medicine, archiveMedicine, UnarchiveMedicin
             ))}</td>
             <td>{medicine.sales}</td>
             {/* <td>{!medicine.sales ? '0' : medicine.sales}</td> */}
-            <td>{!medicine.availableQuantity ? '0' : medicine.availableQuantity}</td>
-            <td>{!medicine.availableQuantity ? 'Out of Stock' : 'Available'}</td>
+            <td>{!medicine.availableQuantity ? <span className={styles["out-of-stock"]}>Out of Stock</span> : medicine.availableQuantity}</td>
+           
             <td>
                 
                 <button
+                className={styles.archiveButton}
                 onClick={() => archiveMedicine(medicine.name)}
                 disabled={medicine.archived}
                 
@@ -38,6 +39,7 @@ const PharmacistMedicineDetails = ({ medicine, archiveMedicine, UnarchiveMedicin
                 </button>
                 <br />
                 <button
+                 className={styles.unarchiveButton}
                  onClick={() => UnarchiveMedicine(medicine.name)}
                  disabled={!medicine.archived}
                  >

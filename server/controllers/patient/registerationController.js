@@ -46,14 +46,14 @@ const createPatient = asyncHandler( async(req,res) => {
     takenEmail = await patientModel.findOne({ email: patient.email });
 
     if (takenUsername) {
-        return res.status(400).json({ message: 'Username already taken!', registeredIn: false});
+        return res.status(400).json({success: false, message: 'Username already taken!', registeredIn: false});
     } else if (takenEmail) {
-        return res.status(400).json({ message: 'Email already registered!', registeredIn: false});
+        return res.status(400).json({success: false, message: 'Email already registered!', registeredIn: false});
     } else {
         // Generate a hashcode of user's password
         patient.password = await bcrypt.hash(patient.password, 10);
         const newPatientRequest = await patientModel.create(patient);
-        res.status(200).json({ message: "Success", patient: newPatientRequest, registeredIn: true});
+        return res.status(200).json({ success: true, message: "Success", patient: newPatientRequest, registeredIn: true});
     }
 });
  

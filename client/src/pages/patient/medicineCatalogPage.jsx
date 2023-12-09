@@ -215,7 +215,7 @@ const MedicineCatalog = () => {
                             <th>Price (LE)</th>
                             <th>Active Ingredients</th>
                             <th>Medicinal Uses</th>
-                            <th>Availability</th>
+                            <th></th>
                             <th className={styles["cart-th"]}> <button className={styles["cart-button"]} onClick={redirectToViewCart}>View Cart  </button></th>
                         </tr>
                     </thead>

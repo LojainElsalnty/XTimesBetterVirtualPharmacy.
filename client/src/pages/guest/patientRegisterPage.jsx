@@ -81,7 +81,7 @@ const PatientRegister = () => {
         }
 
         if (!validatePass(formData.password)) {
-          setPassError("password must have the following 1. at least one lowercase letter 2. at least one uppercase letter 3. at least one number 4. the minimum length is 8");
+          setPassError("Please enter atleast 8 characters with number, small and capital letter.");
         } else {
           setPassError(''); // Clear the error message if the pass is valid
         }
@@ -98,10 +98,13 @@ const PatientRegister = () => {
                  },
              body: JSON.stringify(formData),
             });
-            
-        if (response.ok) {
-            // Registration was successful, handle success scenario
-            console.log('Registration successful!');
+            //console.log(response)
+            const responseData = await response.json();
+            //console.log(responseData)
+
+         if (responseData.success) {
+              // Registration was successful, handle success scenario
+            //console.log('Registration successful!');
             alert('Registration successful!');
             e.target.reset(); // This will clear all form input fields
             setFormData({
@@ -120,8 +123,10 @@ const PatientRegister = () => {
               });
         } else {
             // Registration failed, handle error scenario
-            console.error('Registration failed');
-            alert('Registration failed ');
+            //console.error('Registration failed');
+            //console.error(responseData.message);
+          
+            alert(responseData.message);
         }
         } catch (error) {
             console.error('An error occurred:', error);
@@ -130,143 +135,156 @@ const PatientRegister = () => {
       }
     };
 
-    return ( 
-      <div className={styles.doctorRequest}>
-            <h2>Patient Registration</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Add form fields for each data attribute */}
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            required
-          />
+    return (
+      <div className={styles.pharmacyRegistrationBack}>
+      <div className={styles.pharmacyRegistration}>
+          <h2>Patient Registration</h2>
+          <form onSubmit={handleSubmit} className={styles.registrationForm}>
+
+            {/* Username */}
+            <div className={styles.formField}>
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                required />
+            </div>
+
+            {/* Name */}
+            <div className={styles.formField}>
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required />
+            </div>
+
+            {/* Email */}
+            <div className={styles.formField}>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required />
+              {emailError && (
+                <div className={styles.errorMessage}>{emailError}</div>
+              )}
+            </div>
+
+            {/* Password */}
+            <div className={styles.formField}>
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required />
+              {passError && (
+                <div className={styles.errorMessage}>{passError}</div>
+              )}
+            </div>
+
+            {/* Date of Birth */}
+            <div className={styles.formField}>
+              <label htmlFor="dob">Date Of Birth:</label>
+              <input
+                type="date"
+                id="dob"
+                name="dob"
+                value={formData.dob}
+                max={new Date().toISOString().split('T')[0]}
+                onChange={handleInputChange}
+                required />
+            </div>
+
+            {/* Gender */}
+            <div className={styles.formField}>
+              <label htmlFor="gender">Gender:</label>
+              <div className={styles.customSelect}>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+                <div className={styles.selectArrow}></div>
+              </div>
+            </div>
+
+            {/* Mobile */}
+            <div className={styles.formField}>
+              <label htmlFor="mobile">Mobile:</label>
+              <input
+                type="Number"
+                id="mobile"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleInputChange}
+                required />
+            </div>
+
+            {/* Emergency Contact Info */}
+            <div>
+              <h3>Emergency Contact Info</h3>
+              <div className={styles.emergencyContactRow}>
+                <div className={styles.formField}>
+                  <label htmlFor="emergencyContactName">Full Name:</label>
+                  <input
+                    type="text"
+                    id="emergencyContactName"
+                    name="emergency_contact.name"
+                    value={formData.emergency_contact.name}
+                    onChange={handleInputChange}
+                    required />
+                </div>
+                <div className={styles.formField}>
+                  <label htmlFor="emergencyContactMobile">Mobile Number:</label>
+                  <input
+                    type="Number"
+                    id="emergencyContactMobile"
+                    name="emergency_contact.mobile"
+                    value={formData.emergency_contact.mobile}
+                    onChange={handleInputChange}
+                    required />
+                </div>
+                <div className={styles.formField}>
+                  <label htmlFor="emergencyContactRelation">Relation:</label>
+                  <input
+                    type="text"
+                    id="emergencyContactRelation"
+                    name="emergency_contact.relation"
+                    value={formData.emergency_contact.relation}
+                    onChange={handleInputChange}
+                    required />
+                </div>
+              </div>
+            </div>
+
+            {/* Submit button */}
+            <button type="submit" className={styles.submitButton}>Register</button>
+          </form>
         </div>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
         </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="text"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-          {emailError && (
-          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
-            {emailError}
-          </div>
-          )}        
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          {passError && (
-          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
-            {passError}
-          </div>
-        )}  
-        </div>
-        <div>
-          <label>Date Of Birth:</label>
-          <input
-            type="date"
-            name="dob"
-            value={formData.dob}
-            max={new Date().toISOString().split('T')[0]}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Gender:</label>
-          <label>
-    <input
-      type="radio"
-      name="gender"
-      value="male"
-      checked={formData.gender === 'male'}
-      onChange={handleInputChange}
-      required
-    />
-    Male
-  </label>
-  <label>
-    <input
-      type="radio"
-      name="gender"
-      value="female"
-      checked={formData.gender === 'female'}
-      onChange={handleInputChange}
-      required
-    />
-    Female
-  </label>
-        </div>
-        <div>
-          <label>Mobile:</label>
-          <input
-            type="Number"
-            name="mobile"
-            value={formData.mobile}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Emergency Contact Full Name:</label>
-          <input
-            type="text"
-            name="emergency_contact.name"
-            value={formData.emergency_contact.name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Emergency Contact Mobile Number:</label>
-          <input
-            type="Number"
-            name="emergency_contact.mobile"
-            value={formData.emergency_contact.mobile}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Emergency Contact Relation:</label>
-          <input
-            type="text"
-            name="emergency_contact.relation"
-            value={formData.emergency_contact.relation}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        
-        {/* Submit button */}
-        <button type="submit">Register</button>
-      </form>
-        </div>
-     );
+
+      
+    );
+    
+    
 }
  
 export default PatientRegister;

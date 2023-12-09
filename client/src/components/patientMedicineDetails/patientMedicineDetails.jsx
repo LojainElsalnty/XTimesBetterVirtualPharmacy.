@@ -40,18 +40,28 @@ const PatientMedicineDetails = ({ medicine, addToCart,getAlternatives }) => {
                 <li key={index}>{use}</li>
             ))}</td>
             <td>
-                {!medicine.availableQuantity ? <span className={styles["out-of-stock"]}>Out of Stock</span> : 'Available'}
+                {!medicine.availableQuantity ? <span className={styles["out-of-stock"]}>Out of Stock</span> : (<button className={styles["green-button"]} onClick={() => addToCart(medicine.name)}>Add to Cart</button>)}
+
             </td>
+
             <td>
                 {!medicine.availableQuantity ? (
                     (alternatives.length>0)?
                     <>
-                    <p>Available Alternatives:</p>
-                    {alternatives.map((alt, index) => (<li key={index}>{alt}</li>))}
+                    <span className={styles["alter"]}>Alternatives</span>
+                    
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <ul style={{ listStyleType: 'disc', margin: '0.5em 0 0 1em', padding: '0' }}>
+                        {alternatives.map((alt, index) => (
+                            <li key={index} style={{ margin: '0.5em 0', padding: '0' }}>
+                                {alt}
+                            </li>
+                        ))}
+                      </ul>
+                    </div>
                     </>
-                   
-                    :<span className={styles["out-of-stock"]}>No available Alternatives</span> 
-                ) : (<button className={styles["green-button"]} onClick={() => addToCart(medicine.name)}>Add to Cart</button>)}
+                    :<span className={styles["out-of-stock"]}>No Alternatives</span> 
+                ) : (<></>)}
             </td>
         </tr>
     )

@@ -171,8 +171,8 @@ const MedicineCatalog = () => {
                             <th>Medicinal Uses</th>
                             <th>Sold</th>
                             <th>Available Quantity</th>
-                            <th>Availability</th>
-                            <th>Archive</th>
+                            
+                            
                         </tr>
                     </thead>
                     <tbody>
