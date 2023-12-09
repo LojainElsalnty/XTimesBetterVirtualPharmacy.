@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const Prescription = require('../../models/Prescription');
 const Medicine = require('../../models/Medicine');
 
-let prescriptionId = '65668660eb56032a95d0010e';
+let prescriptionId = '656b5fbcd6f721891c2f61ec';
 let cartItems = []; // Shared variable for cartItems
 
 // get prescriptionID  from sarah and CREATE cartitems
 const getPrescriptionById = async (req, res) => {
-    prescriptionId = '65668660eb56032a95d0010e';
+    //prescriptionId = '656b5eced6f721891c2f601f';
     try {
         const prescription = await Prescription.findById(prescriptionId);
 

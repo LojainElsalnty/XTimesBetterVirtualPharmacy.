@@ -9,7 +9,6 @@ import PastOrders from './pages/patient/pastOrders/pastOrdersPage.jsx';
 //yasS2
 import MyCart from './pages/patient/myCart/myCart.jsx';
 //yassS3
-//import MyPCart from './pages/patient/myPCart.jsx';
 
 // Styles
 import './App.css'
@@ -31,7 +30,6 @@ import { ViewAdminMainPage } from './pages/admin/viewAdminMainPage/viewAdminMain
 // import AddAdmin from './pages/admin/addadmin';
 // import RemovePharmacist from './pages/admin/removepharmacist';
 // import RemovePatient from './pages/admin/removepatient';
-// import ViewRequestedPharmacistsInfo from './pages/admin/viewRequestedPharmacistsInfo';
 
 // Login Page
 import { LoginPage } from './pages/login/loginPage/loginPage';
@@ -53,6 +51,7 @@ import { AuthProvider } from './components/hooks/useAuth';
 
 // MUI Components
 import { ResponsiveAppBar } from './components/responsiveNavBar/responsiveNavBar';
+import MyPCart from './pages/patient/myPCart';
 
 function App() {
 
@@ -95,6 +94,12 @@ function App() {
           <Route path="/verifyOTP" element={<VerifyOtpPage />} />
           <Route path="/resetPassword" element={<ResetPasswordPage />} />
           {/* Default Path */}
+          {/* <Route path="/myPCart/:prescriptionId" element={<MyPCart />} /> */}
+          {/* <Route path="/patient/UpdatePrescription/:prescriptionId" element={<MyPCart />} /> */}
+          <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} />
+
+          {/* <Route path="/patient/UpdatePrescription/:prescriptionId" element={<MyPCart />} /> */}
+
           <Route path='*' element={<Navigate to='/' />} />
         </Routes >
       </AuthProvider>

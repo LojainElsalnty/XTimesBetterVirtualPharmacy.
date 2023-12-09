@@ -85,6 +85,8 @@ export const ViewPatientMainPage = () => {
             url: "/patient/myOrders",
             pageName: "My Orders",
         },
+     
+        
     ];
 
     if (load) {
@@ -105,8 +107,8 @@ export const ViewPatientMainPage = () => {
                     <Route path="/myCart" element={<MyCart />} />
                     <Route path="/checkoutAddress" element={<CheckoutAddress />} />
                     <Route path="/payment" element={<MedicinePayment />} />
-                    <Route path="/myPCart" element={<MyPCart />} />
-                   
+                    <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} />
+
                   
                 </Routes>
             </>

@@ -50,8 +50,19 @@ const corsOptions = {
   },
 };
 
+// // Allow requests from http://localhost:5173
+// app.use(cors({
+//   origin: 'http://localhost:5173',
+//   methods: 'GET,HEAD,PUT,PATCH',
+//   credentials: true, // If you need to pass cookies, set this to true
+// }));
 
-
+// // Allow requests from http://localhost:5173
+// app.use(cors({
+//   origin: 'http://localhost:5174',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true, // If you need to pass cookies, set this to true
+// }));
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -106,6 +117,7 @@ app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Ge
 app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
 app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
 app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePayments/medicineCashOnDeliveryPayment'));
+
 
 
 // Pharmacist

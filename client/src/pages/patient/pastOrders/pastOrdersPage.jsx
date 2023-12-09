@@ -43,7 +43,11 @@ const PastOrders = () => {
 
     const xTest = checkAuthentication();
     console.log("Xtest ", xTest);
-
+    
+    useEffect(() => {
+        checkAuthentication(); // Check authentication when the component mounts
+        fetchAllPastOrders();   // Fetch the past orders
+    }, []);
 
     const fetchAllPastOrders = async () => {
         try {

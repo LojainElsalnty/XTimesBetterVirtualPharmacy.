@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const{getPrescriptionById,updateCartItemQuantity,decrementCartItemQuantity,deleteMedicineFromPrescription}
+const{viewAllCartItems,updateCartItemQuantity,deleteCartItem,decrementCartItemQuantity}
  =
- require('../../controllers/patient/myPrescriptionController')
+ require('../../controllers/patient/myCartController')
 
-
-router.get('/getPrescriptionById/:id', getPrescriptionById);
+//search for a pharmacist by username
+router.get('/viewAllCartItems', viewAllCartItems);
 router.put('/updateCartItemQuantity/:medName', updateCartItemQuantity);
 router.put('/decrementCartItemQuantity/:medName', decrementCartItemQuantity);
-router.delete('/deleteMedicineFromPrescription/:medName',deleteMedicineFromPrescription);
+router.delete('/deleteCartItem/:medName',deleteCartItem);
+
 
 module.exports = router;

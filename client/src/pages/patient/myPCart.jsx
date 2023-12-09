@@ -2,16 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import queryString from 'query-string';
 
-const prescriptionId = '65668660eb56032a95d0010e'
-const PrescriptionDetails = ({ prescriptionId }) => {
+
+
+// const prescriptionId = '656b5eced6f721891c2f601f'
+const MyPCart =  () => {
   const navigate = useNavigate();
-    const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const { prescriptionId } = useParams();
 
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/patient/myPrescriptionRoute/getPrescriptionById/${prescriptionId}`);
+                const response = await axios.get(`http://localhost:5000/patient/myPrescriptionRoute/getPrescriptionById/${prescriptionId}`);
                 setCartItems(response.data);
             } catch (error) {
                 console.error('Error fetching cart items:', error);
@@ -25,7 +30,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
     const updateCartItemQuantity = (medName) => {
         // console.log(medName)
          // Send a PUT request to update the quantity of a cart item
-         axios.put(`http://localhost:8000/patient/myPrescriptionRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
+         axios.put(`http://localhost:5000/patient/myPrescriptionRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
            .then((response) => {
              // Find the item in your cartItems state by its medName
              const updatedCartItems = cartItems.map((item) => {
@@ -52,7 +57,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
 
        const decrementCartItemQuantity = (medName) => {
         // Send a PUT request to decrement the quantity of a cart item
-        axios.put(`http://localhost:8000/patient/myPrescriptionRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
+        axios.put(`http://localhost:5000/patient/myPrescriptionRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
           .then((response) => {
             // Find the item in your cartItems state by its medName
             const updatedCartItems = cartItems.map((item) => {
@@ -79,7 +84,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
     
       const deleteMedicineFromPrescription = (medName) => {
         // Send a DELETE request to delete a cart item
-        axios.delete(`http://localhost:8000/patient/myPrescriptionRoute/deleteMedicineFromPrescription/${medName}`, { data: { medName, cartItems } })
+        axios.delete(`http://localhost:5000/patient/myPrescriptionRoute/deleteMedicineFromPrescription/${medName}`, { data: { medName, cartItems } })
           .then(() => {
             setCartItems(cartItems.filter((item) => item.medName !== medName));
             console.log("after deletion--", cartItems.filter((item) => item.medName !== medName))
@@ -103,10 +108,8 @@ const PrescriptionDetails = ({ prescriptionId }) => {
 
       const redirectToCatalouge = async () => {
         try {
-          if (cartItems.length <= 0) {
-            return alert('Your Cart is Empty!');
-          }
-          sessionStorage.setItem('cartItems', JSON.stringify(cartItems)); // Added - Nour
+         
+          sessionStorage.setItem('cartItems', JSON.stringify(cartItems)); 
           navigate('/patient/medicineCatalog', { state: { cartItems: cartItems } });
         } catch (error) {
           console.error('Error redirecting to checkout:', error);
@@ -122,7 +125,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
         <div>
             <h2>Cart Items</h2>
             
-            <button  onClick={redirectToCatalouge}>Menu</button>
+            <button  onClick={redirectToCatalouge} >back</button>
             <table>
                 <thead>
                     <tr>
@@ -162,4 +165,4 @@ const PrescriptionDetails = ({ prescriptionId }) => {
     );
 };
 
-export default PrescriptionDetails;
+export default MyPCart;
