@@ -94,15 +94,15 @@ export const ViewAdminMainPage = () => {
         },
         {
             url: "/admin/addadmin ",
-            pageName: "Add Admin",
+            pageName: "Admins",
         },
         {
             url: "/admin/removepharmacist ",
-            pageName: "Remove Pharmacist",
+            pageName: "Pharmacists",
         },
         {
             url: "/admin/removepatient ",
-            pageName: "Remove Patient",
+            pageName: "Patients",
         },
         {
             url: "/admin/viewSales",

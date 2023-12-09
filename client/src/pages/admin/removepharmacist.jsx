@@ -1,91 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function RemovePharmacist() {
+  const [pharmacists, setPharmacists] = useState([]);
   const [pharmacistInfo, setPharmacistInfo] = useState({
     username: ''
-    
   });
 
-  const [selectedRadio, setSelectedRadio] = useState(null);
-  const [requestBody, setRequestBody] = useState({}); 
-  // const [username, setUsername] = useState({}); 
+  useEffect(() => {
+    fetchPharmacists();
+  }, []);
+
+  const fetchPharmacists = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/admin/addremove/gett/');
+      const data = await response.json();
+      setPharmacists(data);
+    } catch (error) {
+      console.error('Error fetching pharmacists:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-      setPharmacistInfo({ ...pharmacistInfo, username: value });
+    setPharmacistInfo({ ...pharmacistInfo, [name]: value });
   };
-  console.log(pharmacistInfo)
 
-  const handleRadioChange = (val) => {
-    setSelectedRadio(val);
-
-    // Prepare the request body based on selectedRadio
-    const body = {};
-    
-    // Update the state with the request body
-    setRequestBody(body);
-  };
-  
-  const handleSubmit = () => {
-    const requestBody = {
-        username: pharmacistInfo.username
-      };
-
-    // Make an HTTP PATCH request to send the data to the backend using the requestBody
-    fetch('http://localhost:5000/admin/addremove/removePharmacist', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    }).then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      }).then((data) => {
-       // console.log(data.success);
-        if (data) {
-            console.log('Pharmacist removed', data);
-            alert('Pharmacist removed');
-           
-          } else {
-            console.error('Can not remove pharmacist', data);
-            alert('Can not remove pharmacist');
-           
-          }
-      })
-      .catch((error) => {
-        console.error('Error removing pharmacist', error);
-        console.log('This pharmacist does not exist');
-        alert('This pharmacist does not exist');
+  const handleRemovePharmacist = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:5000/admin/addremove/removePharmacist`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data) {
+        console.log('Pharmacist removed', data);
+        alert('Pharmacist removed');
+        fetchPharmacists(); // Refresh the pharmacist list after removal
+      } else {
+        console.error('Can not remove pharmacist', data);
+        alert('Can not remove pharmacist');
+      }
+    } catch (error) {
+      console.error('Error removing pharmacist', error);
+      alert('An error occurred while removing the pharmacist');
+    }
   };
- 
-    
-      
 
-return (
-    <div className="choose">
-      
-      <div className="username" id="username">
-          <label htmlFor="username"> Pharmacist username: </label>
-          <input
-            type="text"
-            name="username"
-            value={pharmacistInfo.username}
-            onChange={handleChange}
-            
-          />
-        </div>
-
-     <button type="button" onClick={handleSubmit}>
-        Remove pharmacist
-      </button>
+  return (
+    <div>
+      <h2>Pharmacists List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pharmacists.map((pharmacist) => (
+            <tr key={pharmacist.username}>
+              <td>{pharmacist.name}</td>
+              <td>{pharmacist.username}</td>
+              <td>{pharmacist.email}</td>
+              <td>
+                <button onClick={() => handleRemovePharmacist(pharmacist.username)}>Remove</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-
 }
 
-export default RemovePharmacist; 
+export default RemovePharmacist;

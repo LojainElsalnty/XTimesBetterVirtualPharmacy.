@@ -3,31 +3,29 @@ const asyncHandler = require('express-async-handler');
 const medOrderModel = require('../../models/MedOrder');
 const bcrypt = require('bcrypt');
 
-const filterSalesByMonth = async (req, res) => {
+const filterSalesByDateRange = async (req, res) => {
+  
   try {
-    const chosenMonth = req.params.month;
-    console.log(chosenMonth);
-
-    // Create a start date for the chosen month in the year 2023
-    const startDate = new Date(`2023-${chosenMonth}-01T00:00:00.000Z`);
-    
-    // Calculate the end date for the chosen month in the year 2023
-    const endDate = new Date(startDate);
-    endDate.setUTCMonth(startDate.getUTCMonth() + 1);
-
-    console.log(startDate.toISOString(), endDate.toISOString());
+    //console.log(req.params.data);
+    const startDate= req.params.startDate;
+    const endDate=req.params.endDate;
+    console.log(startDate, endDate);
+    console.log( new Date(startDate));
+    console.log(new Date(endDate));
+    const endDatePlusOneDay = new Date(endDate);
+    endDatePlusOneDay.setDate(endDatePlusOneDay.getDate() + 1);
 
     const salesMade = await medOrderModel.find({
       status: 'Delivered',
       createdAt: {
-        $gte: startDate,
-        $lt: endDate,
+        $gte: new Date(startDate),
+        $lt: endDatePlusOneDay
       },
     });
 
     if (salesMade.length === 0) {
-      // No sales made in the chosen month in the year 2023
-      console.log(`No sales made in ${chosenMonth} 2023.`);
+      // No sales made in the specified date range
+      console.log(`No sales made in the specified date range.`);
       res.status(200).json({ salesMade: [], totalOrderPrice: 0 });
       return;
     }
@@ -48,4 +46,4 @@ const filterSalesByMonth = async (req, res) => {
   }
 };
 
-module.exports = { filterSalesByMonth };
+module.exports = { filterSalesByDateRange };

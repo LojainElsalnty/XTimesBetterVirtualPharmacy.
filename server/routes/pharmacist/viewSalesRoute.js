@@ -1,6 +1,6 @@
 const express = require('express')
 const {
-    filterSalesByMonth
+    filterSalesByDateRange, filterSalesByMedicine
 } = require('../../controllers/pharmacist/viewSalesController');
 
 
@@ -11,9 +11,8 @@ const router = express.Router()
 //router.get('/medicine/:medName', filterSalesByMedicine)
 
 //GET medicine based on given name
-router.get('/month/:month', filterSalesByMonth)
+router.get('/:startDate/:endDate/:medName', filterSalesByDateRange);
 
-//GET all medicines based on medicinalUse
-//router.get('/medicinalUse/:medicinalUse', filterMedicineByUse)
+
 
 module.exports = router

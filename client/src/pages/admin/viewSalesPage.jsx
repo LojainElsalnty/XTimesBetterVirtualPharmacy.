@@ -2,21 +2,24 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const SalesView = () => {
-  const [chosenMonth, setChosenMonth] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [salesData, setSalesData] = useState(null);
   const [totalOrderPrice, setTotalOrderPrice] = useState(null);
   const [error, setError] = useState(null);
 
   const handleFilter = async () => {
+    const data={
+      startDate: startDate,endDate: endDate
+    }
+    console.log(data);
     try {
-        console.log(chosenMonth)
-      let response;
-      response = await axios.get(`http://localhost:5000/admin/viewSales/month/${chosenMonth}`);
-
+      console.log(startDate);
+      console.log(endDate);
+      const response = await axios.get(`http://localhost:5000/admin/viewSales/${startDate}/${endDate}`)
       setSalesData(response.data.salesMade);
       setTotalOrderPrice(response.data.totalOrderPrice);
       setError(null);
-      
     } catch (err) {
       setError('Error filtering sales.');
       setSalesData(null);
@@ -24,42 +27,26 @@ const SalesView = () => {
     }
   };
 
-  // Function to get an array of month objects with name and number
-  const getMonthOptions = () => {
-    const months = [
-      { name: 'January', number: 1 },
-      { name: 'February', number: 2 },
-      { name: 'March', number: 3 },
-      { name: 'April', number: 4 },
-      { name: 'May', number: 5 },
-      { name: 'June', number: 6 },
-      { name: 'July', number: 7 },
-      { name: 'August', number: 8 },
-      { name: 'September', number: 9 },
-      { name: 'October', number: 10 },
-      { name: 'November', number: 11 },
-      { name: 'December', number: 12 },
-    ];
-    return months;
-  };
-
   return (
     <div>
-      <h1>Total Sales</h1>
+      <h1>Sales Report</h1>
       <div>
         <label>
-          Choose a Month:
-          <select
-            value={chosenMonth}
-            onChange={(e) => setChosenMonth(e.target.value)}
-          >
-            <option value="">Select a Month</option>
-            {getMonthOptions().map((month) => (
-              <option key={month.number} value={month.number}>
-                {month.name}
-              </option>
-            ))}
-          </select>
+          Start Date: 
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </label>
+        <p>     </p>
+        <label>
+          End Date: 
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </label>
       </div>
       <div>
@@ -68,12 +55,13 @@ const SalesView = () => {
       {error && <p>{error}</p>}
       {salesData && (
         <div>
-          <h2>Monthly Sales</h2>
-          <p>Total Sales: {totalOrderPrice}</p>
+          
+          <p>Total order prices: {totalOrderPrice}</p>
           <table>
             <thead>
               <tr>
                 <th>Medicine</th>
+                <th>Date</th>
                 <th>Quantity</th>
                 <th>Price/Item (LE)</th>
                 <th>Total Price (LE)</th>
@@ -84,6 +72,7 @@ const SalesView = () => {
                 order.orderItems.map((item, itemIndex) => (
                   <tr key={`${index}-${itemIndex}`}>
                     <td>{item.medName}</td>
+                    <td>{new Date(new Date(order.createdAt).setDate(new Date(order.createdAt).getDate() - 1)).toLocaleDateString()}</td>
                     <td>{item.quantity}</td>
                     <td>{item.price_per_item}</td>
                     <td>{item.price_per_item * item.quantity}</td>

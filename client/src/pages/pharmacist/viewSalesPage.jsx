@@ -1,64 +1,96 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const SalesView = () => {
-  const [chosenMonth, setChosenMonth] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [salesData, setSalesData] = useState(null);
   const [totalOrderPrice, setTotalOrderPrice] = useState(null);
   const [error, setError] = useState(null);
+  const [allUniqueMedNames, setAllUniqueMedNames] = useState([]);
+  const [selectedMedName, setSelectedMedName] = useState('all');
 
   const handleFilter = async () => {
-    try {
-        console.log(chosenMonth)
-      let response;
-      response = await axios.get(`http://localhost:5000/pharmacist/viewSales/month/${chosenMonth}`);
+    const data = {
+      startDate: startDate,
+      endDate: endDate,
+      medName: selectedMedName,
+    };
 
+    try {
+      const response = await axios.get(`http://localhost:5000/pharmacist/viewSales/${startDate}/${endDate}/${selectedMedName}`);
       setSalesData(response.data.salesMade);
       setTotalOrderPrice(response.data.totalOrderPrice);
+      setAllUniqueMedNames(response.data.uniqueMedNames || []);
       setError(null);
     } catch (err) {
       setError('Error filtering sales.');
       setSalesData(null);
       setTotalOrderPrice(null);
+      setAllUniqueMedNames([]);
     }
   };
 
-  // Function to get an array of month objects with name and number
-  const getMonthOptions = () => {
-    const months = [
-      { name: 'January', number: 1 },
-      { name: 'February', number: 2 },
-      { name: 'March', number: 3 },
-      { name: 'April', number: 4 },
-      { name: 'May', number: 5 },
-      { name: 'June', number: 6 },
-      { name: 'July', number: 7 },
-      { name: 'August', number: 8 },
-      { name: 'September', number: 9 },
-      { name: 'October', number: 10 },
-      { name: 'November', number: 11 },
-      { name: 'December', number: 12 },
-    ];
-    return months;
+  useEffect(() => {
+    if (allUniqueMedNames.length > 0) {
+      setSelectedMedName('all');
+    }
+  }, [allUniqueMedNames]);
+
+  useEffect(() => {
+    if (salesData && salesData.length > 0) {
+      const lastOrder = salesData[salesData.length - 1];
+      const lastOrderItems = lastOrder.orderItems;
+
+      const cumulative = lastOrderItems.reduce(
+        (accumulator, item) => {
+          accumulator.totalQuantity += item.quantity;
+          accumulator.totalPricePerItem += item.price_per_item;
+          accumulator.totalTotalPrice += item.price_per_item * item.quantity;
+          return accumulator;
+        },
+        {
+          totalQuantity: 0,
+          totalPricePerItem: 0,
+          totalTotalPrice: 0,
+        }
+      );
+
+      // No need to use cumulativeValues state, calculate directly
+      setTotalOrderPrice(cumulative.totalTotalPrice);
+    }
+  }, [salesData]);
+
+  const handleMedNameChange = (event) => {
+    setSelectedMedName(event.target.value);
   };
+
+  const filteredSalesData = selectedMedName && selectedMedName !== 'all'
+    ? salesData.filter((order) =>
+      order.orderItems.some((item) => item.medName === selectedMedName)
+    )
+    : salesData || [];
+
+  // Calculate cumulative total price
+  let totalOrders = 0;
+  filteredSalesData.forEach((order) => {
+    order.orderItems.forEach((item) => {
+      totalOrders += item.price_per_item * item.quantity;
+    });
+  });
 
   return (
     <div>
-      <h1>Total Sales</h1>
+      <h1>Sales Report</h1>
       <div>
         <label>
-          Choose a Month:
-          <select
-            value={chosenMonth}
-            onChange={(e) => setChosenMonth(e.target.value)}
-          >
-            <option value="">Select a Month</option>
-            {getMonthOptions().map((month) => (
-              <option key={month.number} value={month.number}>
-                {month.name}
-              </option>
-            ))}
-          </select>
+          Start Date:
+          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        </label>
+        <p> </p>
+        <label>
+          End Date:
+          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </label>
       </div>
       <div>
@@ -67,29 +99,47 @@ const SalesView = () => {
       {error && <p>{error}</p>}
       {salesData && (
         <div>
-          <h2>Monthly Sales</h2>
-          <p>Total Sales: {totalOrderPrice}</p>
+          <label>
+            Select Medicine:
+            <select value={selectedMedName} onChange={handleMedNameChange}>
+              <option value="all">No Filter</option>
+              {allUniqueMedNames.map((medName, index) => (
+                <option key={index} value={medName}>
+                  {medName}
+                </option>
+              ))}
+            </select>
+          </label>
           <table>
             <thead>
               <tr>
                 <th>Medicine</th>
+                <th>Date</th>
                 <th>Quantity</th>
                 <th>Price/Item (LE)</th>
                 <th>Total Price (LE)</th>
               </tr>
             </thead>
             <tbody>
-              {salesData.map((order, index) => (
-                order.orderItems.map((item, itemIndex) => (
-                  <tr key={`${index}-${itemIndex}`}>
-                    <td>{item.medName}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.price_per_item}</td>
-                    <td>{item.price_per_item * item.quantity}</td>
-                  </tr>
-                ))
-              ))}
+              {(filteredSalesData.length > 0 ? filteredSalesData : salesData).map(
+                (order, index) =>
+                  order.orderItems.map((item, itemIndex) => (
+                    <tr key={`${index}-${itemIndex}`}>
+                      <td>{item.medName}</td>
+                      <td>{new Date(new Date(order.createdAt).setDate(new Date(order.createdAt).getDate() - 1)).toLocaleDateString()}</td>
+                      <td>{item.quantity}</td>
+                      <td>{item.price_per_item}</td>
+                      <td>{item.price_per_item * item.quantity}</td>
+                    </tr>
+                  ))
+              )}
             </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan="4">Total Orders:</td>
+                <td>{totalOrders}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       )}

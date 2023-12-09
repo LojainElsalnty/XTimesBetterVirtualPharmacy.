@@ -13,6 +13,14 @@ const AdminstratorSchema = mongoose.Schema({
     email: {
         type: String,
         required: false,
+    },
+    firstName: {
+        type: String,
+        required: false,
+    },
+    lastName: {
+        type: String,
+        required: false,
     }
 }, { timestamps: true });
 

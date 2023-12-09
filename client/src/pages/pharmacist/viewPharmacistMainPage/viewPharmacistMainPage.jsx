@@ -92,11 +92,7 @@ export const ViewPharmacistMainPage = () => {
         },
         {
             url: "/pharmacist/viewSales",
-            pageName: "view sales",
-        },
-        {
-            url: "/pharmacist/filterSales",
-            pageName: "filter sales",
+            pageName: "Sales Report",
         },
         {
             url: "/pharmacist/viewWalletNumber",
