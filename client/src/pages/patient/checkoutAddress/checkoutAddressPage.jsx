@@ -30,7 +30,7 @@ const CheckoutAddress = () => {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -63,7 +63,7 @@ const CheckoutAddress = () => {
 
         const fetchAllExistingAddresses = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/patient/checkoutAddress/allExisting', {
+                const response = await axios.get('http://localhost:8000/patient/checkoutAddress/allExisting', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': accessToken,
@@ -80,12 +80,42 @@ const CheckoutAddress = () => {
         fetchAllExistingAddresses();
     }, []);
 
+    const [discountedCartItems, setDiscountedCartItems] = useState([]);
+
+    useEffect(() => {
+        const fetchDiscountedPrices = async () => {
+            try {
+                const response = await axios.post(
+                    'http://localhost:8000/patient/checkoutAddress/medicineDiscount',
+                    {
+                        cartItems: cartItems,
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': accessToken,
+                        },
+                    }
+                );
+
+                setDiscountedCartItems(response.data);
+            } catch (error) {
+                console.error('Error fetching discounted prices:', error);
+            }
+        };
+
+        fetchDiscountedPrices();
+    }, [cartItems, accessToken]);
+
+    discountedCartItems.forEach(item => {
+        console.log("Discounted item:", item);
+    });
     const existingAddressesList = existingAddresses;
 
     //get total price of order
     let totalCartPrice = 0;
-    for (const item of cartItems) {
-        totalCartPrice += item.price_per_item * item.quantity;
+    for (const item of discountedCartItems) {
+        totalCartPrice += item.discountedPrice * item.quantity;
     }
 
     //handle select existing address
@@ -126,7 +156,7 @@ const CheckoutAddress = () => {
 
         try {
             const response = await axios.post(
-                'http://localhost:5000/patient/checkoutAddress/addNew',
+                'http://localhost:8000/patient/checkoutAddress/addNew',
                 { address: fullAddress },
                 {
                     headers: {
@@ -137,7 +167,7 @@ const CheckoutAddress = () => {
             );
 
             const updatedAddressesResponse = await axios.get(
-                'http://localhost:5000/patient/checkoutAddress/allExisting',
+                'http://localhost:8000/patient/checkoutAddress/allExisting',
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -172,10 +202,16 @@ const CheckoutAddress = () => {
             const username = sessionStorage.getItem("username");
 
 
-            //console.log("cartItems at address: ", cartItems)
+            const updatedCartItems = cartItems.map(item => {
+                const discountedItem = discountedCartItems.find(discountedItem => discountedItem.medName === item.medName);
+                return {
+                    ...item,
+                    price_per_item: discountedItem ? discountedItem.discountedPrice : item.price_per_item,
+                };
+            });
+            //console.log(updatedCartItems);
 
-
-            navigate('/patient/payment', { state: { cartItems: cartItems, deliveryAddress: deliveryAddress, username: username } })
+            navigate('/patient/payment', { state: { cartItems: updatedCartItems, deliveryAddress: deliveryAddress, username: username } })
             setCartItems([])
             // const queryParams = new URLSearchParams();
             // queryParams.append('cartItems', JSON.stringify(cartItems));
@@ -201,16 +237,18 @@ const CheckoutAddress = () => {
                         <th>Medicine</th>
                         <th>Quantity</th>
                         <th>Price/Item (LE)</th>
+                        <th>Price/Item after discount(LE)</th>
                         <th>Total Price (LE)</th>
                     </thead>
                     <tbody>
                         {
-                            cartItems && cartItems.map((item) => (
+                            discountedCartItems && discountedCartItems.map((item) => (
                                 <tr key={item.medName}>
                                     <td>{item.medName}</td>
                                     <td>{item.quantity}</td>
                                     <td>{item.price_per_item}</td>
-                                    <td>{item.price_per_item * item.quantity}</td>
+                                    <td>{item.discountedPrice}</td>
+                                    <td>{item.discountedPrice * item.quantity}</td>
                                 </tr>
                             ))
                         }
@@ -282,8 +320,9 @@ const CheckoutAddress = () => {
                         ))}
                 </select>
             </div>
-
-            <button className={styles["proceedPayment-button"]} onClick={redirectToPayment}>Proceed To Payment</button>
+            <div>
+                <button className={styles["proceedPayment-button"]} onClick={redirectToPayment}>Proceed To Payment</button>
+            </div>
         </>
     );
 };

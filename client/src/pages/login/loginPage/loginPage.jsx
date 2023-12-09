@@ -24,9 +24,9 @@ export const LoginPage = () => {
     const [accessToken, setAccessToken] = useState("");
     const [refreshToken, setRefreshToken] = useState("");
     const [error, setError] = useState(false);
-    const {updateAccessToken, updateRefreshToken} = useAuthUpdate();
-    const {username, setUsername} = useUsername();
-    const {userType, setUserType} = useUserType();
+    const { updateAccessToken, updateRefreshToken } = useAuthUpdate();
+    const { username, setUsername } = useUsername();
+    const { userType, setUserType } = useUserType();
     const navigate = useNavigate();
 
     // clear access token and refresh token and username stored in the browser
@@ -47,7 +47,7 @@ export const LoginPage = () => {
         try {
             await axios({
                 method: 'POST',
-                url: 'http://localhost:5000/login',
+                url: 'http://localhost:8000/login',
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -56,45 +56,45 @@ export const LoginPage = () => {
                     password: password
                 }
             })
-            .then((response) => {
-                console.log(`Refresh Token: ${response.data.refreshToken}`);
-    
-                setAccessToken(response.data.accessToken);
-                setRefreshToken(response.data.refreshToken);
-                updateAccessToken(response.data.accessToken);
-                updateRefreshToken(response.data.refreshToken);
-                setUsername(name);
+                .then((response) => {
+                    console.log(`Refresh Token: ${response.data.refreshToken}`);
 
-                // Setting local storage
-                sessionStorage.setItem("accessToken", response.data.accessToken);
-                sessionStorage.setItem("refreshToken", response.data.refreshToken);
-                sessionStorage.setItem("username", name);
-    
-                if (response.data.userType === "patient") {
-                    setError(false);
-                    setUserType("patient");
-                    sessionStorage.setItem("userType", "patient");
-                    navigate('/patient');
-                } 
-                else if (response.data.userType === "pharmacist") {
-                    setError(false);
-                    setUserType("pharmacist");
-                    sessionStorage.setItem("userType", "pharmacist");
-                    navigate('/pharmacist');
-                }
-                else if (response.data.userType === "admin") {
-                    setError(false);
-                    setUserType("admin");
-                    sessionStorage.setItem("userType", "admin");
-                    navigate('/admin');
-                }
-            })
+                    setAccessToken(response.data.accessToken);
+                    setRefreshToken(response.data.refreshToken);
+                    updateAccessToken(response.data.accessToken);
+                    updateRefreshToken(response.data.refreshToken);
+                    setUsername(name);
+
+                    // Setting local storage
+                    sessionStorage.setItem("accessToken", response.data.accessToken);
+                    sessionStorage.setItem("refreshToken", response.data.refreshToken);
+                    sessionStorage.setItem("username", name);
+
+                    if (response.data.userType === "patient") {
+                        setError(false);
+                        setUserType("patient");
+                        sessionStorage.setItem("userType", "patient");
+                        navigate('/patient');
+                    }
+                    else if (response.data.userType === "pharmacist") {
+                        setError(false);
+                        setUserType("pharmacist");
+                        sessionStorage.setItem("userType", "pharmacist");
+                        navigate('/pharmacist');
+                    }
+                    else if (response.data.userType === "admin") {
+                        setError(false);
+                        setUserType("admin");
+                        sessionStorage.setItem("userType", "admin");
+                        navigate('/admin');
+                    }
+                })
         } catch (error) {
             setError(true);
         }
     }
 
-    function handleGoBackButtonClicked () {
+    function handleGoBackButtonClicked() {
         navigate('/');
     }
 
@@ -111,7 +111,7 @@ export const LoginPage = () => {
                         <label className={styles['login-username-label']}>Username</label>
                     </div>
                     <div className={styles['username-input-div']}>
-                        <input className={styles['searchbar-input']} value={name} placeholder="Enter username ..." type="text" onChange={handleUsernameChange}/>
+                        <input className={styles['searchbar-input']} value={name} placeholder="Enter username ..." type="text" onChange={handleUsernameChange} />
                     </div>
                 </div>
 
@@ -120,7 +120,7 @@ export const LoginPage = () => {
                         <label className={styles['login-password-label']}>Password</label>
                     </div>
                     <div className={styles['password-input-div']}>
-                        <input className={styles['searchbar-input']} value={password} placeholder="Enter password ..." type="password" onChange={handlePasswordChange}/>
+                        <input className={styles['searchbar-input']} value={password} placeholder="Enter password ..." type="password" onChange={handlePasswordChange} />
                     </div>
                 </div>
                 <a className={styles['reset-password-a']} href={"/sendOTP"}>Reset Password</a>

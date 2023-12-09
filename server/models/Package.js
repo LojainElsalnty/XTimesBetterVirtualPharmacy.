@@ -24,6 +24,9 @@ const PackageSchema = mongoose.Schema({
     subscribed_patients: {
         type: []
     },
+    valid: {
+        type: String,
+    },
 }, { timestamps: true });
 
 

@@ -23,7 +23,7 @@ const MedicineCatalog = () => {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -58,7 +58,7 @@ const MedicineCatalog = () => {
     useEffect(() => {
         const fetchAllMedicines = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/pharmacist/medicineCatalog', {
+                const response = await axios.get('http://localhost:8000/pharmacist/medicineCatalog', {
                     headers: {
                         'Content-Type': 'application/json',
                     },

@@ -1,5 +1,7 @@
 const Medicine = require('../../models/Medicine')
 const Patient = require('../../models/Patient')
+const subsPackageModel = require('../../models/SubscribedPackages')
+const PackageModel = require('../../models/Package')
 const mongoose = require('mongoose')
 
 
@@ -55,10 +57,47 @@ const getAllExistingAddresses = async (req, res) => {
     res.status(200).json(existingAddresses);
 }
 
+
+//get patient's package discount if exists
+const calculateMedicineDiscount = async (req, res) => {
+    const username = req.body.username;
+    const cartItems = req.body.cartItems;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    //console.log(today)
+    try {
+        const subscribedPackage = await subsPackageModel.find({
+            patient_username: username,
+            status: { $in: ['subscribed', 'cancelled'] },
+            end_date: { $gte: today }
+        }).sort({ start_date: -1 }).limit(1);
+        console.log(subscribedPackage)
+        if (subscribedPackage.length > 0) {
+            const packageInfo = await PackageModel.findOne({ name: subscribedPackage[0].package_name });
+            const discount = packageInfo.medicine_discount / 100;
+            // Applying discount to each item in cartItems
+            const discountedCartItems = cartItems.map(item => {
+                const discountedPrice = item.price_per_item * (1 - discount);
+                return { ...item, discountedPrice };
+            });
+            console.log(discount)
+            res.status(200).json(discountedCartItems);
+
+        } else {
+            const discountedCartItems = cartItems.map(item => ({ ...item, discountedPrice: item.price_per_item }));
+            res.status(200).json(discountedCartItems);
+        }
+    } catch (error) {
+        console.error('Error fetching medicine discount:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = {
     getOrderDetails,
     addNewAddress,
     chooseExistingAddress,
     proceedToPayment,
-    getAllExistingAddresses
+    getAllExistingAddresses,
+    calculateMedicineDiscount
 }
