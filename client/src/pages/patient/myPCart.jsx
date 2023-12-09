@@ -3,7 +3,9 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const prescriptionId = '65668660eb56032a95d0010e'
+
+
+const prescriptionId = '656b5eced6f721891c2f601f'
 const PrescriptionDetails = ({ prescriptionId }) => {
   const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
@@ -103,10 +105,8 @@ const PrescriptionDetails = ({ prescriptionId }) => {
 
       const redirectToCatalouge = async () => {
         try {
-          if (cartItems.length <= 0) {
-            return alert('Your Cart is Empty!');
-          }
-          sessionStorage.setItem('cartItems', JSON.stringify(cartItems)); // Added - Nour
+         
+          sessionStorage.setItem('cartItems', JSON.stringify(cartItems)); 
           navigate('/patient/medicineCatalog', { state: { cartItems: cartItems } });
         } catch (error) {
           console.error('Error redirecting to checkout:', error);
@@ -122,7 +122,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
         <div>
             <h2>Cart Items</h2>
             
-            <button  onClick={redirectToCatalouge}>Menu</button>
+            <button  onClick={redirectToCatalouge} >back</button>
             <table>
                 <thead>
                     <tr>

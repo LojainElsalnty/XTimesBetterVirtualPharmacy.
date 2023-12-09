@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 //import './styles.css';
 import MyCartC from '../../../components/MyCartC';
 
-
+//import styles from './MyCart.module.css'
 
 //import MyCartComponent from '../components/myCart/myCart'; // Import the component from components/myCart
 
