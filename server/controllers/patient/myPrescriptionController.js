@@ -3,12 +3,15 @@ const mongoose = require('mongoose');
 const Prescription = require('../../models/Prescription');
 const Medicine = require('../../models/Medicine');
 
-let prescriptionId = '656b5fbcd6f721891c2f61ec';
+let prescriptionId = '';
 let cartItems = []; // Shared variable for cartItems
 
 // get prescriptionID  from sarah and CREATE cartitems
 const getPrescriptionById = async (req, res) => {
     //prescriptionId = '656b5eced6f721891c2f601f';
+    //console.log("hena")
+    prescriptionId = req.params.id;
+   // console.log(prescriptionId)
     try {
         const prescription = await Prescription.findById(prescriptionId);
 
@@ -21,12 +24,12 @@ const getPrescriptionById = async (req, res) => {
             medName: medicine.name,
             price_per_item: medicine.price,
             quantity: 1, // Each item starts with quantity 1
-            dose: medicine.dose,
-            note: medicine.timing,
+            dosage: medicine.dosage,
+            //note: medicine.timing,
         }));
         prescription.medicines = cartItems;
         res.json(cartItems);
-        console.log( cartItems)
+       // console.log( cartItems)
     } catch (error) {
         console.error('Error fetching prescription:', error);
         res.status(500).send('Internal Server Error');

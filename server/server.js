@@ -18,6 +18,7 @@ const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRo
 const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute');
 const myCartRoutes = require('./routes/patient/myCartRoute');
 const myPrescriptionRoutes = require('./routes/patient/myPrescriptionRoute');
+const prescriptionRoutes = require('./routes/patient/prescriptions');
 
 //const upload = require('./upload'); // Import the Multer configuration
 const router = express.Router();
@@ -117,6 +118,7 @@ app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Ge
 app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
 app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
 app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePayments/medicineCashOnDeliveryPayment'));
+app.use('/patient/prescriptionDetails', prescriptionRoutes);
 
 
 

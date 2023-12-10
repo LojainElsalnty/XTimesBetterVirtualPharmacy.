@@ -1,0 +1,120 @@
+.result-container {
+    margin-top: 180px;
+}
+
+/* .ddl-container {
+    text-align: center;
+    margin-top: 150px;
+    margin-left: 90px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    align-items: center;
+} */
+/* 
+.ddl-select {
+    margin-left: 6px;
+    height: 40px;
+    width: 240px;
+    padding: 10px;
+    border: 1px solid #ccc;
+} */
+
+/* .ddl-select option {
+    text-align: center;
+}
+
+.ddl-label {
+    margin-left: 350px;
+    font-weight: bold;
+} */
+.prescription-container {
+    /* Container styles */
+  }
+  
+  .list-title {
+    /* Styles for the title */
+  }
+  
+  .prescription-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .prescription-table thead {
+    /* Header styles */
+  }
+  
+  .prescription-table tbody tr {
+    /* Row styles */
+  }
+  
+  .prescription-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* For zebra striping */
+  }
+  
+  .prescription-table td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .empty-message {
+    text-align: center;
+    color: grey;
+  }
+  
+  /* Add more styles as needed */
+  
+.list-title {
+    text-align: center;
+    margin-top: 100px;
+    margin-right: 470px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+.prescriptionTable {
+    background-color: #f0faff; /* Light blue background */
+    /* ... other styles ... */
+}
+.prescriptionTable th, .prescriptionTable td {
+    background-color: #f8f9fa; /* Soft gray for cells */
+    /* ... other styles ... */
+}
+
+.prescriptionTable th {
+    background-color: #99ccff; /* Slightly darker blue for header */
+    color: white; /* White text for contrast */
+}
+.prescriptionTable tr:nth-child(even) {
+    background-color: #e6f5ff; /* Even lighter blue for alternate rows */
+}
+.prescriptionTable tr:hover {
+    background-color: #ccefff; /* Highlight row on hover */
+}
+.lightBlueButton {
+    background-color: #77c4de; /* Light blue background */
+    color: white; /* White text for better contrast */
+    border: 1px solid transparent; /* Optional: can add border */
+    padding: 8px 16px; /* Padding for button */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Cursor change to indicate it's clickable */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.lightBlueButton:hover {
+    background-color: #92B4D4; /* Slightly darker blue for hover effect */
+}
+
+.lightBlueButton:hover {
+    background-color: #92B4D4; /* Slightly darker blue for hover effect */
+}
+
+.lightBlueText {
+    color: #ADD8E6; /* Light blue font color */
+}
+
+/* If you want to apply the color to specific elements like table headers */
+.prescriptionTable th {
+    color: #e5e5e5; /* Light blue font color for table headers */
+}
