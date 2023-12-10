@@ -1,6 +1,43 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function RemovePharmacist() {
+
+  //Authenticate part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
+    }
+  }, [username]);
+  async function checkAuthentication() {
+    await axios({
+      method: 'get',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'admin',
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setUsername(response.data.username);
+        //setLoad(false);
+      })
+      .catch((error) => {
+        //setLoad(false);
+        navigate('/login');
+
+      });
+  }
+
+  const xTest = checkAuthentication();
+
   const [pharmacists, setPharmacists] = useState([]);
   const [pharmacistInfo, setPharmacistInfo] = useState({
     username: ''
@@ -12,7 +49,7 @@ function RemovePharmacist() {
 
   const fetchPharmacists = async () => {
     try {
-      const response = await fetch('http://localhost:5000/admin/addremove/gett/');
+      const response = await fetch('http://localhost:8000/admin/addremove/gett/');
       const data = await response.json();
       setPharmacists(data);
     } catch (error) {
@@ -27,7 +64,7 @@ function RemovePharmacist() {
 
   const handleRemovePharmacist = async (username) => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/addremove/removePharmacist`, {
+      const response = await fetch(`http://localhost:8000/admin/addremove/removePharmacist`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +91,9 @@ function RemovePharmacist() {
       alert('An error occurred while removing the pharmacist');
     }
   };
-
+  if (load) {
+    return (<div>Loading</div>)
+  }
   return (
     <div>
       <h2>Pharmacists List</h2>
@@ -74,7 +113,7 @@ function RemovePharmacist() {
               <td>{pharmacist.username}</td>
               <td>{pharmacist.email}</td>
               <td>
-                <button onClick={() => handleRemovePharmacist(pharmacist.username)}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
+                <button onClick={() => handleRemovePharmacist(pharmacist.username)} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
               </td>
             </tr>
           ))}

@@ -20,7 +20,6 @@ import AddMedicine from '../../medicine/medicineAdd';
 import EditMedicine from '../../medicine/madicineEdit';
 import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
-import FilterSales from '../filterSalesPage';
 import ViewSales from '../viewSalesPage';
 import ViewPharmacistWalletPage from '../viewPharmacistWalletPage';
 
@@ -112,7 +111,6 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />
                     <Route path="/viewSales" element={<ViewSales />} />
-                    <Route path="/filterSales" element={<FilterSales />} />
                     <Route path="/viewWalletNumber" element={<ViewPharmacistWalletPage />} />
                 </Routes>
             </>

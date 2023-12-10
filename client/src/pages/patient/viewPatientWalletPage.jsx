@@ -14,46 +14,46 @@ const ViewPatientWalletPage = () => {
     const [walletNumber, setWalletNumber] = useState(null);
     const navigate = useNavigate();
 
-  //Authenticate part
-  const accessToken = sessionStorage.getItem('accessToken');
-  const [load, setLoad] = useState(true);
-  const [username, setUsername] = useState('');
-  
-  console.log(accessToken);
-  useEffect(() => {
-      if (username.length != 0) {
-          setLoad(false);
-      }
-  }, [username]);
-  async function checkAuthentication() {
-      await axios({
-          method: 'get',
-          url: 'http://localhost:5000/authentication/checkAccessToken',
-          headers: {
-              "Content-Type": "application/json",
-              'Authorization': accessToken,
-              'User-type': 'patient',
-          },
-      })
-          .then((response) => {
-              console.log(response);
-              setUsername(response.data.username);
-              //setLoad(false);
-          })
-          .catch((error) => {
-              //setLoad(false);
-              navigate('/login');
+    //Authenticate part
+    const accessToken = sessionStorage.getItem('accessToken');
+    const [load, setLoad] = useState(true);
+    const [username, setUsername] = useState('');
 
-          });
-  }
+    console.log(accessToken);
+    useEffect(() => {
+        if (username.length != 0) {
+            setLoad(false);
+        }
+    }, [username]);
+    async function checkAuthentication() {
+        await axios({
+            method: 'get',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken,
+                'User-type': 'patient',
+            },
+        })
+            .then((response) => {
+                console.log(response);
+                setUsername(response.data.username);
+                //setLoad(false);
+            })
+            .catch((error) => {
+                //setLoad(false);
+                navigate('/login');
 
-  const xTest = checkAuthentication();
-//Authenticate part
+            });
+    }
+
+    const xTest = checkAuthentication();
+    //Authenticate part
 
     useEffect(() => {
         const fetchWalletDetails = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/patient/viewWalletNumber', {
+                const response = await axios.get('http://localhost:8000/patient/viewWalletNumber', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': accessToken,
@@ -75,19 +75,19 @@ const ViewPatientWalletPage = () => {
     }
     return (
         <div>
-          <h1>Wallet Amount</h1>
-          <div className={styles.walletContainer}>
-            <div className={styles.walletAmount}>
-            <p className={styles.largeText}>Your Balance: ${walletNumber} </p>
-              {/* <p className={styles.largeText}>${walletNumber}</p> Display the wallet amount here with larger text */}
+            <h1>Wallet Amount</h1>
+            <div className={styles.walletContainer}>
+                <div className={styles.walletAmount}>
+                    <p className={styles.largeText}>Your Balance: ${walletNumber} </p>
+                    {/* <p className={styles.largeText}>${walletNumber}</p> Display the wallet amount here with larger text */}
+                </div>
+                <br />
+                <br />
+
             </div>
-            <br />
-            <br />
-           
-          </div>
         </div>
     );
 };
-    
+
 
 export default ViewPatientWalletPage;

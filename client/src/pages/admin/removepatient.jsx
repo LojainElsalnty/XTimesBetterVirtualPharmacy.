@@ -1,6 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function RemovePatient() {
+
+  //Authenticate part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
+    }
+  }, [username]);
+  async function checkAuthentication() {
+    await axios({
+      method: 'get',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'admin',
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setUsername(response.data.username);
+        //setLoad(false);
+      })
+      .catch((error) => {
+        //setLoad(false);
+        navigate('/login');
+
+      });
+  }
+
+  const xTest = checkAuthentication();
+
+
   const [patients, setPatients] = useState([]);
   const [patientInfo, setPatientInfo] = useState({
     username: ''
@@ -12,7 +50,7 @@ function RemovePatient() {
 
   const fetchPatients = async () => {
     try {
-      const response = await fetch('http://localhost:5000/admin/addremove/get/');
+      const response = await fetch('http://localhost:8000/admin/addremove/get/');
       const data = await response.json();
       setPatients(data);
     } catch (error) {
@@ -27,7 +65,7 @@ function RemovePatient() {
 
   const handleRemovePatient = async (username) => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/addremove/removePatient`, {
+      const response = await fetch(`http://localhost:8000/admin/addremove/removePatient`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +92,9 @@ function RemovePatient() {
       alert('An error occurred while removing the patient');
     }
   };
-
+  if (load) {
+    return (<div>Loading</div>)
+  }
   return (
     <div>
       <h2>Patients List</h2>
@@ -74,14 +114,14 @@ function RemovePatient() {
               <td>{patient.username}</td>
               <td>{patient.email}</td>
               <td>
-                <button onClick={() => handleRemovePatient(patient.username)}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
+                <button onClick={() => handleRemovePatient(patient.username)} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-</div>
+    </div>
   );
 }
 

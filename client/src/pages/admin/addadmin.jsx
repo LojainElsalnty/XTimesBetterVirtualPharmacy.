@@ -2,6 +2,44 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AdminTable = () => {
+
+  //Authenticate part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
+    }
+  }, [username]);
+  async function checkAuthentication() {
+    await axios({
+      method: 'get',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'admin',
+      },
+    })
+      .then((response) => {
+        console.log(response);
+        setUsername(response.data.username);
+        //setLoad(false);
+      })
+      .catch((error) => {
+        //setLoad(false);
+        navigate('/login');
+
+      });
+  }
+
+  const xTest = checkAuthentication();
+
+
+
   const [admins, setAdmins] = useState([]);
   const [error, setError] = useState(null);
   const [showAddAdminPopup, setShowAddAdminPopup] = useState(false);
@@ -15,7 +53,7 @@ const AdminTable = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/admin/addremove/admin/');
+      const response = await axios.get('http://localhost:8000/admin/addremove/admin/');
       setAdmins(response.data);
       setError(null);
     } catch (err) {
@@ -54,16 +92,16 @@ const AdminTable = () => {
 
   const handleAddAdminSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       console.log('Request Payload:', newAdminData);
       // Check if required fields are present
-      if (!newAdminData.username || !newAdminData.password ) {
+      if (!newAdminData.username || !newAdminData.password) {
         setError('Please fill in all required fields.');
         return;
       }
-     console.log(newAdminData)
-      const response = await axios.post('http://localhost:5000/admin/addremove/', newAdminData);
+      console.log(newAdminData)
+      const response = await axios.post('http://localhost:8000/admin/addremove/', newAdminData);
       console.log(response)
       if (response.data.success) {
         // Admin added successfully, close the pop-up and fetch admins again
@@ -78,7 +116,7 @@ const AdminTable = () => {
       }
     } catch (error) {
       console.error('An error occurred:', error);
-    
+
       if (error.response && error.response.status === 400 && error.response.data && error.response.data.message === 'Username already taken!') {
         setError('Username is already taken. Please choose a different username.');
       } else {
@@ -89,7 +127,7 @@ const AdminTable = () => {
 
   const handleRemoveAdmin = async (adminUsername) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/admin/addremove/removeAdmin/${adminUsername}`);
+      const response = await axios.delete(`http://localhost:8000/admin/addremove/removeAdmin/${adminUsername}`);
       console.log(response)
       if (response.status === 200) {
         // Admin removed successfully, fetch admins again
@@ -105,11 +143,13 @@ const AdminTable = () => {
       setError(`An error occurred: ${error.message}`);
     }
   };
-
+  if (load) {
+    return (<div>Loading</div>)
+  }
   return (
     <div>
       <h1>Admin Table</h1>
-      <button onClick={handleAddAdminClick}style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}> Add Admin</button>
+      <button onClick={handleAddAdminClick} style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}> Add Admin</button>
       {showAddAdminPopup && (
         <div className="popup">
           <div className="popup-content">
@@ -145,7 +185,7 @@ const AdminTable = () => {
                   name="firstName"
                   value={newAdminData.firstName}
                   onChange={handleInputChange}
-                  
+
                 />
               </div>
               <div>
@@ -155,11 +195,11 @@ const AdminTable = () => {
                   name="lastName"
                   value={newAdminData.lastName}
                   onChange={handleInputChange}
-                  
+
                 />
               </div>
-              <button type="submit"style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Add Admin</button>
-              <button type="button" onClick={handlePopupClose}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button>
+              <button type="submit" style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Add Admin</button>
+              <button type="button" onClick={handlePopupClose} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button>
               {error && <p>{error}</p>}
             </form>
           </div>
@@ -181,7 +221,7 @@ const AdminTable = () => {
               <td>{admin.firstName}</td>
               <td>{admin.lastName}</td>
               <td>
-                <button onClick={() => handleRemoveAdmin(admin.username)}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
+                <button onClick={() => handleRemoveAdmin(admin.username)} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
               </td>
             </tr>
           ))}
