@@ -152,7 +152,7 @@ const MedicineCatalog = () => {
     const getAlternatives = async (actveIng) => {
         try {
             //const existingCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
-            const response = await axios.get(`http://localhost:5000/patient/medicineCatalog/alternatives/${actveIng}`);
+            const response = await axios.get(`http://localhost:8000/patient/medicineCatalog/alternatives/${actveIng}`);
             if (response.data.success) {
                 //alert('alternatives success!')
                 //console.log(response.data.medicineNames)

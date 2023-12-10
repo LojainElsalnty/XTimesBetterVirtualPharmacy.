@@ -128,7 +128,7 @@ const MedicineCatalog = () => {
     const archiveMedicine = async (medName) => {
         try {
             console.log('Medicine Name:', medName);
-            const response = await axios.post(`http://localhost:5000/pharmacist/medicineCatalog/${medName}`);
+            const response = await axios.post(`http://localhost:8000/pharmacist/medicineCatalog/${medName}`);
             console.log('Response:', response);
 
             if (response.data.success) {
@@ -158,7 +158,7 @@ const MedicineCatalog = () => {
     const UnarchiveMedicine = async (medName) => {
         try {
             console.log('Medicine Name:', medName);
-            const response = await axios.post(`http://localhost:5000/pharmacist/medicineCatalog/unarch/${medName}`);
+            const response = await axios.post(`http://localhost:8000/pharmacist/medicineCatalog/unarch/${medName}`);
             console.log('Response:', response);
 
             if (response.data.success) {

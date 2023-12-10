@@ -33,7 +33,7 @@ const MedicineSchema = mongoose.Schema({
   isOTC: { //whether it is an overcounter med (otc true) or not (otc false)
     type: Boolean,
     default: true
-  }
+  },
   archived: {
     type: Boolean, // if archived or not
     default: false,
