@@ -74,7 +74,7 @@ function RemovePharmacist() {
               <td>{pharmacist.username}</td>
               <td>{pharmacist.email}</td>
               <td>
-                <button onClick={() => handleRemovePharmacist(pharmacist.username)}>Remove</button>
+                <button onClick={() => handleRemovePharmacist(pharmacist.username)}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
               </td>
             </tr>
           ))}

@@ -9,6 +9,10 @@ const SalesView = () => {
   const [error, setError] = useState(null);
 
   const handleFilter = async () => {
+    if (!startDate || !endDate) {
+      setError('Please enter both start and end dates.');
+      return;
+    }
     const data={
       startDate: startDate,endDate: endDate
     }
@@ -50,7 +54,9 @@ const SalesView = () => {
         </label>
       </div>
       <div>
-        <button onClick={handleFilter}>View</button>
+      <button onClick={handleFilter} style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>
+          View
+        </button>
       </div>
       {error && <p>{error}</p>}
       {salesData && (

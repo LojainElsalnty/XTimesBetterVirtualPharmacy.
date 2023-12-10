@@ -109,7 +109,7 @@ const AdminTable = () => {
   return (
     <div>
       <h1>Admin Table</h1>
-      <button onClick={handleAddAdminClick}>Add Admin</button>
+      <button onClick={handleAddAdminClick}style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}> Add Admin</button>
       {showAddAdminPopup && (
         <div className="popup">
           <div className="popup-content">
@@ -158,8 +158,8 @@ const AdminTable = () => {
                   
                 />
               </div>
-              <button type="submit">Add Admin</button>
-              <button type="button" onClick={handlePopupClose}>Cancel</button>
+              <button type="submit"style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Add Admin</button>
+              <button type="button" onClick={handlePopupClose}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button>
               {error && <p>{error}</p>}
             </form>
           </div>
@@ -181,7 +181,7 @@ const AdminTable = () => {
               <td>{admin.firstName}</td>
               <td>{admin.lastName}</td>
               <td>
-                <button onClick={() => handleRemoveAdmin(admin.username)}>Remove</button>
+                <button onClick={() => handleRemoveAdmin(admin.username)}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
               </td>
             </tr>
           ))}
