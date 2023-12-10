@@ -99,6 +99,7 @@ const MedicineCatalog = () => {
         setSelectedMedicinalUse(" ");
 
     }
+
     //clear search
     const handleClearSearch = () => {
         setMedicinesToBeDisplay(medicines)
@@ -121,7 +122,63 @@ const MedicineCatalog = () => {
             });
             setMedicinesToBeDisplay(filterResult)
         }
+    };
 
+    //Archive Medicine
+    const archiveMedicine = async (medName) => {
+        try {
+            console.log('Medicine Name:', medName);
+            const response = await axios.post(`http://localhost:5000/pharmacist/medicineCatalog/${medName}`);
+            console.log('Response:', response);
+
+            if (response.data.success) {
+
+                setMedicines(medicines => medicines.map(med => {
+                    if (med.name === medName) {
+                        return { ...med, archived: true };
+                    }
+                    return med;
+                }));
+
+                alert('archived successfully!')
+                window.location.reload()
+
+            } else {
+                console.log(response.data.message);
+            }
+        } catch (error) {
+            console.error('Error archiving item :', error);
+            if (error.response && error.response.status === 400) {
+                alert("Bad Request: " + error.response.data.message);
+            }
+        }
+    };
+
+    //UnArchive Medicine
+    const UnarchiveMedicine = async (medName) => {
+        try {
+            console.log('Medicine Name:', medName);
+            const response = await axios.post(`http://localhost:5000/pharmacist/medicineCatalog/unarch/${medName}`);
+            console.log('Response:', response);
+
+            if (response.data.success) {
+                setMedicines(medicines => medicines.map(med => {
+                    if (med.name === medName) {
+                        return { ...med, archived: false };
+                    }
+                    return med;
+                }));
+                alert('Unarchived successfully!')
+                window.location.reload()
+            } else {
+                console.log(response.data.message);
+            }
+        } catch (error) {
+            console.error('Error Unarchiving item :', error);
+            if (error.response && error.response.status === 400) {
+                alert("Bad Request: " + error.response.data.message);
+            }
+        }
     };
 
     //Redirect to View Cart
@@ -165,13 +222,14 @@ const MedicineCatalog = () => {
                             <th>Medicinal Uses</th>
                             <th>Sold</th>
                             <th>Available Quantity</th>
-                            <th>Availability</th>
+
+
                         </tr>
                     </thead>
                     <tbody>
                         {
                             medicinesToBeDisplay && medicinesToBeDisplay.map((medicine) => {
-                                return <PharmacistMedicineDetails key={medicine._id} medicine={medicine} redirectToEdit={redirectToEdit} />
+                                return <PharmacistMedicineDetails key={medicine._id} medicine={medicine} redirectToEdit={redirectToEdit} archiveMedicine={archiveMedicine} UnarchiveMedicine={UnarchiveMedicine} />
                             })
                         }
                     </tbody>

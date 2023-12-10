@@ -34,6 +34,10 @@ const MedicineSchema = mongoose.Schema({
     type: Boolean,
     default: true
   }
+  archived: {
+    type: Boolean, // if archived or not
+    default: false,
+  },
 
 }, { timestamps: true });
 

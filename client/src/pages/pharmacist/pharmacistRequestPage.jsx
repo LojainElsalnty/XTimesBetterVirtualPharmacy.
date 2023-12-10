@@ -61,7 +61,7 @@ const PharmacistRequest = () => {
         }
 
         if (!validatePass(formData.password)) {
-          setPassError("password must have the following 1. at least one lowercase letter 2. at least one uppercase letter 3. at least one number 4. the minimum length is 8");
+          setPassError("Please enter atleast 8 characters with number, small and capital letter.");
         } else {
           setPassError(''); // Clear the error message if the pass is valid
         }
@@ -93,8 +93,10 @@ const PharmacistRequest = () => {
         body: formDataToSend, // Use the FormData object
 
       });
+      const responseData = await response.json();
+
       //console.log(response)
-      if (response.ok) {
+      if (responseData.success) {
         // Registration was successful, handle success scenario
         console.log('Registration successful!');
         alert('Registration successful!');
@@ -118,7 +120,7 @@ const PharmacistRequest = () => {
       } else {
         // Registration failed, handle error scenario
         console.error('Registration failed');
-        alert('Registration failed ');
+        alert(responseData.message);
       }
     } catch (error) {
       console.error('An error occurred:', error);
@@ -128,64 +130,65 @@ const PharmacistRequest = () => {
   };
 
   return (
-    <div className={styles.doctorRequest}>
+  <div className={styles.pharmacyRegistrationBack}>
+    <div className={styles.pharmacyRegistration}>
       <h2>Pharmacist Registration Request</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Add form fields for each data attribute */}
-        <div>
-          <label>Username:</label>
+      <form onSubmit={handleSubmit} className={styles.registrationForm}>
+        <div className={styles.formField}>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
+            id="username"
             name="username"
             value={formData.username}
             onChange={handleInputChange}
             required
           />
         </div>
-        <div>
-          <label>Name:</label>
+        <div className={styles.formField}>
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
+            id="name"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
             required
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className={styles.formField}>
+          <label htmlFor="email">Email:</label>
           <input
             type="text"
+            id="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
             required
           />
           {emailError && (
-          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
-            {emailError}
-          </div>
-          )}  
+            <div className={styles.errorMessage}>{emailError}</div>
+          )}
         </div>
-        <div>
-          <label>Password:</label>
+        <div className={styles.formField}>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
+            id="password"
             name="password"
             value={formData.password}
             onChange={handleInputChange}
             required
           />
           {passError && (
-          <div className="error-message" style={{ color: 'red', fontSize: '1.2rem' }}>
-            {passError}
-          </div>
-        )} 
+            <div className={styles.errorMessage}>{passError}</div>
+          )}
         </div>
-        <div>
-          <label>Date Of Birth:</label>
+        <div className={styles.formField}>
+          <label htmlFor="dob">Date Of Birth:</label>
           <input
             type="date"
+            id="dob"
             name="dob"
             value={formData.dob}
             max={new Date().toISOString().split('T')[0]}
@@ -193,71 +196,78 @@ const PharmacistRequest = () => {
             required
           />
         </div>
-        <div>
-          <label>Hourly Rate:</label>
+        <div className={styles.formField}>
+          <label htmlFor="hourly_rate">Hourly Rate:</label>
           <input
             type="Number"
+            id="hourly_rate"
             name="hourly_rate"
             value={formData.hourly_rate}
             onChange={handleInputChange}
             required
           />
         </div>
-        <div>
-          <label>Affiliation:</label>
+        <div className={styles.formField}>
+          <label htmlFor="affiliation">Affiliation:</label>
           <input
             type="text"
+            id="affiliation"
             name="affiliation"
             value={formData.affiliation}
             onChange={handleInputChange}
             required
           />
         </div>
-        <div>
-          <label>Educational Background:</label>
+        <div className={styles.formField}>
+          <label htmlFor="educational_background">Educational Background:</label>
           <input
             type="text"
+            id="educational_background"
             name="educational_background"
             value={formData.educational_background}
             onChange={handleInputChange}
             required
           />
         </div>
-        <div>
-          <label>National ID:</label>
+        <div className={styles.formField}>
+          <label htmlFor="nationalID">National ID:</label>
           <input 
             type="file" 
+            id="nationalID"
             name="nationalID"
             accept=".pdf, .jpg, .jpeg, .png" 
             onChange={handleFileInputChange}
             required
           />
         </div>
-        <div>
-          <label>Working License:</label>
-          <input 
-          type="file" 
-          name="workingLicense" 
-          accept=".pdf, .jpg, .jpeg, .png" 
-          onChange={handleFileInputChange}
-          required
-          />
-        </div>
-        <div>
-          <label>Pharmacy Degree:</label>
+        <div className={styles.formField}>
+          <label htmlFor="workingLicense">Working License:</label>
           <input 
             type="file" 
+            id="workingLicense"
+            name="workingLicense" 
+            accept=".pdf, .jpg, .jpeg, .png" 
+            onChange={handleFileInputChange}
+            required
+          />
+        </div>
+        <div className={styles.formField}>
+          <label htmlFor="pharmacyDegree">Pharmacy Degree:</label>
+          <input 
+            type="file" 
+            id="pharmacyDegree"
             name="pharmacyDegree" 
             accept=".pdf, .jpg, .jpeg, .png" 
             onChange={handleFileInputChange} 
             required
           />
         </div>
-        {/* Submit button */}
-        <button type="submit">Register</button>
+        <button type="submit" className={styles.submitButton}>Register</button>
       </form>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default PharmacistRequest;

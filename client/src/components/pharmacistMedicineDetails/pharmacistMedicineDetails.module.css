@@ -31,7 +31,9 @@ tr {
 }
 
 tr:hover {
-    background-color: #efefef;
+    /* background-color: #efefef;*/
+    background-color: initial !important;
+    /* Try using !important to force removal */
 }
 
 li,
@@ -45,4 +47,33 @@ ul {
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
+}
+
+.archiveButton,
+.unarchiveButton {
+    width: 100px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.archiveButton:disabled,
+.unarchiveButton:disabled {
+    opacity: 0.5;
+    cursor: default;
+    border: none;
+}
+
+.archiveButton {
+    margin-bottom: 4px;
+    background-color: #41bd45;
+    color: #fff;
+}
+
+.unarchiveButton {
+    background-color: #d8d4d4;
+}
+
+.out-of-stock {
+    color: #FF0000;
 }

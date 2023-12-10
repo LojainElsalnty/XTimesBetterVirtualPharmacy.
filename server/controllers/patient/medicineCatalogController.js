@@ -3,10 +3,13 @@ const mongoose = require('mongoose')
 
 
 //get all medicines (including picture of medicine, name, price, description [medicinalUses & activeIngredients]) 
+//get only unArchived medicines
 const getMedicines = async (req, res) => {
-    const medicines = await Medicine.find({}).sort({ createdAt: -1 }).select('name price medicinalUses activeIngredients image availableQuantity sales isOTC');
+
+    const medicines = await Medicine.find({ archived: false }).sort({ createdAt: -1 }).select('name price medicinalUses activeIngredients image availableQuantity sales isOTC');
     res.status(200).json(medicines)
 }
+
 //get medicine based on given name -> search
 const searchMedicineByName = async (req, res) => {
     const name = req.params.name
@@ -14,7 +17,7 @@ const searchMedicineByName = async (req, res) => {
     //i => case-insensitive
     const regex = new RegExp(`^${name}`, 'i');
 
-    const searchResult = await Medicine.find({ name: regex })
+    const searchResult = await Medicine.find({ name: regex, archived: false })
     if (!searchResult || searchResult.length == 0) {
         return res.status(404).json({ error: 'medicine not found' })
     }
@@ -26,7 +29,8 @@ const filterMedicineByUse = async (req, res) => {
     //medicinalUse (no 's') cuz route is /medicinalUse/:medicinalUse
     const requestedMedicineUse = req.params.medicinalUse
     //only include fields that need to be displayed to admin/patient
-    const allMedicines = await Medicine.find().select('name price medicinalUses activeIngredients image')
+    //unarchived ones only
+    const allMedicines = await Medicine.find({ archived: false }).select('name price medicinalUses activeIngredients image')
     //console.log(allMedicines)
     const filterResult = []
     //looping over all medicines
@@ -88,10 +92,29 @@ const viewCart = async (req, res) => {
     //cartItems.length = 0; //ADDED
 }
 
+const getAlternatives = async (req, res) => {
+    const mainActiveIngredient = req.params.actIng
+    //console.log(mainActiveIngredient)
+    const medicines = await Medicine.find({
+        activeIngredients: { $in: [mainActiveIngredient] },
+        archived: false,
+        availableQuantity: { $gt: 0 } // Only show medicines that are not out of stock
+
+
+    }).select('name');
+
+    // Extract only the names from the result
+    const medicineNames = medicines.map(medicine => medicine.name);
+    //console.log(medicineNames)
+    res.json({ success: true, message: 'alternatives done', medicineNames });
+
+}
+
 module.exports = {
     getMedicines,
     searchMedicineByName,
     filterMedicineByUse,
     addToCart,
-    viewCart
+    viewCart,
+    getAlternatives
 }

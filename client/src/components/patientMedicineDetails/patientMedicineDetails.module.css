@@ -21,9 +21,23 @@ th {
     border: 1px solid #ddd;
 }
 
+th2 {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border:none;
+}
+
 td {
     padding: 8px;
     border: 1px solid #ddd;
+}
+td2 {
+    padding: 8px;
+    text-align: center;
+    margin-top: 20px;
+    border: none;
 }
 
 tr {
@@ -50,4 +64,15 @@ ul {
 
 .out-of-stock {
     color: #FF0000;
+}
+
+.alter {
+    color:#4CAF50;
+}
+
+.alternatives {
+    content: '\2022'; /* Unicode character for a bullet point */
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
 }

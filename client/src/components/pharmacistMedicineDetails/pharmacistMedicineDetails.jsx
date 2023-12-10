@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import styles from './pharmacistMedicineDetails.module.css'
 import medImage from '../../assests/images/medicineImage.jpg';
 
-const PharmacistMedicineDetails = ({ medicine, redirectToEdit }) => {
+
+const PharmacistMedicineDetails = ({ medicine, redirectToEdit, archiveMedicine, UnarchiveMedicine }) => {
     // Convert the Buffer data into a data URL
     // const imageDataUrl = `data:${medicine.image.contentType};base64,${medicine.image.data.toString('base64')}`;
 
     //console.log(imageDataUrl);
     //console.log('medicine:', medicine);
+    //console.log('archivedOrNot:',medicine.archived)
     //console.log(medicine.sales)
     return (
         <tr>
@@ -24,10 +26,31 @@ const PharmacistMedicineDetails = ({ medicine, redirectToEdit }) => {
             ))}</td>
             <td>{medicine.sales}</td>
             {/* <td>{!medicine.sales ? '0' : medicine.sales}</td> */}
-            <td>{!medicine.availableQuantity ? '0' : medicine.availableQuantity}</td>
-            <td>{!medicine.availableQuantity ? 'Out of Stock' : 'Available'}</td>
+            <td>{!medicine.availableQuantity ? <span className={styles["out-of-stock"]}>Out of Stock</span> : medicine.availableQuantity}</td>
             <td><button className={styles["green-button"]} onClick={() => redirectToEdit(medicine.name)}>Edit</button></td>
-        </tr>
+
+            <td>
+
+                <button
+                    className={styles.archiveButton}
+                    onClick={() => archiveMedicine(medicine.name)}
+                    disabled={medicine.archived}
+
+                >
+                    Archive
+                </button>
+                <br />
+                <button
+                    className={styles.unarchiveButton}
+                    onClick={() => UnarchiveMedicine(medicine.name)}
+                    disabled={!medicine.archived}
+                >
+                    UnArchive
+                </button>
+
+            </td>
+
+        </tr >
     )
 }
 

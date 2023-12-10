@@ -30,35 +30,35 @@ const createPharmacist = asyncHandler(async (req, res) => {
    const pharmacist = req.body;
 
    if (pharmacist.username === undefined) {
-      return res.status(400).json({ message: 'Please add a username!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add a username!', success: false });
    }
 
    if (pharmacist.name === undefined) {
-      return res.status(400).json({ message: 'Please add a name!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add a name!', success: false });
    }
 
    if (pharmacist.email === undefined) {
-      return res.status(400).json({ message: 'Please add an email!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add an email!', success: false });
    }
 
    if (pharmacist.password === undefined) {
-      return res.status(400).json({ message: 'Please add a password!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add a password!', success: false });
    }
 
    if (pharmacist.dob === undefined) {
-      return res.status(400).json({ message: 'Please add a date of birth!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add a date of birth!', success: false });
    }
 
    if (pharmacist.hourly_rate === undefined) {
-      return res.status(400).json({ message: 'Please add an hourly rate!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add an hourly rate!', success: false });
    }
 
    if (pharmacist.affiliation === undefined) {
-      return res.status(400).json({ message: 'Please add an affiliation!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add an affiliation!', success: false });
    }
 
    if (pharmacist.educational_background === undefined) {
-      return res.status(400).json({ message: 'Please add an educational background!', registeredIn: false });
+      return res.status(400).json({ message: 'Please add an educational background!', success: false });
    }
 
    pharmacist.status = "onhold";
@@ -71,9 +71,9 @@ const createPharmacist = asyncHandler(async (req, res) => {
    takenEmailPat = await PatientModel.findOne({ email: pharmacist.email });
 
    if (takenUsername || takenUsernameReq||takenUsernamePat ) {
-      return res.status(400).json({ message: 'Username already taken!', registeredIn: false });
+      return res.status(400).json({ message: 'Username already taken!', success: false });
    } else if (takenEmail || takenEmailReq||takenEmailPat) {
-      return res.status(400).json({ message: 'Email already registered!', registeredIn: false });
+      return res.status(400).json({ message: 'Email already registered!', success: false });
    } else {
       console.log(pharmacist);
       console.log(req.files);
@@ -143,7 +143,7 @@ const createPharmacist = asyncHandler(async (req, res) => {
          const newPharmacistRequest = await pharmacistRequestModel.create(pharmacist);
 
          console.log("newPharmacist ",newPharmacistRequest)
-         res.status(200).json({ message: "Success", pharmacist: newPharmacistRequest, registeredIn: true });
+         res.status(200).json({ message: "Request sent Successfully", pharmacist: newPharmacistRequest, success: true });
       }});
    } catch (error) {
        console.error('Error occurred during upload:', error);
