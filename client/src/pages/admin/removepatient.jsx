@@ -1,92 +1,88 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function RemovePatient() {
+  const [patients, setPatients] = useState([]);
   const [patientInfo, setPatientInfo] = useState({
     username: ''
-    
   });
 
-  const [selectedRadio, setSelectedRadio] = useState(null);
-  const [requestBody, setRequestBody] = useState({}); 
-  // const [username, setUsername] = useState({}); 
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+  const fetchPatients = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/admin/addremove/get/');
+      const data = await response.json();
+      setPatients(data);
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-      setPatientInfo({ ...patientInfo, username: value });
+    setPatientInfo({ ...patientInfo, [name]: value });
   };
-  console.log(patientInfo)
 
-  const handleRadioChange = (val) => {
-    setSelectedRadio(val);
-
-    // Prepare the request body based on selectedRadio
-    const body = {};
-    
-    // Update the state with the request body
-    setRequestBody(body);
-  };
-  
-  const handleSubmit = () => {
-    const requestBody = {
-        username: patientInfo.username
-      };
-
-    // Make an HTTP PATCH request to send the data to the backend using the requestBody
-    fetch('http://localhost:5000/admin/addremove/removePatient', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(requestBody),
-    }).then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      }).then((data) => {
-       // console.log(data.success);
-        if (data) {
-            console.log('Patient removed', data);
-            alert('Patient removed');
-           
-          } else {
-            console.error('Can not remove patient', data);
-            alert('Can not remove patient');
-           
-          }
-      })
-      .catch((error) => {
-        console.error('Error removing patient', error);
-        console.log('This patient does not exist');
-        alert('This patient does not exist');
-        
+  const handleRemovePatient = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:5000/admin/addremove/removePatient`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data) {
+        console.log('Patient removed', data);
+        alert('Patient removed');
+        fetchPatients(); // Refresh the patient list after removal
+      } else {
+        console.error('Can not remove patient', data);
+        alert('Can not remove patient');
+      }
+    } catch (error) {
+      console.error('Error removing patient', error);
+      alert('An error occurred while removing the patient');
+    }
   };
- 
-    
-      
 
-return (
-    <div className="choose">
-      
-      <div className="username" id="username">
-          <label htmlFor="username"> Patient username: </label>
-          <input
-            type="text"
-            name="username"
-            value={patientInfo.username}
-            onChange={handleChange}
-            
-          />
-        </div>
+  return (
+    <div>
+      <h2>Patients List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.map((patient) => (
+            <tr key={patient.username}>
+              <td>{patient.name}</td>
+              <td>{patient.username}</td>
+              <td>{patient.email}</td>
+              <td>
+                <button onClick={() => handleRemovePatient(patient.username)}style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-     <button type="button" onClick={handleSubmit}>
-        Remove patient
-      </button>
-    </div>
+</div>
   );
-
 }
 
-export default RemovePatient; 
+export default RemovePatient;

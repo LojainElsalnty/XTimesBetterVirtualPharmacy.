@@ -22,7 +22,7 @@ import RequestedPharmacistsInfo from '../viewRequestedPharmacistsInfo';
 import PharmacistView from '../../pharmacist/pharmacistView';
 import PatientView from '../../patient/patientView';
 import { AdminProfile } from '../AdminProfile/AdminProfile';
-
+import ViewSales from '../viewSalesPage';
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
 
@@ -94,15 +94,19 @@ export const ViewAdminMainPage = () => {
         },
         {
             url: "/admin/addadmin ",
-            pageName: "Add Admin",
+            pageName: "Admins",
         },
         {
             url: "/admin/removepharmacist ",
-            pageName: "Remove Pharmacist",
+            pageName: "Pharmacists",
         },
         {
             url: "/admin/removepatient ",
-            pageName: "Remove Patient",
+            pageName: "Patients",
+        },
+        {
+            url: "/admin/viewSales",
+            pageName: "view sales",
         },
     ];
 
@@ -124,6 +128,7 @@ export const ViewAdminMainPage = () => {
                     <Route path="/addadmin" element={<AddAdmin />} />
                     <Route path="/removepharmacist" element={<RemovePharmacist />} />
                     <Route path="/removepatient" element={<RemovePatient />} />
+                    <Route path="/viewSales" element={<ViewSales />} />
                 </Routes>
             </>
         </div>
