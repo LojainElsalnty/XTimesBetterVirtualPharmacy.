@@ -19,9 +19,8 @@ const PrescriptionSchema = mongoose.Schema({
     },
     medicines: [{
         name: String,
-        dose: String,
-        timing: String, //extra notes
-        price: Number,
+        dosage: String,
+        price: Number
     }],
     visitID: {
         type: String,
@@ -31,4 +30,4 @@ const PrescriptionSchema = mongoose.Schema({
 
 
 const Prescription = mongoose.model('Prescription', PrescriptionSchema);
-module.exports = Prescription;
+module.exports = Prescription;

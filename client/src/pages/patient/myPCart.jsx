@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const prescriptionId = '656b5eced6f721891c2f601f'
+
 const PrescriptionDetails = ({ prescriptionId }) => {
   const navigate = useNavigate();
     const [cartItems, setCartItems] = useState([]);
+     prescriptionId  = '657116c4de365353a759bd7a'//sara use params hena w shele al hardcoded :)
+    // const { prescriptionId } = useParams();
+    console.log("ana henaa",prescriptionId);
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -130,7 +133,7 @@ const PrescriptionDetails = ({ prescriptionId }) => {
                         <th>Price per item</th>
                         <th>Quantity</th>
                         <th>Dose</th>
-                        <th>Note</th>
+                        
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -145,10 +148,10 @@ const PrescriptionDetails = ({ prescriptionId }) => {
                                 <button onClick={() => updateCartItemQuantity(item.medName)}>+</button>
                             </td>
 
-                            <td>{item.dose}
+                            <td>{item.dosage}
                             
                             </td>
-                            <td>{item.note}</td>
+                           
                             <td><button onClick={() => deleteMedicineFromPrescription(item.medName)}>Delete</button></td>
 
 
