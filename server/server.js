@@ -156,7 +156,7 @@ app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Ge
 app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
 app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
 app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePayments/medicineCashOnDeliveryPayment'));
-
+app.use('/patient/chat', require('./routes/patient/chatRoute.js'));
 
 // Pharmacist
 app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)

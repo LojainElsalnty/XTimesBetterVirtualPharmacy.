@@ -25,6 +25,7 @@ import { AdminProfile } from '../AdminProfile/AdminProfile';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
+import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -73,10 +74,6 @@ export const ViewAdminMainPage = () => {
 
     const list = [
         {
-            url: "/admin/profile",
-            pageName: "Profile",
-        },
-        {
             url: "/admin/medicineCatalog",
             pageName: "Medicines List",
         },
@@ -113,7 +110,8 @@ export const ViewAdminMainPage = () => {
 
     return (
         <div className={styles['main-div']}>
-            <Navbar name="Admin" list={list} />
+            {/* <Navbar name="Admin" list={list} /> */}
+            <ResponsiveSideBar array={list}/>
             <>
                 <Routes>
                     <Route path="/profile" element={<AdminProfile />} />

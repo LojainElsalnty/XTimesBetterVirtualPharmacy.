@@ -7,8 +7,8 @@ import axios from 'axios';
 import styles from './AdminProfile.module.css';
 
 // Images
-import manImage from '../../../assets/img/man.png';
-import womenImage from '../../../assets/img/woman.png';
+import manImage from '../../../assets/img/male.svg';
+import womenImage from '../../../assets/img/female.svg';
 
 // MUI Joy Components
 import { Button, Typography } from '@mui/joy';
@@ -29,17 +29,20 @@ import { useState, useEffect } from 'react';
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
 
+// User Defined Components
+import { DropDown } from '../../../components/dropDown/dropDown';
+import { Modal } from '../../../components/modalCard/modalCard';
 
 export const AdminProfile = () => {
     const navigate = useNavigate();
     const [image, setImage] = useState('');
     // const {accessToken} = useAuth();
-    const accessToken = sessionStorage.getItem('accessToken');
-    const [load, setLoad] = useState(true);
+    const accessToken = sessionStorage.getItem("accessToken");
     const [username, setUsername] = useState('');
-    
+    const [load, setLoad] = useState(true);
+
     useEffect(() => {
-       if (username.length != 0) {
+      if (username.length != 0) {
         setLoad(false);
       }
     }, [username]);
@@ -66,7 +69,7 @@ export const AdminProfile = () => {
     checkAuthentication();
 
     if (load) {
-      return (<div>Loading</div>)
+      return(<div>Loading</div>)
     }
 
     const getAdminInfo = async () => {
@@ -83,12 +86,15 @@ export const AdminProfile = () => {
   
           // Choosing image based on the gender of the patient
           setImage(manImage);
-          })
+  
+          setUsername(admin.username);
+        })
         .catch((error) => {
           console.log(error);
         })
       };
 
+    checkAuthentication();
     getAdminInfo();
 
     return (
@@ -99,18 +105,25 @@ export const AdminProfile = () => {
             </div>
             <div className={styles['admin-info-right-div']}>
                 <div className={styles['admin-information-div']}>
-                    <Typography level="h1" component="h1">{username}</Typography>
-                </div>
-                <div className={styles['admin-settings-div']}>
-                <Button onClick={() => navigate(-1)}><FontAwesomeIcon icon={faArrowLeft} /></Button>
+                    <Typography level="h1" component="h1" sx={{color: 'lightskyblue'}}>{username}</Typography>
                 </div>
             </div>
             </div>
-            <div className={styles['admin-info-bottom-div']}>
-            </div>
-
-            {/* Change Password Card */}
-            <PasswordCard></PasswordCard>
+            <div className={styles['main__div']}>
+              <div className={styles['left__div']}>
+                <div className={styles['configurations__div']}>
+                  <DropDown title="change password" child={<PasswordCard />}></DropDown>
+                </div>
+              </div>
+              <div className={styles['middle__div']}>
+                <div className={styles['charts__div']}>
+                </div>
+              </div>
+              <div className={styles['right__div']}>
+                <div className={styles['wallet__div']}>
+                </div>
+              </div>
+          </div>
         </div>
     );
 }

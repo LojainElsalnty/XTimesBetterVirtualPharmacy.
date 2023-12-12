@@ -9,7 +9,7 @@ import styles from './logOutCard.module.css';
 // Images
 import crossImage from '../../assets/img/cross.png';
 
-// User Defined Hooks
+// Home Made Hooks
 import { useAuth, useAuthUpdate, useUsername } from '../hooks/useAuth';
 
 // React Router
@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const LogOutCard = ({showLogOutCard}) => {
     // const {accessToken, refreshToken} = useAuth();
+    const accessToken = sessionStorage.getItem('accessToken');
     const refreshToken = sessionStorage.getItem('refreshToken');
     const {updateAccessToken, updateRefreshToken} = useAuthUpdate();
     const {username, setUsername} = useUsername();
@@ -26,6 +27,8 @@ export const LogOutCard = ({showLogOutCard}) => {
         // hide component in the frontend
         showLogOutCard(false);
         // remove refresh token from the database
+        console.log(`Log Out Refresh Token ${refreshToken}`);
+        console.log(`Log Out Access Token ${accessToken}`);
         await axios({
             method: 'DELETE',
             url: 'http://localhost:5000/logout',
@@ -60,13 +63,15 @@ export const LogOutCard = ({showLogOutCard}) => {
     return (
         <div className={styles['logout-message-div']}>
             <div className={styles['confirm-message-div']}>
-                <h3>Are you sure you want to log out?</h3>
+                <div className={styles['logout__message__div']}>
+                    <h3>Are you sure you want to log out?</h3>
+                </div>
                 <div className={styles['cross-div']}>
                     <img className={styles['cross-message-img']} src={crossImage} onClick={handleExitLogOutCard}></img>
                 </div>
             </div>
             <div className={styles['confirm-logout-div']}>
-                <button className={styles['confirm-logout-button']} type="button" onClick={handleLogOut}>Log Out</button>
+                <button className={styles['confirm-logout-button']} onClick={handleLogOut}>Log Out</button>
             </div>
         </div>
     )

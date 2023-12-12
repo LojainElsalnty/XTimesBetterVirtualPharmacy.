@@ -22,8 +22,9 @@ import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
 import { ChatPage } from '../ChatPage/chatPage';
 
-// Components
+// Components 
 import { Navbar } from '../../../components/navbar/navbar';
+import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -73,10 +74,6 @@ export const ViewPharmacistMainPage = () => {
 
     const list = [
         {
-            url: "/pharmacist/profile",
-            pageName: "Profile",
-        },
-        {
             url: "/pharmacist/medicineCatalog",
             pageName: "Medicines List",
         },
@@ -88,28 +85,23 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/editMedicine",
             pageName: "Edit Medicine",
         },
-        {
-            url: "/pharmacist/chat",
-            pageName: "Chat"
-        }
     ];
 
     if (load) {
         return (<div>Loading</div>)
     }
 
-
-
     return (
         <div className={styles['main-div']}>
-            <Navbar name="Pharmacist" list={list} />
-            <>
+           {/*  <Navbar name="Pharmacist" list={list} /> */}
+            <ResponsiveSideBar array={list}/>
+            <> 
                 <Routes>
                     <Route path="/profile" element={<PharmacistProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/addMedicine" element={<AddMedicine />} />
                     <Route path="/editMedicine" element={<EditMedicine />} />
-                    <Route path="/chat" element={<ChatPage />} />
+                    <Route path="/chatPage" element={<ChatPage />} />
                 </Routes>
             </>
         </div>

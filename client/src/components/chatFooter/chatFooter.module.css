@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --border-radius: 10px;
+}
+
+/* <DIV> Styles */
+.messages__chat {
+  width: 100%;
+  height: 410px;
+
+  padding: 0 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+  
+  overflow-y: auto;
+}
+
+.message__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  background-image: linear-gradient(30deg, #0756a1 0%, #2a8ae5 50%, #d1e9ff 100%);
+  border-radius: 5px;
+  border-bottom: black solid 3px;
+  position: sticky;
+  top: 0px;
+}
+
+.message__receiver__title {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px 0px;
+  padding: 0px 20px;
+  border-radius: 50px;
+  color: white;
+  /* background-image: linear-gradient(30deg, #ffffff 0%, #1d4e89 50%, #050e1a 100%); */
+  box-shadow: -2px -2px 6px rgba(#fff, .6), 2px 2px 12px #e7c8e3;
+  /* border-bottom: black solid 3px;*/
+}
+
+.sender__main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  padding: 10px 10px;
+
+  color: black;
+}
+
+.message__sender {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 10px;
+  padding: 10px;
+  border-radius: 10px;
+  /* border: 1px solid #000; */
+  background-image: linear-gradient(70deg, #ffffff 0%,  #b4cadf 100%);
+  box-shadow: -2px -2px 6px rgba(#fff, .6), 2px 2px 12px #e7c8e3;
+}
+
+.receiver__main {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  padding: 10px 10px;
+
+  color: black;
+}
+
+.message__receiver {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 10px 10px;
+  padding: 10px;
+  border-radius: 10px;
+  /* border: 1px solid #000; */
+  background-image: linear-gradient(70deg, #bdc6cf 0%, #ffffff 100%);
+}
+
+.text__input__div {
+  --top-shadow: inset 1px 1px 3px #ffffff, inset 2px 2px 6px #e2c5e3;
+  --bottom-shadow: inset -2px -2px 4px rgba(95, 95, 95, 0.7);
+  width: 95%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #125594;
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid #bdaeae;
+}
+
+
+/* <P> Styles */
+.title__name {
+  margin-left: 10px;
+
+  display: flex;
+  flex-direction: row;
+
+
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.sender__name {
+  margin-left: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+.sender__message {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.receiver__name {
+  margin-left: 10px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+
+.receiver__message {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  color: #000;
+}
+
+/* <ICONS> Styles */
+.message__receiver__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.sendBtn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* <INPUT> Styles */
+.text__input {
+  width: 100%;
+  height: 100%;
+
+  padding: 10px;
+  border: 0px;
+
+  position: relative;
+  
+  background-color: #ffffff;
+
+  border-radius: 5px;
+  top: -2px;
+}
+
+/* <BUTTON> Styles */
+.sendBtn {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  border-radius: 100%;
+
+  margin: 10px;
+  padding: 5px;
+}
+
+.sendBtn:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #020202;
+  border: 1px solid #000;
+}
+
+/* <FORM> Styles */
+.text__form {
+  width: 80%;
+  height: auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+

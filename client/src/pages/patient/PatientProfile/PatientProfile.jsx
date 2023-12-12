@@ -7,8 +7,8 @@ import axios from 'axios';
 import styles from './PatientProfile.module.css';
 
 // Images
-import manImage from '../../../assets/img/man.png';
-import womenImage from '../../../assets/img/woman.png';
+import manImage from '../../../assets/img/male.svg';
+import womenImage from '../../../assets/img/female.svg';
 
 // MUI Joy Components
 import { Button, Typography } from '@mui/joy';
@@ -29,22 +29,29 @@ import { useState, useEffect } from 'react';
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
 
+// User Defined Components
+import { DropDown } from '../../../components/dropDown/dropDown';
+
+// User Defined Components
+import { CreditCard } from '../../../components/creditCard/creditCard';
+
+
 export const PatientProfile = () => {
+    // User Info
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [dob, setDOB] = useState('');
     const [mobile, setMobile] = useState('');
     const [image, setImage] = useState('');
-    // const {accessToken} = useAuth();
-    const accessToken = sessionStorage.getItem('accessToken');
-    const [load, setLoad] = useState(true);
-    const [username, setUsername] = useState('');
+    
 
-    console.log(accessToken);
+    const accessToken = sessionStorage.getItem("accessToken");
+    const [username, setUsername] = useState('');
+    const [load, setLoad] = useState(true);
 
     useEffect(() => {
-       if (username.length != 0) {
+      if (username.length != 0) {
         setLoad(false);
       }
     }, [username]);
@@ -71,9 +78,8 @@ export const PatientProfile = () => {
     checkAuthentication();
 
     if (load) {
-      return (<div>Loading</div>)
+      return(<div>Loading</div>)
     }
-
     
     const getPatientInfo = async () => {
       await axios ({
@@ -126,28 +132,41 @@ export const PatientProfile = () => {
             </div>
             <div className={styles['patient-info-right-div']}>
               <div className={styles['patient-information-div']}>
-                <Typography level="h1" component="h1">{name}</Typography>
+                <Typography level="h1" component="h1" sx={{color: 'lightskyblue'}}>{name}</Typography>
                 <div className={styles['patient-information-sub-div']}>
                   <div className={styles['patient-information-left-div']}>
-                    <Typography level="title-sm">username: {username}</Typography>
-                    <Typography level="title-sm">email: {email}</Typography>
+                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>username: {username}</Typography>
+                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>email: {email}</Typography>
                   </div>
                   <div className={styles['patient-information-right-div']}>
-                    <Typography level="title-sm">data of birth: {dob}</Typography>
-                    <Typography level="title-sm">mobile: {mobile}</Typography>
+                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>data of birth: {dob}</Typography>
+                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>mobile: {mobile}</Typography>
                   </div>
                 </div>
-              </div>
-              <div className={styles['patient-settings-div']}>
-                <Button onClick={() => navigate(-1)}><FontAwesomeIcon icon={faArrowLeft} /></Button>
               </div>
             </div>
           </div>
           <div className={styles['patient-info-bottom-div']}>
           </div>
 
-          {/* Change Password Card */}
-          <PasswordCard></PasswordCard>
+          <div className={styles['main__div']}>
+            <div className={styles['left__div']}>
+              <div className={styles['configurations__div']}>
+                <DropDown title="change password" child={<PasswordCard />}></DropDown>
+                
+              </div>
+            </div>
+            <div className={styles['middle__div']}>
+              <div className={styles['charts__div']}>
+
+              </div>
+            </div>
+            <div className={styles['right__div']}>
+              <div className={styles['wallet__div']}>
+              </div>
+            </div>
+          </div>
+
         </div>
     );
 

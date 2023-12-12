@@ -1,73 +1,54 @@
 /* <DIV> Styles */
 .verify-otp-main-div {
     width: 100%;
-    height: 100px;
-
+    height: 89vh;
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+
+.verify__main__div {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../../../assets//img/otp.svg');
 }
 
 .verify-otp-title-div {
-    
+    width: 900px;
+    height: 100vh;
 }
 
 .verify-otp-sub-div {
     width: 60%;
-    height: 100%;
-
-    margin-top: 10px;
-
+    height: 100px;
+    margin-top: 40px;
+    padding: 5px;
     backdrop-filter: grayscale(50%);
     border: 1px solid #ffffff22;
-    background-image: linear-gradient(45deg, black, transparent);
+    backdrop-filter: grayscale(50%);
+    border: 1px solid #ffffff22;
+    background-image: linear-gradient(45deg, #000000 0%, #125592 100%);
     border-radius: 0.7rem;
-    box-shadow: -2px 2px 2px #FFE, 0px 3px 10px 5px #00000088;
-
+    /* box-shadow: -2px 2px 2px #FFE, 0px 3px 10px 5px #00000088; */
     overflow: hidden;
     transition: 1s ease-in-out;
 }
 
-.verify-otp-sub-div::before {
-    content: "";
-    width: 100px;
-    height: 100px;
-
-    position: absolute;
-    top: -30px;
-    left: -30px;
-    /* transform: translateX(-200%); */
-
-    background-image: linear-gradient(
-        35deg,
-        #24C6DC,
-        #514A9D
-    );
-    transition: all 1s;
-    z-index: -1;
-    /* border-radius: 0.7rem; */
-    border-radius: 100%;
-
-    transition: 3s ease-in-out;
-}
-
-.verify-otp-sub-div:hover::before{
-    transform: scale(20);
-}
-
 .verify-otp-input-div {
-
 
 }
 
 .verify-otp-button-div {
-    width: 100%;
-    height: 30%;
-
-    margin: 40px;
-
+    width: 60%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -75,26 +56,39 @@
 }
 
 .verify-otp-a-div {
-
-
+    margin: 30px;
 }
 
 .verify-otp-label-div {
     width: 100%;
-
     padding: 2px;
-    margin-left: 70px;
-
+    margin-left: 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
 }
 
+.main__div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title__div {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
 /* <H2> Styles */
 .verify-otp-title-h2 {
-    margin-top: 30px;
-
     color: black;
 }
 
@@ -118,7 +112,10 @@
 
 /* <BUTTON> Styles */
 .verify-otp-button {
-    margin: 10px;
+    margin-top: 10px;
+    width: 100%;
+    background-image: linear-gradient(45deg, #000000 0%, #125992 50%, #ffffff 100%);
+    color: white;
 }
 
 /* <A> Styles */
@@ -130,4 +127,14 @@
 /* <LABEL> Styles */
 .verify-otp-label {
     color: white;
+}
+
+/* <IMG> Styles */
+/* <IMG> Styles */
+.verify__otp__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 10px;
 }

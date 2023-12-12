@@ -5,7 +5,8 @@ import React from 'react'
 import axios from 'axios';
 
 // Styles
-import './chatFooter.css';
+// import './chatFooter.css';
+import styles from './chatFooter.module.css';
 
 // Hooks
 import { useState, useEffect } from 'react';
@@ -13,7 +14,11 @@ import { useState, useEffect } from 'react';
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
 
-export const ChatFooter = ({ socket, userUsername, userType }) => {
+// Font Awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserDoctor, faUser, faUserNurse, faCircleArrowRight, faPaperPlane, faX } from '@fortawesome/free-solid-svg-icons';
+
+export const ChatFooter = ({ socket, userUsername, receiverName, receiverUserType, userType }) => {
     const [text, setText] = useState("");
     const [messages, setMessages] = useState([]);
     const navigate = useNavigate();
@@ -108,41 +113,76 @@ export const ChatFooter = ({ socket, userUsername, userType }) => {
         return (<div></div>);
     }
 
+    console.log(receiverUserType);
+
     return (
       <>
-        <div className="message__container">
+        <div className={styles['messages__chat']}>
+          <div className={styles['message__header']}>
+            <div className={styles['message__receiver__title']}>
+              {
+                receiverUserType === 'doctor' ? 
+                    (
+                      <>
+                        <FontAwesomeIcon icon={faUserDoctor} className={styles['message__receiver__icon']} />
+                        <p className={styles['title__name']}>Doctor: {receiverName}</p>
+                      </>
+                    ) :
+                receiverUserType === 'patient' ?
+                    (
+                      <>
+                        <FontAwesomeIcon icon={faUser} className={styles['message__receiver__icon']} />
+                        <p className={styles['title__name']}>Patient: {receiverName}</p>
+                      </>
+                    ) :
+                receiverUserType === 'pharmacist' ?
+                    (
+                      <>
+                        <FontAwesomeIcon icon={faUserNurse} className={styles['message__receiver__icon']} />
+                        <p className={styles['title__name']}>Pharmacist: {receiverName}</p>
+                      </>
+                    ) :
+                    (
+                      <></>
+                    )
+              }
+
+            </div>
+          </div>
           {messages.map((message) => {
 
             if (message.name === username) {
               return (
-              <div className="message__chats">
-                <p className="sender__name">You</p>
-                <div className="message__sender">
-                  <p>{message.text}</p>
+              <div className={styles['sender__main']}>
+                <p className={styles['sender__name']}>You</p>
+                <div className={styles['message__sender']}>
+                  <p className={styles['sender__message']}>{message.text}</p>
                 </div>
               </div>
             )}
             else {
               return (
-              <div className="message__chats">
-                <p>{message.name}</p>
-                <div className="message__recipient">
-                  <p>{message.text}</p>
+              <div className="receiver__main">
+                <p className={styles['receiver__name']}>{receiverName}</p>
+                <div className={styles["message__receiver"]}>
+                  <p className={styles['receiver__message']}>{message.text}</p>
                 </div>
               </div>
             )}
           })}
         </div>
-        <div className="chat__footer">
-          <form className="form" onSubmit={handleSendMessage}>
+        <div className={styles['text__input__div']}>
+          <form className={styles['text__form']} onSubmit={handleSendMessage}>
             <input
               type="text"
               placeholder="Write message"
-              className="message"
+              className={styles['text__input']}
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-            <button className="sendBtn">SEND</button>
+            <button className={styles['sendBtn']}>
+              <FontAwesomeIcon icon={faPaperPlane} className={styles['sendBtn__icon']} />
+            </button>
           </form>
         </div>
       </>

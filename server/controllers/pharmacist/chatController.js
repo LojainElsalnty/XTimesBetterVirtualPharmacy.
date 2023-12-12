@@ -47,18 +47,29 @@ const postMessage = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
     const username = req.body.username;
 
-    let patientResults = await patientModel.find({}).select("username");
-    let doctorResults = await doctorModel.find({}).select("username");
+    let patientResults = await patientModel.find({}).select("username name");
+    let doctorResults = await doctorModel.find({}).select("username name");
 
-    patientResults = patientResults.map((patient) => patient.username);
+    console.log("Patients");
+    console.log(patientResults);
+    console.log("Doctors");
+    console.log(doctorResults);
+    
+    patientResults = patientResults.map((patient) => {return {username: patient.username, name: patient.name, type: "patient"}});
+    patientResults = patientResults.filter((arr, index, self) => index === self.findIndex((t) => (t.username === arr.username && t.name === arr.name && t.type === arr.type)));    
     patientResults = new Set(patientResults);    
     patientResults = [...patientResults];
 
-    doctorResults = doctorResults.map((doctor) => doctor.username);
+
+    doctorResults = doctorResults.map((doctor) => {return {username: doctor.username, name: doctor.name, type: "doctor"}});
+    doctorResults = doctorResults.filter((arr, index, self) => index === self.findIndex((t) => (t.username === arr.username && t.name === arr.name && t.type === arr.type)));    
     doctorResults = new Set(doctorResults);
     doctorResults = [...doctorResults];
 
     let results = patientResults.concat(doctorResults);
+
+    console.log("Get Results");
+    console.log(results);
 
     return res.status(200).json({ users: results });
 });

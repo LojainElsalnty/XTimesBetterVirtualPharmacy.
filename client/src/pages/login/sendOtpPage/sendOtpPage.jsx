@@ -18,7 +18,6 @@ import { useRecoveryContext } from '../../../components/hooks/useAuth';
 // User Defined Components
 import {AlertMessageCard} from '../../../components/alertMessageCard/alertMessageCard';
 
-
 export const SendOtpPage = () => {
     const {otp, setOTP, email, setEmail} = useRecoveryContext();
     const [userEmail, setUserEmail] = useState("");
@@ -74,20 +73,29 @@ export const SendOtpPage = () => {
 
     return (
         <div className={styles['send-otp-main-div']}>
-            <div className={styles['send-otp-title-div']}>
-                <h2 className={styles['send-otp-title-h2']}>Request OTP</h2>
-            </div>
-            <div className={styles['send-otp-sub-div']}>
-                <div className={styles['send-otp-label-div']}>
-                    <label className={styles['send-otp-label']}>Enter your email</label>
+            <div className={styles['otp__main__div']}>
+                <div className={styles['send-otp-title-div']}>
                 </div>
-                <div className={styles['send-otp-input-div']}>
-                    <input className={styles['send-otp-input']} value={userEmail} placeholder="example: email@gmail.com" type="text" onChange={handleEmailChange}></input>
+                <div className={styles['main__div']}>
+                    <div className={styles['title__div']}>
+                        <img src='src/assets/img/email.png' className={styles['send__otp__img']}></img>
+                        <h2 className={styles['send-otp-title-h2']}>Request OTP</h2>
+                    </div>
+                    <div className={styles['send-otp-sub-div']}>
+                        <div className={styles['send-otp-label-div']}>
+                            <label className={styles['send-otp-label']}>Enter your email</label>
+                        </div>
+                        <div className={styles['send-otp-input-div']}>
+                            <input className={styles['send-otp-input']} value={userEmail} placeholder="example: email@gmail.com" type="text" onChange={handleEmailChange}></input>
+                        </div>
+                    </div>
+                    <div className={styles['send-otp-button-div']}>
+                        <button className={styles['send-otp-button']} onClick={sendOtp}>Send OTP</button>
+                    </div>
                 </div>
             </div>
-            <div className={styles['send-otp-button-div']}>
-                <button className={styles['send-otp-button']} onClick={sendOtp}>Send OTP</button>
-            </div>
+
+           
             {showAlertMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={setShowAlertMessage}></AlertMessageCard>)}
         </div>
     );

@@ -22,9 +22,11 @@ import SuccessPayment from '../medicinePayment/successPaymentPage';
 import UnsuccessPayment from '../medicinePayment/unsuccessfulPaymentPage';
 import MyCart from '../myCart/myCart.jsx';
 import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
+import { ChatPage } from '../ChatPage/chatPage.jsx';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
+import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar.jsx';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -73,17 +75,13 @@ export const ViewPatientMainPage = () => {
 
     const list = [
         {
-            url: "/patient/profile",
-            pageName: "Profile",
-        },
-        {
             url: "/patient/medicineCatalog",
             pageName: "Medicine Catalog",
         },
         {
             url: "/patient/myOrders",
             pageName: "My Orders",
-        },
+        }
     ];
 
     if (load) {
@@ -92,8 +90,9 @@ export const ViewPatientMainPage = () => {
 
     return (
         <div className={styles['main-div']}>
-            <Navbar name="Patient" list={list} />
-            <>
+            {/* <Navbar name="Patient" list={list} /> */}
+            <ResponsiveSideBar array={list}/>
+            <> 
                 <Routes>
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/profile" element={<PatientProfile />} />
@@ -104,6 +103,7 @@ export const ViewPatientMainPage = () => {
                     <Route path="/myCart" element={<MyCart />} />
                     <Route path="/checkoutAddress" element={<CheckoutAddress />} />
                     <Route path="/payment" element={<MedicinePayment />} />
+                    <Route path="/chatPage" element={<ChatPage/>}/>
                 </Routes>
             </>
         </div >

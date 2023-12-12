@@ -7,7 +7,7 @@ import axios from 'axios';
 import styles from './loginPage.module.css';
 
 // Hooks
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // Home Made Hooks
 import { useAuthUpdate, useUsername, useUserType, useRecoveryContext } from '../../../components/hooks/useAuth';
@@ -17,6 +17,10 @@ import { useNavigate } from 'react-router-dom';
 
 // User Defined Components
 import { AlertMessageCard } from '../../../components/alertMessageCard/alertMessageCard';
+
+// Font Awesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
 export const LoginPage = () => {
     const [name, setName] = useState("");
@@ -28,7 +32,6 @@ export const LoginPage = () => {
     const {username, setUsername} = useUsername();
     const {userType, setUserType} = useUserType();
     const navigate = useNavigate();
-
     // clear access token and refresh token and username stored in the browser
     sessionStorage.setItem("accessToken", "Bearer  ");
     sessionStorage.setItem("refreshToken", "");
@@ -65,10 +68,11 @@ export const LoginPage = () => {
                 updateRefreshToken(response.data.refreshToken);
                 setUsername(name);
 
-                // Setting local storage
+                // Setting Session storage
                 sessionStorage.setItem("accessToken", response.data.accessToken);
                 sessionStorage.setItem("refreshToken", response.data.refreshToken);
                 sessionStorage.setItem("username", name);
+                sessionStorage.setItem("name", response.data.name);
     
                 if (response.data.userType === "patient") {
                     setError(false);
@@ -76,11 +80,11 @@ export const LoginPage = () => {
                     sessionStorage.setItem("userType", "patient");
                     navigate('/patient');
                 } 
-                else if (response.data.userType === "pharmacist") {
+                else if (response.data.userType === "doctor") {
                     setError(false);
-                    setUserType("pharmacist");
-                    sessionStorage.setItem("userType", "pharmacist");
-                    navigate('/pharmacist');
+                    setUserType("doctor");
+                    sessionStorage.setItem("userType", "doctor");
+                    navigate('/doctor');
                 }
                 else if (response.data.userType === "admin") {
                     setError(false);
@@ -101,7 +105,9 @@ export const LoginPage = () => {
     return (
         <div className={styles['login-main-div']}>
             <div className={styles['login-back-button-div']}>
-                <button className={styles['login-back-button']} onClick={handleGoBackButtonClicked}>Home Page</button>
+                <button className={styles['login-back-button']} onClick={handleGoBackButtonClicked}>
+                    <FontAwesomeIcon icon={faHouse} />
+                </button>
             </div>
             <div className={styles['login-sub-div']}>
                 <h2 className={styles['login-title-h2']}>Login Here</h2>
@@ -125,6 +131,9 @@ export const LoginPage = () => {
                 </div>
                 <a className={styles['reset-password-a']} href={"/sendOTP"}>Reset Password</a>
                 <button className={styles['login-button']} onClick={handleLogInClick}>Log In</button>
+                <div className={styles['register__div']}>
+                    <a className={styles['register-a']} href={"/patientRegister"}>Don't have an account yet?</a>
+                </div>
             </div>
             {error && (<AlertMessageCard message={"Invalid username or password"} showAlertMessage={setError}></AlertMessageCard>)}
         </div>
