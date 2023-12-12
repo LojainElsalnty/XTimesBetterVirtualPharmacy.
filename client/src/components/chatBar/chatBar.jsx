@@ -42,7 +42,7 @@ export const ChatBar = ({ selectedUser, userType }) => {
   async function getUsers() {
       await axios ({
         method: 'get',
-        url: `http://localhost:5000/${userType}/chat/users`,
+        url: `http://localhost:8000/${userType}/chat/users`,
         headers: {
             "Content-Type": "application/json",
             'Authorization': accessToken,

@@ -81,7 +81,7 @@ export const ResetPasswordPage = () => {
         // send the new password to the server
         await axios ({
             method: 'put',
-            url: `http://localhost:5000/resetPassword/updatePassword?email=${email}`,
+            url: `http://localhost:8000/resetPassword/updatePassword?email=${email}`,
             headers: {
                 "Content-Type": "application/json",
             },

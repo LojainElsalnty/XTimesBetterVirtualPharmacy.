@@ -59,7 +59,7 @@ export const PatientProfile = () => {
     async function checkAuthentication() {
       await axios ({
           method: 'get',
-          url: `http://localhost:5000/authentication/checkAccessToken`,
+          url: `http://localhost:8000/authentication/checkAccessToken`,
           headers: {
               "Content-Type": "application/json",
               'Authorization': accessToken,
@@ -84,7 +84,7 @@ export const PatientProfile = () => {
     const getPatientInfo = async () => {
       await axios ({
         method: 'get',
-        url: `http://localhost:5000/patient/info`,
+        url: `http://localhost:8000/patient/info`,
         headers: {
             "Content-Type": "application/json",
             'Authorization': accessToken,

@@ -50,7 +50,7 @@ export const AdminProfile = () => {
     async function checkAuthentication() {
       await axios ({
           method: 'get',
-          url: `http://localhost:5000/authentication/checkAccessToken`,
+          url: `http://localhost:8000/authentication/checkAccessToken`,
           headers: {
               "Content-Type": "application/json",
               'Authorization': accessToken,
@@ -75,7 +75,7 @@ export const AdminProfile = () => {
     const getAdminInfo = async () => {
         await axios ({
           method: 'get',
-          url: `http://localhost:5000/admin/info`,
+          url: `http://localhost:8000/admin/info`,
           headers: {
               "Content-Type": "application/json",
               'Authorization': accessToken,

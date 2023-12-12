@@ -56,7 +56,7 @@ export const ChatFooter = ({ socket, userUsername, receiverName, receiverUserTyp
     async function getMessages() {
       await axios ({
         method: 'get',
-        url: `http://localhost:5000/${userType}/chat/${userUsername}`,
+        url: `http://localhost:8000/${userType}/chat/${userUsername}`,
         headers: {
             "Content-Type": "application/json",
             'Authorization': accessToken,
@@ -71,7 +71,7 @@ export const ChatFooter = ({ socket, userUsername, receiverName, receiverUserTyp
     async function postMessages(message) {
       await axios ({
         method: 'post',
-        url: `http://localhost:5000/${userType}/chat/${userUsername}`,
+        url: `http://localhost:8000/${userType}/chat/${userUsername}`,
         headers: {
             "Content-Type": "application/json",
             'Authorization': accessToken,
