@@ -11,6 +11,8 @@ function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
   //const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
   const [filteredPharmacists, setfilteredPharmacists] = useState([]);
   const [filter, setFilter] = useState('all');
   //new part
@@ -65,28 +67,25 @@ const handleFilterChange = (event) => {
 };
   const xTest = checkAuthentication();
 
-  const fetchRequestedPharmacists = () => {
-    const url = 'http://localhost:8000/admin/viewREQPharmacists';
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data) {
-          setRequestedPharmacists(data);
-        } else {
-          console.error('Cannot view requested Pharmacists:', data);
-        }
-      })
-      .catch((error) => {
-        console.error('Error viewing pharmacist information:', error);
-      });
-  };
-
+  const fetchRequestedPharmacists = async () => {
+    try {
+        const response = await axios.get('http://localhost:8000/admin/viewREQPharmacists', {
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken
+            }
+        });
+        // Sort by descending order of creation (most recent first)
+        const sortedData = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setRequestedPharmacists(sortedData);
+        applyFilter(sortedData); // Apply the filter to sorted data
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+  useEffect(() => {
+    fetchRequestedPharmacists();
+  }, [accessToken, navigate]);
 
   const acceptPharmacist = (pharmacistId) => {
     const confirmed = window.confirm('Are you sure you want to accept this pharmacist request?');
@@ -180,19 +179,43 @@ const handleFilterChange = (event) => {
   if (load) {
     return (<div>Loading</div>)
   }
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPharmacists = filteredPharmacists.slice(indexOfFirstItem, indexOfLastItem);
+
+  
+  const handlePrevPage = () => {
+    setCurrentPage(currentPage > 1 ? currentPage - 1 : 1);
+  };
+
+  const handleNextPage = () => {
+    const totalItems = filteredPharmacists.length;
+    const maxPage = Math.ceil(totalItems / itemsPerPage);
+    setCurrentPage(currentPage < maxPage ? currentPage + 1 : maxPage);
+  };
 
   return (
     <div>
-      <h1>Requested Pharmacists List</h1>
-      <div>
-  <label htmlFor="filterSelect">Filter By Status: </label>
-  <select id="filterSelect" value={filter} onChange={handleFilterChange}>
-    <option value="all">All</option>
-    <option value="accepted">Accepted</option>
-    <option value="rejected">Rejected</option>
-  </select>
-  &nbsp;
-</div>
+    <h1>Requested Pharmacists List</h1>
+    
+    {/* Pagination Controls */}
+    <div style={{ marginBottom: '10px' }}>
+      <button onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
+      <button onClick={handleNextPage} disabled={currentPage * itemsPerPage >= filteredPharmacists.length}>Next</button>
+      &nbsp; Page {currentPage}
+    </div>
+
+    {/* Filter Selection */}
+    <div>
+      <label htmlFor="filterSelect">Filter By Status: </label>
+      <select id="filterSelect" value={filter} onChange={handleFilterChange}>
+        <option value="all">All</option>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+      </select>
+      &nbsp;
+    </div>
+
 &nbsp;
 &nbsp;
       <table>
@@ -212,7 +235,7 @@ const handleFilterChange = (event) => {
           </tr>
         </thead>
         <tbody>
-          {filteredPharmacists.map((pharmacist) => (
+        {currentPharmacists.map(pharmacist => (
             <tr key={pharmacist._id}>
               <td>{pharmacist.name}</td>
               <td>{pharmacist.username}</td>
@@ -262,3 +285,5 @@ const handleFilterChange = (event) => {
 
 
 export default ViewRequestedPharmacistsInfo;
+
+
