@@ -190,10 +190,15 @@ const accessToken = sessionStorage.getItem('accessToken'); // Retrieve the acces
     window.location.href = `http://localhost:5174/patient/myPCart/${prescriptionId}?accessToken=${accessToken}`;
 };
 
+const isFilterEmpty = prescriptionsToBeDisplay.length === 0;
 
+if (load) {
+  return (<div>Loading</div>)
+}
 
   return (
     <div className={styles.container}>
+                  <br />
       <h1 className={styles.listTitle}>Prescription List</h1>
       <div className={styles.resultContainer}>
         <div className={styles.filterContainer}>
@@ -218,8 +223,11 @@ const accessToken = sessionStorage.getItem('accessToken'); // Retrieve the acces
           &nbsp;&nbsp;
           <button onClick={handleFilterClick}>Filter</button>
         </div>
-        <table className={styles.prescriptionTable}>
-          <thead>
+        <br />
+        {isFilterEmpty ? (
+          <p className={styles.noDataMessage}>No prescriptions found.</p>
+        ) : (
+          <table className={styles.prescriptionTable}>               <thead>
             <tr>
               {/* <th>Patient Username</th> */}
               <th className={styles.lightBlueText}>Doctor Username</th>
@@ -264,6 +272,8 @@ const accessToken = sessionStorage.getItem('accessToken'); // Retrieve the acces
         ))}
       </tbody>
     </table>
+           )}
+
   </div>
   {showModal && selectedPrescription && (
      <div className={styles.modal} ref={detailsRef}>

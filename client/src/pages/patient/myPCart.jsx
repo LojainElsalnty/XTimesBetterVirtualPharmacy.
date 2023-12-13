@@ -12,42 +12,41 @@ const MyPCart =  () => {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
   const { prescriptionId} = useParams();
-    //Authenticate part
-    const accessToken = sessionStorage.getItem('accessToken');
-    const [load, setLoad] = useState(true);
-    const [username, setUsername] = useState('');
-    
-    console.log(accessToken);
-    useEffect(() => {
-        if (username.length != 0) {
-            setLoad(false);
-        }
-    }, [username]);
-    async function checkAuthentication() {
-        await axios({
-            method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': accessToken,
-                'User-type': 'patient',
-            },
-        })
-            .then((response) => {
-                console.log(response);
-                setUsername(response.data.username);
-                //setLoad(false);
-            })
-            .catch((error) => {
-                //setLoad(false);
-                navigate('/login');
+    //new part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
   
-            });
-    }
-  
-    const xTest = checkAuthentication();
-  //Authenticate part
-  
+  console.log(accessToken);
+  useEffect(() => {
+      if (username.length != 0) {
+          setLoad(false);
+      }
+  }, [username]);
+  async function checkAuthentication() {
+      await axios({
+          method: 'get',
+          url: 'http://localhost:8000/authentication/checkAccessToken',
+          headers: {
+              "Content-Type": "application/json",
+              'Authorization': accessToken,
+              'User-type': 'patient',
+          },
+      })
+          .then((response) => {
+              console.log(response);
+              setUsername(response.data.username);
+              //setLoad(false);
+          })
+          .catch((error) => {
+              //setLoad(false);
+              navigate('/login');
+
+          });
+  }
+
+  const xTest = checkAuthentication();
+
     useEffect(() => {
     const fetchCartItems = async () => {
         try {
