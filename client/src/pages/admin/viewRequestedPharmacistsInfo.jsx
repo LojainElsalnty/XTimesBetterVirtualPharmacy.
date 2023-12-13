@@ -183,7 +183,7 @@ const handleFilterChange = (event) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPharmacists = filteredPharmacists.slice(indexOfFirstItem, indexOfLastItem);
 
-  
+
   const handlePrevPage = () => {
     setCurrentPage(currentPage > 1 ? currentPage - 1 : 1);
   };
@@ -198,13 +198,23 @@ const handleFilterChange = (event) => {
     <div>
     <h1>Requested Pharmacists List</h1>
     
-    {/* Pagination Controls */}
-    <div style={{ marginBottom: '10px' }}>
-      <button onClick={handlePrevPage} disabled={currentPage === 1}>Prev</button>
-      <button onClick={handleNextPage} disabled={currentPage * itemsPerPage >= filteredPharmacists.length}>Next</button>
+ <div style={{ marginBottom: '10px' }}>
+      <button 
+        onClick={handlePrevPage} 
+        disabled={currentPage === 1}
+        style={{ marginRight: '10px' }}  // Adds space to the right of the 'Prev' button
+      >
+        Prev
+      </button>
+      <button 
+        onClick={handleNextPage} 
+        disabled={currentPage * itemsPerPage >= filteredPharmacists.length}
+      >
+        Next
+      </button>
       &nbsp; Page {currentPage}
     </div>
-
+    &nbsp; &nbsp; &nbsp; 
     {/* Filter Selection */}
     <div>
       <label htmlFor="filterSelect">Filter By Status: </label>
