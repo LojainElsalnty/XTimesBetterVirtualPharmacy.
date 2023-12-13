@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
+
+// Axios
 import axios from 'axios';
+
+// React Router DOM
+import { useNavigate } from 'react-router-dom';
+
+// Styles
+import styles from './madicineEdit.module.css';
 
 function MedicineEdit() {
   const [medicineData, setMedicineData] = useState({
@@ -14,16 +22,18 @@ function MedicineEdit() {
   const accessToken = sessionStorage.getItem('accessToken');
   const [load, setLoad] = useState(true);
   const [username, setUsername] = useState('');
-  console.log(accessToken);
+  const navigate = useNavigate();
+  
   useEffect(() => {
     if (username.length != 0) {
       setLoad(false);
     }
   }, [username]);
+
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -43,7 +53,6 @@ function MedicineEdit() {
   }
 
   const xTest = checkAuthentication();
-
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -85,7 +94,7 @@ function MedicineEdit() {
     }
 
 
-    fetch(`http://localhost:5000/medicineRoutes/updateMedicine`, {
+    fetch(`http://localhost:8000/medicineRoutes/updateMedicine`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -125,72 +134,77 @@ function MedicineEdit() {
 
 
   return (
-    <div>
-      <h2>Edit Medicine</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className={styles['main__div']}>
+      <form className={styles['medicine__form']}  onSubmit={handleSubmit}>
+        <div className={styles['medicine__div']}>
           <label htmlFor="name">Medicine Name:</label>
           <input
             type="text"
             id="name"
             name="name"
+            className={styles['input__field']}
             value={medicineData.name}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="price">Price:</label>
           <input
             type="number"
             id="price"
             name="price"
+            className={styles['input__field']}
             value={medicineData.price}
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="activeIngredients">Active Ingredients (comma-separated):</label>
           <input
             type="text"
             id="activeIngredients"
             name="activeIngredients"
+            className={styles['input__field']}
             value={medicineData.activeIngredients.join(', ')}
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="availableQuantity">Available Quantity:</label>
           <input
             type="number"
             id="availableQuantity"
             name="availableQuantity"
+            className={styles['input__field']}
             value={medicineData.availableQuantity}
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="medicinalUses">Medicinal Uses (comma-separated):</label>
           <input
             type="text"
             id="medicinalUses"
             name="medicinalUses"
+            className={styles['input__field']}
             value={medicineData.medicinalUses.join(', ')}
             onChange={handleChange}
           />
         </div>
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="name">Medicine Image:</label>
           <input
             type="text"
             id="image"
             name="image"
+            className={styles['input__field']}
             value={medicineData.image}
             onChange={handleChange}
 
           />
         </div>
-        <button type="submit">Edit Medicine</button>
+        <button className={styles['add__medicine__btn']} type="submit">Edit Medicine</button>
       </form>
     </div>
   );

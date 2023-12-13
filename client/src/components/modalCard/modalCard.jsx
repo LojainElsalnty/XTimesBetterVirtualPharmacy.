@@ -14,6 +14,9 @@ import CloseIcon from '@mui/icons-material/Close';
 // FontAwesome Components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 /** This is a simple example of how the component works **/
 export const Example = () => {
@@ -37,7 +40,7 @@ export const Modal = ({
     btnText,
     children,
     className,
-    size = 'dialog',
+    size = 'large',
     isOpen,
     id,
     }) => {
@@ -95,17 +98,13 @@ export const Modal = ({
 
   return (
   <>
-    {hasBtn &&
-      <button
+    {!open && hasBtn &&
+      <VisibilityOffIcon 
         className={styles["cc-open-modal"]}
         onClick={() => setOpen(!open)}
         aria-haspopup="dialog"
         aria-controls={modalId}
-      >
-        {
-          btnText === "" ? icon : btnText
-        }
-      </button>
+      />
     }
     {modalComponent}
   </>

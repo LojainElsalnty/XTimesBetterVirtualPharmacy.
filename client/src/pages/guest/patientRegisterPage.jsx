@@ -91,7 +91,7 @@ const PatientRegister = () => {
   
         try {
              // Send the formData object to your backend API for registration
-            const response = await fetch('http://localhost:5000/patient/register/', {
+            const response = await fetch('http://localhost:8000/patient/register/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

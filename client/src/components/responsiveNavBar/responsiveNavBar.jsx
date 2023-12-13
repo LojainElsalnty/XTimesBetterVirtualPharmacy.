@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 // Pages
-const pages = ['Products', 'About Us'];
+const pages = [];
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
@@ -278,7 +278,7 @@ export const ResponsiveAppBar = () => {
                   }}
 
                   component="a" 
-                  href={`http://localhost:5173/${userType}/profile`}
+                  href={`/${userType}/profile`}
                 >
                   <Typography 
                       textAlign="center"

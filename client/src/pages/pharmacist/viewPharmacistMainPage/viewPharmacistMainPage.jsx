@@ -77,14 +77,6 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/medicineCatalog",
             pageName: "Medicines List",
         },
-        {
-            url: "/pharmacist/addMedicine",
-            pageName: "Add Medicine",
-        },
-        {
-            url: "/pharmacist/editMedicine",
-            pageName: "Edit Medicine",
-        },
     ];
 
     if (load) {

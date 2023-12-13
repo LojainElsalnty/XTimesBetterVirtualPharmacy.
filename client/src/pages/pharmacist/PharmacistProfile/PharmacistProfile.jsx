@@ -12,6 +12,8 @@ import womenImage from '../../../assets/img/female.svg';
 
 // MUI Joy Components
 import { Button, Typography } from '@mui/joy';
+import MedicationIcon from '@mui/icons-material/Medication';
+import EditIcon from '@mui/icons-material/Edit';
 
 // FontAwesome Components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,6 +22,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 // User Defined Components
 import { PasswordCard } from '../../../components/changePasswordCard/changePasswordCard';
 import { DropDown } from '../../../components/dropDown/dropDown';
+import { ShowCard } from '../../../components/showCard/showCard';
+import { Modal } from '../../../components/modalCard/modalCard';
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +34,10 @@ import { useState, useEffect } from 'react';
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
 
+// Pages
+import MedicineEdit from '../../medicine/madicineEdit';
+import MedicineAdd from '../../medicine/medicineAdd';
+import MedicineCatalog from '../medicineCatalogPage';
 
 export const PharmacistProfile = () => {
     const navigate = useNavigate();
@@ -123,14 +131,14 @@ export const PharmacistProfile = () => {
             </div>
             <div className={styles['pharmacist-info-right-div']}>
                 <div className={styles['pharmacist-information-div']}>
-                <Typography level="h1" component="h1" sx={{color: 'lightskyblue'}}>{name}</Typography>
+                <Typography level="h1" component="h1" sx={{color: 'white'}}>{name}</Typography>
                 <div className={styles['pharmacist-information-sub-div']}>
                     <div className={styles['pharmacist-information-left-div']}>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>username: {username}</Typography>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>email: {email}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>username: {username}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>email: {email}</Typography>
                     </div>
                     <div className={styles['pharmacist-information-right-div']}>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>data of birth: {dob}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>data of birth: {dob}</Typography>
                     </div>
                 </div>
                 </div>
@@ -141,12 +149,12 @@ export const PharmacistProfile = () => {
                 <div className={styles['left__div']}>
                   <div className={styles['configurations__div']}>
                     <DropDown title="change password" child={<PasswordCard />}></DropDown>
-                    
+                    <ShowCard title="add medicine" icon={<MedicationIcon />}><Modal title="Add medicine"><MedicineAdd /></Modal></ShowCard>
+                    <ShowCard title="edit medicine" icon={<EditIcon />}><Modal title="Edit medicine"><MedicineEdit /></Modal></ShowCard>
                   </div>
                 </div>
                 <div className={styles['middle__div']}>
-                  <div className={styles['charts__div']}>
-                  </div>
+                  <div className={styles['charts__div']}></div>
                 </div>
                 <div className={styles['right__div']}>
                   <div className={styles['wallet__div']}>

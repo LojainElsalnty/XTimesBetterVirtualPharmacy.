@@ -22,7 +22,7 @@ const PastOrders = () => {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,

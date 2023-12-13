@@ -20,39 +20,15 @@
     backdrop-filter: grayscale(50%);
     /* border: 1px solid #ffffff22; */
     /* background-image: linear-gradient(45deg, black, transparent); */
-    background-color: rgb(49, 45, 45);
-    border-radius: 0.7rem;
-    /* box-shadow: -2px 2px 2px #FFE, 0px 3px 10px 5px #00000088; */
-
-    overflow: hidden;
-    transition: 1s ease-in-out;
-}
-
-.login-sub-div::before {
-    content: "";
-    width: 100px;
-    height: 100px;
-
-    position: absolute;
-    top: -30px;
-    left: -30px;
-    /* transform: translateX(-200%); */
-
     background-image: linear-gradient(
         35deg,
         #24C6DC,
         #514A9D
-    );
-    transition: all 1s;
-    z-index: -1;
-    /* border-radius: 0.7rem; */
-    border-radius: 100%;
+    );    border-radius: 0.7rem;
+    /* box-shadow: -2px 2px 2px #FFE, 0px 3px 10px 5px #00000088; */
 
-    transition: 3s ease-in-out;
-}
-
-.login-sub-div:hover::before{
-    transform: scale(20);
+    overflow: hidden;
+    transition: 1s ease-in-out;
 }
 
 .login-username-div {

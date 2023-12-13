@@ -61,6 +61,7 @@ export const LoginPage = () => {
             })
             .then((response) => {
                 console.log(`Refresh Token: ${response.data.refreshToken}`);
+                console.log(`User Type: ${response.data.userType}`);
     
                 setAccessToken(response.data.accessToken);
                 setRefreshToken(response.data.refreshToken);
@@ -80,11 +81,11 @@ export const LoginPage = () => {
                     sessionStorage.setItem("userType", "patient");
                     navigate('/patient');
                 } 
-                else if (response.data.userType === "doctor") {
+                else if (response.data.userType === "pharmacist") {
                     setError(false);
-                    setUserType("doctor");
-                    sessionStorage.setItem("userType", "doctor");
-                    navigate('/doctor');
+                    setUserType("pharmacist");
+                    sessionStorage.setItem("userType", "pharmacist");
+                    navigate('/pharmacist');
                 }
                 else if (response.data.userType === "admin") {
                     setError(false);

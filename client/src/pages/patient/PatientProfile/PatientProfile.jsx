@@ -34,7 +34,11 @@ import { DropDown } from '../../../components/dropDown/dropDown';
 
 // User Defined Components
 import { CreditCard } from '../../../components/creditCard/creditCard';
+import { ShowCard } from '../../../components/showCard/showCard';
+import { Modal } from '../../../components/modalCard/modalCard';
 
+// Pages
+import PastOrders from '../pastOrders/pastOrdersPage';
 
 export const PatientProfile = () => {
     // User Info
@@ -132,15 +136,15 @@ export const PatientProfile = () => {
             </div>
             <div className={styles['patient-info-right-div']}>
               <div className={styles['patient-information-div']}>
-                <Typography level="h1" component="h1" sx={{color: 'lightskyblue'}}>{name}</Typography>
+                <Typography level="h1" component="h1" sx={{color: 'white'}}>{name}</Typography>
                 <div className={styles['patient-information-sub-div']}>
                   <div className={styles['patient-information-left-div']}>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>username: {username}</Typography>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>email: {email}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>username: {username}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>email: {email}</Typography>
                   </div>
                   <div className={styles['patient-information-right-div']}>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>data of birth: {dob}</Typography>
-                    <Typography level="title-sm" sx={{color: 'lightskyblue'}}>mobile: {mobile}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>data of birth: {dob}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>mobile: {mobile}</Typography>
                   </div>
                 </div>
               </div>
@@ -153,7 +157,7 @@ export const PatientProfile = () => {
             <div className={styles['left__div']}>
               <div className={styles['configurations__div']}>
                 <DropDown title="change password" child={<PasswordCard />}></DropDown>
-                
+                {/* <ShowCard title="view orders"><Modal title="View Past Orders"><PastOrders /></Modal></ShowCard> */}
               </div>
             </div>
             <div className={styles['middle__div']}>

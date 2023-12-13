@@ -6,6 +6,9 @@ import axios from 'axios';
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
 
+// Styles
+import styles from './medicineAdd.module.css';
+
 function MedicineAdd() {
   const [medicineData, setMedicineData] = useState({
     name: '',
@@ -34,7 +37,7 @@ function MedicineAdd() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -107,7 +110,7 @@ function MedicineAdd() {
     console.log("hena")
     console.log(medicineData)
 
-    fetch('http://localhost:5000/medicineRoutes/addMedicine', {
+    fetch('http://localhost:8000/medicineRoutes/addMedicine', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -153,60 +156,64 @@ function MedicineAdd() {
   }
 
   return (
-    <div>
-      <h2>Add a New Medicine</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
+    <div className={styles['main__div']}>
+      <form className={styles['medicine__form']} conSubmit={handleSubmit} encType="multipart/form-data">
+        <div className={styles['medicine__div']}>
           <label htmlFor="name">Medicine Name:</label>
           <input
             type="text"
             id="name"
             name="name"
+            className={styles['input__field']}
             value={medicineData.name}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
+        <div className={styles['medicine__div']}>
           <label htmlFor="price">Price:</label>
           <input
             type="number"
             id="price"
             name="price"
+            className={styles['input__field']}
             value={medicineData.price}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
+        <div className={styles['medicine__div']}>
           <label htmlFor="activeIngredients">Active Ingredients (comma-separated):</label>
           <input
             type="text"
             id="activeIngredients"
             name="activeIngredients"
+            className={styles['input__field']}
             value={medicineData.activeIngredients.join(', ')}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
+        <div className={styles['medicine__div']}>
           <label htmlFor="availableQuantity">Available Quantity:</label>
           <input
             type="number"
             id="availableQuantity"
             name="availableQuantity"
             value={medicineData.availableQuantity}
+            className={styles['input__field']}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="medicinalUses">Medicinal Uses (comma-separated):</label>
           <input
             type="text"
             id="medicinalUses"
             name="medicinalUses"
             value={medicineData.medicinalUses.join(', ')}
+            className={styles['input__field']}
             onChange={handleChange}
             required
           />
@@ -225,19 +232,20 @@ function MedicineAdd() {
                 />
         </div>
          */}
-        <div>
+        <div  className={styles['medicine__div']}>
           <label htmlFor="image">Image URL:</label>
           <input
             type="text"
             id="image"
             name="image"
             value={medicineData.image}
+            className={styles['input__field']}
             onChange={handleChange}
             required
           />
         </div>
 
-        <button type="submit">Add Medicine</button>
+        <button type="submit" className={styles['add__medicine__btn']}>Add Medicine</button>
       </form>
     </div>
   );

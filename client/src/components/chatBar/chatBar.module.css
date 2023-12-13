@@ -132,14 +132,14 @@
 }
 
 .criteria__div {
-  width: 30%;
-  height: 30%;
+  width: 100%;
+  height: 37%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 100px;
+  top: 0px;
   left: 400px;
   background-image: linear-gradient(35deg, #0F2027 0%, #125594 50%, #2C5364 100%);
   border-radius: 10px;

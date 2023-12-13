@@ -123,7 +123,7 @@ export const ResponsiveSideBar = ({ array }) => {
                     }}} 
                     className={styles['view-button']}
                     component="a"
-                    href={`/${userType}`}
+                    href={`/${userType}/profile`}
                     data-tooltip-id="home"
                     data-tooltip-content="Home"
                     data-tooltip-place="bottom"

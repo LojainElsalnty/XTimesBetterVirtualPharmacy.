@@ -25,7 +25,7 @@ function ViewRequestedPharmacistsInfo() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -47,7 +47,7 @@ function ViewRequestedPharmacistsInfo() {
   const xTest = checkAuthentication();
 
   const fetchRequestedPharmacists = () => {
-    const url = 'http://localhost:5000/admin/viewREQPharmacists';
+    const url = 'http://localhost:8000/admin/viewREQPharmacists';
 
     fetch(url)
       .then((response) => {
@@ -74,7 +74,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/accept/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/accept/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -104,7 +104,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/reject/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/reject/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -123,7 +123,7 @@ function ViewRequestedPharmacistsInfo() {
 
 
   useEffect(() => {
-    const url = `http://localhost:5000/admin/viewREQPharmacists`
+    const url = `http://localhost:8000/admin/viewREQPharmacists`
     // Make an HTTP PATCH request to send the data to the backend using the requestBody
     fetch(url, {
       method: 'GET',
@@ -191,9 +191,9 @@ function ViewRequestedPharmacistsInfo() {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
 
               <td>{pharmacist.status}</td>
               <td>
