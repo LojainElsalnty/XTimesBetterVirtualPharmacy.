@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import searchIcon from '../../assets/img/searchicon.png'
+
+import styles from '../pharmacist//pharmacistView.module.css'
 
 function PatientView() {
   const [username, setUsername] = useState('');
@@ -42,16 +45,19 @@ function PatientView() {
 
   return (
     <div>
-      <h2>Patients Information</h2>
-      <label>
-        Enter Patient Username:
-        <input
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-      </label>
-      <button onClick={fetchPatientInfo}>Find</button>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <label style={{ display: 'flex', alignItems: 'center' }}>
+      Enter Patient Username:
+      <input
+        type="text"
+        value={username}
+        onChange={handleUsernameChange}
+      />
+      <button className={styles["find-button"]} onClick={fetchPatientInfo}>
+        <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
+      </button>
+    </label>
+      </div>
 
       {patient && (
         <div>

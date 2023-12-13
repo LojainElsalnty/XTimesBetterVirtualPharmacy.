@@ -73,7 +73,9 @@
   
   
   
-
+  
+/* CSS */
+/* CSS */
 .button-17 {
     align-items: center;
     appearance: none;
@@ -113,7 +115,7 @@
     transform: scale(1.05);
   }
   
-
+/* Add this class to your CSS file */
 .quantity-spacing {
     margin: 0 25px; /* Adjust the margin as needed */
   }
@@ -172,18 +174,6 @@
     animation: shake-delete 0.2s ease 0.1s;
   }
   
-  
-
-
-
-  
-
-
-
-
-
-
-
   
 
   

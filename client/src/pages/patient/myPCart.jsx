@@ -4,6 +4,10 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
+import styles from './myPCartPage.module.css'
+import deleteIcon from '../../assets/img/delete-icon.png'
+import myBackIcon from '../../assets/img/myBack-icon.png'
+
 
 
 const PrescriptionDetails = ({ prescriptionId }) => {
@@ -125,7 +129,12 @@ const PrescriptionDetails = ({ prescriptionId }) => {
         <div>
             <h2>Cart Items</h2>
             
-            <button  onClick={redirectToCatalouge} >back</button>
+            <img
+                src={myBackIcon}
+                alt="Back"
+                onClick={redirectToCatalouge}
+                style={{ cursor: 'pointer', width: '20px', height: '20px', position: 'absolute', left: '10px', top: '120px'}}
+            />
             <table>
                 <thead>
                     <tr>
@@ -141,19 +150,20 @@ const PrescriptionDetails = ({ prescriptionId }) => {
                     {cartItems.map((item, index) => (
                         <tr key={index}>
                             <td>{item.medName}</td>
-                            <td>{item.price_per_item}</td>
+                            <td>{item.price_per_item + ".EGP"}</td>
                             <td>
-                                <button onClick={() => decrementCartItemQuantity(item.medName)}>-</button>
-                                {item.quantity}
-                                <button onClick={() => updateCartItemQuantity(item.medName)}>+</button>
+                                <button  className={styles["button-17"]} onClick={() => decrementCartItemQuantity(item.medName)}>-</button>
+                                <span className={`${styles["quantity-spacing"]} ${styles["quantity-counter"]}`}>{item.quantity}</span>
+                                <button  className={styles["button-17"]} onClick={() => updateCartItemQuantity(item.medName)}>+</button>
                             </td>
 
                             <td>{item.dosage}
                             
                             </td>
                            
-                            <td><button onClick={() => deleteMedicineFromPrescription(item.medName)}>Delete</button></td>
-
+                            <td><button className={styles["button-delete"]} onClick={() => deleteMedicineFromPrescription(item.medName)}>
+                             <img src={deleteIcon} alt="Delete" style={{ width: '40px', height: '40px' }} />
+                            </button></td>
 
                         </tr>
                     ))}

@@ -10,5 +10,26 @@
     margin-top: 10px;
   }
   
+  .find-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px; /* Adjust the width and height to your preference */
+    height: 35px; /* Adjust the width and height to your preference */
+    background-color: #dfdddd; /* Change the background color */
+    border: none;
+    border-radius: 15px; /* Adjust the border-radius for the curved square effect */
+    cursor: pointer;
+  }
+  
+  .find-button img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .find-button:hover {
+    background-color: #e0e0e0; /* Change the background color on hover */
+  }
+  
   
   
