@@ -53,6 +53,10 @@ function ViewRequestedPharmacistsInfo() {
       } else if (filter === 'rejected') {
         return doctor.status === 'rejected';
       }
+      else if(filter === 'onhold'){
+        return doctor.status === 'onhold';
+
+      }
       return true; // No filter or 'all' filter selected
     });
     setfilteredPharmacists(filtered);
@@ -215,13 +219,14 @@ const handleFilterChange = (event) => {
       &nbsp; Page {currentPage}
     </div>
     &nbsp; &nbsp; &nbsp; 
-    {/* Filter Selection */}
     <div>
       <label htmlFor="filterSelect">Filter By Status: </label>
       <select id="filterSelect" value={filter} onChange={handleFilterChange}>
         <option value="all">All</option>
         <option value="accepted">Accepted</option>
         <option value="rejected">Rejected</option>
+        <option value="onhold">Waiting</option>
+
       </select>
       &nbsp;
     </div>
