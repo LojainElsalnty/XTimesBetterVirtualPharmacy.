@@ -28,7 +28,7 @@ export const LogOutCard = ({showLogOutCard}) => {
         // remove refresh token from the database
         await axios({
             method: 'DELETE',
-            url: 'http://localhost:5000/logout',
+            url: 'http://localhost:8000/logout',
             headers: {
                 "Content-Type": "application/json",
             },

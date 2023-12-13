@@ -92,8 +92,7 @@ const PrescriptionTable = () => {
   prescription.medicines.forEach((medicine, index) => {
     const y = bodyStartY + 40 + (10 * index);
     doc.text(`- ${medicine.name}`, 30, y);
-    doc.text(`Dose: ${medicine.dose}`, 80, y);
-    doc.text(`Timing: ${medicine.timing}`, 130, y);
+    doc.text(`Dosage: ${medicine.dosage}`, 80, y);
     doc.text(`Price: ${medicine.price}`, 230, y);
   });
 
@@ -134,7 +133,7 @@ const PrescriptionTable = () => {
     fetchPrescriptionData();
   }, []); // Empty dependency array ensures the effect runs once on component mount
 
-  const handleFilterClick = () => {
+ const handleFilterClick = () => {
     // Apply the filter logic based on user input
     const filteredPrescriptions = prescriptions.filter((prescription) => {
       if (filter === 'filled') {
@@ -152,9 +151,9 @@ const PrescriptionTable = () => {
       }
       return true; // No filter
     });
-
     setPrescriptionsToBeDisplay(filteredPrescriptions);
-  };
+    setFilterValue(''); // Clear the filter value after applying the filter
+};
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
@@ -222,7 +221,7 @@ if (load) {
           &nbsp;
           &nbsp;&nbsp;
           <button onClick={handleFilterClick}>Filter</button>
-        </div>
+        </div> 
         <br />
         {isFilterEmpty ? (
           <p className={styles.noDataMessage}>No prescriptions found.</p>
@@ -298,7 +297,7 @@ if (load) {
             <th>Name</th>
             <th>Dosage</th>
             <th>Price</th>
-          </tr>
+          </tr> 
         </thead>
         <tbody>
           {selectedPrescription.medicines.map((medicine, index) => (
