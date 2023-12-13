@@ -12,7 +12,7 @@ function ViewRequestedPharmacistsInfo() {
   //const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(6);
+  const [itemsPerPage] = useState(4);
   const [filteredPharmacists, setfilteredPharmacists] = useState([]);
   const [filter, setFilter] = useState('all');
   //new part

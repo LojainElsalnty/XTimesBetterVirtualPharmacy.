@@ -227,7 +227,8 @@ if (load) {
         {isFilterEmpty ? (
           <p className={styles.noDataMessage}>No prescriptions found.</p>
         ) : (
-          <table className={styles.prescriptionTable}>               <thead>
+          <table className={styles.prescriptionTable}>       
+           <thead>
             <tr>
               {/* <th>Patient Username</th> */}
               <th className={styles.lightBlueText}>Doctor Username</th>
