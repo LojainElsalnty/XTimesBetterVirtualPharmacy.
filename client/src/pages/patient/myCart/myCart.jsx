@@ -70,7 +70,7 @@ const MyCart = () => {
   }, [location.state]);
   // useEffect(() => {
   //   // Fetch cart items from the backend when the component mounts
-  //   axios.get('http://localhost:5000/patient/myCartRoute/viewAllCartItems')
+  //   axios.get('http://localhost:8000/patient/myCartRoute/viewAllCartItems')
   //     .then((response) => setCartItems(response.data))
   //     .catch((error) => console.error('Error fetching cart items:', error));
   // }, []);
@@ -78,7 +78,7 @@ const MyCart = () => {
 
 
   const updateCartItemQuantity = (medName) => {
-    console.log(medName)
+   // console.log(medName)
     // Send a PUT request to update the quantity of a cart item
     axios.put(`http://localhost:8000/patient/myCartRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {
@@ -137,7 +137,7 @@ const MyCart = () => {
 
   // const deleteItem = (medName) => {
   //   // Send a DELETE request to delete a cart item
-  //   axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
+  //   axios.delete(`http://localhost:8000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
   //     .then(() => {
   //       setCartItems((prevItems) => prevItems.filter((item) => item.medName !== medName));
   //       console.log("after deletion--", )

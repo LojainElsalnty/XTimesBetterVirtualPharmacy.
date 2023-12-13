@@ -6,7 +6,7 @@ const pharmacistModel = require('../../models/Pharmacist');
 
 const viewReqPharmacistsInfo = asyncHandler(async (req, res) => {
     // console.log(req.query)
-    const pharmacists = await pharmacistREQsModel.find();
+    const pharmacists = await pharmacistREQsModel.find().sort({ createdAt: -1 });
 
 
     console.log(pharmacists)

@@ -28,7 +28,7 @@ const MedicineSchema = mongoose.Schema({
   },
   // Add an image field
   image: {
-    type: String, // Original filename of the image
+    type:  String, // Original filename of the image
   },
   isOTC: { //whether it is an overcounter med (otc true) or not (otc false)
     type: Boolean,
@@ -38,6 +38,10 @@ const MedicineSchema = mongoose.Schema({
     type: Boolean, // if archived or not
     default: false,
   },
+  isOTC: { //whether it is an overcounter med (otc true) or not (otc false)
+    type: Boolean,
+    default: true
+  }
 
 }, { timestamps: true });
 

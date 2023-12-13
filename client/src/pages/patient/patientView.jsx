@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function PatientView() {
   const [username, setUsername] = useState('');
   const [patient, setPatient] = useState(null);
+  const [patients, setPatients] = useState([]);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -10,23 +12,37 @@ function PatientView() {
 
   const fetchPatientInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/patientRoutes/viewPatientInfo/${username}`);
+      const response = await axios.get(`http://localhost:8000/patientRoutes/viewPatientInfo/${username}`);
 
-      if (!response.ok) {
-        //throw new Error(`HTTP error! Status: ${response.status}`);
-        return alert('Patient not found')
+      if (!response.data) {
+        // Handle the case where no patient is found for the entered username
+        console.error('No patient found for the entered username.');
+        setPatient(null);
+      } else {
+        setPatient(response.data);
       }
-      const data = await response.json();
-      setPatient(data);
     } catch (error) {
       console.error('Error fetching patient information:', error);
       // You can set an error state or display an error message to the user here.
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/patientRoutes/viewAllPatientsInfo');
+        setPatients(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
-      <h2>Patient Information</h2>
+      <h2>Patients Information</h2>
       <label>
         Enter Patient Username:
         <input
@@ -35,22 +51,61 @@ function PatientView() {
           onChange={handleUsernameChange}
         />
       </label>
-      <button onClick={fetchPatientInfo}>Fetch Information</button>
+      <button onClick={fetchPatientInfo}>Find</button>
+
       {patient && (
         <div>
-          <h3>Patient Information for {patient.username}</h3>
-          <p>Name: {patient.name}</p>
-          <p>Email: {patient.email}</p>
-          <p>Date of Birth: {patient.dob}</p>
-          <p>Gender: {patient.gender}</p>
-          <p>Mobile: {patient.mobile}</p>
-          {/* <p>Emergency Contact: {patient.emergency_contact.join(', ')}</p> */}
-          <p>Emergency Contact Name: {patient.emergency_contact.name}</p>
-          <p>Emergency Contact Mobile: {patient.emergency_contact.mobile}</p>
-          <p>Emergency Contact Relation: {patient.emergency_contact.relation}</p>
+          <h3>Patient Details for {username}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Mobile</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr key={patient._id}>
+                <td>{patient.username}</td>
+                <td>{patient.name}</td>
+                <td>{patient.email}</td>
+                <td>{patient.dob}</td>
+                <td>{patient.gender}</td>
+                <td>{patient.mobile}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
       )}
+
+      <h3>All Patients</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Mobile</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.map((patient) => (
+            <tr key={patient._id}>
+              <td>{patient.username}</td>
+              <td>{patient.name}</td>
+              <td>{patient.email}</td>
+              <td>{patient.dob}</td>
+              <td>{patient.gender}</td>
+              <td>{patient.mobile}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

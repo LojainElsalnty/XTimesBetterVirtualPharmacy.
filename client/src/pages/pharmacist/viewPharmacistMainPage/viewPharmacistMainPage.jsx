@@ -93,6 +93,7 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/viewWalletNumber",
             pageName: "Wallet",
         },
+      
     ];
 
     if (load) {

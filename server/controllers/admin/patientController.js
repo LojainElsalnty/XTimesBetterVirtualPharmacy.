@@ -26,5 +26,17 @@ const viewPatientInfo = async (req, res) => {
 };
 
 
+//view all patients 
+const viewAllPatientsInfo = async (req, res) => {
+  try {
+       const patients = await Patient.find();
+       res.json(patients);
+   } catch (error) {
+       console.error(error);
+       res.status(500).send('Internal Server Error');
+   }
+}
 
-module.exports = { viewPatientInfo }
+
+
+module.exports = { viewPatientInfo ,viewAllPatientsInfo}

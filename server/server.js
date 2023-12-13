@@ -20,6 +20,8 @@ const myCartRoutes = require('./routes/patient/myCartRoute');
 const filterSalesRoute= require('./routes/pharmacist/filterSalesRoute');
 const viewSalesRoute= require('./routes/pharmacist/viewSalesRoute');
 const viewSalesAdminRoute= require('./routes/admin/viewSalesRoute');
+const myPrescriptionRoutes = require('./routes/patient/myPrescriptionRoute');
+const prescriptionRoutes = require('./routes/patient/prescriptions');
 
 //const upload = require('./upload'); // Import the Multer configuration
 const router = express.Router();
@@ -31,7 +33,7 @@ const router = express.Router();
 mongoose.set('strictQuery', false);
 
 // App variables
-const Port = process.env.PORT || 5000;
+const Port = process.env.PORT || 8000;
 const MongoURI = process.env.MONGO_URI;
 
 // Express app
@@ -39,7 +41,7 @@ const app = express();
 
 
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5174'];
 
 // Set up CORS options.
 const corsOptions = {
@@ -52,8 +54,19 @@ const corsOptions = {
   },
 };
 
+// // Allow requests from http://localhost:5173
+// app.use(cors({
+//   origin: 'http://localhost:5173',
+//   methods: 'GET,HEAD,PUT,PATCH',
+//   credentials: true, // If you need to pass cookies, set this to true
+// }));
 
-
+// // Allow requests from http://localhost:5173
+// app.use(cors({
+//   origin: 'http://localhost:5174',
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true, // If you need to pass cookies, set this to true
+// }));
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -101,11 +114,16 @@ app.use('/patient/register', require('./routes/patient/registerRoute'));
 app.use('/patient/checkoutAddress', patientCheckoutAddressRoutes);
 app.use('/patient/pastOrders', patientPastOrdersRoutes);
 app.use('/patient/myCartRoute', myCartRoutes);
+app.use('/patient/myPrescriptionRoute', myPrescriptionRoutes);
+
+
 app.use('/patient/info', require('./routes/patient/patientInfoRoute.js')); // Get information about logged in patient using his/her username
 app.use('/patient/paymentCreditCard', require('./routes/patient/medicinePayments/medicineCreditCardPayment'));
 app.use('/patient/paymentWallet', require('./routes/patient/medicinePayments/medicineWalletPayment'));
 app.use('/patient/paymentCashOnDelivery', require('./routes/patient/medicinePayments/medicineCashOnDeliveryPayment'));
 app.use('/patient/viewWalletNumber', require('./routes/patient/viewWallet'));
+app.use('/patient/prescriptionDetails', prescriptionRoutes);
+
 
 
 // Pharmacist

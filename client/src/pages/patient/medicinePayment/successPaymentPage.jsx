@@ -13,7 +13,7 @@ function SuccessPayment() {
     console.log(receipt);
     const handleSubmit = () => {
         sessionStorage.removeItem('cartItems');
-        window.location.href = 'http://localhost:5173/patient';
+        window.location.href = 'http://localhost:5174/patient';
     }
 
     //new part
@@ -29,7 +29,7 @@ function SuccessPayment() {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,

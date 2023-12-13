@@ -198,7 +198,7 @@ const CheckoutAddress = () => {
         }
         try {
             // Fetch cartItems from BE
-            // const response = await axios.get('http://localhost:5000/patient/checkoutAddress/payment');
+            // const response = await axios.get('http://localhost:8000/patient/checkoutAddress/payment');
             const username = sessionStorage.getItem("username");
 
 

@@ -6,10 +6,13 @@ import axios from 'axios';
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
 
+import styles from './medicineAdd.module.css';
+
 function MedicineAdd() {
   const [medicineData, setMedicineData] = useState({
     name: '',
     price: '',
+    isOTC:false,
     activeIngredients: [],
     availableQuantity: '',
     medicinalUses: [],
@@ -34,7 +37,7 @@ function MedicineAdd() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -73,11 +76,13 @@ function MedicineAdd() {
 
 
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
-
+    const { name, value, type, checked } = e.target;
+  
     if (type === 'file') {
       const file = e.target.files[0];
       setMedicineData({ ...medicineData, [name]: file });
+    } else if (type === 'checkbox') {
+      setMedicineData({ ...medicineData, [name]: checked });
     } else {
       if (name === 'activeIngredients' || name === 'medicinalUses') {
         // Handle the case where the input is a comma-separated list
@@ -99,6 +104,7 @@ function MedicineAdd() {
       activeIngredients: medicineData.activeIngredients,
       availableQuantity: medicineData.availableQuantity,
       medicinalUses: medicineData.medicinalUses,
+      isOTC:medicineData.isOTC,
       image: medicineData.image,
     };
 
@@ -107,7 +113,7 @@ function MedicineAdd() {
     console.log("hena")
     console.log(medicineData)
 
-    fetch('http://localhost:5000/medicineRoutes/addMedicine', {
+    fetch('http://localhost:8000/medicineRoutes/addMedicine', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -132,6 +138,7 @@ function MedicineAdd() {
           activeIngredients: [],
           availableQuantity: '',
           medicinalUses: [],
+          isOTC:false,
           image: '',
         });
       })
@@ -153,33 +160,25 @@ function MedicineAdd() {
   }
 
   return (
-    <div>
-      <h2>Add a New Medicine</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
-          <label htmlFor="name">Medicine Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={medicineData.name}
-            onChange={handleChange}
-            required
-          />
+    <div className={styles.containerAddMed}>
+      <h2 className={styles.headerAddMed}>Add a New Medicine</h2>
+      <form className={styles.formAddMed} onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className={styles.inputAddMed}>
+          <label htmlFor="name" className={styles.labelAddMed}>
+            Medicine Name:
+          </label>
+          <input type="text" id="name" name="name" value={medicineData.name} onChange={handleChange} required />
         </div>
-        <div>
-          <label htmlFor="price">Price:</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={medicineData.price}
-            onChange={handleChange}
-            required
-          />
+        <div className={styles.inputAddMed}>
+          <label htmlFor="price" className={styles.labelAddMed}>
+            Price:
+          </label>
+          <input type="number" id="price" name="price" value={medicineData.price} onChange={handleChange} required />
         </div>
-        <div>
-          <label htmlFor="activeIngredients">Active Ingredients (comma-separated):</label>
+        <div className={styles.inputAddMed}>
+          <label htmlFor="activeIngredients" className={styles.labelAddMed}>
+            Active Ingredients (comma-separated):
+          </label>
           <input
             type="text"
             id="activeIngredients"
@@ -189,8 +188,10 @@ function MedicineAdd() {
             required
           />
         </div>
-        <div>
-          <label htmlFor="availableQuantity">Available Quantity:</label>
+        <div className={styles.inputAddMed}>
+          <label htmlFor="availableQuantity" className={styles.labelAddMed}>
+            Available Quantity:
+          </label>
           <input
             type="number"
             id="availableQuantity"
@@ -200,8 +201,22 @@ function MedicineAdd() {
             required
           />
         </div>
-        <div>
-          <label htmlFor="medicinalUses">Medicinal Uses (comma-separated):</label>
+        <div className={styles.inputAddMed}>
+          <label htmlFor="isOTC" className={styles.labelAddMed}>
+            Over-the-Counter (OTC):
+          </label>
+          <input
+            type="checkbox"
+            id="isOTC"
+            name="isOTC"
+            checked={medicineData.isOTC}
+            onChange={handleChange}
+          />
+        </div>
+        <div className={styles.inputAddMed}>
+          <label htmlFor="medicinalUses" className={styles.labelAddMed}>
+            Medicinal Uses (comma-separated):
+          </label>
           <input
             type="text"
             id="medicinalUses"
@@ -211,22 +226,23 @@ function MedicineAdd() {
             required
           />
         </div>
-        {/* <div>
-       
-
-           <label htmlFor="image">Medicine Image:</label>
-           <input
+        {/* <div className={styles.inputAddMed}>
+          <label htmlFor="image" className={styles.labelAddMed}>
+            Medicine Image:
+          </label>
+          <input
             type="file"
             id="image"
             name="image"
             accept="image/*"
-          onChange={handleChangeImage}
-             required
-                />
-        </div>
-         */}
-        <div>
-          <label htmlFor="image">Image URL:</label>
+            onChange={handleChangeImage}
+            required
+          />
+        </div> */}
+        <div className={styles.inputAddMed}>
+          <label htmlFor="image" className={styles.labelAddMed}>
+            Image URL:
+          </label>
           <input
             type="text"
             id="image"
@@ -237,7 +253,9 @@ function MedicineAdd() {
           />
         </div>
 
-        <button type="submit">Add Medicine</button>
+        <button className={styles.buttonAddMed} type="submit">
+          Add Medicine
+        </button>
       </form>
     </div>
   );

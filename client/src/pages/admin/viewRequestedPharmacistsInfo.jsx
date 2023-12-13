@@ -11,7 +11,10 @@ function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
   //const accessToken = sessionStorage.getItem('accessToken');
   const navigate = useNavigate();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(4);
+  const [filteredPharmacists, setfilteredPharmacists] = useState([]);
+  const [filter, setFilter] = useState('all');
   //new part
   const accessToken = sessionStorage.getItem('accessToken');
   const [load, setLoad] = useState(true);
@@ -25,7 +28,7 @@ function ViewRequestedPharmacistsInfo() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -43,38 +46,59 @@ function ViewRequestedPharmacistsInfo() {
 
       });
   }
+  const applyFilter = () => {
+    const filtered = requestedPharmacists.filter(doctor => {
+      if (filter === 'accepted') {
+        return doctor.status === 'accepted';
+      } else if (filter === 'rejected') {
+        return doctor.status === 'rejected';
+      }
+      else if(filter === 'onhold'){
+        return doctor.status === 'onhold';
 
+      }
+      return true; // No filter or 'all' filter selected
+    });
+    setfilteredPharmacists(filtered);
+  };
+  
+  useEffect(() => {
+    applyFilter();
+  }, [requestedPharmacists, filter]); // Reapply filter when doctors list or filter changes
+  
+const handleFilterChange = (event) => {
+  setFilter(event.target.value);
+  setCurrentPage(1); // Reset to the first page when the filter changes
+
+};
   const xTest = checkAuthentication();
 
-  const fetchRequestedPharmacists = () => {
-    const url = 'http://localhost:5000/admin/viewREQPharmacists';
-
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        if (data) {
-          setRequestedPharmacists(data);
-        } else {
-          console.error('Cannot view requested Pharmacists:', data);
-        }
-      })
-      .catch((error) => {
-        console.error('Error viewing pharmacist information:', error);
-      });
-  };
-
+  const fetchRequestedPharmacists = async () => {
+    try {
+        const response = await axios.get('http://localhost:8000/admin/viewREQPharmacists', {
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': accessToken
+            }
+        });
+        // Sort by descending order of creation (most recent first)
+        const sortedData = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setRequestedPharmacists(sortedData);
+        applyFilter(sortedData); // Apply the filter to sorted data
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+  useEffect(() => {
+    fetchRequestedPharmacists();
+  }, [accessToken, navigate]);
 
   const acceptPharmacist = (pharmacistId) => {
     const confirmed = window.confirm('Are you sure you want to accept this pharmacist request?');
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/accept/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/accept/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -104,7 +128,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/reject/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/reject/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -123,7 +147,7 @@ function ViewRequestedPharmacistsInfo() {
 
 
   useEffect(() => {
-    const url = `http://localhost:5000/admin/viewREQPharmacists`
+    const url = `http://localhost:8000/admin/viewREQPharmacists`
     // Make an HTTP PATCH request to send the data to the backend using the requestBody
     fetch(url, {
       method: 'GET',
@@ -161,10 +185,58 @@ function ViewRequestedPharmacistsInfo() {
   if (load) {
     return (<div>Loading</div>)
   }
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPharmacists = filteredPharmacists.slice(indexOfFirstItem, indexOfLastItem);
+
+
+  const handlePrevPage = () => {
+    setCurrentPage(currentPage > 1 ? currentPage - 1 : 1);
+  };
+
+  const handleNextPage = () => {
+    const totalItems = filteredPharmacists.length;
+    const maxPage = Math.ceil(totalItems / itemsPerPage);
+    setCurrentPage(currentPage < maxPage ? currentPage + 1 : maxPage);
+  };
 
   return (
     <div>
-      <h1>Requested Pharmacists List</h1>
+    <h1>Requested Pharmacists List</h1>
+    
+ <div style={{ marginBottom: '10px' }}>
+      <button 
+        onClick={handlePrevPage} 
+        disabled={currentPage === 1}
+        style={{ marginRight: '10px' }}  // Adds space to the right of the 'Prev' button
+      >
+        Prev
+      </button>
+      <button 
+        onClick={handleNextPage} 
+        disabled={currentPage * itemsPerPage >= filteredPharmacists.length}
+      >
+        Next
+      </button>
+      &nbsp; Page {currentPage}
+    </div>
+    &nbsp; &nbsp; &nbsp; 
+    <div>
+      <label htmlFor="filterSelect">Filter By Status: </label>
+      <select id="filterSelect" value={filter} onChange={handleFilterChange}>
+        <option value="all">All</option>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+        <option value="onhold">Waiting</option>
+
+      </select>
+      &nbsp;
+    </div>
+
+&nbsp;
+&nbsp;
+{filteredPharmacists.length > 0 ? (
+
       <table>
         <thead>
           <tr>
@@ -182,7 +254,7 @@ function ViewRequestedPharmacistsInfo() {
           </tr>
         </thead>
         <tbody>
-          {requestedPharmacists.map((pharmacist) => (
+        {currentPharmacists.map(pharmacist => (
             <tr key={pharmacist._id}>
               <td>{pharmacist.name}</td>
               <td>{pharmacist.username}</td>
@@ -191,9 +263,9 @@ function ViewRequestedPharmacistsInfo() {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
-              <td><a href={`http://localhost:5000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
 
               <td>{pharmacist.status}</td>
               <td>
@@ -211,6 +283,7 @@ function ViewRequestedPharmacistsInfo() {
                   Accept
                 </button>
                 <br />
+                <br />
                 <button
                   onClick={() => rejectPharmacist(pharmacist._id)}
                   disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
@@ -221,11 +294,21 @@ function ViewRequestedPharmacistsInfo() {
               </td>
             </tr>
           ))}
+          
+
         </tbody>
-      </table>
-    </div>
-  );
+        </table>
+          ) : (
+            <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '20px', color: '#89CFF0' }}>
+            No Pharmacists Requests found matching the selected criteria.
+          </div>    )}
+        </div>
+        
+      );
+
 }
 
 
 export default ViewRequestedPharmacistsInfo;
+
+

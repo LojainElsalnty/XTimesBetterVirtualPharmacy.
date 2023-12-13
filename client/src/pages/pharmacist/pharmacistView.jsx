@@ -1,36 +1,41 @@
-//import React, { Component } from 'react';
-import styles from './pharmacistView.module.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import React, { useState } from 'react'
-
-
-function PharmacistView() {
+const PharmacistView = () => {
+  const [pharmacists, setPharmacists] = useState([]);
   const [username, setUsername] = useState('');
   const [pharmacist, setPharmacist] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/pharmaRoutes/viewAllPharma'); // Adjust the API endpoint as needed
+        setPharmacists(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
-  // console.log(username)
-  //console.log("iam here")
+
   const fetchPharmacistInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/pharmaRoutes/viewPharmaInfo/${username}`);
+      const response = await axios.get(`http://localhost:8000/pharmaRoutes/viewPharmaInfo/${username}`);
 
-      console.log(response);
-      if (!response.ok) {
-        //throw new Error(`HTTP error! Status: ${response.status}`);
-        return alert('Pharmacist not found')
+      if (!response.data) {
+        return alert('Pharmacist not found');
       }
-      const data = await response.json();
-      setPharmacist(data);
+
+      setPharmacist(response.data);
     } catch (error) {
       console.error('Error fetching pharmacist information:', error);
-
     }
-
   };
-
 
   return (
     <div>
@@ -43,20 +48,71 @@ function PharmacistView() {
           onChange={handleUsernameChange}
         />
       </label>
-      <button onClick={fetchPharmacistInfo}>Fetch Information</button>
+      <button onClick={fetchPharmacistInfo}>Find</button>
+
       {pharmacist && (
         <div>
           <h3>Pharmacist Information for {pharmacist.username}</h3>
-          <p>Name: {pharmacist.name}</p>
-          <p>Email: {pharmacist.email}</p>
-          <p>Date of Birth: {pharmacist.dob}</p>
-          <p>Hourly Rate: ${pharmacist.hourly_rate.toFixed(2)}</p>
-          <p>Affiliation: {pharmacist.affiliation}</p>
-          <p>Educational Background: {pharmacist.educational_background}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Hourly Rate</th>
+                <th>Affiliation</th>
+                <th>Educational Background</th>
+                <th>National ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr key={pharmacist._id}>
+                <td>{pharmacist.username}</td>
+                <td>{pharmacist.name}</td>
+                <td>{pharmacist.email}</td>
+                <td>{pharmacist.dob}</td>
+                <td>{pharmacist.hourly_rate}</td>
+                <td>{pharmacist.affiliation}</td>
+                <td>{pharmacist.educational_background}</td>
+                <td>{pharmacist.nationalID.name}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       )}
+
+      <h3>All Pharmacists</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date of Birth</th>
+            <th>Hourly Rate</th>
+            <th>Affiliation</th>
+            <th>Educational Background</th>
+            <th>National ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {pharmacists.map((pharmacist) => (
+            <tr key={pharmacist._id}>
+              <td>{pharmacist.username}</td>
+              <td>{pharmacist.name}</td>
+              <td>{pharmacist.email}</td>
+              <td>{pharmacist.dob}</td>
+              <td>{pharmacist.hourly_rate}</td>
+              <td>{pharmacist.affiliation}</td>
+              <td>{pharmacist.educational_background}</td>
+              <td>{pharmacist.nationalID.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
 export default PharmacistView;

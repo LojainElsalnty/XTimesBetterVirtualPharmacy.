@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Medicine = require('../../models/Medicine')
+
 // Your cart items array
 // const cartItems = [
 
@@ -29,7 +30,7 @@ const viewAllCartItems = async (req, res) => {
 
 };
 
-// Update the quantity of a cart item
+// increment  the quantity of a cart item
 
 const updateCartItemQuantity = async (req, res) => {
   const { medName } = req.params;
@@ -54,6 +55,8 @@ const updateCartItemQuantity = async (req, res) => {
   }
   console.log(cartItems)
 };
+
+
 //decrementCartItem
 const decrementCartItemQuantity = async (req, res) => {
   const { medName } = req.params;
@@ -105,5 +108,7 @@ const deleteCartItem = async (req, res) => {
   res.status(204).send();
   // console.log(cartItems)
 };
+
+
 
 module.exports = { viewAllCartItems, updateCartItemQuantity, deleteCartItem, decrementCartItemQuantity };

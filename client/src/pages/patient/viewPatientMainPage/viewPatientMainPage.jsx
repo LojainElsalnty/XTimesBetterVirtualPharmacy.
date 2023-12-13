@@ -23,6 +23,8 @@ import UnsuccessPayment from '../medicinePayment/unsuccessfulPaymentPage';
 import MyCart from '../myCart/myCart.jsx';
 import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
 import ViewPatientWalletPage from '../viewPatientWalletPage';
+import MyPCart from '../myPCart.jsx';
+import PrescriptionTable from '../viewPrescriptionInfoPage/PrescriptionTable';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -89,6 +91,12 @@ export const ViewPatientMainPage = () => {
             url: "/patient/viewWalletNumber",
             pageName: "Wallet",
         },
+        {
+            url: "/patient/prescriptionTable",
+            pageName: "Prescript pg",
+        },
+     
+        
     ];
 
     if (load) {
@@ -110,6 +118,10 @@ export const ViewPatientMainPage = () => {
                     <Route path="/checkoutAddress" element={<CheckoutAddress />} />
                     <Route path="/payment" element={<MedicinePayment />} />
                     <Route path="/viewWalletNumber" element={<ViewPatientWalletPage />} />
+                    <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} />
+                    <Route path="/prescriptionTable" element={<PrescriptionTable />} />
+
+                  
                 </Routes>
             </>
         </div >

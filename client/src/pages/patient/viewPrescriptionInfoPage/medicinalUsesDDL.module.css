@@ -1,0 +1,104 @@
+.result-container {
+    margin-top: 180px;
+}
+
+/* .ddl-container {
+    text-align: center;
+    margin-top: 150px;
+    margin-left: 90px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    align-items: center;
+} */
+/* 
+.ddl-select {
+    margin-left: 6px;
+    height: 40px;
+    width: 240px;
+    padding: 10px;
+    border: 1px solid #ccc;
+} */
+
+/* .ddl-select option {
+    text-align: center;
+}
+
+.ddl-label {
+    margin-left: 350px;
+    font-weight: bold;
+} */
+
+.list-title {
+    text-align: center;
+    margin-top: 100px;
+    margin-right: 470px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+/* .prescriptionTable {
+    background-color: #f0faff;
+} */
+
+/* .prescriptionTable th,
+.prescriptionTable td {
+    background-color: #f8f9fa;
+    /* Soft gray for cells 
+    /* ... other styles ... 
+} */
+
+/* .prescriptionTable th {
+     background-color: #f0faff; 
+    color: #77c4de;
+}*/
+
+/* .prescriptionTable tr:nth-child(even) {
+    background-color: #e6f5ff;
+    
+} */
+
+/* .prescriptionTable tr:hover {
+    background-color: #ccefff;
+  
+} */
+.noDataMessage {
+    /* Style as needed, example: */
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #89CFF0;
+  }
+  
+.lightBlueButton {
+    background-color: #77c4de;
+    /* Light blue background */
+    color: white;
+    /* White text for better contrast */
+    border: 1px solid transparent;
+    /* Optional: can add border */
+    padding: 8px 16px;
+    /* Padding for button */
+    border-radius: 4px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Cursor change to indicate it's clickable */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+.lightBlueButton:hover {
+    background-color: #92B4D4;
+    /* Slightly darker blue for hover effect */
+}
+
+/* .lightBlueText {
+    color: #77c4de;
+} */
+
+/* If you want to apply the color to specific elements like table headers */
+/* .prescriptionTable th {
+    color: #ADD8E6;
+    /* Light blue font color for table headers 
+} */
