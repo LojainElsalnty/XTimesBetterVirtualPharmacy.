@@ -68,6 +68,8 @@ function ViewRequestedPharmacistsInfo() {
   
 const handleFilterChange = (event) => {
   setFilter(event.target.value);
+  setCurrentPage(1); // Reset to the first page when the filter changes
+
 };
   const xTest = checkAuthentication();
 
@@ -233,6 +235,8 @@ const handleFilterChange = (event) => {
 
 &nbsp;
 &nbsp;
+{filteredPharmacists.length > 0 ? (
+
       <table>
         <thead>
           <tr>
@@ -279,6 +283,7 @@ const handleFilterChange = (event) => {
                   Accept
                 </button>
                 <br />
+                <br />
                 <button
                   onClick={() => rejectPharmacist(pharmacist._id)}
                   disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
@@ -292,9 +297,14 @@ const handleFilterChange = (event) => {
           
 
         </tbody>
-      </table>
-    </div>
-  );
+        </table>
+          ) : (
+            <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '20px', color: '#89CFF0' }}>
+            No Pharmacists Requests found matching the selected criteria.
+          </div>    )}
+        </div>
+        
+      );
 
 }
 
