@@ -15,7 +15,7 @@ function PharmacistView() {
   //console.log("iam here")
   const fetchPharmacistInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/pharmaRoutes/viewPharmaInfo/${username}`);
+      const response = await fetch(`http://localhost:8000/pharmaRoutes/viewPharmaInfo/${username}`);
 
       console.log(response);
       if (!response.ok) {

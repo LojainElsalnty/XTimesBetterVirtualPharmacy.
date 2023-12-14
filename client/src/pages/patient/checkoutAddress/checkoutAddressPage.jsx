@@ -30,7 +30,7 @@ const CheckoutAddress = () => {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -63,7 +63,7 @@ const CheckoutAddress = () => {
 
         const fetchAllExistingAddresses = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/patient/checkoutAddress/allExisting', {
+                const response = await axios.get('http://localhost:8000/patient/checkoutAddress/allExisting', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': accessToken,
@@ -117,7 +117,7 @@ const CheckoutAddress = () => {
             return alert('This address already exists! Please select it directly from the list')
         }
         try {
-            const response = await axios.post('http://localhost:5000/patient/checkoutAddress/addNew',
+            const response = await axios.post('http://localhost:8000/patient/checkoutAddress/addNew',
                 { address: deliveryAddress },
                 {
                     headers: {
@@ -128,7 +128,7 @@ const CheckoutAddress = () => {
             );
 
             //alert('Address added successfully!')
-            const updatedAddressesResponse = await axios.get('http://localhost:5000/patient/checkoutAddress/allExisting', {
+            const updatedAddressesResponse = await axios.get('http://localhost:8000/patient/checkoutAddress/allExisting', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': accessToken,

@@ -25,7 +25,7 @@ function ViewRequestedPharmacistsInfo() {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -47,7 +47,7 @@ function ViewRequestedPharmacistsInfo() {
   const xTest = checkAuthentication();
 
   const fetchRequestedPharmacists = () => {
-    const url = 'http://localhost:5000/admin/viewREQPharmacists';
+    const url = 'http://localhost:8000/admin/viewREQPharmacists';
 
     fetch(url)
       .then((response) => {
@@ -74,7 +74,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/accept/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/accept/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -104,7 +104,7 @@ function ViewRequestedPharmacistsInfo() {
     if (!confirmed) {
       return;
     }
-    const url = `http://localhost:5000/admin/viewREQPharmacists/reject/${pharmacistId}`;
+    const url = `http://localhost:8000/admin/viewREQPharmacists/reject/${pharmacistId}`;
 
     fetch(url, { method: 'GET' })
       .then((response) => {
@@ -123,7 +123,7 @@ function ViewRequestedPharmacistsInfo() {
 
 
   useEffect(() => {
-    const url = `http://localhost:5000/admin/viewREQPharmacists`
+    const url = `http://localhost:8000/admin/viewREQPharmacists`
     // Make an HTTP PATCH request to send the data to the backend using the requestBody
     fetch(url, {
       method: 'GET',

@@ -22,7 +22,7 @@ const PastOrders = () => {
     async function checkAuthentication() {
         await axios({
             method: 'get',
-            url: 'http://localhost:5000/authentication/checkAccessToken',
+            url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,
@@ -47,7 +47,7 @@ const PastOrders = () => {
 
     const fetchAllPastOrders = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/patient/pastOrders', {
+            const response = await axios.get('http://localhost:8000/patient/pastOrders', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': accessToken,
@@ -64,7 +64,7 @@ const PastOrders = () => {
     //handle cancel order
     const cancelOrder = async (orderId) => {
         try {
-            const response = await axios.post('http://localhost:5000/patient/pastOrders',
+            const response = await axios.post('http://localhost:8000/patient/pastOrders',
                 { orderId },
                 {
                     headers: {

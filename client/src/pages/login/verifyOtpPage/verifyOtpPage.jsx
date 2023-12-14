@@ -56,7 +56,7 @@ export const VerifyOtpPage = () => {
     const OTP = Math.floor(Math.random() * 9000 + 1000);
     // change the global value of the otp in the RecoveryContext Provider
     setOTP(OTP);
-    axios.post("http://localhost:5000/resetPassword/sendEmail", {
+    axios.post("http://localhost:8000/resetPassword/sendEmail", {
         otp: OTP,
         recipientEmail: email,
       })

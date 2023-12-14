@@ -6,6 +6,10 @@ import axios from 'axios';
 
 // Styles
 import styles from './viewPharmacistMainPage.module.css'
+// notifications
+import { BellIcon } from '@chakra-ui/icons'
+import { ChakraProvider } from "@chakra-ui/react";
+
 
 // React Router Dom Components
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -20,7 +24,7 @@ import AddMedicine from '../../medicine/medicineAdd';
 import EditMedicine from '../../medicine/madicineEdit';
 import PharmacistRequest from '../pharmacistRequestPage';
 import MedicineCatalog from '../medicineCatalogPage';
-import Notifications from '../viewNotificationsPage';
+import Notifications from '../notifications/viewNotificationsPage';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
@@ -46,7 +50,7 @@ export const ViewPharmacistMainPage = () => {
      async function checkAuthentication() {
          await axios({
              method: 'get',
-             url: 'http://localhost:5000/authentication/checkAccessToken',
+             url: 'http://localhost:8000/authentication/checkAccessToken',
              headers: {
                  "Content-Type": "application/json",
                  'Authorization': accessToken,
@@ -88,6 +92,8 @@ export const ViewPharmacistMainPage = () => {
         {
             url: "/pharmacist/notifications",
             pageName: "notifications",
+            icon: <BellIcon boxSize={25} />,
+           
         },
     ];
 
@@ -100,6 +106,7 @@ export const ViewPharmacistMainPage = () => {
 
 
     return (
+       
         <div className={styles['main-div']}>
             <Navbar name="Pharmacist" list={list} />
             <>
@@ -112,5 +119,6 @@ export const ViewPharmacistMainPage = () => {
                 </Routes>
             </>
         </div>
+       
     )
 }

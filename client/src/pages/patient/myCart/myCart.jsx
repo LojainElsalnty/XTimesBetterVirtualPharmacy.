@@ -35,7 +35,7 @@ const MyCart = () => {
   async function checkAuthentication() {
     await axios({
       method: 'get',
-      url: 'http://localhost:5000/authentication/checkAccessToken',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
       headers: {
         "Content-Type": "application/json",
         'Authorization': accessToken,
@@ -57,7 +57,7 @@ const MyCart = () => {
   const xTest = checkAuthentication();
 
   useEffect(() => {
-    if (location.state && location.state.cartItems) {
+    // if (location.state && location.state.cartItems) {
       // Use a condition to prevent unnecessary updates
       //setCartItems(location.state.cartItems);
       // setCartItems(JSON.parse(sessionStorage.getItem('cartItems'))) 
@@ -66,7 +66,7 @@ const MyCart = () => {
       const initialCartItems = storedCartItems || []; //in case cart is still empty/undefined -> []
       setCartItems(initialCartItems);
 
-    }
+    // }
   }, [location.state]);
   // useEffect(() => {
   //   // Fetch cart items from the backend when the component mounts
@@ -80,7 +80,7 @@ const MyCart = () => {
   const updateCartItemQuantity = (medName) => {
     console.log(medName)
     // Send a PUT request to update the quantity of a cart item
-    axios.put(`http://localhost:5000/patient/myCartRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
+    axios.put(`http://localhost:8000/patient/myCartRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {
         // Find the item in your cartItems state by its medName
         const updatedCartItems = cartItems.map((item) => {
@@ -108,7 +108,7 @@ const MyCart = () => {
 
   const decrementCartItemQuantity = (medName) => {
     // Send a PUT request to decrement the quantity of a cart item
-    axios.put(`http://localhost:5000/patient/myCartRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
+    axios.put(`http://localhost:8000/patient/myCartRoute/decrementCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {
         // Find the item in your cartItems state by its medName
         const updatedCartItems = cartItems.map((item) => {
@@ -148,7 +148,7 @@ const MyCart = () => {
 
   const deleteItem = (medName) => {
     // Send a DELETE request to delete a cart item
-    axios.delete(`http://localhost:5000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
+    axios.delete(`http://localhost:8000/patient/myCartRoute/deleteCartItem/${medName}`, { data: { medName, cartItems } })
       .then(() => {
         setCartItems(cartItems.filter((item) => item.medName !== medName));
         console.log("after deletion--", cartItems.filter((item) => item.medName !== medName))

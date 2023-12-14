@@ -84,7 +84,7 @@ const PharmacistRequest = () => {
 
         console.log(...formDataToSend)
     try {
-      const response = await fetch('http://localhost:5000/pharmacist/register/', {
+      const response = await fetch('http://localhost:8000/pharmacist/register/', {
         method: 'POST',
         //headers: {
         //  'Content-Type': 'application/json',

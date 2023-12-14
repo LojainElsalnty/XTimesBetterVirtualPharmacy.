@@ -10,7 +10,7 @@ function PatientView() {
 
   const fetchPatientInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/patientRoutes/viewPatientInfo/${username}`);
+      const response = await fetch(`http://localhost:8000/patientRoutes/viewPatientInfo/${username}`);
 
       if (!response.ok) {
         //throw new Error(`HTTP error! Status: ${response.status}`);

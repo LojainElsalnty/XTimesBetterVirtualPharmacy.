@@ -57,7 +57,7 @@ const payMedicine = asyncHandler(async (req, res) => {
                               $push: {
                                 notifications: {
 
-                                  message: `${medToAdjust.name} medicine is currently out of stock.`,
+                                  message: `${medToAdjust.name} medicine is out of stock.`,
                                 },
                               },
                             },
