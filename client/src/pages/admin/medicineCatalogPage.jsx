@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './medicinalUsesDDL.module.css';
 
+
 //components
 import MedicineDetails from '../../components/medicineDetails/medicineDetails';
 import MedicineSearchBar from '../../components/medicineSearchBar/medicineSearchBar'
@@ -145,7 +146,7 @@ const MedicineCatalog = () => {
                 </select>
             </div>
             < div className={styles["result-container"]}>
-                <table>
+                <table className={styles.medTable}>
                     <thead>
                         <tr>
                             <th>Image</th>

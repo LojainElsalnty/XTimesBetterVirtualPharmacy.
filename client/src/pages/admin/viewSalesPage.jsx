@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import styles from './viewReq.module.css';
+
 const SalesView = () => {
 
   //Authenticate part
@@ -104,8 +106,7 @@ const SalesView = () => {
       {salesData && (
         <div>
 
-          <p>Total Sales: {totalOrderPrice}</p>
-          <table>
+          <table className={styles.pharmacistTable}>
             <thead>
               <tr>
                 <th>Medicine</th>
@@ -128,6 +129,12 @@ const SalesView = () => {
                 ))
               ))}
             </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan="4"> Total Sales:</td>
+                <td >{totalOrderPrice}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       )}

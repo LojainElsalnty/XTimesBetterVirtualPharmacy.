@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import searchIcon from '../../assets/img/searchicon.png'
-
-import styles from '../pharmacist/pharmacistView.module.css'
+import searchIcon from '../../assets/img/searchicon.png';
+import styles from '../pharmacist/pharmacistView.module.css';
 
 function PatientView() {
   const [username, setUsername] = useState('');
@@ -18,7 +17,6 @@ function PatientView() {
       const response = await axios.get(`http://localhost:8000/patientRoutes/viewPatientInfo/${username}`);
 
       if (!response.data) {
-        // Handle the case where no patient is found for the entered username
         console.error('No patient found for the entered username.');
         setPatient(null);
       } else {
@@ -26,27 +24,41 @@ function PatientView() {
       }
     } catch (error) {
       console.error('Error fetching patient information:', error);
-      // You can set an error state or display an error message to the user here.
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/patientRoutes/viewAllPatientsInfo');
+      setPatients(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/patientRoutes/viewAllPatientsInfo');
-        setPatients(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchData();
   }, []);
 
+  const removePatientHandler = async (patient) => {
+    try {
+      const response = await axios.post('http://localhost:8000/patientRoutes/removePatient', { username: patient.username });
+      console.log(response.data);
+      // Refresh the patients list after successful removal
+      fetchData();
+    } catch (error) {
+      console.error('Error removing patient:', error);
+    }
+  };
+
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
+      <h1>Patients List</h1>
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
+
+
+        <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
           Enter Patient Username:
           <input
             type="text"
@@ -81,6 +93,14 @@ function PatientView() {
                 <td>{patient.dob}</td>
                 <td>{patient.gender}</td>
                 <td>{patient.mobile}</td>
+                <td>
+                  <button
+                    onClick={() => removePatientHandler(patient)}
+                    style={{ backgroundColor: 'red', color: 'white' }}
+                  >
+                    Remove
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -108,6 +128,14 @@ function PatientView() {
               <td>{patient.dob}</td>
               <td>{patient.gender}</td>
               <td>{patient.mobile}</td>
+              <td>
+                <button
+                  onClick={() => removePatientHandler(patient)}
+                  style={{ backgroundColor: 'red', color: 'white' }}
+                >
+                  Remove
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

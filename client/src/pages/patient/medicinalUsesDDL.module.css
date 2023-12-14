@@ -61,3 +61,10 @@ th:hover button {
     background-color: #FFC000;
     color: #222;
 }
+
+.pharmacistTable {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    /* Example width to ensure the table doesn't stretch the full width of the container */
+}

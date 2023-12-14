@@ -207,7 +207,7 @@ const MedicineCatalog = () => {
                 </select>
             </div>
             < div className={styles["result-container"]}>
-                <table>
+                <table className={styles.pharmacistTable}>
                     <thead>
                         <tr>
                             <th>Image</th>

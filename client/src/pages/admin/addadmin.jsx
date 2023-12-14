@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from './addadmin.module.css';
+import searchIcon from '../../assets/img/searchicon.png';
 
 const AdminTable = () => {
 
@@ -7,6 +9,7 @@ const AdminTable = () => {
   const accessToken = sessionStorage.getItem('accessToken');
   const [load, setLoad] = useState(true);
   const [username, setUsername] = useState('');
+  const [searchUsername, setSearchUsername] = useState('');
 
   console.log(accessToken);
   useEffect(() => {
@@ -41,6 +44,7 @@ const AdminTable = () => {
 
 
   const [admins, setAdmins] = useState([]);
+  const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [error, setError] = useState(null);
   const [showAddAdminPopup, setShowAddAdminPopup] = useState(false);
 
@@ -143,12 +147,87 @@ const AdminTable = () => {
       setError(`An error occurred: ${error.message}`);
     }
   };
+  const handleUsernameChange = (event) => {
+    setSearchUsername(event.target.value);
+  };
+
+  const fetchSelectedAdmin = () => {
+    // Check if a username is entered
+    if (searchUsername.trim() === '') {
+      console.log('Please enter a username.');
+      return;
+    }
+
+    // Filter admins based on the entered username
+    const selectedAdmin = admins.find((admin) => admin.username === searchUsername);
+
+    if (selectedAdmin) {
+      // Display information for the selected admin
+      setSelectedAdmin(selectedAdmin);
+      console.log("Selected Admin:", selectedAdmin);
+      // You can update the state or perform any other action as needed
+    } else {
+      console.log('No admin found for the entered username.');
+      // Handle the case where no admin is found
+      setSelectedAdmin(null); // Clear selected admin state
+    }
+  };
   if (load) {
     return (<div>Loading</div>)
   }
   return (
     <div>
-      <h1>Admin Table</h1>
+      <h1>Admins List</h1>
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
+
+
+        <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
+
+          Enter Admin Username:
+
+          <input
+            type="text"
+            value={searchUsername}
+            onChange={handleUsernameChange}
+          />
+          <button className={styles['find-button']} onClick={fetchSelectedAdmin}>
+            <br />
+
+            <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
+            <br />
+
+          </button>
+        </label>
+      </div>
+      {selectedAdmin && (
+        <div>
+          <h3>Admin Information for {selectedAdmin.username}</h3>
+          <table className={styles.pharmacistTable}>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr key={selectedAdmin._id}>
+                <td>{selectedAdmin.username}</td>
+                <td>{selectedAdmin.firstName}</td>
+                <td>{selectedAdmin.lastName}</td>
+                <td>
+                  <button onClick={() => handleRemoveAdmin(selectedAdmin.username)} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+
+
       <button onClick={handleAddAdminClick} style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}> Add Admin</button>
       {showAddAdminPopup && (
         <div className="popup">
@@ -205,13 +284,12 @@ const AdminTable = () => {
           </div>
         </div>
       )}
-      <table>
+      <table className={styles.pharmacistTable}>
         <thead>
           <tr>
             <th>Username</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

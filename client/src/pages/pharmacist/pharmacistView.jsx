@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import searchIcon from '../../assets/img/searchicon.png'
+import searchIcon from '../../assets/img/searchicon.png';
 
-import styles from './pharmacistView.module.css'
-
+import styles from './pharmacistView.module.css';
 
 const PharmacistView = () => {
   const [pharmacists, setPharmacists] = useState([]);
@@ -13,7 +12,7 @@ const PharmacistView = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/pharmaRoutes/viewAllPharma'); // Adjust the API endpoint as needed
+        const response = await axios.get('http://localhost:8000/pharmaRoutes/viewAllPharma');
         setPharmacists(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -41,22 +40,41 @@ const PharmacistView = () => {
     }
   };
 
+  const removePharmacistHandler = async (pharmacist) => {
+    try {
+      const response = await axios.post('http://localhost:8000/pharmaRoutes/removePharmacist', { username: pharmacist.username });
+      console.log(response.data); // You can log or handle the response as needed
+      fetchData(); // Refresh the pharmacists list after successful removal
+    } catch (error) {
+      console.error('Error removing pharmacist:', error);
+    }
+  };
+
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <label style={{ display: 'flex', alignItems: 'center' }}>
+      <h1>Pharmacists List</h1>
+
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
+
+
+        <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
+
           Enter Pharmacist Username:
+
           <input
             type="text"
             value={username}
             onChange={handleUsernameChange}
           />
-          <button className={styles["find-button"]} onClick={fetchPharmacistInfo}>
+          <button className={styles['find-button']} onClick={fetchPharmacistInfo}>
+            <br />
+
             <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
+            <br />
+
           </button>
         </label>
       </div>
-
 
       {pharmacist && (
         <div>
@@ -84,6 +102,11 @@ const PharmacistView = () => {
                 <td>{pharmacist.affiliation}</td>
                 <td>{pharmacist.educational_background}</td>
                 <td>{pharmacist.nationalID.name}</td>
+                <td>
+                  <button onClick={() => removePharmacistHandler(pharmacist)} style={{ backgroundColor: 'red', color: 'white' }}>
+                    Remove
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -116,9 +139,26 @@ const PharmacistView = () => {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
-              <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
-              <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
-              <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
+              <td>
+                <a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">
+                  View National ID
+                </a>
+              </td>
+              <td>
+                <a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">
+                  View Working License
+                </a>
+              </td>
+              <td>
+                <a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">
+                  View Pharmacy Degree
+                </a>
+              </td>
+              <td>
+                <button onClick={() => removePharmacistHandler(pharmacist)} style={{ backgroundColor: 'red', color: 'white' }}>
+                  Remove
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>

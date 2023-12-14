@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import styles from './viewReq.module.css';
+
+
 function RemovePatient() {
 
   //Authenticate part
@@ -98,7 +101,7 @@ function RemovePatient() {
   return (
     <div>
       <h2>Patients List</h2>
-      <table>
+      <table className={styles.pharmacistTable}>
         <thead>
           <tr>
             <th>Name</th>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import styles from './medicinalUsesDDL.module.css';
+
+
 const SalesView = () => {
 
 
@@ -159,7 +162,7 @@ const SalesView = () => {
               ))}
             </select>
           </label>
-          <table>
+          <table className={styles.pharmacistTable}>
             <thead>
               <tr>
                 <th>Medicine</th>

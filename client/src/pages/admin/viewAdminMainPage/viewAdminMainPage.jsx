@@ -86,27 +86,19 @@ export const ViewAdminMainPage = () => {
         },
         {
             url: "/admin/pharmacistInformation",
-            pageName: "Pharmacists Info",
+            pageName: "Pharmacists",
         },
         {
             url: "/admin/patientInformation ",
-            pageName: "Patient Info",
+            pageName: "Patients",
         },
         {
             url: "/admin/addadmin ",
             pageName: "Admins",
         },
         {
-            url: "/admin/removepharmacist ",
-            pageName: "Pharmacists",
-        },
-        {
-            url: "/admin/removepatient ",
-            pageName: "Patients",
-        },
-        {
             url: "/admin/viewSales",
-            pageName: "view sales",
+            pageName: "Sales Report",
         },
     ];
 
