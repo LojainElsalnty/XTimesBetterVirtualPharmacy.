@@ -77,7 +77,7 @@ const calculateMedicineDiscount = async (req, res) => {
             const discount = packageInfo.medicine_discount / 100;
             // Applying discount to each item in cartItems
             const discountedCartItems = cartItems.map(item => {
-                const discountedPrice = item.price_per_item * (1 - discount);
+                const discountedPrice = parseFloat((item.price_per_item * (1 - discount)).toFixed(2));
                 return { ...item, discountedPrice };
             });
             console.log(discount)

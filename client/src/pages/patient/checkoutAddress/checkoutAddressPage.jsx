@@ -4,35 +4,35 @@ import styles from './checkoutAddressPage.module.css';
 
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
 const CheckoutAddress = () => {
     const navigate = useNavigate();
-    //const accessToken = sessionStorage.getItem('accessToken')
-    //for testing purposes 
-    //const cartItems = [{ "medName": "med123", "quantity": 1, "price_per_item": 7 }, { "medName": "Lisinopril", "quantity": 1, "price_per_item": 7.99 }, { "medName": "Amoxicillin", "quantity": 2, "price_per_item": 15.99 }]
 
-
-    //existing address related
+    // existing address related
     const [existingAddresses, setExistingAddresses] = useState([]);
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [isAddingNewAddress, setIsAddingNewAddress] = useState(false);
     const [cartItems, setCartItems] = useState([]);
 
-    //new part
+    // new part
     const accessToken = sessionStorage.getItem('accessToken');
     const [load, setLoad] = useState(true);
     const [username, setUsername] = useState('');
+
     console.log(accessToken);
+
     useEffect(() => {
-        if (username.length != 0) {
+        if (username.length !== 0) {
             setLoad(false);
         }
     }, [username]);
+
     async function checkAuthentication() {
         await axios({
             method: 'get',
             url: 'http://localhost:8000/authentication/checkAccessToken',
             headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 'Authorization': accessToken,
                 'User-type': 'patient',
             },
@@ -40,25 +40,50 @@ const CheckoutAddress = () => {
             .then((response) => {
                 console.log(response);
                 setUsername(response.data.username);
-                //setLoad(false);
             })
-            .catch((error) => {
-                //setLoad(false);
+            .catch(() => {
                 navigate('/login');
-
             });
     }
 
     const xTest = checkAuthentication();
 
-
-    const location = useLocation();
     useEffect(() => {
-        if (location.state && location.state.cartItems) {
-            // Use a condition to prevent unnecessary updates
-            setCartItems(location.state.cartItems);
+        const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+
+        if (storedCartItems) {
+            setCartItems(storedCartItems);
+            console.log('CartItems:', storedCartItems);
+            // Fetch discounted prices based on stored cart items
+            const fetchDiscountedPrices = async () => {
+                try {
+                    const response = await axios.post(
+                        'http://localhost:8000/patient/checkoutAddress/medicineDiscount',
+                        {
+                            cartItems: storedCartItems,
+                        },
+                        {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': accessToken,
+                            },
+                        }
+                    );
+
+                    setDiscountedCartItems(response.data);
+                } catch (error) {
+                    console.error('Error fetching discounted prices:', error);
+                }
+            };
+
+            fetchDiscountedPrices();
         }
-    }, [location.state]);
+    }, [accessToken]);
+
+    const [discountedCartItems, setDiscountedCartItems] = useState([]);
+    discountedCartItems.forEach(item => {
+        console.log('Discounted item:', item);
+    });
     useEffect(() => {
 
         const fetchAllExistingAddresses = async () => {
@@ -80,37 +105,8 @@ const CheckoutAddress = () => {
         fetchAllExistingAddresses();
     }, []);
 
-    const [discountedCartItems, setDiscountedCartItems] = useState([]);
 
-    useEffect(() => {
-        const fetchDiscountedPrices = async () => {
-            try {
-                const response = await axios.post(
-                    'http://localhost:8000/patient/checkoutAddress/medicineDiscount',
-                    {
-                        cartItems: cartItems,
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': accessToken,
-                        },
-                    }
-                );
 
-                setDiscountedCartItems(response.data);
-            } catch (error) {
-                console.error('Error fetching discounted prices:', error);
-            }
-        };
-
-        fetchDiscountedPrices();
-    }, [cartItems, accessToken]);
-
-    discountedCartItems.forEach(item => {
-        console.log("Discounted item:", item);
-    });
-    const existingAddressesList = existingAddresses;
 
     //get total price of order
     let totalCartPrice = 0;
@@ -212,7 +208,7 @@ const CheckoutAddress = () => {
             //console.log(updatedCartItems);
 
             navigate('/patient/payment', { state: { cartItems: updatedCartItems, deliveryAddress: deliveryAddress, username: username } })
-            setCartItems([])
+            // setCartItems([]) -NPI
             // const queryParams = new URLSearchParams();
             // queryParams.append('cartItems', JSON.stringify(cartItems));
             // queryParams.append('deliveryAddress', deliveryAddress);
@@ -256,7 +252,7 @@ const CheckoutAddress = () => {
                 </table>
             </div >
             <div className={styles["totalprice-container"]}>
-                Total: {totalCartPrice} LE
+                Total: {totalCartPrice.toFixed(2)} LE
             </div>
 
             <div className={styles["Delivery-header"]}> Delivery Address </div>

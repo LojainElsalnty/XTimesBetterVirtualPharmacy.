@@ -2,69 +2,69 @@
 import axios from 'axios';
 
 import { useState, useEffect } from 'react';
-import {  useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './medicinePayment.module.css';
-import {   Button, ChakraProvider ,IconButton} from '@chakra-ui/react'
-import {   CheckIcon} from '@chakra-ui/icons'
+import { Button, ChakraProvider, IconButton } from '@chakra-ui/react'
+import { CheckIcon } from '@chakra-ui/icons'
 
 
 function SuccessPayment() {
-    const navigate = useNavigate();
-    const location = useLocation();
-    //const receipt = location.state.receipt;
-    const receipt= JSON.parse(sessionStorage.getItem('orderInfo'))
-    // const accessToken = sessionStorage.getItem('accessToken');
-    console.log(receipt);
-    const handleSubmit = () => {
-        sessionStorage.removeItem('cartItems');
-        window.location.href = 'http://localhost:5174/patient';
+  const navigate = useNavigate();
+  const location = useLocation();
+  //const receipt = location.state.receipt;
+  const receipt = JSON.parse(sessionStorage.getItem('orderInfo'))
+  // const accessToken = sessionStorage.getItem('accessToken');
+  console.log(receipt);
+  const handleSubmit = () => {
+    sessionStorage.removeItem('cartItems');
+    window.location.href = 'http://localhost:5174/patient';
+  }
+
+  //new part
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [load, setLoad] = useState(true);
+  const [username, setUsername] = useState('');
+  console.log(accessToken);
+  useEffect(() => {
+    if (username.length != 0) {
+      setLoad(false);
     }
+  }, [username]);
+  async function checkAuthentication() {
+    await axios({
+      method: 'get',
+      url: 'http://localhost:8000/authentication/checkAccessToken',
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': accessToken,
+        'User-type': 'patient',
+      },
+    })
+      .then((response) => {
+        // console.log(response);
+        setUsername(response.data.username);
+        //setLoad(false);
+      })
+      .catch((error) => {
+        //setLoad(false);
+        navigate('/login');
 
-    //new part
-    const accessToken = sessionStorage.getItem('accessToken');
-    const [load, setLoad] = useState(true);
-    const [username, setUsername] = useState('');
-    console.log(accessToken);
-    useEffect(() => {
-        if (username.length != 0) {
-            setLoad(false);
-        }
-    }, [username]);
-    async function checkAuthentication() {
-        await axios({
-            method: 'get',
-            url: 'http://localhost:8000/authentication/checkAccessToken',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': accessToken,
-                'User-type': 'patient',
-            },
-        })
-            .then((response) => {
-                // console.log(response);
-                setUsername(response.data.username);
-                //setLoad(false);
-            })
-            .catch((error) => {
-                //setLoad(false);
-                navigate('/login');
+      });
+  }
 
-            });
-    }
+  const xTest = checkAuthentication();
 
-    const xTest = checkAuthentication();
+  if (load) {
+    return (<div>Loading</div>)
+  }
 
-    if (load) {
-        return (<div>Loading</div>)
-    }
-
-      // Calculate total sum of order items
+  // Calculate total sum of order items
   const totalSum = receipt?.orderItems.reduce(
     (sum, item) => sum + item.price_per_item * item.quantity,
     0
   );
 
-   return (
+  return (
     <div
       style={{
         backgroundColor: "#f4f4ff",
@@ -115,7 +115,7 @@ function SuccessPayment() {
                 className={`${styles["order-items"]} ${styles["form-container"]}`}
                 style={{ textAlign: "center" }}
               >
-                <ul style={{ listStyle: "none"}}>
+                <ul style={{ listStyle: "none" }}>
                   {receipt &&
                     receipt.orderItems &&
                     receipt.orderItems.map((item, index) => (
@@ -140,7 +140,7 @@ function SuccessPayment() {
                 </ul>
               </div>
               <p style={{ marginTop: "20px" }}>
-                <strong>Total:</strong> {totalSum} EGP
+                <strong>Total:</strong> {totalSum.toFixed(2)} EGP
               </p>
               <p style={{ marginTop: "10px" }}>
                 <strong>Delivery Address:</strong> {receipt.deliveryAddress}

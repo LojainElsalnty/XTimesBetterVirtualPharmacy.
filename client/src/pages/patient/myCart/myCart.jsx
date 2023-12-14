@@ -59,13 +59,13 @@ const MyCart = () => {
 
   useEffect(() => {
     // if (location.state && location.state.cartItems) {
-      // Use a condition to prevent unnecessary updates
-      //setCartItems(location.state.cartItems);
-      // setCartItems(JSON.parse(sessionStorage.getItem('cartItems'))) 
-      //Added-Nour
-      const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
-      const initialCartItems = storedCartItems || []; //in case cart is still empty/undefined -> []
-      setCartItems(initialCartItems);
+    // Use a condition to prevent unnecessary updates
+    //setCartItems(location.state.cartItems);
+    // setCartItems(JSON.parse(sessionStorage.getItem('cartItems'))) 
+    //Added-Nour
+    const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    const initialCartItems = storedCartItems || []; //in case cart is still empty/undefined -> []
+    setCartItems(initialCartItems);
 
     // }
   }, [location.state]);
@@ -79,7 +79,7 @@ const MyCart = () => {
 
 
   const updateCartItemQuantity = (medName) => {
-   // console.log(medName)
+    // console.log(medName)
     // Send a PUT request to update the quantity of a cart item
     axios.put(`http://localhost:8000/patient/myCartRoute/updateCartItemQuantity/${medName}`, { medName, cartItems })
       .then((response) => {
@@ -193,15 +193,15 @@ const MyCart = () => {
               <td>{item.medName}</td>
               <td>
                 <button className={styles["button-17"]} onClick={() => decrementCartItemQuantity(item.medName)}>-</button>
-                
+
                 <span className={`${styles["quantity-spacing"]} ${styles["quantity-counter"]}`}>{item.quantity}</span>
-                
+
                 <button className={styles["button-17"]} onClick={() => updateCartItemQuantity(item.medName)}>+</button>
               </td>
               <td>{item.price_per_item + ".EGP"}</td>
               <td><button className={styles["button-delete"]} onClick={() => deleteItem(item.medName)}>
-              <img src={deleteIcon} alt="Delete" style={{ width: '40px', height: '40px' }} />
-                </button></td>
+                <img src={deleteIcon} alt="Delete" style={{ width: '40px', height: '40px' }} />
+              </button></td>
             </tr>
           ))}
         </tbody>
