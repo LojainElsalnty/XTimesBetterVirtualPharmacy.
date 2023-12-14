@@ -62,7 +62,7 @@ function PatientView() {
       {patient && (
         <div>
           <h3>Patient Details for {username}</h3>
-          <table>
+          <table className={styles.pharmacistTable}>
             <thead>
               <tr>
                 <th>Username</th>
@@ -88,7 +88,7 @@ function PatientView() {
       )}
 
       <h3>All Patients</h3>
-      <table>
+      <table className={styles.pharmacistTable}>
         <thead>
           <tr>
             <th>Username</th>

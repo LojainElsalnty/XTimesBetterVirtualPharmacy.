@@ -1,0 +1,5 @@
+.pharmacistTable {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%; /* Example width to ensure the table doesn't stretch the full width of the container */
+}

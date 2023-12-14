@@ -178,7 +178,7 @@ const MyCart = () => {
   return (
     <div className="App">
       <h1>Cart Items</h1>
-      <table>
+      <table className={styles.pharmacistTable}>
         <thead>
           <tr>
             <th>Medicine</th>

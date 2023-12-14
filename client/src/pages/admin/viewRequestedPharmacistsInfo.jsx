@@ -5,6 +5,7 @@ import axios from 'axios';
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
+import styles from './viewReq.module.css'; // Make sure to import your stylesheet
 
 
 function ViewRequestedPharmacistsInfo() {
@@ -237,7 +238,7 @@ const handleFilterChange = (event) => {
 &nbsp;
 {filteredPharmacists.length > 0 ? (
 
-      <table>
+<table className={styles.pharmacistTable}>
         <thead>
           <tr>
             <th>Name</th>

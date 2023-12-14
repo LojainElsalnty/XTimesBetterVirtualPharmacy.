@@ -61,7 +61,7 @@ const PharmacistView = () => {
       {pharmacist && (
         <div>
           <h3>Pharmacist Information for {pharmacist.username}</h3>
-          <table>
+          <table className={styles.pharmacistTable}>
             <thead>
               <tr>
                 <th>Username</th>
@@ -91,7 +91,7 @@ const PharmacistView = () => {
       )}
 
       <h3>All Pharmacists</h3>
-      <table>
+      <table className={styles.pharmacistTable}>
         <thead>
           <tr>
             <th>Username</th>

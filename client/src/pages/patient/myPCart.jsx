@@ -168,7 +168,7 @@ const xTest = checkAuthentication();
                 onClick={redirectToCatalouge}
                 style={{ cursor: 'pointer', width: '20px', height: '20px', position: 'absolute', left: '10px', top: '120px'}}
             />
-            <table>
+<table className={styles.pharmacistTable}>
                 <thead>
                     <tr>
                         <th>Medicine</th>
