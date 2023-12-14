@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import searchIcon from '../../assets/img/searchicon.png'
+
+import styles from './pharmacistView.module.css'
+
 
 const PharmacistView = () => {
   const [pharmacists, setPharmacists] = useState([]);
@@ -39,16 +43,20 @@ const PharmacistView = () => {
 
   return (
     <div>
-      <h2>Pharmacist Information</h2>
-      <label>
-        Enter Pharmacist Username:
-        <input
-          type="text"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-      </label>
-      <button onClick={fetchPharmacistInfo}>Find</button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <label style={{ display: 'flex', alignItems: 'center' }}>
+      Enter Pharmacist Username:
+      <input
+        type="text"
+        value={username}
+        onChange={handleUsernameChange}
+      />
+      <button className={styles["find-button"]} onClick={fetchPharmacistInfo}>
+        <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
+      </button>
+    </label>
+      </div>
+
 
       {pharmacist && (
         <div>

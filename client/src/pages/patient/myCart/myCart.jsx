@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 //import './styles.css';
 import MyCartC from '../../../components/MyCartC';
 
-
+//import styles from './MyCart.module.css'
 
 //import MyCartComponent from '../components/myCart/myCart'; // Import the component from components/myCart
 
@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './myCartPage.module.css'
+import deleteIcon from '../../../assets/img/delete-Icon.png'; // Adjust the path accordingly
 
 const MyCart = () => {
   const navigate = useNavigate();
@@ -191,13 +192,16 @@ const MyCart = () => {
             <tr key={index}>
               <td>{item.medName}</td>
               <td>
-                <button onClick={() => decrementCartItemQuantity(item.medName)}>-</button>
-                {item.quantity}
-                <button onClick={() => updateCartItemQuantity(item.medName)}>+</button>
-
+                <button className={styles["button-17"]} onClick={() => decrementCartItemQuantity(item.medName)}>-</button>
+                
+                <span className={`${styles["quantity-spacing"]} ${styles["quantity-counter"]}`}>{item.quantity}</span>
+                
+                <button className={styles["button-17"]} onClick={() => updateCartItemQuantity(item.medName)}>+</button>
               </td>
-              <td>{item.price_per_item}</td>
-              <td><button className={styles["button-delete"]} onClick={() => deleteItem(item.medName)}>Delete</button></td>
+              <td>{item.price_per_item + ".EGP"}</td>
+              <td><button className={styles["button-delete"]} onClick={() => deleteItem(item.medName)}>
+              <img src={deleteIcon} alt="Delete" style={{ width: '40px', height: '40px' }} />
+                </button></td>
             </tr>
           ))}
         </tbody>

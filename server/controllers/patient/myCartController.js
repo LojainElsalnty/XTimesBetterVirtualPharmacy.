@@ -35,7 +35,7 @@ const viewAllCartItems = async (req, res) => {
 const updateCartItemQuantity = async (req, res) => {
   const { medName } = req.params;
   const cartItems = req.body.cartItems;
-  console.log(medName)
+  //console.log(medName)
 
   const cartItem = cartItems.find((item) => item.medName === medName);
   //const { newQuantity } = cartItem.quantity + 1;
@@ -53,7 +53,7 @@ const updateCartItemQuantity = async (req, res) => {
     cartItem.quantity += 1;
     res.status(200).json(cartItem); // Respond with the updated cart item
   }
-  console.log(cartItems)
+ // console.log(cartItems)
 };
 
 

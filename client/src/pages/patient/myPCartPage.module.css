@@ -73,7 +73,9 @@
   
   
   
-
+  
+/* CSS */
+/* CSS */
 .button-17 {
     align-items: center;
     appearance: none;
@@ -113,7 +115,7 @@
     transform: scale(1.05);
   }
   
-
+/* Add this class to your CSS file */
 .quantity-spacing {
     margin: 0 25px; /* Adjust the margin as needed */
   }
@@ -154,13 +156,13 @@
   /* Animation keyframes for the delete button */
   @keyframes shake-delete {
     0% {
-      transform: rotateZ(9deg);
+      transform: rotateZ(3deg);
     }
     25% {
       transform: rotateZ(0);
     }
     75% {
-      transform: rotateZ(-9deg);
+      transform: rotateZ(-3deg);
     }
     100% {
       transform: rotateZ(0);
@@ -171,75 +173,7 @@
   .button-delete:hover {
     animation: shake-delete 0.2s ease 0.1s;
   }
-
-
-
-
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.checkOutbtn {
-  background-color: #4c616b;
-  border: none;
-  border-radius: 8px;
-  color: #eff2f3;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 1rem;
-  padding: 1.5rem;
-  cursor: pointer;
-}
-
-.checkOutbtn:hover {
-  background-color: #5f7986;
-  transition: ease-out 0.1s;
-}
-
-
-
-
-
-  
-  
-
-
-
-  
-
-
-
-
-
-
-
   
 
   
