@@ -45,18 +45,18 @@ function PatientView() {
 
   return (
     <div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <label style={{ display: 'flex', alignItems: 'center' }}>
-      Enter Patient Username:
-      <input
-        type="text"
-        value={username}
-        onChange={handleUsernameChange}
-      />
-      <button className={styles["find-button"]} onClick={fetchPatientInfo}>
-        <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
-      </button>
-    </label>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <label style={{ display: 'flex', alignItems: 'center' }}>
+          Enter Patient Username:
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+          />
+          <button className={styles["find-button"]} onClick={fetchPatientInfo}>
+            <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
+          </button>
+        </label>
       </div>
 
       {patient && (

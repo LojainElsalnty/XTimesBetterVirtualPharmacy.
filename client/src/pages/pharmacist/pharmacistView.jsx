@@ -44,17 +44,17 @@ const PharmacistView = () => {
   return (
     <div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <label style={{ display: 'flex', alignItems: 'center' }}>
-      Enter Pharmacist Username:
-      <input
-        type="text"
-        value={username}
-        onChange={handleUsernameChange}
-      />
-      <button className={styles["find-button"]} onClick={fetchPharmacistInfo}>
-        <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
-      </button>
-    </label>
+        <label style={{ display: 'flex', alignItems: 'center' }}>
+          Enter Pharmacist Username:
+          <input
+            type="text"
+            value={username}
+            onChange={handleUsernameChange}
+          />
+          <button className={styles["find-button"]} onClick={fetchPharmacistInfo}>
+            <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
+          </button>
+        </label>
       </div>
 
 
@@ -103,7 +103,7 @@ const PharmacistView = () => {
             <th>Educational Background</th>
             <th>National ID</th>
             <th>Working License</th>
-            <th>Pharmacy Degree</th>        
+            <th>Pharmacy Degree</th>
           </tr>
         </thead>
         <tbody>

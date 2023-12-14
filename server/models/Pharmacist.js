@@ -43,29 +43,44 @@ const PharmacistSchema = mongoose.Schema({
         //required: true
         //type: String,
         //required: true,
- 
-     },
-     workingLicense: {
-         //type: mongoose.Schema.Types.Mixed,
-         name: String,
-         path: String,
-         contentType: String,
-         //required: true
-         //type: String,
-         //required: true,
-     },
-     pharmacyDegree: {
-         //type: mongoose.Schema.Types.Mixed,
-         name: String,
-         path: String,
-         contentType: String,
-         //required: true
-         //type: String,
-         //required: true,
-     },
-     walletAmount: {
+
+    },
+    workingLicense: {
+        //type: mongoose.Schema.Types.Mixed,
+        name: String,
+        path: String,
+        contentType: String,
+        //required: true
+        //type: String,
+        //required: true,
+    },
+    pharmacyDegree: {
+        //type: mongoose.Schema.Types.Mixed,
+        name: String,
+        path: String,
+        contentType: String,
+        //required: true
+        //type: String,
+        //required: true,
+    },
+    walletAmount: {
         type: Number,
         default: 0
+    },
+    notifications: {
+        type: [
+            {
+                message: {
+                    type: String,
+                    required: true,
+                },
+                timestamp: {
+                    type: Date,
+                    default: Date.now,
+                },
+            },
+        ],
+        default: [],
     },
 }, { timestamps: true });
 

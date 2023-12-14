@@ -58,7 +58,7 @@ const MyCart = () => {
   const xTest = checkAuthentication();
 
   useEffect(() => {
-    if (location.state && location.state.cartItems) {
+    // if (location.state && location.state.cartItems) {
       // Use a condition to prevent unnecessary updates
       //setCartItems(location.state.cartItems);
       // setCartItems(JSON.parse(sessionStorage.getItem('cartItems'))) 
@@ -67,7 +67,7 @@ const MyCart = () => {
       const initialCartItems = storedCartItems || []; //in case cart is still empty/undefined -> []
       setCartItems(initialCartItems);
 
-    }
+    // }
   }, [location.state]);
   // useEffect(() => {
   //   // Fetch cart items from the backend when the component mounts

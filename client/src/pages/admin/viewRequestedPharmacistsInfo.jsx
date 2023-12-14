@@ -54,7 +54,7 @@ function ViewRequestedPharmacistsInfo() {
       } else if (filter === 'rejected') {
         return doctor.status === 'rejected';
       }
-      else if(filter === 'onhold'){
+      else if (filter === 'onhold') {
         return doctor.status === 'onhold';
 
       }
@@ -62,34 +62,34 @@ function ViewRequestedPharmacistsInfo() {
     });
     setfilteredPharmacists(filtered);
   };
-  
+
   useEffect(() => {
     applyFilter();
   }, [requestedPharmacists, filter]); // Reapply filter when doctors list or filter changes
-  
-const handleFilterChange = (event) => {
-  setFilter(event.target.value);
-  setCurrentPage(1); // Reset to the first page when the filter changes
 
-};
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+    setCurrentPage(1); // Reset to the first page when the filter changes
+
+  };
   const xTest = checkAuthentication();
 
   const fetchRequestedPharmacists = async () => {
     try {
-        const response = await axios.get('http://localhost:8000/admin/viewREQPharmacists', {
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': accessToken
-            }
-        });
-        // Sort by descending order of creation (most recent first)
-        const sortedData = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        setRequestedPharmacists(sortedData);
-        applyFilter(sortedData); // Apply the filter to sorted data
+      const response = await axios.get('http://localhost:8000/admin/viewREQPharmacists', {
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': accessToken
+        }
+      });
+      // Sort by descending order of creation (most recent first)
+      const sortedData = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setRequestedPharmacists(sortedData);
+      applyFilter(sortedData); // Apply the filter to sorted data
     } catch (error) {
-        console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error);
     }
-};
+  };
   useEffect(() => {
     fetchRequestedPharmacists();
   }, [accessToken, navigate]);
@@ -203,109 +203,109 @@ const handleFilterChange = (event) => {
 
   return (
     <div>
-    <h1>Requested Pharmacists List</h1>
-    
- <div style={{ marginBottom: '10px' }}>
-      <button 
-        onClick={handlePrevPage} 
-        disabled={currentPage === 1}
-        style={{ marginRight: '10px' }}  // Adds space to the right of the 'Prev' button
-      >
-        Prev
-      </button>
-      <button 
-        onClick={handleNextPage} 
-        disabled={currentPage * itemsPerPage >= filteredPharmacists.length}
-      >
-        Next
-      </button>
-      &nbsp; Page {currentPage}
-    </div>
-    &nbsp; &nbsp; &nbsp; 
-    <div>
-      <label htmlFor="filterSelect">Filter By Status: </label>
-      <select id="filterSelect" value={filter} onChange={handleFilterChange}>
-        <option value="all">All</option>
-        <option value="accepted">Accepted</option>
-        <option value="rejected">Rejected</option>
-        <option value="onhold">Waiting</option>
+      <h1>Requested Pharmacists List</h1>
 
-      </select>
+      <div style={{ marginBottom: '10px' }}>
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          style={{ marginRight: '10px' }}  // Adds space to the right of the 'Prev' button
+        >
+          Prev
+        </button>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage * itemsPerPage >= filteredPharmacists.length}
+        >
+          Next
+        </button>
+        &nbsp; Page {currentPage}
+      </div>
+      &nbsp; &nbsp; &nbsp;
+      <div>
+        <label htmlFor="filterSelect">Filter By Status: </label>
+        <select id="filterSelect" value={filter} onChange={handleFilterChange}>
+          <option value="all">All</option>
+          <option value="accepted">Accepted</option>
+          <option value="rejected">Rejected</option>
+          <option value="onhold">Waiting</option>
+
+        </select>
+        &nbsp;
+      </div>
+
       &nbsp;
-    </div>
+      &nbsp;
+      {filteredPharmacists.length > 0 ? (
 
-&nbsp;
-&nbsp;
-{filteredPharmacists.length > 0 ? (
+        <table className={styles.pharmacistTable}>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Date of Birth</th>
+              <th>Hourly Rate</th>
+              <th>Affiliation</th>
+              <th>Educational Background</th>
+              <th>National ID</th>
+              <th>Working License</th>
+              <th>Pharmacy Degree</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentPharmacists.map(pharmacist => (
+              <tr key={pharmacist._id}>
+                <td>{pharmacist.name}</td>
+                <td>{pharmacist.username}</td>
+                <td>{pharmacist.email}</td>
+                <td>{pharmacist.dob}</td>
+                <td>{pharmacist.hourly_rate}</td>
+                <td>{pharmacist.affiliation}</td>
+                <td>{pharmacist.educational_background}</td>
+                <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
+                <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
+                <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
 
-<table className={styles.pharmacistTable}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Date of Birth</th>
-            <th>Hourly Rate</th>
-            <th>Affiliation</th>
-            <th>Educational Background</th>
-            <th>National ID</th>
-            <th>Working License</th>
-            <th>Pharmacy Degree</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-        {currentPharmacists.map(pharmacist => (
-            <tr key={pharmacist._id}>
-              <td>{pharmacist.name}</td>
-              <td>{pharmacist.username}</td>
-              <td>{pharmacist.email}</td>
-              <td>{pharmacist.dob}</td>
-              <td>{pharmacist.hourly_rate}</td>
-              <td>{pharmacist.affiliation}</td>
-              <td>{pharmacist.educational_background}</td>
-              <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
-              <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
-              <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
-
-              <td>{pharmacist.status}</td>
-              <td>
-                {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
+                <td>{pharmacist.status}</td>
+                <td>
+                  {/* <button onClick={() => acceptPharmacist(pharmacist._id)} disabled={pharmacist.status === 'accepted'}>
                 Accept
                 </button>              
                 <br />
                 <br />
                 {pharmacist.status !== 'accepted' && (
                  <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button> */}
-                <button
-                  onClick={() => acceptPharmacist(pharmacist._id)}
-                  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
-                >
-                  Accept
-                </button>
-                <br />
-                <br />
-                <button
-                  onClick={() => rejectPharmacist(pharmacist._id)}
-                  disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
-                >
-                  Reject
-                </button>
+                  <button
+                    onClick={() => acceptPharmacist(pharmacist._id)}
+                    disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+                  >
+                    Accept
+                  </button>
+                  <br />
+                  <br />
+                  <button
+                    onClick={() => rejectPharmacist(pharmacist._id)}
+                    disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
+                  >
+                    Reject
+                  </button>
 
-              </td>
-            </tr>
-          ))}
-          
+                </td>
+              </tr>
+            ))}
 
-        </tbody>
+
+          </tbody>
         </table>
-          ) : (
-            <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '20px', color: '#89CFF0' }}>
-            No Pharmacists Requests found matching the selected criteria.
-          </div>    )}
-        </div>
-        
-      );
+      ) : (
+        <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '20px', color: '#89CFF0' }}>
+          No Pharmacists Requests found matching the selected criteria.
+        </div>)}
+    </div>
+
+  );
 
 }
 

@@ -17,9 +17,9 @@ const medicineRoutes = require('./routes/pharmacist/medicineRoute');
 const patientCheckoutAddressRoutes = require('./routes/patient/checkoutAddressRoute');
 const patientPastOrdersRoutes = require('./routes/patient/pastOrdersRoute');
 const myCartRoutes = require('./routes/patient/myCartRoute');
-const filterSalesRoute= require('./routes/pharmacist/filterSalesRoute');
-const viewSalesRoute= require('./routes/pharmacist/viewSalesRoute');
-const viewSalesAdminRoute= require('./routes/admin/viewSalesRoute');
+const filterSalesRoute = require('./routes/pharmacist/filterSalesRoute');
+const viewSalesRoute = require('./routes/pharmacist/viewSalesRoute');
+const viewSalesAdminRoute = require('./routes/admin/viewSalesRoute');
 const myPrescriptionRoutes = require('./routes/patient/myPrescriptionRoute');
 const prescriptionRoutes = require('./routes/patient/prescriptions');
 
@@ -133,8 +133,10 @@ app.use('/medicineRoutes', medicineRoutes);
 app.use('/pharmacist/register', require('./routes/pharmacist/registerRoute'));
 app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js'));
 app.use('/pharmacist/filterSales', filterSalesRoute);
-app.use('/pharmacist/viewSales',viewSalesRoute)
+app.use('/pharmacist/viewSales', viewSalesRoute)
 app.use('/pharmacist/viewWalletNumber', require('./routes/pharmacist/viewPharmacistWallet')); // Get information about logged in pharmacist using his/her username
+//app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
+app.use('/pharmacist/notifications', require('./routes/pharmacist/pharmacistNotificationsRoute.js'));
 
 // Admin 
 app.use('/admin/addremove', adminRoutes);
@@ -142,6 +144,6 @@ app.use('/admin/medicineCatalog', adminMedicineCatalogRoutes)
 app.use('/admin/viewREQPharmacists', require('./routes/admin/viewRequestedPharmacistsInfo'));
 app.use('/admin/info', require('./routes/admin/adminInfoRoute.js')); // Get information about logged in admin using his/her username
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/admin/viewSales',viewSalesAdminRoute)
+app.use('/admin/viewSales', viewSalesAdminRoute)
 
 

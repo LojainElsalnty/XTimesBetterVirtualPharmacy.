@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
+
+import {   Button, ChakraProvider ,Box} from '@chakra-ui/react'
+import styles from './medicinePayment.module.css';
+
 function MedicinePayment() {
     const navigate = useNavigate();
     // const accessToken = sessionStorage.getItem("accessToken");
@@ -46,17 +50,6 @@ function MedicinePayment() {
     const xTest = checkAuthentication();
 
 
-
-    // To add from mazen
-    // const receivedInfo = {
-    //     cartItems:[{
-    //         medName: "Medicine1",
-    //         quantity: 2,
-    //         price_per_item : 2000000
-    //     }], deliveryAddress: " ",
-    //     username: "john_doe123"
-    // };
-
     const receivedInfo = {
         cartItems: location.state.cartItems,
         deliveryAddress: location.state.deliveryAddress,
@@ -71,6 +64,9 @@ function MedicinePayment() {
     };
 
     const handleSubmit = async (buttonId) => {
+        if(buttonId==="myCart"){
+            navigate('/patient/myCart');
+        }
         //console.log(receivedInfo)
         if (buttonId === "creditCard") {
             let receiptCreditCard;
@@ -86,12 +82,12 @@ function MedicinePayment() {
 
 
             }).then(res => {
-                console.log("Response", res)
+                // console.log("Response", res)
                 return res.json();
 
             }).then((data) => {
 
-                console.log("Response data", data)
+                //console.log("Response data", data)
                 if (data.outofstock) {
                     alert(data.message);
                     // window.location= 'http://localhost:5173/patient/unsuccessPayment';
@@ -185,34 +181,67 @@ function MedicinePayment() {
         return (<div>Loading</div>)
     }
     return (
-        <div className="payment">
-            <h2>Choose payment Method</h2>
-
-            <button
-                id="wallet"
-                className={selectedButton === 'wallet' ? 'selected' : ''}
-                onClick={() => handleButtonClick('wallet')}
-            >
-                Wallet
-            </button>
-            <button
-                id="creditCard"
-                className={selectedButton === 'creditCard' ? 'selected' : ''}
-                onClick={() => handleButtonClick('creditCard')}
-            >
-                Credit Card
-            </button>
-            <button
-                id="cashOnDelivery"
-                className={selectedButton === 'cashOnDelivery' ? 'selected' : ''}
-                onClick={() => handleButtonClick('cashOnDelivery')}
-
-            >
-                Cash On Delivery
-            </button>
-
-        </div>
-    );
+        <div style={{ backgroundColor: '#f4f4ff', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className={styles['form-container']}>
+            <div className={styles['bordered-container']}>
+            
+              <div className={styles['button-container']}>
+                <ChakraProvider>
+                  <Box
+                    overflowY="auto"
+                    width="100%"
+                    border="1px solid #ccc"
+                    borderRadius="10px"
+                    padding="30px"
+                  >
+                      <h2 style={{ fontSize: '1.5em', marginTop: '-10px', marginBottom: '10px', textAlign: 'center' }}>
+                <strong>Choose payment method</strong>
+              </h2>
+                    <Button
+                      className={`${styles['button']} `}
+                      colorScheme="gray"
+                      variant="solid"
+                      type="button"
+                      onClick={() => handleButtonClick('wallet')}
+                    >
+                      Wallet
+                    </Button>
+                    <Button
+                      className={`${styles['button']} `}
+                      colorScheme="gray"
+                      variant="solid"
+                      type="button"
+                      onClick={() => handleButtonClick('creditCard')}
+                    >
+                      Credit Card
+                    </Button>
+                    <Button
+                      className={`${styles['button']} `}
+                      colorScheme="gray"
+                      variant="solid"
+                      type="button"
+                      onClick={() => handleButtonClick('cashOnDelivery')}
+                    >
+                      Cash On Delivery
+                    </Button>
+                  </Box>
+                  <Button
+                    className={`${styles['button']} `}
+                    colorScheme="blue"
+                    variant="solid"
+                    type="button"
+                    onClick={() => handleButtonClick('myCart')
+                        }
+                  >
+                    Return to Cart
+                  </Button>
+                </ChakraProvider>
+              </div>
+            </div>
+          </div>
+          </div>
+       
+      );
 }
 
 export default MedicinePayment; 
