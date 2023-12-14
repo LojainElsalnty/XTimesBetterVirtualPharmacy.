@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import searchIcon from '../../assets/img/searchicon.png'
 
-import styles from '../pharmacist//pharmacistView.module.css'
+import styles from '../pharmacist/pharmacistView.module.css'
 
 function PatientView() {
   const [username, setUsername] = useState('');

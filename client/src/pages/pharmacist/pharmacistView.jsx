@@ -102,6 +102,8 @@ const PharmacistView = () => {
             <th>Affiliation</th>
             <th>Educational Background</th>
             <th>National ID</th>
+            <th>Working License</th>
+            <th>Pharmacy Degree</th>        
           </tr>
         </thead>
         <tbody>
@@ -114,7 +116,9 @@ const PharmacistView = () => {
               <td>{pharmacist.hourly_rate}</td>
               <td>{pharmacist.affiliation}</td>
               <td>{pharmacist.educational_background}</td>
-              <td>{pharmacist.nationalID.name}</td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">View National ID </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">View Working License </a></td>
+              <td><a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">View Pharmacy Degree </a></td>
             </tr>
           ))}
         </tbody>
