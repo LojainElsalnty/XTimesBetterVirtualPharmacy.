@@ -1,0 +1,218 @@
+/* <DIV> Styles */
+.chat__users {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.chat__sidebar {
+  overflow-y: auto;
+  height: 520px;
+  background-image: url('../../assets/img/chatPage2.jpg');
+}
+
+/* <H4> Styles */
+.chat__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-image: linear-gradient(35deg, #125594 0%, #125594 50%, #000 100%);
+  color: rgb(255 255 255);
+  border-bottom: black 3px solid;
+}
+
+:root {
+  --border-radius: 10px;
+}
+
+/* <DIV> Class Selector */
+.searchbar-main-div {
+  width: 98%;
+  height: 110px;
+  margin: 10px 5px;
+  padding: 10px;
+  position: relative;
+  border-radius: var(--border-radius);
+  background-image: linear-gradient(35deg, #0F2027 0%, #125594 50%, #2C5364 100%);
+  z-index: 100;
+}
+
+.searchbar-main-div > a {
+  height: 20%;
+  display: flex;
+  color: black;
+}
+
+.searchbar-sub-div {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1px;
+
+  border-radius: var(--border-radius);
+  background: linear-gradient(-67deg, rgba(#c8d8e7, .7), rgba(255,255,255,.8));
+  box-shadow: -2px -2px 6px rgba(#fff, .6), 2px 2px 12px #e7c8e3;
+}
+
+.searchbar-input-div {
+  --top-shadow: inset 1px 1px 3px #ffffff, inset 2px 2px 6px #e2c5e3;
+  --bottom-shadow: inset -2px -2px 4px rgba(95, 95, 95, 0.7);
+  
+  width: 80%;
+  height: 60%;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  
+  &::before,
+  &::after {
+      left: 0;
+      top: 0;
+      display: block;
+      content: "";
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+  }
+  
+  &::before {
+      box-shadow: var(--bottom-shadow);
+  }
+  
+  &::after {
+      box-shadow: var(--top-shadow);
+  }
+}
+
+.searchbar-icon-div, .searchfilter-icon-div, .clearfilter-icon-div {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.searchfilter-date-div {
+  width: 200px;
+  height: 200px;
+
+  display: flex;
+  align-items: center;
+  position: absolute;
+
+  border-radius: var(--border-radius);
+  background: linear-gradient(-67deg, rgba(#c8d8e7, .7), rgba(0, 0, 0, 0.8));
+  box-shadow: -2px -2px 6px rgba(#fff, .6), 2px 2px 12px #e7c8e3;
+  
+  left: 200px;
+  top: 50px;
+}
+
+.criteria__main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.criteria__div {
+  width: 100%;
+  height: 37%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0px;
+  left: 400px;
+  background-image: linear-gradient(35deg, #0F2027 0%, #125594 50%, #2C5364 100%);
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.criteria__ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 50px;
+}
+
+.criteria__li {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: white;
+  border-bottom: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+
+}
+
+.criteria__btn {
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  background: rgba(0,0,0,0.2);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* <INPUT> Class Selector */
+.searchbar-input {
+  width: 100%;
+  height: 100%;
+
+  padding: 10px;
+  border: 0px;
+
+  position: relative;
+  
+  background-color: #ffffff;
+
+  top: -2px;
+}
+
+.criteria__li:hover {
+  background-image: linear-gradient(35deg, #206b8b 0%, #83acd3 50%, #f0f0f0 100%);
+  color: black;
+}
+
+.searchbar-input:focus {
+  outline: none;
+}
+
+/* <BUTTON> Class Selector */
+.searchbar-button, .searchfilter-button, .clearfilter-button {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

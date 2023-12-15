@@ -80,7 +80,7 @@ export const PasswordCard = () => {
         // send the new password to the server
         await axios ({
             method: 'put',
-            url: `http://localhost:5000/authentication/changePassword`,
+            url: `http://localhost:8000/authentication/changePassword`,
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': accessToken,

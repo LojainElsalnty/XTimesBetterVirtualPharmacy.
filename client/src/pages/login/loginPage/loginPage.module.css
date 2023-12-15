@@ -2,55 +2,33 @@
 /* <DIV> Styles */
 .login-main-div {
     width: 100%;
-    height: 100%;
+    height: 90vh;
 
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     justify-content: center;
 }
 
 .login-sub-div {
-    width: 60%;
-    height: 100%;
+    width: 50%;
+    height: 80%;
 
     margin-top: 50px;
+    margin-right: 50px;
 
     backdrop-filter: grayscale(50%);
-    border: 1px solid #ffffff22;
-    background-image: linear-gradient(45deg, black, transparent);
-    border-radius: 0.7rem;
-    box-shadow: -2px 2px 2px #FFE, 0px 3px 10px 5px #00000088;
-
-    overflow: hidden;
-    transition: 1s ease-in-out;
-}
-
-.login-sub-div::before {
-    content: "";
-    width: 100px;
-    height: 100px;
-
-    position: absolute;
-    top: -30px;
-    left: -30px;
-    /* transform: translateX(-200%); */
-
+    /* border: 1px solid #ffffff22; */
+    /* background-image: linear-gradient(45deg, black, transparent); */
     background-image: linear-gradient(
         35deg,
         #24C6DC,
         #514A9D
-    );
-    transition: all 1s;
-    z-index: -1;
-    /* border-radius: 0.7rem; */
-    border-radius: 100%;
+    );    border-radius: 0.7rem;
+    /* box-shadow: -2px 2px 2px #FFE, 0px 3px 10px 5px #00000088; */
 
-    transition: 3s ease-in-out;
-}
-
-.login-sub-div:hover::before{
-    transform: scale(20);
+    overflow: hidden;
+    transition: 1s ease-in-out;
 }
 
 .login-username-div {
@@ -71,10 +49,8 @@
 
 .login-username-label-div {
     width: 100%;
-
     padding: 2px;
-    margin-left: 70px;
-
+    margin: 20px 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,33 +59,44 @@
 
 .login-password-label-div {
     width: 100%;
-
     padding: 2px;
-    margin-left: 70px;
-
+    margin: 20px 40px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
 }
 
-.login-back-button-div {
+.login-back-button-div { 
     width: 100%;
-    height: 30%;
-
+    height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-image: url("../../../assets/img/login_pagesvg.svg");
+    background-size: 100% 100%;
 }
 
 /* <LABEL> Styles */
 .login-username-label {
+    margin-left: 1px;
     color: white;
 }
 
 .login-password-label {
+    margin-left: 1px;
+
     color: white;
+}
+
+.register__div {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 /* <INPUT> Styles */
@@ -132,26 +119,50 @@
 
 /* <BUTTON> Styles */
 .login-button {
-    margin: 10px;
+    margin: 30px 10px;
 }
 
 .login-back-button {
     margin: 10px;
 }
 
-/* <H2> Styles */
-.login-title-h2 {
+.login-back-button:hover {
+    background-color: rgb(17, 17, 209);
     color: white;
 }
 
+/* <H2> Styles */
+.login-title-h2 {
+    margin-top: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+.login-title-h2:hover {
+    text-decoration: none;
+    color: white;
+}
 
 /* <A> Styles */
 .reset-password-a {
     text-decoration: none;
     color: white;
     cursor: pointer;
+    text-decoration: none;
+
 }
 
 .reset-password-a:hover {
     color: white;
+    text-decoration: none !important;
+}
+
+.register-a {
+    margin: 10px;
+    color: rgb(255, 255, 255);
+}
+
+.register-a:hover {
+    color: rgb(255, 255, 255);
+    text-decoration: none !important;
 }

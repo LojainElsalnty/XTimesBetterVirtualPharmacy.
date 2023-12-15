@@ -7,8 +7,8 @@ import axios from 'axios';
 import styles from './PatientProfile.module.css';
 
 // Images
-import manImage from '../../../assets/img/man.png';
-import womenImage from '../../../assets/img/woman.png';
+import manImage from '../../../assets/img/male.svg';
+import womenImage from '../../../assets/img/female.svg';
 
 // MUI Joy Components
 import { Button, Typography } from '@mui/joy';
@@ -29,22 +29,34 @@ import { useState, useEffect } from 'react';
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
 
+// User Defined Components
+import { DropDown } from '../../../components/dropDown/dropDown';
+
+// User Defined Components
+import { CreditCard } from '../../../components/creditCard/creditCard';
+import { ShowCard } from '../../../components/showCard/showCard';
+import { ProfileCard } from '../../../components/profileCard/profileCard';
+import { Modal } from '../../../components/modalCard/modalCard';
+
+// MUI Icons
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
+
 export const PatientProfile = () => {
+    // User Info
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [dob, setDOB] = useState('');
     const [mobile, setMobile] = useState('');
     const [image, setImage] = useState('');
-    // const {accessToken} = useAuth();
-    const accessToken = sessionStorage.getItem('accessToken');
-    const [load, setLoad] = useState(true);
+    const accessToken = sessionStorage.getItem("accessToken");
     const [username, setUsername] = useState('');
-
-    console.log(accessToken);
+    const [load, setLoad] = useState(true);
 
     useEffect(() => {
-       if (username.length != 0) {
+      if (username.length != 0) {
         setLoad(false);
       }
     }, [username]);
@@ -71,9 +83,12 @@ export const PatientProfile = () => {
     checkAuthentication();
 
     if (load) {
-      return (<div>Loading</div>)
+      return(<div>Loading</div>)
     }
 
+    function handleViewMedicalHistory() {
+      navigate('/patient/viewMedicalHistory');
+    }
     
     const getPatientInfo = async () => {
       await axios ({
@@ -116,39 +131,59 @@ export const PatientProfile = () => {
       })
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     getPatientInfo();
-    
+
     return (
         <div className={styles['patient-info-main-div']}>
           <div className={styles['patient-info-top-div']}>
             <div className={styles['patient-info-left-div']}>
               <img className={styles['patient-info-img']} src={image}></img>
             </div>
-            <div className={styles['patient-info-right-div']}>
+            {/* <div className={styles['patient-info-right-div']}>
               <div className={styles['patient-information-div']}>
-                <Typography level="h1" component="h1">{name}</Typography>
+                <Typography level="h1" component="h1" sx={{color: 'white'}}>{name}</Typography>
                 <div className={styles['patient-information-sub-div']}>
                   <div className={styles['patient-information-left-div']}>
-                    <Typography level="title-sm">username: {username}</Typography>
-                    <Typography level="title-sm">email: {email}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>username: {username}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>email: {email}</Typography>
                   </div>
                   <div className={styles['patient-information-right-div']}>
-                    <Typography level="title-sm">data of birth: {dob}</Typography>
-                    <Typography level="title-sm">mobile: {mobile}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>data of birth: {dob}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>mobile: {mobile}</Typography>
                   </div>
                 </div>
               </div>
-              <div className={styles['patient-settings-div']}>
-                <Button onClick={() => navigate(-1)}><FontAwesomeIcon icon={faArrowLeft} /></Button>
+            </div> */}
+          </div>
+         {/*  <div className={styles['patient-info-bottom-div']}>
+          </div> */}
+          <div className={styles['main__div']}>
+            <div className={styles['left__div']}>
+              <div className={styles['configurations__div']}>
+                <DropDown title="change password" child={<PasswordCard />}></DropDown>
+                {/* <ShowCard title="view medical history" icon={<MedicalInformationIcon/>}><NorthEastIcon sx={{cursor: 'pointer'}} onClick={handleViewMedicalHistory}></NorthEastIcon></ShowCard> */}
+              </div>
+            </div>
+            <div className={styles['middle__div']}>
+              <div className={styles['charts__div']}>
+                <ProfileCard info={
+                  [
+                    {name: 'name', value: name},
+                    {name: 'username', value: username},
+                    {name: 'email', value: email},
+                    {name: 'mobile', value: mobile},
+                    {name: 'date of birth', value: dob}
+                  ]
+                }></ProfileCard>
+              </div>
+            </div>
+            <div className={styles['right__div']}>
+              <div className={styles['wallet__div']}>
+                <CreditCard></CreditCard>
               </div>
             </div>
           </div>
-          <div className={styles['patient-info-bottom-div']}>
-          </div>
-
-          {/* Change Password Card */}
-          <PasswordCard></PasswordCard>
         </div>
     );
-
 }

@@ -59,27 +59,9 @@ function App() {
     <>
       <AuthProvider>
         <ResponsiveAppBar/>
-        <Routes>
-          {/* <Route path="/EditMedicine" element={<MedicineEdit />} />
-          <Route path="/AddMedicine" element={<MedicineAdd />} />
-
-          <Route path="/patientInformation" element={<PatientView />} />
-          <Route path="/pharmacistInformation" element={<PharmacistView />} />
-          <Route path="/admin/medicineCatalog" element={<AdminMedicineCatalog />} />
-          <Route path="/patient/medicineCatalog" element={<PatientMedicineCatalog />} />
-          <Route path="/pharmacist/medicineCatalog" element={<PharmacistMedicineCatalog />} />
-          
-
-          <Route path="/admin/addadmin" element={<AddAdmin />} />
-          <Route path="/admin/removepharmacist" element={<RemovePharmacist />} />
-          <Route path="/admin/removepatient" element={<RemovePatient />} />
-
-          <Route path="/admin/requestedPharmacistsInfoPage" element={<ViewRequestedPharmacistsInfo />} />
-          <Route path="/guest/patientRegister" element={<PatientRegister />} />
-          <Route path="/pharmacist/pharmacistRequest" element={<PharmacistRequest />} /> */}
-          
+        <Routes>          
           {/* Home Path */}
-          <Route path='/' element={<MainPage />} ></Route>
+          {/* <Route path='/' element={<MainPage />} ></Route> */}
           {/* Login Path */}
           <Route path='/login' element={<LoginPage />} ></Route>
           {/* User Types Paths */}

@@ -6,6 +6,9 @@ import axios from 'axios';
 // Styles
 import styles from './resetPasswordPage.module.css';
 
+// Images
+import passwordImage from '../../../assets/img/password.png';
+
 // User Defined Components
 import { AlertMessageCard } from '../../../components/alertMessageCard/alertMessageCard';
 import { PasswordValidation } from '../../../components/passwordValidation/passwordValidation';
@@ -106,24 +109,34 @@ export const ResetPasswordPage = () => {
     return (
         <>
             <div className={styles['reset-password-main-div']}>
-                <div className={styles['reset-password-sub-div']}>
-                    <div className={styles['reset-password-sub1-div']}>
-                        <div className={styles['reset-password-subtitle-div']}>
-                            <label className={styles['subtitle']}>Enter New Password</label>
-                        </div>
-                        <div className={styles['reset-password-input-div']}>
-                            <input className={styles['password-input']} value={newPassword} placeholder="Enter New Password" type="password" onChange={handleChangeNewPassword}/>
-                        </div>
+                <div className={styles['password__main__div']}>
+                    <div className={styles['send-password-title-div']}>
                     </div>
-                    {displayPasswordValidation && (
-                    <div className={styles['change-password-sub4-div']}>
-                        <PasswordValidation newPassword={newPassword} />
-                    </div>
-                    )}
-                </div>
+                    <div className={styles['main__div']}>
+                        <div className={styles['title__div']}>
+                        <img src='src/assets/img/password.png' className={styles['reset__password__img']}></img>
+                            <h2 className={styles['send-otp-title-h2']}>Change Password</h2>
+                        </div>
+                        <div className={styles['reset-password-sub-div']}>
+                            <div className={styles['reset-password-sub1-div']}>
+                                <div className={styles['reset-password-subtitle-div']}>
+                                    <label className={styles['subtitle']}>Enter New Password</label>
+                                </div>
+                                <div className={styles['reset-password-input-div']}>
+                                    <input className={styles['password-input']} value={newPassword} placeholder="Enter New Password" type="password" onChange={handleChangeNewPassword}/>
+                                </div>
+                            </div>
+                            {displayPasswordValidation && (
+                            <div className={styles['change-password-sub4-div']}>
+                                <PasswordValidation newPassword={newPassword} />
+                            </div>
+                            )}
+                        </div>
 
-                <div className={styles['reset-password-button-div']}>
-                    <button className={styles['reset-password-button']} onClick={handleClickChangePassword}>Change Password</button>
+                        <div className={styles['reset-password-button-div']}>
+                            <button className={styles['reset-password-button']} onClick={handleClickChangePassword}>Change Password</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             {showAlertMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={handleAlertMessageOkayButtonClicked} ></AlertMessageCard>)}

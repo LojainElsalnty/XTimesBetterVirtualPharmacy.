@@ -7,11 +7,13 @@ import axios from 'axios';
 import styles from './PharmacistProfile.module.css';
 
 // Images
-import manImage from '../../../assets/img/man.png';
-import womenImage from '../../../assets/img/woman.png';
+import manImage from '../../../assets/img/male.svg';
+import womenImage from '../../../assets/img/female.svg';
 
 // MUI Joy Components
 import { Button, Typography } from '@mui/joy';
+import MedicationIcon from '@mui/icons-material/Medication';
+import EditIcon from '@mui/icons-material/Edit';
 
 // FontAwesome Components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,6 +21,10 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 // User Defined Components
 import { PasswordCard } from '../../../components/changePasswordCard/changePasswordCard';
+import { DropDown } from '../../../components/dropDown/dropDown';
+import { ShowCard } from '../../../components/showCard/showCard';
+import { Modal } from '../../../components/modalCard/modalCard';
+import { ProfileCard } from '../../../components/profileCard/profileCard';
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +35,10 @@ import { useState, useEffect } from 'react';
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
 
+// Pages
+import MedicineEdit from '../../medicine/madicineEdit';
+import MedicineAdd from '../../medicine/medicineAdd';
+import MedicineCatalog from '../medicineCatalogPage';
 
 export const PharmacistProfile = () => {
     const navigate = useNavigate();
@@ -120,29 +130,49 @@ export const PharmacistProfile = () => {
             <div className={styles['pharmacist-info-left-div']}>
                 <img className={styles['pharmacist-info-img']} src={image}></img>
             </div>
-            <div className={styles['pharmacist-info-right-div']}>
+{/*             <div className={styles['pharmacist-info-right-div']}>
                 <div className={styles['pharmacist-information-div']}>
-                <Typography level="h1" component="h1">{name}</Typography>
+                <Typography level="h1" component="h1" sx={{color: 'white'}}>{name}</Typography>
                 <div className={styles['pharmacist-information-sub-div']}>
                     <div className={styles['pharmacist-information-left-div']}>
-                    <Typography level="title-sm">username: {username}</Typography>
-                    <Typography level="title-sm">email: {email}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>username: {username}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>email: {email}</Typography>
                     </div>
                     <div className={styles['pharmacist-information-right-div']}>
-                    <Typography level="title-sm">data of birth: {dob}</Typography>
+                    <Typography level="title-sm" sx={{color: 'white'}}>data of birth: {dob}</Typography>
                     </div>
                 </div>
                 </div>
-                <div className={styles['pharmacist-settings-div']}>
-                <Button onClick={() => navigate(-1)}><FontAwesomeIcon icon={faArrowLeft} /></Button>
-                </div>
-            </div>
+            </div> */}
             </div>
             <div className={styles['pharmacist-info-bottom-div']}>
-            </div>
+              <div className={styles['main__div']}>
+                <div className={styles['left__div']}>
+                  <div className={styles['configurations__div']}>
+                    <DropDown title="change password" child={<PasswordCard />}></DropDown>
+                    <ShowCard title="add medicine" icon={<MedicationIcon />}><Modal title="Add medicine"><MedicineAdd /></Modal></ShowCard>
+                    <ShowCard title="edit medicine" icon={<EditIcon />}><Modal title="Edit medicine"><MedicineEdit /></Modal></ShowCard>
+                  </div>
+                </div>
+                <div className={styles['middle__div']}>
+                  <div className={styles['charts__div']}>
+                    <ProfileCard info={
+                      [
+                        {name: 'name', value: name},
+                        {name: 'username', value: username},
+                        {name: 'email', value: email},
+                        {name: 'date of birth', value: dob}
+                      ]
+                    }></ProfileCard>
+                  </div>
+                </div>
+{/*                 <div className={styles['right__div']}>
+                  <div className={styles['wallet__div']}>
 
-            {/* Change Password Card */}
-            <PasswordCard></PasswordCard>
+                  </div>
+                </div> */}
+              </div>
+            </div>
         </div>
     );
 }

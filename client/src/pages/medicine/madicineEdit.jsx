@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
+
+// Axios
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
 import styles from './medicineEdit.module.css';
+
+// React Router DOM
+import { useNavigate } from 'react-router-dom';
+
+// Styles
+// import styles from './madicineEdit.module.css';
 
 function MedicineEdit() {
   const [medicineData, setMedicineData] = useState({
@@ -35,6 +43,7 @@ function MedicineEdit() {
       setLoad(false);
     }
   }, [username]);
+
   async function checkAuthentication() {
     await axios({
       method: 'get',
@@ -58,7 +67,6 @@ function MedicineEdit() {
   }
 
   const xTest = checkAuthentication();
-
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -149,6 +157,7 @@ function MedicineEdit() {
             type="text"
             id="name"
             name="name"
+            // className={styles['input__field']}
             value={medicineData.name}
             readOnly
           />
@@ -159,6 +168,7 @@ function MedicineEdit() {
             type="number"
             id="price"
             name="price"
+            // className={styles['input__field']}
             value={medicineData.price}
             onChange={handleChange}
           />
@@ -169,6 +179,7 @@ function MedicineEdit() {
             type="text"
             id="activeIngredients"
             name="activeIngredients"
+            // className={styles['input__field']}
             value={medicineData.activeIngredients.join(', ')}
             onChange={handleChange}
           />

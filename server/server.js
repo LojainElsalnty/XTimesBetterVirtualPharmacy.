@@ -7,6 +7,9 @@ const bcrypt = require('bcrypt');
 const cors = require('cors');
 const path = require('path');
 
+const Server = require('socket.io').Server;
+const roomModel = require('./models/Room');
+
 const adminRoutes = require('./routes/admin/adminRoute');
 const adminMedicineCatalogRoutes = require('./routes/admin/medicineCatalogRoute');
 const patientMedicineCatalogRoutes = require('./routes/patient/medicineCatalogRoute');
@@ -28,8 +31,6 @@ const router = express.Router();
 // const patientRoutes= require('./routes/patient/patientRoute');
 // const pharmacistRoutes= require('./routes/pharmacist/pharmacistRoute');
 
-
-
 mongoose.set('strictQuery', false);
 
 // App variables
@@ -44,7 +45,7 @@ const app = express();
 const allowedOrigins = ['http://localhost:5174'];
 
 // Set up CORS options.
-const corsOptions = {
+/* const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
@@ -56,17 +57,18 @@ const corsOptions = {
 
 // // Allow requests from http://localhost:5173
 // app.use(cors({
-//   origin: 'http://localhost:5173',
-//   methods: 'GET,HEAD,PUT,PATCH',
-//   credentials: true, // If you need to pass cookies, set this to true
-// }));
-
-// // Allow requests from http://localhost:5173
-// app.use(cors({
 //   origin: 'http://localhost:5174',
 //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 //   credentials: true, // If you need to pass cookies, set this to true
 // }));
+}; */
+
+const corsOptions = {
+  origin: '*',
+  credentials: true,            //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+}
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -81,13 +83,62 @@ app.use(function (req, res, next) {
 });
 
 // Connect to MongoDB
-mongoose.connect(MongoURI)
+mongoose.connect(MongoURI) 
   .then(() => {
     console.log("MongoDB is now connected!")
 
     // Starting server
-    app.listen(Port, () => {
+    let expressServer = app.listen(Port, () => {
       console.log(`Listening to requests on http://localhost:${Port}`);
+    })
+
+    const socketIO = new Server(expressServer, {
+      cors: {
+          origin: '*',
+          credentials: true,            //access-control-allow-credentials:true
+          optionSuccessStatus: 200,
+      }
+    });
+
+    socketIO.on('connection', (socket) => {
+      console.log(`⚡: ${socket.id} user just connected!`);
+
+      socket.on('room', async data => {
+        console.log(data);
+        const temp = data.room.split('!@!@2@!@!').reverse().join('!@!@2@!@!');
+        console.log(`Temp: ${temp}`);
+        const reverseRoom = await roomModel.find({room_id: temp});
+        console.log(reverseRoom);
+        if(reverseRoom.length != 0) {
+          socket.join(temp)
+          console.log('joined room',temp)
+          //socket.emit('joined',{room:temp})
+          // Emit message to all users in the room
+          socket.to(temp).emit('message', {name: data.name, text: data.text});
+        } else {
+            data.room.split('!@!@2@!@!').reverse().join('!@!@2@!@!');
+            console.log(`Data Room: ${data.room}`);
+            const room = await roomModel.find({room_id: data.room});
+            console.log(room);
+            if (room.length != 0) {
+              socket.join(data.room)
+              console.log('joined room', data.room)
+              //socket.emit('joined', { room: data.room})
+              console.log(room);
+              // Emit message to all users in the room
+              socket.to(data.room).emit('message', {name: data.name, text: data.text});
+            }
+            else {
+              socket.join(data.room);
+              await roomModel.create({ room_id: data.room });
+              console.log('joined room',data.room);
+              //socket.emit('joined', { room: data.room });
+              console.log(room);
+              // Emit message to all users in the room
+              socket.to(data.room).emit('message', {name: data.name, text: data.text});
+            }
+        }
+      })
     })
   })
   .catch(err => console.log(err));
@@ -125,6 +176,7 @@ app.use('/patient/viewWalletNumber', require('./routes/patient/viewWallet'));
 app.use('/patient/prescriptionDetails', prescriptionRoutes);
 
 
+app.use('/patient/chat', require('./routes/patient/chatRoute.js'));
 
 // Pharmacist
 app.use('/pharmacist/medicineCatalog', pharmacistMedicineCatalogRoutes)
@@ -137,6 +189,8 @@ app.use('/pharmacist/viewSales', viewSalesRoute)
 app.use('/pharmacist/viewWalletNumber', require('./routes/pharmacist/viewPharmacistWallet')); // Get information about logged in pharmacist using his/her username
 //app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
 app.use('/pharmacist/notifications', require('./routes/pharmacist/pharmacistNotificationsRoute.js'));
+app.use('/pharmacist/info', require('./routes/pharmacist/pharmacistInfoRoute.js')); // Get information about logged in pharmacist using his/her username
+app.use('/pharmacist/chat', require('./routes/pharmacist/chatRoute.js'));
 
 // Admin 
 app.use('/admin/addremove', adminRoutes);

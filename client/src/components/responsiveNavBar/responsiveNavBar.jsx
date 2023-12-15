@@ -12,10 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 // Pages
-const pages = ['Products', 'About Us'];
-const settings = ['Profile', 'Logout'];
+const pages = [];
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
@@ -24,10 +24,13 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 // Home Made Hooks
-import { useAuth } from '../hooks/useAuth';
+import { useAuth, useUserType } from '../hooks/useAuth';
 
-// Home Made Components
+// Components
+import { PasswordCard } from '../../components/changePasswordCard/changePasswordCard';
+import { PasswordPopUp } from '../../components/passwordPopUp/passwordPopUp';
 import { LogOutCard } from '../logOutCard/logOutCard';
+import { Modal } from '../../components/modalCard/modalCard';
 
 export const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -35,13 +38,20 @@ export const ResponsiveAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [displayLogOutMessage, setDisplayLogOutMessage] = useState(false);
+  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+  const [userType, setUserType] = useState('');
   const navigate = useNavigate();
-  // const {accessToken, refreshToken} = useAuth();
-  const accessToken = sessionStorage.getItem("accessToken");
+  const accessToken = sessionStorage.getItem('accessToken');
+  const [open, setOpen] = useState(false);
+
 
   useEffect(() => {
     if (accessToken != null && accessToken != undefined && accessToken.split(' ')[1] != "") {
       setUserLoggedIn(true);
+      setUsername(sessionStorage.getItem('username'));
+      setName(sessionStorage.getItem('name'));
+      setUserType(sessionStorage.getItem('userType'));
     }
     else {
       setUserLoggedIn(false);
@@ -81,14 +91,12 @@ export const ResponsiveAppBar = () => {
   return (
     <>
       <AppBar position="static">
-        <Container maxWidth="xl" sx={{ backgroundImage: 'linear-gradient(45deg, black, transparent)' }}>
-          <Toolbar disableGutters sx={{ height: '1px !important' }}>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+        <Container maxWidth="xl" sx={{backgroundImage: 'linear-gradient(45deg, black, transparent)'}}>
+          <Toolbar disableGutters sx={{height: '1px !important'}}>
+            <LocalHospitalIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: {
@@ -134,9 +142,11 @@ export const ResponsiveAppBar = () => {
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
+
                 sx={{
                   display: { xs: 'block', md: 'none' },
                 }}
+                
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -178,119 +188,156 @@ export const ResponsiveAppBar = () => {
             </Box>
 
 
-            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, flexDirection: 'row', justifyContent: 'right' }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, flexDirection: 'row', justifyContent: 'right' }}>
               {/* Log In Button */}
               {!userLoggedIn && (
-                <Button
+              <Button
                   key={'Log In'}
                   onClick={handleLogin}
-                  sx={{ my: 2, color: 'white', display: 'block', px: 2 }}
-                >
-                  LOGIN
-                </Button>)}
+                  sx={{ my: 2, color: 'white', display: 'block', px: 2}}
+              >
+              LOGIN
+              </Button>)}
 
               {/* Registeration Button */}
               {!userLoggedIn && (
-                <Box sx={{ flexGrow: 0, width: 'auto' }}>
+              <Box sx={{ flexGrow: 0, width: 'auto' }}>
                   <Button
-                    key={'Registration'}
-                    onClick={handleOpenRegisterMenu}
-                    sx={{ my: 2, color: 'white', display: 'block', px: 0, width: 'auto' }}
+                  key={'Registration'}
+                  onClick={handleOpenRegisterMenu}
+                  sx={{ my: 2, color: 'white', display: 'block', px: 0, width: 'auto'}}
                   >
-                    REGISTER
+                  REGISTER
                   </Button>
-
+                  
                   <Menu
-                    sx={{ mt: '50px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElRegister}
-                    anchorOrigin={{
+                  sx={{ mt: '50px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElRegister}
+                  anchorOrigin={{
                       vertical: 'top',
                       horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
+                  }}
+                  keepMounted
+                  transformOrigin={{
                       vertical: 'top',
                       horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElRegister)}
-                    onClose={handleCloseRegisterMenu}
+                  }}
+                  open={Boolean(anchorElRegister)}
+                  onClose={handleCloseRegisterMenu}
+                  PaperProps={{  
+                    style: {  
+                      width: 180,  
+                    },
+                  }}
                   >
-                    <MenuItem key={'Register As A Patient'} onClick={handleCloseRegisterMenu} component="a" href={"/patientRegister"}>
-                      <Typography
-                        textAlign="center"
-                      >
-                        {'Register As A Patient'}
-                      </Typography>
-                    </MenuItem>
+                      <MenuItem key={'Register As A Patient'} onClick={handleCloseRegisterMenu} component="a" href={"/patientRegister"}>
+                          <Typography 
+                              textAlign="center"
+                          >
+                              {'Register As A Patient'}
+                          </Typography>
+                      </MenuItem>
 
-                    <MenuItem key={'Register As A Pharmacist'} onClick={handleCloseRegisterMenu} component="a" href={"/pharmacistRequest"}>
-                      <Typography
-                        textAlign="center"
-                      >
-                        {'Register As A Pharmacist'}
-                      </Typography>
-                    </MenuItem>
+                      <MenuItem key={'Register As A Doctor'} onClick={handleCloseRegisterMenu} component="a" href={"/doctorRequest"}>
+                          <Typography 
+                              textAlign="center"
+                          >
+                              {'Register As A Doctor'}
+                          </Typography>
+                      </MenuItem>
                   </Menu>
-                </Box>
+              </Box>
               )}
 
-              {/* Logged In User Nav bar */}
-              {userLoggedIn && (
-                <Box sx={{ flexGrow: 0, display: { md: 'flex', justifyContent: 'right' } }}>
-                  <Tooltip title="Open settings">
-                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, justifyContent: 'right', alignItems: 'center' }}>
-                      <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    sx={{ mt: '45px' }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
+            {/* Logged In User Nav bar */}
+            {userLoggedIn && (
+              <Box sx={{ flexGrow: 0, display: {md: 'flex', justifyContent: 'right'} }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, justifyContent: 'right', alignItems: 'center'}}>
+                  <Avatar sx={{backgroundColor: "#213547"}} alt="Person" src="../../assets/img/male.svg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+                PaperProps={{  
+                  style: {  
+                    width: 160,  
+                  },  
+                }} 
+              >
 
-                    {/* Change Password */}
-                    {/* <MenuItem key={'Change Password'} onClick={() => {
-                      handleCloseRegisterMenu();
-                      navigate('/changePassword');
-                    }}>
-                      <Typography
-                        textAlign="center"
-                      >
-                        {'Change Password'}
-                      </Typography>
-                    </MenuItem> */}
-
-                    {/* Log Out */}
-                    <MenuItem key={'Log Out'} onClick={() => {
+              {/* Profile */}
+                {
+                  sessionStorage.getItem('userType') !== 'admin' && 
+                  <MenuItem 
+                    onClick={() => {
                       handleCloseUserMenu();
-                      setDisplayLogOutMessage(true);
-                    }}>
-                      <Typography
+                    }}
+
+                    component="a" 
+                    href={`/${userType}/profile`}
+                  >
+                    <Typography 
                         textAlign="center"
-                      >
-                        {'Log Out'}
-                      </Typography>
-                    </MenuItem>
-                  </Menu>
-                </Box>
-              )}
+                    >
+                        {'Profile'}
+                    </Typography>
+                  </MenuItem>
+                }
+                {
+                  sessionStorage.getItem('userType') === 'admin' && 
+                  <MenuItem 
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      setOpen(!open);
+                    }}
+                  >
+                    <Typography 
+                        textAlign="center"
+                    >
+                        {'Change Password'}
+                    </Typography>
+                  </MenuItem>
+                }
+
+                {/* Log Out */}
+                <MenuItem 
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    setDisplayLogOutMessage(true);
+                  }}
+                >
+                  <Typography 
+                      textAlign="center"
+                  >
+                      {'Log Out'}
+                  </Typography>
+                </MenuItem>
+              </Menu>
             </Box>
+            )}
+          </Box>
           </Toolbar>
         </Container>
       </AppBar>
       {displayLogOutMessage && (<LogOutCard showLogOutCard={setDisplayLogOutMessage} ></LogOutCard>)}
+      {open && 
+        (<PasswordPopUp showPasswordCard={setOpen} />)
+      }
     </>
   );
 }

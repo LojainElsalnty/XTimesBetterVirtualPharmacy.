@@ -183,6 +183,7 @@ function MedicineAdd() {
             type="text"
             id="activeIngredients"
             name="activeIngredients"
+            className={styles['input__field']}
             value={medicineData.activeIngredients.join(', ')}
             onChange={handleChange}
             required
@@ -197,6 +198,7 @@ function MedicineAdd() {
             id="availableQuantity"
             name="availableQuantity"
             value={medicineData.availableQuantity}
+            className={styles['input__field']}
             onChange={handleChange}
             required
           />
@@ -222,6 +224,7 @@ function MedicineAdd() {
             id="medicinalUses"
             name="medicinalUses"
             value={medicineData.medicinalUses.join(', ')}
+            className={styles['input__field']}
             onChange={handleChange}
             required
           />
@@ -248,6 +251,7 @@ function MedicineAdd() {
             id="image"
             name="image"
             value={medicineData.image}
+            className={styles['input__field']}
             onChange={handleChange}
             required
           />

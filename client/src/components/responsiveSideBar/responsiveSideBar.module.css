@@ -1,0 +1,27 @@
+/* <DIV> Styles */
+.sidebar-main-div {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    background-image: linear-gradient(35deg, #252525 0%, #252525 100%);
+
+    position: relative;
+
+    color: white;
+}
+
+
+/* <BUTTON> Styles */
+.view-button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    border: 1px solid black;
+
+    color: white;
+}

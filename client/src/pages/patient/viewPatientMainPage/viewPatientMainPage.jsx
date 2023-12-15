@@ -25,9 +25,11 @@ import CheckoutAddress from '../checkoutAddress/checkoutAddressPage.jsx';
 import ViewPatientWalletPage from '../viewPatientWalletPage';
 import MyPCart from '../myPCart.jsx';
 import PrescriptionTable from '../viewPrescriptionInfoPage/PrescriptionTable';
+import { ChatPage } from '../ChatPage/chatPage.jsx';
 
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
+import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar.jsx';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -76,10 +78,6 @@ export const ViewPatientMainPage = () => {
 
     const list = [
         {
-            url: "/patient/profile",
-            pageName: "Profile",
-        },
-        {
             url: "/patient/medicineCatalog",
             pageName: "Medicine Catalog",
         },
@@ -97,6 +95,7 @@ export const ViewPatientMainPage = () => {
         },
      
         
+        
     ];
 
     if (load) {
@@ -105,8 +104,9 @@ export const ViewPatientMainPage = () => {
 
     return (
         <div className={styles['main-div']}>
-            <Navbar name="Patient" list={list} />
-            <>
+            {/* <Navbar name="Patient" list={list} /> */}
+            <ResponsiveSideBar array={list}/>
+            <> 
                 <Routes>
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/profile" element={<PatientProfile />} />
@@ -120,8 +120,7 @@ export const ViewPatientMainPage = () => {
                     <Route path="/viewWalletNumber" element={<ViewPatientWalletPage />} />
                     <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} />
                     <Route path="/prescriptionTable" element={<PrescriptionTable />} />
-
-                  
+                    <Route path="/chatPage" element={<ChatPage/>}/>
                 </Routes>
             </>
         </div >

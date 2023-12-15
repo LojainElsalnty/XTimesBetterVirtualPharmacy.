@@ -27,9 +27,11 @@ import MedicineCatalog from '../medicineCatalogPage';
 import ViewSales from '../viewSalesPage';
 import ViewPharmacistWalletPage from '../viewPharmacistWalletPage';
 import Notifications from '../notifications/viewNotificationsPage';
+import { ChatPage } from '../ChatPage/chatPage';
 
-// Components
+// Components 
 import { Navbar } from '../../../components/navbar/navbar';
+import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -79,10 +81,6 @@ export const ViewPharmacistMainPage = () => {
 
     const list = [
         {
-            url: "/pharmacist/profile",
-            pageName: "Profile",
-        },
-        {
             url: "/pharmacist/medicineCatalog",
             pageName: "Medicines List",
         },
@@ -110,13 +108,12 @@ export const ViewPharmacistMainPage = () => {
         return (<div>Loading</div>)
     }
 
-
-
     return (
 
         <div className={styles['main-div']}>
-            <Navbar name="Pharmacist" list={list} />
-            <>
+           {/*  <Navbar name="Pharmacist" list={list} /> */}
+            <ResponsiveSideBar array={list}/>
+            <> 
                 <Routes>
                     <Route path="/profile" element={<PharmacistProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
@@ -125,7 +122,8 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/viewSales" element={<ViewSales />} />
                     <Route path="/viewWalletNumber" element={<ViewPharmacistWalletPage />} />
                     <Route path="/notifications" element={<Notifications />} />
-                </Routes >
+                    <Route path="/chatPage" element={<ChatPage />} />
+                </Routes>
             </>
         </div >
 

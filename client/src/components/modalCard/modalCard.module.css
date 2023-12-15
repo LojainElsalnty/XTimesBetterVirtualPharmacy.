@@ -1,0 +1,142 @@
+/* Modal */
+.modal{
+    z-index: 1000;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+}
+
+.cc-modal-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .cc-modal-overlay {
+    border: none;
+    background: rgba(0,0,0,0.2);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  /* Default Medium Modal */
+  .cc-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    height: 600px;
+    background: #FFF;
+    color: #000;
+    box-shadow: 0 0 10px -6px #000;
+    z-index: 10;
+    border-radius: 4px;
+    margin: 32px;
+  }
+  
+  /* Dialog Modal */
+  .cc-modal-dialog .cc-modal {
+    width: 320px;
+    height: auto;
+    max-height: 200px;
+  }
+  
+  .cc-modal-dialog .cc-modal-body {
+    padding: 8px 36px 8px 12px;
+  }
+  
+  /* Small Modal */
+  .cc-modal-small .cc-modal {
+    width: 600px;
+    height: 400px;
+  }
+  
+  /* Large Modal */
+  .cc-modal-large .cc-modal {
+    width: 1200px;
+    height: 700px;
+  }
+  
+  /* Fullscreen Modal */
+  .cc-modal-full .cc-modal {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  .cc-modal-header {
+    border-bottom: 1px solid #000;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .cc-modal-body {
+    padding: 16px;
+    overflow: auto;
+    height: calc(100% - 16px);
+  }
+  
+  .cc-modal-body *:last-child {
+    margin-bottom: 0;
+  }
+  
+  .cc-modal-title {
+    flex: 1;
+    color: black;
+  }
+  
+  .cc-modal-close,
+  .cc-modal-fixed-close {
+    /* background: url('data:image/svg+xml;utf8,<svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.984 6.422l-5.578 5.578 5.578 5.578-1.406 1.406-5.578-5.578-5.578 5.578-1.406-1.406 5.578-5.578-5.578-5.578 1.406-1.406 5.578 5.578 5.578-5.578z"></path></svg>'); */
+    width: 24px;
+    height: 30px;
+    border: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cc-modal-fixed-close {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+  }
+
+  .cc-modal-close:hover,
+  .cc-modal-fixed-close:hover {
+    background-color: #125594;
+    color: white;
+  }
+
+  .cc-open-modal {
+    cursor: pointer;
+  }
+    
+  .cc-open-modal:hover {
+    
+  }
+
+#modal{
+    z-index: 1000;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    position: absolute;
+}
