@@ -169,11 +169,11 @@ export const PatientProfile = () => {
               <div className={styles['charts__div']}>
                 <ProfileCard info={
                   [
-                    {name: 'name', value: name},
-                    {name: 'username', value: username},
-                    {name: 'email', value: email},
-                    {name: 'mobile', value: mobile},
-                    {name: 'date of birth', value: dob}
+                    {name: 'Name', value: name},
+                    {name: 'Username', value: username},
+                    {name: 'Email', value: email},
+                    {name: 'Mobile', value: mobile},
+                    {name: 'Date Of Birth', value: dob}
                   ]
                 }></ProfileCard>
               </div>
