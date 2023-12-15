@@ -12,10 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import VaccinesIcon from '@mui/icons-material/Vaccines';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-
-// Pages
-const pages = [];
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
@@ -31,19 +29,25 @@ import { PasswordCard } from '../../components/changePasswordCard/changePassword
 import { PasswordPopUp } from '../../components/passwordPopUp/passwordPopUp';
 import { LogOutCard } from '../logOutCard/logOutCard';
 import { Modal } from '../../components/modalCard/modalCard';
+import { CreditCard } from '../../components/creditCard/creditCard';
+import ViewPharmacistWalletPage from '../../pages/pharmacist/viewPharmacistWalletPage';
 
-export const ResponsiveAppBar = () => {
+export const ResponsiveAppBar = ({array}) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElRegister, setAnchorElRegister] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [displayLogOutMessage, setDisplayLogOutMessage] = useState(false);
+  const [displayWalet, setDisplayWallet] = useState(false);
   const [username, setUsername] = useState('');
   const [name, setName] = useState('');
   const [userType, setUserType] = useState('');
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem('accessToken');
   const [open, setOpen] = useState(false);
+  const [pages, setPages] = useState(array);
+  console.log("Pages: ");
+  console.log(pages);
 
 
   useEffect(() => {
@@ -107,10 +111,10 @@ export const ResponsiveAppBar = () => {
                 },
                 fontFamily: 'monospace',
                 fontWeight: 700,
-                letterSpacing: '.3rem',
+                letterSpacing: '.1rem',
                 color: 'inherit',
                 textDecoration: 'none',
-                width: '50%',
+                width: '100%',
                 height: '100%',
               }}
             >
@@ -142,15 +146,19 @@ export const ResponsiveAppBar = () => {
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
-
                 sx={{
                   display: { xs: 'block', md: 'none' },
                 }}
-                
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
+                {pages != [] && pages.map((page, key) => (
+                  <MenuItem key={key} onClick={handleCloseNavMenu}>
+                    <Typography 
+                      textAlign="center"
+                      component="a"
+                      href={page.url}
+                      variant="h1"
+                    >
+                      {page.pageName}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -176,17 +184,27 @@ export const ResponsiveAppBar = () => {
               LOGO
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page}
-                </Button>
-              ))}
+              {pages != [] && pages.map((page, key) => (
+                  <MenuItem key={key} onClick={handleCloseNavMenu}>
+                    <Typography 
+                      textAlign="center"
+                      component="a"
+                      href={page.url}
+                      variant="label"
+                      sx={{ 
+                        my: 2, 
+                        height: '100%',
+                        color: 'white', 
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        px: 1
+                      }}
+                    >
+                      {page.pageName}</Typography>
+                  </MenuItem>
+                ))}
             </Box>
-
 
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, flexDirection: 'row', justifyContent: 'right' }}>
               {/* Log In Button */}
@@ -205,7 +223,12 @@ export const ResponsiveAppBar = () => {
                   <Button
                   key={'Registration'}
                   onClick={handleOpenRegisterMenu}
-                  sx={{ my: 2, color: 'white', display: 'block', px: 0, width: 'auto'}}
+                  sx={{ my: 2, color: 'white', display: 'block', px: 0, width: 100}}
+                  PaperProps={{  
+                    style: {  
+                      width: 160,  
+                    },  
+                  }}
                   >
                   REGISTER
                   </Button>
@@ -227,8 +250,8 @@ export const ResponsiveAppBar = () => {
                   onClose={handleCloseRegisterMenu}
                   PaperProps={{  
                     style: {  
-                      width: 180,  
-                    },
+                      width: 210,  
+                    },  
                   }}
                   >
                       <MenuItem key={'Register As A Patient'} onClick={handleCloseRegisterMenu} component="a" href={"/patientRegister"}>
@@ -239,11 +262,11 @@ export const ResponsiveAppBar = () => {
                           </Typography>
                       </MenuItem>
 
-                      <MenuItem key={'Register As A Doctor'} onClick={handleCloseRegisterMenu} component="a" href={"/doctorRequest"}>
+                      <MenuItem key={'Register As A Pharmacist'} onClick={handleCloseRegisterMenu} component="a" href={"/pharmacistRequest"}>
                           <Typography 
                               textAlign="center"
                           >
-                              {'Register As A Doctor'}
+                              {'Register As A Pharmacist'}
                           </Typography>
                       </MenuItem>
                   </Menu>
@@ -299,7 +322,6 @@ export const ResponsiveAppBar = () => {
                   </MenuItem>
                 }
                 {
-                  sessionStorage.getItem('userType') === 'admin' && 
                   <MenuItem 
                     onClick={() => {
                       handleCloseUserMenu();
@@ -310,6 +332,31 @@ export const ResponsiveAppBar = () => {
                         textAlign="center"
                     >
                         {'Change Password'}
+                    </Typography>
+                  </MenuItem>
+                }
+
+                {/* Wallet */}
+                {
+                  sessionStorage.getItem('userType') !== 'admin' &&
+                    <MenuItem 
+                    onClick={() => {
+                      handleCloseUserMenu();
+                    }}
+
+                    onMouseOver={() => {
+                      setDisplayWallet(true);
+                    }}
+
+                    
+                    onMouseLeave={() => {
+                      setDisplayWallet(false);
+                    }}
+                  >
+                    <Typography 
+                        textAlign="center"
+                    >
+                        {'Wallet'}
                     </Typography>
                   </MenuItem>
                 }
@@ -327,6 +374,9 @@ export const ResponsiveAppBar = () => {
                       {'Log Out'}
                   </Typography>
                 </MenuItem>
+
+
+
               </Menu>
             </Box>
             )}
@@ -337,6 +387,14 @@ export const ResponsiveAppBar = () => {
       {displayLogOutMessage && (<LogOutCard showLogOutCard={setDisplayLogOutMessage} ></LogOutCard>)}
       {open && 
         (<PasswordPopUp showPasswordCard={setOpen} />)
+      }
+      {
+        displayWalet && 
+        (
+          <div style={{zIndex: 100, position: 'absolute', top: '20%', left: '55%'}}>
+            <CreditCard><ViewPharmacistWalletPage></ViewPharmacistWalletPage></CreditCard>
+          </div>
+        )
       }
     </>
   );

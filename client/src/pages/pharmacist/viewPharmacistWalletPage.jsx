@@ -74,18 +74,7 @@ const ViewPharmacistWalletPage = () => {
         return (<div>Loading</div>)
     }
     return (
-        <div>
-            <h1>Wallet Amount</h1>
-            <div className={styles.walletContainer}>
-                <div className={styles.walletAmount}>
-                    <p className={styles.largeText}>Your Balance: ${walletNumber} </p>
-                    {/* <p className={styles.largeText}>${walletNumber}</p> Display the wallet amount here with larger text */}
-                </div>
-                <br />
-                <br />
-
-            </div>
-        </div>
+        <p className={styles.largeText}>Balance: ${walletNumber} </p>
     );
 };
 

@@ -8,6 +8,7 @@ import styles from './sendOtpPage.module.css';
 
 // Hooks
 import { useState } from 'react';
+import { useOTPContext } from '../../../components/hooks/useAuth';
 
 // React Router Hooks
 import { useNavigate } from 'react-router-dom';
@@ -18,12 +19,16 @@ import { useRecoveryContext } from '../../../components/hooks/useAuth';
 // User Defined Components
 import {AlertMessageCard} from '../../../components/alertMessageCard/alertMessageCard';
 
+import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiveNavBar';
+
+
 export const SendOtpPage = () => {
     const {otp, setOTP, email, setEmail} = useRecoveryContext();
     const [userEmail, setUserEmail] = useState("");
     const [alertMessage, setAlertMessage] = useState("");
     const [showAlertMessage, setShowAlertMessage] = useState("");
     const navigate = useNavigate();
+    const {setOtpSent} = useOTPContext();
 
     function sendOtp() {
         if (!userEmail.match(/^[a-zA-Z0-9.+_-]+@gmail.com$/)) {
@@ -33,7 +38,7 @@ export const SendOtpPage = () => {
         }
 
         if (userEmail) {
-            axios.get(`http://localhost:8000/resetPassword/checkEmail?email=${userEmail}`)
+            axios.get(`http://localhost:5000/resetPassword/checkEmail?email=${userEmail}`)
             .then((response) => {
                 if (response.status === 200) {
                     // generate the OTP
@@ -45,11 +50,14 @@ export const SendOtpPage = () => {
                     setEmail(userEmail);
                     console.log(userEmail);
 
-                    axios.post("http://localhost:8000/resetPassword/sendEmail", {
+                    axios.post("http://localhost:5000/resetPassword/sendEmail", {
                         otp: OTP,
                         recipientEmail: userEmail,
                     })
-                    .then(() => navigate('/verifyOTP'))
+                    .then(() => {
+                        setOtpSent(true);
+                        navigate('/verifyOTP')
+                    })
                     .catch((error) => {console.log(error)})
                 }
                 else {
@@ -72,7 +80,9 @@ export const SendOtpPage = () => {
     }
 
     return (
-        <div className={styles['send-otp-main-div']}>
+        <>
+            <ResponsiveAppBar array={[]}/>
+            <div className={styles['send-otp-main-div']}>
             <div className={styles['otp__main__div']}>
                 <div className={styles['send-otp-title-div']}>
                 </div>
@@ -98,5 +108,7 @@ export const SendOtpPage = () => {
            
             {showAlertMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={setShowAlertMessage}></AlertMessageCard>)}
         </div>
+        </>
+       
     );
 }

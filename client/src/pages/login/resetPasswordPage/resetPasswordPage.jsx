@@ -15,12 +15,17 @@ import { PasswordValidation } from '../../../components/passwordValidation/passw
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 // Hooks
 import { useState, useEffect } from 'react';
+import { useOTPContext } from '../../../components/hooks/useAuth';
 
 // User Defined Hooks
 import { useRecoveryContext } from '../../../components/hooks/useAuth';
+
+import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiveNavBar';
+
 
 export const ResetPasswordPage = () => {
     const {email} = useRecoveryContext();
@@ -33,6 +38,7 @@ export const ResetPasswordPage = () => {
     const [passwordNumber, setPasswordNumber] = useState(false);
     const [passwordLength, setPasswordLength] = useState(false);
     const navigate = useNavigate();
+    const {otpSent, otpVerified, setOtpSent, setOtpVerified} = useOTPContext();
 
     useEffect(() => {
         if (newPassword.length > 0) {
@@ -81,7 +87,7 @@ export const ResetPasswordPage = () => {
         // send the new password to the server
         await axios ({
             method: 'put',
-            url: `http://localhost:8000/resetPassword/updatePassword?email=${email}`,
+            url: `http://localhost:5000/resetPassword/updatePassword?email=${email}`,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -90,6 +96,9 @@ export const ResetPasswordPage = () => {
         .then((response) => {
             setAlertMessage('Password changed successfully');
             setShowAlertMessage(true);
+            setOtpSent(false);
+            setOtpVerified(false);
+            navigate('/login');
         })
         .catch((error) => {
             console.log(`Error ${error}`);
@@ -106,8 +115,14 @@ export const ResetPasswordPage = () => {
         setShowAlertMessage(false);
     }
 
+    if (!otpSent && !otpVerified) {
+        return <Navigate to="/login" />
+      }
+
     return (
         <>
+                    <ResponsiveAppBar array={[]}/>
+
             <div className={styles['reset-password-main-div']}>
                 <div className={styles['password__main__div']}>
                     <div className={styles['send-password-title-div']}>

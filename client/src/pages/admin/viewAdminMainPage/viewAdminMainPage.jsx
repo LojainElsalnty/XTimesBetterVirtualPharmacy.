@@ -26,6 +26,7 @@ import ViewSales from '../viewSalesPage';
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
 import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar';
+import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiveNavBar';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -107,10 +108,10 @@ export const ViewAdminMainPage = () => {
     return (
         <div className={styles['main-div']}>
             {/* <Navbar name="Admin" list={list} /> */}
+            <ResponsiveAppBar array={list}/>
             <ResponsiveSideBar array={list}/>
             <>
                 <Routes>
-                    <Route path="/profile" element={<AdminProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/requestedPharmacistsInfoPage" element={<RequestedPharmacistsInfo />} />
                     <Route path="/pharmacistInformation" element={<PharmacistView />} />
@@ -119,6 +120,7 @@ export const ViewAdminMainPage = () => {
                     <Route path="/removepharmacist" element={<RemovePharmacist />} />
                     <Route path="/removepatient" element={<RemovePatient />} />
                     <Route path="/viewSales" element={<ViewSales />} />
+                    <Route path="/" element={<Navigate to="/admin/addadmin" />} />
                 </Routes>
             </>
         </div>

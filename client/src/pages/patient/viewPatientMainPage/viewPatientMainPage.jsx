@@ -30,6 +30,7 @@ import { ChatPage } from '../ChatPage/chatPage.jsx';
 // Components
 import { Navbar } from '../../../components/navbar/navbar';
 import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar.jsx';
+import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiveNavBar';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -105,6 +106,7 @@ export const ViewPatientMainPage = () => {
     return (
         <div className={styles['main-div']}>
             {/* <Navbar name="Patient" list={list} /> */}
+            <ResponsiveAppBar array={list}/>
             <ResponsiveSideBar array={list}/>
             <> 
                 <Routes>
