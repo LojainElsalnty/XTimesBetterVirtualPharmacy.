@@ -242,7 +242,7 @@ Make sure you have the following tools and dependencies installed on your machin
 ## API Reference
 The XTimesBetter Pharmacy API is hosted at the following base URL:
 
-- Base URL: `http://localhost:5000`
+- Base URL: `http://localhost:8000`
 
 ### Endpoints
 ### Authentication Routes
