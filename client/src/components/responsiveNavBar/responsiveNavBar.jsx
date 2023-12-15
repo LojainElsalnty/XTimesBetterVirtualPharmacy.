@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 
 // Pages
 const pages = [];
@@ -25,8 +26,11 @@ import { useState, useEffect } from 'react';
 // Home Made Hooks
 import { useAuth, useUserType } from '../hooks/useAuth';
 
-// Home Made Components
+// Components
+import { PasswordCard } from '../../components/changePasswordCard/changePasswordCard';
+import { PasswordPopUp } from '../../components/passwordPopUp/passwordPopUp';
 import { LogOutCard } from '../logOutCard/logOutCard';
+import { Modal } from '../../components/modalCard/modalCard';
 
 export const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -38,8 +42,8 @@ export const ResponsiveAppBar = () => {
   const [name, setName] = useState('');
   const [userType, setUserType] = useState('');
   const navigate = useNavigate();
-  // const {accessToken, refreshToken} = useAuth();
   const accessToken = sessionStorage.getItem('accessToken');
+  const [open, setOpen] = useState(false);
 
 
   useEffect(() => {
@@ -89,12 +93,10 @@ export const ResponsiveAppBar = () => {
       <AppBar position="static">
         <Container maxWidth="xl" sx={{backgroundImage: 'linear-gradient(45deg, black, transparent)'}}>
           <Toolbar disableGutters sx={{height: '1px !important'}}>
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <LocalHospitalIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: {
@@ -112,7 +114,7 @@ export const ResponsiveAppBar = () => {
                 height: '100%',
               }}
             >
-              X-Virtual Clinic
+              X-Pharmacy
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -140,9 +142,11 @@ export const ResponsiveAppBar = () => {
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
+
                 sx={{
                   display: { xs: 'block', md: 'none' },
                 }}
+                
               >
                 {pages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -191,7 +195,7 @@ export const ResponsiveAppBar = () => {
                   key={'Log In'}
                   onClick={handleLogin}
                   sx={{ my: 2, color: 'white', display: 'block', px: 2}}
-                >
+              >
               LOGIN
               </Button>)}
 
@@ -221,6 +225,11 @@ export const ResponsiveAppBar = () => {
                   }}
                   open={Boolean(anchorElRegister)}
                   onClose={handleCloseRegisterMenu}
+                  PaperProps={{  
+                    style: {  
+                      width: 180,  
+                    },
+                  }}
                   >
                       <MenuItem key={'Register As A Patient'} onClick={handleCloseRegisterMenu} component="a" href={"/patientRegister"}>
                           <Typography 
@@ -266,26 +275,44 @@ export const ResponsiveAppBar = () => {
                 onClose={handleCloseUserMenu}
                 PaperProps={{  
                   style: {  
-                    width: 100,  
+                    width: 160,  
                   },  
                 }} 
               >
 
               {/* Profile */}
-                <MenuItem 
-                  onClick={() => {
-                    handleCloseUserMenu();
-                  }}
+                {
+                  sessionStorage.getItem('userType') !== 'admin' && 
+                  <MenuItem 
+                    onClick={() => {
+                      handleCloseUserMenu();
+                    }}
 
-                  component="a" 
-                  href={`/${userType}/profile`}
-                >
-                  <Typography 
-                      textAlign="center"
+                    component="a" 
+                    href={`/${userType}/profile`}
                   >
-                      {'Profile'}
-                  </Typography>
-                </MenuItem>
+                    <Typography 
+                        textAlign="center"
+                    >
+                        {'Profile'}
+                    </Typography>
+                  </MenuItem>
+                }
+                {
+                  sessionStorage.getItem('userType') === 'admin' && 
+                  <MenuItem 
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      setOpen(!open);
+                    }}
+                  >
+                    <Typography 
+                        textAlign="center"
+                    >
+                        {'Change Password'}
+                    </Typography>
+                  </MenuItem>
+                }
 
                 {/* Log Out */}
                 <MenuItem 
@@ -308,7 +335,9 @@ export const ResponsiveAppBar = () => {
         </Container>
       </AppBar>
       {displayLogOutMessage && (<LogOutCard showLogOutCard={setDisplayLogOutMessage} ></LogOutCard>)}
-
+      {open && 
+        (<PasswordPopUp showPasswordCard={setOpen} />)
+      }
     </>
   );
 }

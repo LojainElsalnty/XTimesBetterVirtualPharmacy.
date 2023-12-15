@@ -35,10 +35,13 @@ import { DropDown } from '../../../components/dropDown/dropDown';
 // User Defined Components
 import { CreditCard } from '../../../components/creditCard/creditCard';
 import { ShowCard } from '../../../components/showCard/showCard';
+import { ProfileCard } from '../../../components/profileCard/profileCard';
 import { Modal } from '../../../components/modalCard/modalCard';
 
-// Pages
-import PastOrders from '../pastOrders/pastOrdersPage';
+// MUI Icons
+import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
 
 export const PatientProfile = () => {
     // User Info
@@ -48,8 +51,6 @@ export const PatientProfile = () => {
     const [dob, setDOB] = useState('');
     const [mobile, setMobile] = useState('');
     const [image, setImage] = useState('');
-    
-
     const accessToken = sessionStorage.getItem("accessToken");
     const [username, setUsername] = useState('');
     const [load, setLoad] = useState(true);
@@ -63,7 +64,7 @@ export const PatientProfile = () => {
     async function checkAuthentication() {
       await axios ({
           method: 'get',
-          url: `http://localhost:8000/authentication/checkAccessToken`,
+          url: `http://localhost:5000/authentication/checkAccessToken`,
           headers: {
               "Content-Type": "application/json",
               'Authorization': accessToken,
@@ -84,11 +85,15 @@ export const PatientProfile = () => {
     if (load) {
       return(<div>Loading</div>)
     }
+
+    function handleViewMedicalHistory() {
+      navigate('/patient/viewMedicalHistory');
+    }
     
     const getPatientInfo = async () => {
       await axios ({
         method: 'get',
-        url: `http://localhost:8000/patient/info`,
+        url: `http://localhost:5000/patient/info`,
         headers: {
             "Content-Type": "application/json",
             'Authorization': accessToken,
@@ -126,15 +131,16 @@ export const PatientProfile = () => {
       })
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     getPatientInfo();
-    
+
     return (
         <div className={styles['patient-info-main-div']}>
           <div className={styles['patient-info-top-div']}>
             <div className={styles['patient-info-left-div']}>
               <img className={styles['patient-info-img']} src={image}></img>
             </div>
-            <div className={styles['patient-info-right-div']}>
+            {/* <div className={styles['patient-info-right-div']}>
               <div className={styles['patient-information-div']}>
                 <Typography level="h1" component="h1" sx={{color: 'white'}}>{name}</Typography>
                 <div className={styles['patient-information-sub-div']}>
@@ -148,30 +154,36 @@ export const PatientProfile = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
-          <div className={styles['patient-info-bottom-div']}>
-          </div>
-
+         {/*  <div className={styles['patient-info-bottom-div']}>
+          </div> */}
           <div className={styles['main__div']}>
             <div className={styles['left__div']}>
               <div className={styles['configurations__div']}>
                 <DropDown title="change password" child={<PasswordCard />}></DropDown>
-                {/* <ShowCard title="view orders"><Modal title="View Past Orders"><PastOrders /></Modal></ShowCard> */}
+                {/* <ShowCard title="view medical history" icon={<MedicalInformationIcon/>}><NorthEastIcon sx={{cursor: 'pointer'}} onClick={handleViewMedicalHistory}></NorthEastIcon></ShowCard> */}
               </div>
             </div>
             <div className={styles['middle__div']}>
               <div className={styles['charts__div']}>
-
+                <ProfileCard info={
+                  [
+                    {name: 'name', value: name},
+                    {name: 'username', value: username},
+                    {name: 'email', value: email},
+                    {name: 'mobile', value: mobile},
+                    {name: 'date of birth', value: dob}
+                  ]
+                }></ProfileCard>
               </div>
             </div>
             <div className={styles['right__div']}>
               <div className={styles['wallet__div']}>
+                <CreditCard></CreditCard>
               </div>
             </div>
           </div>
-
         </div>
     );
-
 }

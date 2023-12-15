@@ -8,8 +8,13 @@ import {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-// MUI Component
+// MUI Components
 import CloseIcon from '@mui/icons-material/Close';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import WalletIcon from '@mui/icons-material/Wallet';
+import MedicationIcon from '@mui/icons-material/Medication';
+import EditIcon from '@mui/icons-material/Edit';
 
 // FontAwesome Components
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -61,11 +66,11 @@ export const Modal = ({
         ReactDOM.createPortal(
         <div className={styles[`cc-modal-container${addedClasses}`]} id={styles["modal"]}>
 
-            <button
+            {/* <button
             className={styles["cc-modal-overlay"]}
             onClick={() => setOpen(!open)}
             aria-label="Close Modal"
-            />
+            /> */}
             <div className={styles["cc-modal"]}>
 
             {size !== 'dialog' 
@@ -98,13 +103,20 @@ export const Modal = ({
 
   return (
   <>
-    {!open && hasBtn &&
-      <VisibilityOffIcon 
+    {!open && hasBtn ?
+      <KeyboardArrowDownIcon
         className={styles["cc-open-modal"]}
         onClick={() => setOpen(!open)}
         aria-haspopup="dialog"
         aria-controls={modalId}
       />
+      :
+      <KeyboardArrowRightIcon
+      className={styles["cc-open-modal"]}
+      onClick={() => setOpen(!open)}
+      aria-haspopup="dialog"
+      aria-controls={modalId}
+    />
     }
     {modalComponent}
   </>

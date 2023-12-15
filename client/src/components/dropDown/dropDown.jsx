@@ -12,6 +12,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import WalletIcon from '@mui/icons-material/Wallet';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 // Font Awesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,11 +42,11 @@ export const DropDown = ({ title, child }) => {
                     <div className={styles['keyboard__div']}>
                         {
                             showContent ? 
-                                <VisibilityIcon onClick={() => 
+                                <KeyboardArrowRightIcon onClick={() => 
                                     {
                                         setShowContent(!showContent);
                                     }}/> : 
-                                <VisibilityOffIcon onClick={() => 
+                                <KeyboardArrowDownIcon onClick={() => 
                                     {
                                         setShowContent(!showContent);
                                     }}/>

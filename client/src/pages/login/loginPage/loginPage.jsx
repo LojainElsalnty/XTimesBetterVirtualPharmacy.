@@ -106,9 +106,9 @@ export const LoginPage = () => {
     return (
         <div className={styles['login-main-div']}>
             <div className={styles['login-back-button-div']}>
-                <button className={styles['login-back-button']} onClick={handleGoBackButtonClicked}>
+                {/* <button className={styles['login-back-button']} onClick={handleGoBackButtonClicked}>
                     <FontAwesomeIcon icon={faHouse} />
-                </button>
+                </button> */}
             </div>
             <div className={styles['login-sub-div']}>
                 <h2 className={styles['login-title-h2']}>Login Here</h2>

@@ -24,6 +24,7 @@ import { PasswordCard } from '../../../components/changePasswordCard/changePassw
 import { DropDown } from '../../../components/dropDown/dropDown';
 import { ShowCard } from '../../../components/showCard/showCard';
 import { Modal } from '../../../components/modalCard/modalCard';
+import { ProfileCard } from '../../../components/profileCard/profileCard';
 
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
@@ -129,7 +130,7 @@ export const PharmacistProfile = () => {
             <div className={styles['pharmacist-info-left-div']}>
                 <img className={styles['pharmacist-info-img']} src={image}></img>
             </div>
-            <div className={styles['pharmacist-info-right-div']}>
+{/*             <div className={styles['pharmacist-info-right-div']}>
                 <div className={styles['pharmacist-information-div']}>
                 <Typography level="h1" component="h1" sx={{color: 'white'}}>{name}</Typography>
                 <div className={styles['pharmacist-information-sub-div']}>
@@ -142,7 +143,7 @@ export const PharmacistProfile = () => {
                     </div>
                 </div>
                 </div>
-            </div>
+            </div> */}
             </div>
             <div className={styles['pharmacist-info-bottom-div']}>
               <div className={styles['main__div']}>
@@ -154,13 +155,22 @@ export const PharmacistProfile = () => {
                   </div>
                 </div>
                 <div className={styles['middle__div']}>
-                  <div className={styles['charts__div']}></div>
+                  <div className={styles['charts__div']}>
+                    <ProfileCard info={
+                      [
+                        {name: 'name', value: name},
+                        {name: 'username', value: username},
+                        {name: 'email', value: email},
+                        {name: 'date of birth', value: dob}
+                      ]
+                    }></ProfileCard>
+                  </div>
                 </div>
-                <div className={styles['right__div']}>
+{/*                 <div className={styles['right__div']}>
                   <div className={styles['wallet__div']}>
 
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
         </div>
