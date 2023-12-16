@@ -57,7 +57,7 @@ export const LoginPage = () => {
         try {
             await axios({
                 method: 'POST',
-                url: 'http://localhost:5000/login',
+                url: 'http://localhost:8000/login',
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -87,11 +87,11 @@ export const LoginPage = () => {
                     sessionStorage.setItem("userType", "patient");
                     navigate('/patient');
                 } 
-                else if (response.data.userType === "doctor") {
+                else if (response.data.userType === "pharmacist") {
                     setError(false);
-                    setUserType("doctor");
-                    sessionStorage.setItem("userType", "doctor");
-                    navigate('/doctor');
+                    setUserType("pharmacist");
+                    sessionStorage.setItem("userType", "pharmacist");
+                    navigate('/pharmacist');
                 }
                 else if (response.data.userType === "admin") {
                     setError(false);

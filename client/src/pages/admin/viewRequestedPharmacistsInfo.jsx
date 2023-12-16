@@ -6,7 +6,8 @@ import axios from 'axios';
 // React Router DOM
 import { useNavigate } from 'react-router-dom';
 import styles from './viewReq.module.css'; // Make sure to import your stylesheet
-
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 function ViewRequestedPharmacistsInfo() {
   const [requestedPharmacists, setRequestedPharmacists] = useState([]);
@@ -204,24 +205,6 @@ function ViewRequestedPharmacistsInfo() {
   return (
     <div>
       <h1>Requested Pharmacists List</h1>
-
-      <div style={{ marginBottom: '10px' }}>
-        <button
-          onClick={handlePrevPage}
-          disabled={currentPage === 1}
-          style={{ marginRight: '10px' }}  // Adds space to the right of the 'Prev' button
-        >
-          Prev
-        </button>
-        <button
-          onClick={handleNextPage}
-          disabled={currentPage * itemsPerPage >= filteredPharmacists.length}
-        >
-          Next
-        </button>
-        &nbsp; Page {currentPage}
-      </div>
-      &nbsp; &nbsp; &nbsp;
       <div>
         <label htmlFor="filterSelect">Filter By Status: </label>
         <select id="filterSelect" value={filter} onChange={handleFilterChange}>
@@ -303,6 +286,22 @@ function ViewRequestedPharmacistsInfo() {
         <div style={{ fontSize: '20px', textAlign: 'center', marginTop: '20px', color: '#89CFF0' }}>
           No Pharmacists Requests found matching the selected criteria.
         </div>)}
+      <div style={{ margin: '20px' }}>
+        <button
+          onClick={handlePrevPage}
+          disabled={currentPage === 1}
+          style={{ marginRight: '10px' }}  // Adds space to the right of the 'Prev' button
+        >
+          <ChevronLeftIcon />
+        </button>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage * itemsPerPage >= filteredPharmacists.length}
+        >
+          <ChevronRightIcon />
+        </button>
+        &nbsp; Page {currentPage}
+      </div>
     </div>
 
   );

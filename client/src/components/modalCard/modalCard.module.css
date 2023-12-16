@@ -22,9 +22,10 @@
   }
   
   .cc-modal-overlay {
+    height: 100vh;
     border: none;
     background: rgba(0,0,0,0.2);
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -36,8 +37,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 800px;
-    height: 600px;
+    width: fit-content;
+    height: fit-content;
     background: #FFF;
     color: #000;
     box-shadow: 0 0 10px -6px #000;

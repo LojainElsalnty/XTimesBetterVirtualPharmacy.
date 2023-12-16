@@ -87,16 +87,9 @@ export const ViewPatientMainPage = () => {
             pageName: "My Orders",
         },
         {
-            url: "/patient/viewWalletNumber",
-            pageName: "Wallet",
-        },
-        {
             url: "/patient/prescriptionTable",
-            pageName: "Prescript pg",
+            pageName: "Prescriptions",
         },
-     
-        
-        
     ];
 
     if (load) {

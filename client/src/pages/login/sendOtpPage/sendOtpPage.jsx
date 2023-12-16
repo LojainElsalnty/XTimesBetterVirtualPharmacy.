@@ -38,7 +38,7 @@ export const SendOtpPage = () => {
         }
 
         if (userEmail) {
-            axios.get(`http://localhost:5000/resetPassword/checkEmail?email=${userEmail}`)
+            axios.get(`http://localhost:8000/resetPassword/checkEmail?email=${userEmail}`)
             .then((response) => {
                 if (response.status === 200) {
                     // generate the OTP
@@ -50,7 +50,7 @@ export const SendOtpPage = () => {
                     setEmail(userEmail);
                     console.log(userEmail);
 
-                    axios.post("http://localhost:5000/resetPassword/sendEmail", {
+                    axios.post("http://localhost:8000/resetPassword/sendEmail", {
                         otp: OTP,
                         recipientEmail: userEmail,
                     })

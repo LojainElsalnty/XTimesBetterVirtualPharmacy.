@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './addadmin.module.css';
 import searchIcon from '../../assets/img/searchicon.png';
+// React Router DOM
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
+
+import { Modal } from '../../components/modalCard/modalCard';
+import { TitleCard } from '../../components/titleCard/titleCard';
 
 const AdminTable = () => {
 
@@ -10,6 +17,7 @@ const AdminTable = () => {
   const [load, setLoad] = useState(true);
   const [username, setUsername] = useState('');
   const [searchUsername, setSearchUsername] = useState('');
+  const navigate = useNavigate();
 
   console.log(accessToken);
   useEffect(() => {
@@ -176,114 +184,124 @@ const AdminTable = () => {
     return (<div>Loading</div>)
   }
   return (
-    <div>
-      <h1>Admins List</h1>
+    <div style={{padding: '12px'}}>
+      <TitleCard title='Admins List' />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+            <div className={styles['searchbar-main-div']}>
+              <div className={styles['searchbar-sub-div']}>
+                  <div className={styles['searchbar-input-div']}>
+                      <input className={styles['searchbar-input']} value={searchUsername} placeholder="Enter admin username" type="text"  onChange={handleUsernameChange}/>
+                  </div>
+                  <div className={styles['searchbar-icon-div']}>
+                    <button 
+                          style={{margin: '10px'}}
+                          data-tooltip-id="my__search__icon"
+                          data-tooltip-content="Search"
+                          data-tooltip-place="top"
+                          onClick={fetchSelectedAdmin}
+                      >
+                      <Modal title='Admins' icon='search' className={styles['searchbar-button']}>
+                        {selectedAdmin && (
+                          <div>
+                            <h3>Admin Information for {selectedAdmin.username}</h3>
+                            <table className={styles.pharmacistTable}>
+                              <thead>
+                                <tr>
+                                  <th>Username</th>
+                                  <th>First Name</th>
+                                  <th>Last Name</th>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr key={selectedAdmin._id}>
+                                  <td>{selectedAdmin.username}</td>
+                                  <td>{selectedAdmin.firstName}</td>
+                                  <td>{selectedAdmin.lastName}</td>
+                                  <td>
+                                    <button onClick={() => handleRemoveAdmin(selectedAdmin.username)} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        )}
+                      </Modal>
+                      </button>
+                      <button 
+                          style={{margin: '10px'}}
+                          data-tooltip-id="my__search__icon"
+                          data-tooltip-content="Search"
+                          data-tooltip-place="top"
+                          onClick={handleAddAdminClick}
+                      >
+                      <Modal title='Add Admin' icon='plus' className={styles['searchbar-button']}>
+                      {showAddAdminPopup && (
+                      <div className={styles['add__admin__div']}>
+                          <div className="popup-content">
+                            <form className={styles['add__admin__form']} onSubmit={handleAddAdminSubmit}>
+                              <div className={styles['add__admin__sub__div']}>
+                                <label className={styles['admin__label']}>Username:</label>
+                                <input
+                                  type="text"
+                                  name="username"
+                                  value={newAdminData.username}
+                                  onChange={handleInputChange}
+                                  className={styles['admin__input']}
+                                  required
+                                />
+                              </div>
+                              <div className={styles['add__admin__sub__div']}>
+                                <label className={styles['admin__label']}>Password:</label>
+                                <input
+                                  type="password"
+                                  name="password"
+                                  value={newAdminData.password}
+                                  onChange={handleInputChange}
+                                  className={styles['admin__input']}
+                                  required
+                                />
+                              </div>
+                              <div className={styles['add__admin__sub__div']}>
+                                <label className={styles['admin__label']}>First Name:</label>
+                                <input
+                                  type="text"
+                                  name="firstName"
+                                  value={newAdminData.firstName}
+                                  onChange={handleInputChange}
+                                  className={styles['admin__input']}
+                                />
+                              </div>
+                              <div className={styles['add__admin__sub__div']}>
+                                <label className={styles['admin__label']}>Last Name:</label>
+                                <input
+                                  type="text"
+                                  name="lastName"
+                                  value={newAdminData.lastName}
+                                  onChange={handleInputChange}
+                                  className={styles['admin__input']}
+                                />
+                              </div>
+                            <button className={styles['add__admin__btn']} type="submit">Add Admin</button>
+                            <button className={styles['add__admin__btn']} type="button" onClick={handlePopupClose} style={{ backgroundColor: '#bb1212'}}>Cancel</button>
+                            {error && <p>{error}</p>}
+                          </form>
+                        </div>
+                      </div>
+                    )}
+                      </Modal>
+                      </button>
 
-
-        <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-
-          Enter Admin Username:
-
-          <input
-            type="text"
-            value={searchUsername}
-            onChange={handleUsernameChange}
-          />
-          <button className={styles['find-button']} onClick={fetchSelectedAdmin}>
-            <br />
-
-            <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
-            <br />
-
-          </button>
-        </label>
+                </div>
+              </div>
+            </div>
       </div>
-      {selectedAdmin && (
-        <div>
-          <h3>Admin Information for {selectedAdmin.username}</h3>
-          <table className={styles.pharmacistTable}>
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <tr key={selectedAdmin._id}>
-                <td>{selectedAdmin.username}</td>
-                <td>{selectedAdmin.firstName}</td>
-                <td>{selectedAdmin.lastName}</td>
-                <td>
-                  <button onClick={() => handleRemoveAdmin(selectedAdmin.username)} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Remove</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+     
 
 
 
-      <button onClick={handleAddAdminClick} style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}> Add Admin</button>
-      {showAddAdminPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <span className="close" onClick={handlePopupClose}>
-              &times;
-            </span>
-            <h2>Add Admin</h2>
-            <form onSubmit={handleAddAdminSubmit}>
-              <div>
-                <label>Username:</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={newAdminData.username}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div>
-                <label>Password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={newAdminData.password}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div>
-                <label>First Name:</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={newAdminData.firstName}
-                  onChange={handleInputChange}
 
-                />
-              </div>
-              <div>
-                <label>Last Name:</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={newAdminData.lastName}
-                  onChange={handleInputChange}
 
-                />
-              </div>
-              <button type="submit" style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Add Admin</button>
-              <button type="button" onClick={handlePopupClose} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button>
-              {error && <p>{error}</p>}
-            </form>
-          </div>
-        </div>
-      )}
       <table className={styles.pharmacistTable}>
         <thead>
           <tr>
