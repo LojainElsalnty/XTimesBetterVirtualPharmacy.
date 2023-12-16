@@ -7,8 +7,7 @@ The XTimesBetter Pharmacy project is driven by the motivation to enhance the eff
 This project does not currently use a continuous integration service. If you encounter any issues during setup, please refer to the installation instructions and feel free to reach out for assistance.
 
 ## Code Style
-Currently, our project doesn't have a formalized code style guide in place. While we strive for code readability and maintainability, we understand that consistency is crucial for collaborative development.
-In the absence of a formal guide, we encourage contributors to follow general best practices for code readability and to maintain consistency within the codebase.
+The code style is enforced using eslint and prettier. The code style is enforced using pre-commit hooks and pre-commit github action.
 
 
 ## Screenshots

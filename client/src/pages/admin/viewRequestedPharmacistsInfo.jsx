@@ -204,14 +204,16 @@ function ViewRequestedPharmacistsInfo() {
 
   return (
     <div>
+      <br />
       <h1>Requested Pharmacists List</h1>
+      <br />
       <div>
         <label htmlFor="filterSelect">Filter By Status: </label>
         <select id="filterSelect" value={filter} onChange={handleFilterChange}>
           <option value="all">All</option>
           <option value="accepted">Accepted</option>
           <option value="rejected">Rejected</option>
-          <option value="onhold">Waiting</option>
+          <option value="onhold">Onhold</option>
 
         </select>
         &nbsp;
@@ -260,7 +262,7 @@ function ViewRequestedPharmacistsInfo() {
                 <br />
                 {pharmacist.status !== 'accepted' && (
                  <button onClick={() => rejectPharmacist(pharmacist._id)}>Reject</button> */}
-                  <button
+                  <button className={styles.AcceptBtn}
                     onClick={() => acceptPharmacist(pharmacist._id)}
                     disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
                   >
@@ -268,7 +270,7 @@ function ViewRequestedPharmacistsInfo() {
                   </button>
                   <br />
                   <br />
-                  <button
+                  <button className={styles.RejectBtn}
                     onClick={() => rejectPharmacist(pharmacist._id)}
                     disabled={pharmacist.status === 'accepted' || pharmacist.status === 'rejected'}
                   >

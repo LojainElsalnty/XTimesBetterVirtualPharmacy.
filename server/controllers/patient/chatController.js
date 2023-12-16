@@ -13,7 +13,7 @@ const getMessages = asyncHandler(async (req, res) => {
     const messages2 = await messageModel.find({ sender_username: username2, receiver_username: username1 });
 
     let messages = [];
-    
+
     if (messages1 && messages2) {
         messages = messages1.concat(messages2);
     }
@@ -48,19 +48,19 @@ const postMessage = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
     const username = req.body.username;
 
-    let doctorResults = await appointmentModel.find({patient_username: username}).select("doctor_username");
+    let doctorResults = await appointmentModel.find({ patient_username: username, status: "completed" }).select("doctor_username");
     let pharmacistResults = await pharmacistModel.find({}).select("username name");
     let doctors = await doctorModel.find({}).select("username name");
 
     doctorResults = doctorResults.map((doctor) => doctor.doctor_username);
     doctorResults = doctors.filter((doctor) => doctorResults.includes(doctor.username));
-    doctorResults = doctorResults.map((doctor) => {return {username: doctor.username, name: doctor.name, type: "doctor"}});
-    doctorResults = doctorResults.filter((arr, index, self) => index === self.findIndex((t) => (t.username === arr.username && t.name === arr.name && t.type === arr.type)));    
-    doctorResults = new Set(doctorResults);    
+    doctorResults = doctorResults.map((doctor) => { return { username: doctor.username, name: doctor.name, type: "doctor" } });
+    doctorResults = doctorResults.filter((arr, index, self) => index === self.findIndex((t) => (t.username === arr.username && t.name === arr.name && t.type === arr.type)));
+    doctorResults = new Set(doctorResults);
     doctorResults = [...doctorResults];
 
     console.log(pharmacistResults);
-    pharmacistResults = pharmacistResults.map((pharmacist) => {return {username: pharmacist.username, name: pharmacist.name, type:"pharmacist"}});
+    pharmacistResults = pharmacistResults.map((pharmacist) => { return { username: pharmacist.username, name: pharmacist.name, type: "pharmacist" } });
     pharmacistResults = pharmacistResults.filter((arr, index, self) => index === self.findIndex((t) => (t.username === arr.username && t.name === arr.name && t.type === arr.type)));
     console.log(pharmacistResults);
     pharmacistResults = new Set(pharmacistResults);

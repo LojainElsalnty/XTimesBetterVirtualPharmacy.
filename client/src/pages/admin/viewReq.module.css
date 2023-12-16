@@ -35,3 +35,12 @@
     cursor: pointer;
     margin: 30px;
 }
+
+.AcceptBtn {
+    background-color: #125492cd;
+
+}
+
+.RejectBtn {
+    background-color: #b5b5b5d8;
+}

@@ -23,8 +23,8 @@ import { PasswordValidation } from '../passwordValidation/passwordValidation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faE, faEye } from '@fortawesome/free-solid-svg-icons';
 
-export const PasswordPopUp = ({showPasswordCard}) => {
-    const [currentPassword, setCurrentPassword] =useState('');
+export const PasswordPopUp = ({ showPasswordCard }) => {
+    const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [showAlertMessage, setShowAlertMessage] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -79,7 +79,7 @@ export const PasswordPopUp = ({showPasswordCard}) => {
         }
 
         // send the new password to the server
-        await axios ({
+        await axios({
             method: 'put',
             url: `http://localhost:8000/authentication/changePassword`,
             headers: {
@@ -91,16 +91,16 @@ export const PasswordPopUp = ({showPasswordCard}) => {
                 newPassword: newPassword,
             }
         })
-        .then((response) => {
-            setAlertMessage('Password changed successfully');
-            setShowAlertMessage(true);
-            handleExitPasswordCard();
-        })
-        .catch((error) => {
-            console.log(`Error ${error}`);
-            setAlertMessage('Incorrect current password or current password is same as new password');
-            setShowAlertMessage(true);
-        });
+            .then((response) => {
+                setAlertMessage('Password changed successfully');
+                setShowAlertMessage(true);
+                handleExitPasswordCard();
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+                setAlertMessage('Incorrect current password or current password is same as new password');
+                setShowAlertMessage(true);
+            });
     }
 
     function handleChangeCurrentPassword(event) {
@@ -121,36 +121,35 @@ export const PasswordPopUp = ({showPasswordCard}) => {
             <div className={styles['logout-message-div']}>
                 <div className={styles['confirm-message-div']}>
                     <div className={styles['logout__message__div']}>
-                        <h3>Are you sure you want to log out?</h3>
+                        <h3>Change Password</h3>
                     </div>
                     <div className={styles['cross-div']}>
                         <img className={styles['cross-message-img']} src={crossImage} onClick={handleExitPasswordCard}></img>
                     </div>
                 </div>
                 <div className={styles['change__password__div']}>
-                <div className={styles['change-password-sub1-div']}>
-                    <div className={styles['change-password-sub1-subtitle-div']}>
+                    <div className={styles['change-password-sub1-div']}>
+                        <div className={styles['change-password-sub1-subtitle-div']}>
                             <label className={styles['subtitle']}>Enter Current Password</label>
                         </div>
-                        <input className={styles['password-input']} value={currentPassword} placeholder="Enter Current Password" type="password" onChange={handleChangeCurrentPassword}/>
+                        <input className={styles['password-input']} value={currentPassword} placeholder="Enter Current Password" type="password" onChange={handleChangeCurrentPassword} />
                     </div>
                     <div className={styles['change-password-sub2-div']}>
                         <div className={styles['change-password-sub2-subtitle-div']}>
                             <label className={styles['subtitle']}>Enter New Password</label>
                         </div>
-                        <input className={styles['password-input']} value={newPassword} placeholder="Enter New Password" type="password" onChange={handleChangeNewPassword}/>
+                        <input className={styles['password-input']} value={newPassword} placeholder="Enter New Password" type="password" onChange={handleChangeNewPassword} />
                         {displayPasswordValidation && (
-                        <div className={styles['change-password-sub4-div']}>
-                            <PasswordValidation newPassword={newPassword} />
-                        </div>
+                            <div className={styles['change-password-sub4-div']}>
+                                <PasswordValidation newPassword={newPassword} />
+                            </div>
                         )}
                     </div>
                 </div>
                 <div className={styles['confirm-logout-div']}>
-                        <button className={styles['confirm-logout-button']} onClick={() => 
-                            {
-                                handleClickChangePassword();
-                            }}>Change Password</button>
+                    <button className={styles['confirm-logout-button']} onClick={() => {
+                        handleClickChangePassword();
+                    }}>Change Password</button>
                 </div>
             </div>
             {showAlertMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={setShowAlertMessage} ></AlertMessageCard>)}

@@ -108,8 +108,8 @@ export const ViewAdminMainPage = () => {
     return (
         <div className={styles['main-div']}>
             {/* <Navbar name="Admin" list={list} /> */}
-            <ResponsiveAppBar array={list}/>
-            <ResponsiveSideBar array={list}/>
+            <ResponsiveAppBar array={list} />
+            <ResponsiveSideBar array={list} />
             <>
                 <Routes>
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
@@ -120,7 +120,7 @@ export const ViewAdminMainPage = () => {
                     <Route path="/removepharmacist" element={<RemovePharmacist />} />
                     <Route path="/removepatient" element={<RemovePatient />} />
                     <Route path="/viewSales" element={<ViewSales />} />
-                    <Route path="/" element={<Navigate to="/admin/addadmin" />} />
+                    <Route path="/" element={<Navigate to="/admin/requestedPharmacistsInfoPage" />} />
                 </Routes>
             </>
         </div>

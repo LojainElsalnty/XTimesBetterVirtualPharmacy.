@@ -74,7 +74,7 @@ const ViewPharmacistWalletPage = () => {
         return (<div>Loading</div>)
     }
     return (
-        <p className={styles.largeText}>Balance: ${walletNumber} </p>
+        <p className={styles.largeText}>Balance: {walletNumber} LE </p>
     );
 };
 

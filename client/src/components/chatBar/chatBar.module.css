@@ -10,7 +10,7 @@
 
 .chat__sidebar {
   overflow-y: auto;
-  height: 520px;
+  height: 670px;
   background-image: url('../../assets/img/chatPage2.jpg');
 }
 
@@ -42,7 +42,7 @@
   z-index: 100;
 }
 
-.searchbar-main-div > a {
+.searchbar-main-div>a {
   height: 20%;
   display: flex;
   color: black;
@@ -60,14 +60,14 @@
   padding: 1px;
 
   border-radius: var(--border-radius);
-  background: linear-gradient(-67deg, rgba(#c8d8e7, .7), rgba(255,255,255,.8));
+  background: linear-gradient(-67deg, rgba(#c8d8e7, .7), rgba(255, 255, 255, .8));
   box-shadow: -2px -2px 6px rgba(#fff, .6), 2px 2px 12px #e7c8e3;
 }
 
 .searchbar-input-div {
   --top-shadow: inset 1px 1px 3px #ffffff, inset 2px 2px 6px #e2c5e3;
   --bottom-shadow: inset -2px -2px 4px rgba(95, 95, 95, 0.7);
-  
+
   width: 80%;
   height: 60%;
 
@@ -77,29 +77,31 @@
   position: relative;
   border-radius: var(--border-radius);
   overflow: hidden;
-  
+
   &::before,
   &::after {
-      left: 0;
-      top: 0;
-      display: block;
-      content: "";
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    content: "";
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
   }
-  
+
   &::before {
-      box-shadow: var(--bottom-shadow);
+    box-shadow: var(--bottom-shadow);
   }
-  
+
   &::after {
-      box-shadow: var(--top-shadow);
+    box-shadow: var(--top-shadow);
   }
 }
 
-.searchbar-icon-div, .searchfilter-icon-div, .clearfilter-icon-div {
+.searchbar-icon-div,
+.searchfilter-icon-div,
+.clearfilter-icon-div {
   width: 50px;
   display: flex;
   align-items: center;
@@ -118,7 +120,7 @@
   border-radius: var(--border-radius);
   background: linear-gradient(-67deg, rgba(#c8d8e7, .7), rgba(0, 0, 0, 0.8));
   box-shadow: -2px -2px 6px rgba(#fff, .6), 2px 2px 12px #e7c8e3;
-  
+
   left: 200px;
   top: 50px;
 }
@@ -175,7 +177,7 @@
   width: 100vw;
   height: 100vh;
   border: none;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 0;
   right: 0;
@@ -193,7 +195,7 @@
   border: 0px;
 
   position: relative;
-  
+
   background-color: #ffffff;
 
   top: -2px;
@@ -209,7 +211,9 @@
 }
 
 /* <BUTTON> Class Selector */
-.searchbar-button, .searchfilter-button, .clearfilter-button {
+.searchbar-button,
+.searchfilter-button,
+.clearfilter-button {
   width: 10%;
   height: 100%;
   display: flex;

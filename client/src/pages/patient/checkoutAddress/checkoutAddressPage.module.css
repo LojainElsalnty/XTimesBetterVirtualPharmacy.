@@ -3,9 +3,12 @@ div {
 }
 
 .checkout-table {
-    width: 100%;
+    /* width: 90%; */
     border-collapse: collapse;
     font-family: Arial, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 }
 
 
@@ -29,12 +32,16 @@ td {
     margin-top: 10px;
     text-align: right;
     background-color: #dfdfdf;
+    margin-left: 85px;
+    margin-right: auto;
+    width: 90%;
 }
 
 .Delivery-header {
     font-size: 24px;
     font-weight: bold;
     margin-top: 30px;
+    margin-left: 70px;
     text-align: left;
     color: #333;
     padding: 10px;
@@ -46,13 +53,16 @@ td {
     top: 0;
     z-index: 100;
     align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 
 }
 
 .ddl-select {
     margin-left: 6px;
     height: 40px;
-    width: 100%;
+    width: 500px;
     padding: 10px;
     border: 1px solid #ccc;
     text-align: center;
@@ -66,9 +76,9 @@ td {
 }
 
 .ddl-newAddselect {
-    margin-left: 600px;
+    margin-left: 520px;
     height: 40px;
-    width: 100%;
+    width: 500px;
     padding: 10px;
     border: 1px solid #ccc;
     text-align: center;
@@ -98,7 +108,7 @@ td {
     font-size: 16px;
     background-color: #77D970;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 75px;
     margin-bottom: 10px;
     float: left;
 }
@@ -108,7 +118,8 @@ td {
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-    background-color: #66B3FF;
+    background-color: #054574;
+    color: white;
     cursor: pointer;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -120,6 +131,7 @@ td {
     border-radius: 4px;
     font-size: 16px;
     background-color: #a4a4a4;
+    color: white;
     cursor: pointer;
     margin-left: 10px;
     margin-bottom: 10px;

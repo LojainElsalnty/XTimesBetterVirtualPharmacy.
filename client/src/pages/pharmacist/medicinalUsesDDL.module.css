@@ -75,7 +75,7 @@
 
 .sales__btn {
     width: 30%;
-    background-color: #125592;
+    background-color: #054574;
     color: white;
     padding: 8px 12px;
     cursor: pointer;
@@ -84,17 +84,16 @@
 
 
 .logo {
-    width:50px;
-    fill:white;
-    padding-right:15px;
-    display:inline-block;
+    width: 50px;
+    fill: white;
+    padding-right: 15px;
+    display: inline-block;
     vertical-align: middle;
-  }
-  
-  .inner-header {
-    height:65vh;
-    width:100%;
+}
+
+.inner-header {
+    height: 65vh;
+    width: 100%;
     margin: 0;
     padding: 0;
-  }
-
+}

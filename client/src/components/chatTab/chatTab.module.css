@@ -22,7 +22,9 @@
     align-items: center;
     justify-content: flex-start;
     position: relative;
-    background-image: linear-gradient(35deg, #1c92d2 0%, #f2fcfe 100%);
+    /* background-image: linear-gradient(35deg, #1c92d2 0%, #f2fcfe 100%); */
+    background-color: #054574;
+
     border-bottom: 2px solid rgb(3, 3, 3);
     overflow: hidden;
     transition: 1s ease-in-out;
@@ -31,12 +33,10 @@
     border-radius: 20px;
 }
 
-.chat__tab:hover{
-    background-image: linear-gradient(
-        35deg,
-        #24C6DC,
-        #514A9D
-    );
+.chat__tab:hover {
+    background-image: linear-gradient(35deg,
+            #24C6DC,
+            #514A9D);
     transition: all ease-in-out;
 }
 

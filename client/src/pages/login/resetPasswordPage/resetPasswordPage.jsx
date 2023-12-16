@@ -28,7 +28,7 @@ import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiv
 
 
 export const ResetPasswordPage = () => {
-    const {email} = useRecoveryContext();
+    const { email } = useRecoveryContext();
     const [newPassword, setNewPassword] = useState('');
     const [alertMessage, setAlertMessage] = useState("");
     const [showAlertMessage, setShowAlertMessage] = useState(false);
@@ -38,7 +38,7 @@ export const ResetPasswordPage = () => {
     const [passwordNumber, setPasswordNumber] = useState(false);
     const [passwordLength, setPasswordLength] = useState(false);
     const navigate = useNavigate();
-    const {otpSent, otpVerified, setOtpSent, setOtpVerified} = useOTPContext();
+    const { otpSent, otpVerified, setOtpSent, setOtpVerified } = useOTPContext();
 
     useEffect(() => {
         if (newPassword.length > 0) {
@@ -85,26 +85,26 @@ export const ResetPasswordPage = () => {
         }
 
         // send the new password to the server
-        await axios ({
+        await axios({
             method: 'put',
             url: `http://localhost:8000/resetPassword/updatePassword?email=${email}`,
             headers: {
                 "Content-Type": "application/json",
             },
-            params: {newPassword: newPassword},
+            params: { newPassword: newPassword },
         })
-        .then((response) => {
-            setAlertMessage('Password changed successfully');
-            setShowAlertMessage(true);
-            setOtpSent(false);
-            setOtpVerified(false);
-            navigate('/login');
-        })
-        .catch((error) => {
-            console.log(`Error ${error}`);
-            setAlertMessage('Something went wrong!');
-            setShowAlertMessage(true);
-        });
+            .then((response) => {
+                setAlertMessage('Password changed successfully');
+                setShowAlertMessage(true);
+                setOtpSent(false);
+                setOtpVerified(false);
+                navigate('/login');
+            })
+            .catch((error) => {
+                console.log(`Error ${error}`);
+                setAlertMessage('Something went wrong!');
+                setShowAlertMessage(true);
+            });
     }
 
     function handleChangeNewPassword(event) {
@@ -117,11 +117,11 @@ export const ResetPasswordPage = () => {
 
     if (!otpSent && !otpVerified) {
         return <Navigate to="/login" />
-      }
+    }
 
     return (
         <>
-                    <ResponsiveAppBar array={[]}/>
+            <ResponsiveAppBar array={[]} />
 
             <div className={styles['reset-password-main-div']}>
                 <div className={styles['password__main__div']}>
@@ -129,7 +129,7 @@ export const ResetPasswordPage = () => {
                     </div>
                     <div className={styles['main__div']}>
                         <div className={styles['title__div']}>
-                        <img src='src/assets/img/password.png' className={styles['reset__password__img']}></img>
+                            <img src='src/assets/img/password.png' className={styles['reset__password__img']}></img>
                             <h2 className={styles['send-otp-title-h2']}>Change Password</h2>
                         </div>
                         <div className={styles['reset-password-sub-div']}>
@@ -138,13 +138,13 @@ export const ResetPasswordPage = () => {
                                     <label className={styles['subtitle']}>Enter New Password</label>
                                 </div>
                                 <div className={styles['reset-password-input-div']}>
-                                    <input className={styles['password-input']} value={newPassword} placeholder="Enter New Password" type="password" onChange={handleChangeNewPassword}/>
+                                    <input className={styles['password-input']} value={newPassword} placeholder="Enter New Password" type="password" onChange={handleChangeNewPassword} />
                                 </div>
                             </div>
                             {displayPasswordValidation && (
-                            <div className={styles['change-password-sub4-div']}>
-                                <PasswordValidation newPassword={newPassword} />
-                            </div>
+                                <div className={styles['change-password-sub4-div']}>
+                                    <PasswordValidation newPassword={newPassword} />
+                                </div>
                             )}
                         </div>
 

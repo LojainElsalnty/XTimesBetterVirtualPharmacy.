@@ -1,120 +1,135 @@
 .pharmacyRegistrationBack {
-    padding: 20px;
-    background: #f4f8fa url('https://img.freepik.com/free-photo/flat-lay-medicine-keyboard-arrangement_23-2149341567.jpg?w=2000&t=st=1702077267~exp=1702077867~hmac=82a67ad206cd47ebde856e4042b7d2b00e478505942a323c0fb4fffdc7f60bf5') center/cover no-repeat;
-    background: #f4f8fa url('https://img.freepik.com/free-photo/medical-bandages-pills-with-copy-space_23-2149341587.jpg?w=2000&t=st=1702078334~exp=1702078934~hmac=3fc120ea0d2dc54e14511719c950ea41ca18dc39ddbcc99d33302b3d1a8459a7') center/cover no-repeat;
-    background-color: #86d7ff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin:  auto; /* Reduced margin */
-    width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+  padding: 20px;
+  background: #f4f8fa url('/src/assets/img/pharmacistReq.jpg') center/cover no-repeat;
+  background-color: #86d7ff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: auto;
+  /* Reduced margin */
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  
-  
-  .pharmacyRegistration {
-    padding: 30px;
-    background-color: #f4f8fa;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin:  auto; /* Reduced margin */
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
 
-  .pharmacyRegistration h2 {
-    font-size: 24px;
-    color: #0071bc;
-    margin-bottom: 15px; /* Reduced margin */
-  }
-  
-  .pharmacyRegistration h3 {
-    font-size: 18px;
-    color: #0071bc;
-    margin-bottom: 15px; /* Reduced margin */
-  }
-  
-  .pharmacyRegistration .registrationForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .pharmacyRegistration .formRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px; /* Reduced gap */
-    margin-bottom: 15px;
-  }
-  
-  .pharmacyRegistration .formField {
-    margin: 10px 0;
-  }
-  
-  .pharmacyRegistration label {
-    display: block;
-    margin-bottom: 6px; /* Reduced margin */
-    color: #333;
-    text-align: center;
 
-  }
-  
-  .pharmacyRegistration input,
-  .pharmacyRegistration select {
-    width: 100%;
-    padding: 8px; /* Reduced padding */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .pharmacyRegistration .errorMessage {
-    display: flex;
-    align-items: center;
-    margin-top: 6px;
-    color: #d93025;
-    font-size: 13px;
-  }
-  
-  /* ... your existing styles ... */
+.pharmacyRegistration {
+  padding: 30px;
+  background-color: #f4f8fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: auto;
+  /* Reduced margin */
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.pharmacyRegistration h2 {
+  font-size: 24px;
+  color: #0071bc;
+  margin-bottom: 15px;
+  /* Reduced margin */
+}
+
+.pharmacyRegistration h3 {
+  font-size: 18px;
+  color: #0071bc;
+  margin-bottom: 15px;
+  /* Reduced margin */
+}
+
+.pharmacyRegistration .registrationForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pharmacyRegistration .formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  /* Reduced gap */
+  margin-bottom: 15px;
+}
+
+.pharmacyRegistration .formField {
+  margin: 10px 0;
+}
+
+.pharmacyRegistration label {
+  display: block;
+  margin-bottom: 6px;
+  /* Reduced margin */
+  color: #333;
+  text-align: center;
+
+}
+
+.pharmacyRegistration input,
+.pharmacyRegistration select {
+  width: 100%;
+  padding: 8px;
+  /* Reduced padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.pharmacyRegistration .errorMessage {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  color: #d93025;
+  font-size: 13px;
+}
+
+/* ... your existing styles ... */
 
 .pharmacyRegistration select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff; /* Set the background color to white */
-    color: #333; /* Set the text color */
-    appearance: none; /* Remove default arrow in some browsers */
-  }
-  
-  .pharmacyRegistration select:focus {
-    outline: none; /* Remove the default focus outline */
-    border-color: #0071bc; /* Change border color on focus */
-    box-shadow: 0 0 5px rgba(0, 113, 188, 0.5); /* Add a subtle box shadow on focus */
-  }
-  
-  .pharmacyRegistration .customSelect {
-    position: relative;
-    width: 100%;
-    overflow: hidden; /* Hide the default dropdown arrow */
-  }
-  
-  .pharmacyRegistration .selectArrow {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 8px solid #0071bc; /* Set arrow color to match your style */
-  }
-  
-  .pharmacyRegistration .submitButton {
-  background-color: #0071bc; /* Updated to a blue color */
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  /* Set the background color to white */
+  color: #333;
+  /* Set the text color */
+  appearance: none;
+  /* Remove default arrow in some browsers */
+}
+
+.pharmacyRegistration select:focus {
+  outline: none;
+  /* Remove the default focus outline */
+  border-color: #0071bc;
+  /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(0, 113, 188, 0.5);
+  /* Add a subtle box shadow on focus */
+}
+
+.pharmacyRegistration .customSelect {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* Hide the default dropdown arrow */
+}
+
+.pharmacyRegistration .selectArrow {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #0071bc;
+  /* Set arrow color to match your style */
+}
+
+.pharmacyRegistration .submitButton {
+  background-color: #0071bc;
+  /* Updated to a blue color */
   color: white;
   border: none;
   border-radius: 8px;
@@ -126,15 +141,16 @@
 }
 
 .pharmacyRegistration .submitButton:hover {
-  background-color: #00568c; /* Darker shade of blue on hover */
+  background-color: #00568c;
+  /* Darker shade of blue on hover */
 }
 
-  
-  .pharmacyRegistration .emergencyContactRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px; /* Adjusted gap */
-    margin-bottom: 10px; /* Adjusted margin */
-  }
-  
-  
+
+.pharmacyRegistration .emergencyContactRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  /* Adjusted gap */
+  margin-bottom: 10px;
+  /* Adjusted margin */
+}

@@ -198,7 +198,7 @@ const MyCart = () => {
 
                 <button className={styles["button-17"]} onClick={() => updateCartItemQuantity(item.medName)}>+</button>
               </td>
-              <td>{item.price_per_item + ".EGP"}</td>
+              <td>{item.price_per_item + " LE"}</td>
               <td><button className={styles["button-delete"]} onClick={() => deleteItem(item.medName)}>
                 <img src={deleteIcon} alt="Delete" style={{ width: '40px', height: '40px' }} />
               </button></td>

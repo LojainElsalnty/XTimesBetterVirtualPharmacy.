@@ -102,10 +102,10 @@ export const ViewPharmacistMainPage = () => {
     return (
 
         <div className={styles['main-div']}>
-           {/*  <Navbar name="Pharmacist" list={list} /> */}
-            <ResponsiveAppBar array={list}/>
-            <ResponsiveSideBar array={list}/>
-            <> 
+            {/*  <Navbar name="Pharmacist" list={list} /> */}
+            <ResponsiveAppBar array={list} />
+            <ResponsiveSideBar array={list} />
+            <>
                 <Routes>
                     <Route path="/profile" element={<PharmacistProfile />} />
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
@@ -115,6 +115,7 @@ export const ViewPharmacistMainPage = () => {
                     <Route path="/viewWalletNumber" element={<ViewPharmacistWalletPage />} />
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/chatPage" element={<ChatPage />} />
+                    <Route path="/" element={<Navigate to="/pharmacist/medicineCatalog" />} />
                 </Routes>
             </>
         </div >

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './pharmacistRequestPage.module.css';
 
+import { ResponsiveAppBar } from '../../components/responsiveNavBar/responsiveNavBar';
+
 //import axios from 'axios';
 const PharmacistRequest = () => {
 
@@ -130,142 +132,145 @@ const PharmacistRequest = () => {
   };
 
   return (
-    <div className={styles.pharmacyRegistrationBack}>
-      <div className={styles.pharmacyRegistration}>
-        <h2>Pharmacist Registration Request</h2>
-        <form onSubmit={handleSubmit} className={styles.registrationForm}>
-          <div className={styles.formField}>
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-            {emailError && (
-              <div className={styles.errorMessage}>{emailError}</div>
-            )}
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
-            {passError && (
-              <div className={styles.errorMessage}>{passError}</div>
-            )}
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="dob">Date Of Birth:</label>
-            <input
-              type="date"
-              id="dob"
-              name="dob"
-              value={formData.dob}
-              max={new Date().toISOString().split('T')[0]}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="hourly_rate">Hourly Rate:</label>
-            <input
-              type="Number"
-              id="hourly_rate"
-              name="hourly_rate"
-              value={formData.hourly_rate}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="affiliation">Affiliation:</label>
-            <input
-              type="text"
-              id="affiliation"
-              name="affiliation"
-              value={formData.affiliation}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="educational_background">Educational Background:</label>
-            <input
-              type="text"
-              id="educational_background"
-              name="educational_background"
-              value={formData.educational_background}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="nationalID">National ID:</label>
-            <input
-              type="file"
-              id="nationalID"
-              name="nationalID"
-              accept=".pdf, .jpg, .jpeg, .png"
-              onChange={handleFileInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="workingLicense">Working License:</label>
-            <input
-              type="file"
-              id="workingLicense"
-              name="workingLicense"
-              accept=".pdf, .jpg, .jpeg, .png"
-              onChange={handleFileInputChange}
-              required
-            />
-          </div>
-          <div className={styles.formField}>
-            <label htmlFor="pharmacyDegree">Pharmacy Degree:</label>
-            <input
-              type="file"
-              id="pharmacyDegree"
-              name="pharmacyDegree"
-              accept=".pdf, .jpg, .jpeg, .png"
-              onChange={handleFileInputChange}
-              required
-            />
-          </div>
-          <button type="submit" className={styles.submitButton}>Register</button>
-        </form>
+    <>
+      <ResponsiveAppBar array={[]}></ResponsiveAppBar>
+      <div className={styles.pharmacyRegistrationBack}>
+        <div className={styles.pharmacyRegistration}>
+          <h2>Pharmacist Registration Request</h2>
+          <form onSubmit={handleSubmit} className={styles.registrationForm}>
+            <div className={styles.formField}>
+              <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="email">Email:</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+              {emailError && (
+                <div className={styles.errorMessage}>{emailError}</div>
+              )}
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
+              {passError && (
+                <div className={styles.errorMessage}>{passError}</div>
+              )}
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="dob">Date Of Birth:</label>
+              <input
+                type="date"
+                id="dob"
+                name="dob"
+                value={formData.dob}
+                max={new Date().toISOString().split('T')[0]}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="hourly_rate">Hourly Rate:</label>
+              <input
+                type="Number"
+                id="hourly_rate"
+                name="hourly_rate"
+                value={formData.hourly_rate}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="affiliation">Affiliation:</label>
+              <input
+                type="text"
+                id="affiliation"
+                name="affiliation"
+                value={formData.affiliation}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="educational_background">Educational Background:</label>
+              <input
+                type="text"
+                id="educational_background"
+                name="educational_background"
+                value={formData.educational_background}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="nationalID">National ID:</label>
+              <input
+                type="file"
+                id="nationalID"
+                name="nationalID"
+                accept=".pdf, .jpg, .jpeg, .png"
+                onChange={handleFileInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="workingLicense">Working License:</label>
+              <input
+                type="file"
+                id="workingLicense"
+                name="workingLicense"
+                accept=".pdf, .jpg, .jpeg, .png"
+                onChange={handleFileInputChange}
+                required
+              />
+            </div>
+            <div className={styles.formField}>
+              <label htmlFor="pharmacyDegree">Pharmacy Degree:</label>
+              <input
+                type="file"
+                id="pharmacyDegree"
+                name="pharmacyDegree"
+                accept=".pdf, .jpg, .jpeg, .png"
+                onChange={handleFileInputChange}
+                required
+              />
+            </div>
+            <button type="submit" className={styles.submitButton}>Register</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 
 }

@@ -59,7 +59,7 @@ function App() {
     <>
       <AuthProvider>
         {/* <ResponsiveAppBar/> */}
-        <Routes>          
+        <Routes>
           {/* Home Path */}
           {/* <Route path='/' element={<MainPage />} ></Route> */}
           {/* Login Path */}
@@ -68,7 +68,7 @@ function App() {
           <Route path='/patient/*' element={<ViewPatientMainPage />} ></Route>
           <Route path='/pharmacist/*' element={<ViewPharmacistMainPage />} ></Route>
           <Route path='/admin/*' element={<ViewAdminMainPage />} ></Route>
-          {/* Register Page Paths */} 
+          {/* Register Page Paths */}
           <Route path="/pharmacistRequest" element={<PharmacistRequest />} />
           <Route path="/patientRegister" element={<PatientRegister />} />
           {/* Reset Password Page Paths */}
@@ -78,7 +78,7 @@ function App() {
           {/* Default Path */}
           {/* <Route path="/myPCart/:prescriptionId" element={<MyPCart />} /> */}
           {/* <Route path="/patient/UpdatePrescription/:prescriptionId" element={<MyPCart />} /> */}
-          <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} />
+          {/* <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} /> */}
 
           {/* <Route path="/patient/UpdatePrescription/:prescriptionId" element={<MyPCart />} /> */}
 

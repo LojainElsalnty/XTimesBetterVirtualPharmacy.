@@ -28,14 +28,14 @@ import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiv
 
 
 export const VerifyOtpPage = () => {
-  const {otp, setOTP, email, setEmail} = useRecoveryContext();
+  const { otp, setOTP, email, setEmail } = useRecoveryContext();
   const [OTPinput, setOTPinput] = useState();
   const [disable, setDisable] = useState(true);
   const [timerCount, setTimer] = useState(60);
   const [showMessage, setShowMessage] = useState(true);
   const [alertMessage, setAlertMessage] = useState(`An OTP is sent to your email: ${email}`);
   const navigate = useNavigate();
-  const {otpSent, setOtpVerified} = useOTPContext();
+  const { otpSent, setOtpVerified } = useOTPContext();
 
   useEffect(() => {
     let interval = setInterval(() => {
@@ -49,15 +49,15 @@ export const VerifyOtpPage = () => {
     return () => clearInterval(interval);
   }, [disable]);
 
-    function verifyOTP() {
-      if (!isNaN(parseInt(OTPinput)) && parseInt(OTPinput) === otp) {
-        navigate('/resetPassword');
-      }
-      else {
-        setShowMessage(true);
-        setAlertMessage("The code you have entered is not correct, try again!");
-      }
+  function verifyOTP() {
+    if (!isNaN(parseInt(OTPinput)) && parseInt(OTPinput) === otp) {
+      navigate('/resetPassword');
     }
+    else {
+      setShowMessage(true);
+      setAlertMessage("The code you have entered is not correct, try again!");
+    }
+  }
 
   //function to resend OTP 
   function resendOTP() {
@@ -67,9 +67,9 @@ export const VerifyOtpPage = () => {
     // change the global value of the otp in the RecoveryContext Provider
     setOTP(OTP);
     axios.post("http://localhost:8000/resetPassword/sendEmail", {
-        otp: OTP,
-        recipientEmail: email,
-      })
+      otp: OTP,
+      recipientEmail: email,
+    })
       .then(() => setDisable(true))
       .then(() => {
         setOtpVerified(true);
@@ -80,41 +80,41 @@ export const VerifyOtpPage = () => {
       .catch(console.log);
   }
 
-    if (!otpSent) {
-      return <Navigate to="/login" />
-    }
+  if (!otpSent) {
+    return <Navigate to="/login" />
+  }
 
-    return (
-      <>
+  return (
+    <>
       <ResponsiveAppBar array={[]} />
-        <div className={styles['verify-otp-main-div']}>
-                <div className={styles['verify__main__div']}>
-                  <div className={styles['verify-otp-title-div']}>
-                  </div>
-                  <div className={styles['main__div']}>
-                    <div className={styles['title__div']}>
-                    <img src='src/assets/img/otp.png' className={styles['verify__otp__img']}></img>
-                    <h2 className={styles['verify-otp-title-h2']}>Email Verification</h2>
-                    </div>
-                    <div className={styles['verify-otp-sub-div']}>
-                        <div className={styles['verify-otp-label-div']}>
-                          <label className={styles['verify-otp-label']}>Enter OTP</label>
-                        </div>
-                        <div className={styles['verify-otp-input-div']}>
-                          <input className={styles['verify-otp-input']} type="text" placeholder="example: 12345" value={OTPinput} onChange={(e) => { setOTPinput(e.target.value) }} /> 
-                        </div>
-                    </div>
-                    <div className={styles['verify-otp-button-div']}>
-                      <button className={styles['verify-otp-button']} onClick={() => verifyOTP()}>Verify Account</button> 
-                    </div>
-                    <div className={styles['verify-otp-a-div']}>
-                      <a className={styles['resend-otp-a']} onClick={() => resendOTP()} > Did not receive code? {disable ? `Resend OTP in ${timerCount}s` : " Resend OTP"}</a> 
-                    </div>
-                  </div>
-                </div>
-                {showMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={setShowMessage} ></AlertMessageCard>)}
+      <div className={styles['verify-otp-main-div']}>
+        <div className={styles['verify__main__div']}>
+          <div className={styles['verify-otp-title-div']}>
+          </div>
+          <div className={styles['main__div']}>
+            <div className={styles['title__div']}>
+              <img src='src/assets/img/otp.png' className={styles['verify__otp__img']}></img>
+              <h2 className={styles['verify-otp-title-h2']}>Email Verification</h2>
+            </div>
+            <div className={styles['verify-otp-sub-div']}>
+              <div className={styles['verify-otp-label-div']}>
+                <label className={styles['verify-otp-label']}>Enter OTP</label>
               </div>
-      </>
-      
-    );
+              <div className={styles['verify-otp-input-div']}>
+                <input className={styles['verify-otp-input']} type="text" placeholder="example: 12345" value={OTPinput} onChange={(e) => { setOTPinput(e.target.value) }} />
+              </div>
+            </div>
+            <div className={styles['verify-otp-button-div']}>
+              <button className={styles['verify-otp-button']} onClick={() => verifyOTP()}>Verify Account</button>
+            </div>
+            <div className={styles['verify-otp-a-div']}>
+              <a className={styles['resend-otp-a']} onClick={() => resendOTP()} > Did not receive code? {disable ? `Resend OTP in ${timerCount}s` : " Resend OTP"}</a>
+            </div>
+          </div>
+        </div>
+        {showMessage && (<AlertMessageCard message={alertMessage} showAlertMessage={setShowMessage} ></AlertMessageCard>)}
+      </div>
+    </>
+
+  );
 }

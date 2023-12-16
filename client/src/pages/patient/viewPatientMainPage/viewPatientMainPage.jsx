@@ -99,9 +99,9 @@ export const ViewPatientMainPage = () => {
     return (
         <div className={styles['main-div']}>
             {/* <Navbar name="Patient" list={list} /> */}
-            <ResponsiveAppBar array={list}/>
-            <ResponsiveSideBar array={list}/>
-            <> 
+            <ResponsiveAppBar array={list} />
+            <ResponsiveSideBar array={list} />
+            <>
                 <Routes>
                     <Route path="/medicineCatalog" element={<MedicineCatalog />} />
                     <Route path="/profile" element={<PatientProfile />} />
@@ -113,9 +113,10 @@ export const ViewPatientMainPage = () => {
                     <Route path="/checkoutAddress" element={<CheckoutAddress />} />
                     <Route path="/payment" element={<MedicinePayment />} />
                     <Route path="/viewWalletNumber" element={<ViewPatientWalletPage />} />
-                    <Route path="/patient/myPCart/:prescriptionId" element={<MyPCart />} />
+                    <Route path="/myPCart/:prescriptionId" element={<MyPCart />} />
                     <Route path="/prescriptionTable" element={<PrescriptionTable />} />
-                    <Route path="/chatPage" element={<ChatPage/>}/>
+                    <Route path="/chatPage" element={<ChatPage />} />
+                    <Route path="/" element={<Navigate to="/patient/medicineCatalog" />} />
                 </Routes>
             </>
         </div >

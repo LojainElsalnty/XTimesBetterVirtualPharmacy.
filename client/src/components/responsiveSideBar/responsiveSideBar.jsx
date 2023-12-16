@@ -52,15 +52,15 @@ export const ResponsiveSideBar = ({ array }) => {
 
   const list = (anchor) => (
     <Box
-      sx={{ 
+      sx={{
         display: {
-            xs: 'none',
-            md: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-        }}
+          xs: 'none',
+          md: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+      }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
@@ -68,16 +68,17 @@ export const ResponsiveSideBar = ({ array }) => {
       <List >
         {array.map((element, index) => (
           <ListItem key={element.pageName} disablePadding sx={{
-          '&:hover': {
-            backgroundColor: "#e2ebf2",
-            color: "black",
-            textDecoration: "none",
-          },}}>
-            <ListItemButton  component="a" href={`${element.url}`}  sx={{textDecoration:"none"}}>
-              <ListItemIcon  sx={{width: "20%"}}>
+            '&:hover': {
+              backgroundColor: "#e2ebf2",
+              color: "black",
+              textDecoration: "none",
+            },
+          }}>
+            <ListItemButton component="a" href={`${element.url}`} sx={{ textDecoration: "none" }}>
+              <ListItemIcon sx={{ width: "20%" }}>
                 <ArrowForwardIosIcon />
               </ListItemIcon>
-              <ListItemText primary={element.pageName}/>
+              <ListItemText primary={element.pageName} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -87,27 +88,31 @@ export const ResponsiveSideBar = ({ array }) => {
 
   return (
     <div className={styles['sidebar-main-div']}>
-        <React.Fragment key={"left"}>
-          <Button sx={{color: "white", '&:hover': {
-                    backgroundColor: "#125594",
-                    color: "white"
-                    }}} className={styles['view-button']} onClick={() => navigate(-1)}
-                    data-tooltip-id="back"
-                    data-tooltip-content="Back"
-                    data-tooltip-place="bottom"
-                    >
-            <ArrowBackIcon></ArrowBackIcon>
-          </Button>
-          <Button sx={{color: "white", '&:hover': {
-                    backgroundColor: "#125594",
-                    color: "white"
-                    }}} className={styles['view-button']} onClick={() => navigate(1)}
-                    data-tooltip-id="forward"
-                    data-tooltip-content="Forward"
-                    data-tooltip-place="bottom"
-                    >
-            <ArrowForwardIcon></ArrowForwardIcon>
-          </Button>
+      <React.Fragment key={"left"}>
+        <Button sx={{
+          color: "white", '&:hover': {
+            backgroundColor: "#125594",
+            color: "white"
+          }
+        }} className={styles['view-button']} onClick={() => navigate(-1)}
+          data-tooltip-id="back"
+          data-tooltip-content="Back"
+          data-tooltip-place="bottom"
+        >
+          <ArrowBackIcon></ArrowBackIcon>
+        </Button>
+        <Button sx={{
+          color: "white", '&:hover': {
+            backgroundColor: "#125594",
+            color: "white"
+          }
+        }} className={styles['view-button']} onClick={() => navigate(1)}
+          data-tooltip-id="forward"
+          data-tooltip-content="Forward"
+          data-tooltip-place="bottom"
+        >
+          <ArrowForwardIcon></ArrowForwardIcon>
+        </Button>
         {/* <Button sx={{color: "white", '&:hover': {
                     backgroundColor: "#125594",
                     color: "white"
@@ -118,7 +123,7 @@ export const ResponsiveSideBar = ({ array }) => {
             >
             <DehazeIcon></DehazeIcon>
         </Button> */}
-
+        {/* 
         {
           sessionStorage.getItem("userType") === "admin" ? <></> :
             <Button sx={{color: "white", '&:hover': {
@@ -134,67 +139,69 @@ export const ResponsiveSideBar = ({ array }) => {
             >
               <HomeIcon></HomeIcon>
           </Button>
-        }
+        } */}
 
-            
 
-          {
-            sessionStorage.getItem("userType") === "admin" ? <></> :
-            <Button 
-                    sx={{color: "white",
-                      '&:hover': {
-                      backgroundColor: "#125594",
-                      color: "white"
-                      }
-                    }} 
-                    className={styles['view-button']}                   
-                    component="a"
-                    href={`/${userType}/ChatPage`}
-                    data-tooltip-id="chat"
-                    data-tooltip-content="Chat"
-                    data-tooltip-place="bottom"
-              >
+
+        {
+          sessionStorage.getItem("userType") === "admin" ? <></> :
+            <Button
+              sx={{
+                color: "white",
+                '&:hover': {
+                  backgroundColor: "#125594",
+                  color: "white"
+                }
+              }}
+              className={styles['view-button']}
+              component="a"
+              href={`/${userType}/ChatPage`}
+              data-tooltip-id="chat"
+              data-tooltip-content="Chat"
+              data-tooltip-place="bottom"
+            >
               <ChatIcon></ChatIcon>
             </Button>
-          }
+        }
 
         {
           sessionStorage.getItem("userType") !== "pharmacist" ? <></> :
-            <Button 
-                    sx={{color: "white",
-                      '&:hover': {
-                      backgroundColor: "#125594",
-                      color: "white"
-                      }
-                    }} 
-                    className={styles['view-button']}                   
-                    component="a"
-                    href={`/${userType}/notifications`}
-                    data-tooltip-id="notification"
-                    data-tooltip-content="Notification"
-                    data-tooltip-place="bottom"
-              >
+            <Button
+              sx={{
+                color: "white",
+                '&:hover': {
+                  backgroundColor: "#125594",
+                  color: "white"
+                }
+              }}
+              className={styles['view-button']}
+              component="a"
+              href={`/${userType}/notifications`}
+              data-tooltip-id="notification"
+              data-tooltip-content="Notification"
+              data-tooltip-place="bottom"
+            >
               <NotificationsIcon></NotificationsIcon>
             </Button>
-          }
+        }
 
-          <Drawer
-            PaperProps={{
-                sx: { width: "250px" },
-            }}
-            anchor={"left"}
-            open={state["left"]}
-            onClose={toggleDrawer("left", false)}
+        <Drawer
+          PaperProps={{
+            sx: { width: "250px" },
+          }}
+          anchor={"left"}
+          open={state["left"]}
+          onClose={toggleDrawer("left", false)}
 
-          >
-            {list("left")}
-          </Drawer>
-        </React.Fragment>  
+        >
+          {list("left")}
+        </Drawer>
+      </React.Fragment>
       <Tool id="back" />
-      <Tool id="forward" />   
-      <Tool id="side_bar" />  
-      <Tool id="home" />       
-      <Tool id="chat" />   
+      <Tool id="forward" />
+      <Tool id="side_bar" />
+      <Tool id="home" />
+      <Tool id="chat" />
     </div>
   );
 }

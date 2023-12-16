@@ -43,9 +43,7 @@
     transition: 1s ease-in-out;
 }
 
-.verify-otp-input-div {
 
-}
 
 .verify-otp-button-div {
     width: 60%;
@@ -101,7 +99,7 @@
     margin: 10px;
 
     position: relative;
-    
+
     background-color: #ffffff;
 
     border: 0px;

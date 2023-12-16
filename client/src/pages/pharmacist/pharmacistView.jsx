@@ -30,6 +30,9 @@ const PharmacistView = () => {
 
   const fetchPharmacistInfo = async () => {
     try {
+      if (username == "") {
+        return setPharmacist(null);
+      }
       const response = await axios.get(`http://localhost:8000/pharmaRoutes/viewPharmaInfo/${username}`);
 
       if (!response.data) {
@@ -44,11 +47,33 @@ const PharmacistView = () => {
 
   const removePharmacistHandler = async (pharmacist) => {
     try {
-      const response = await axios.post('http://localhost:8000/pharmaRoutes/removePharmacist', { username: pharmacist.username });
-      console.log(response.data); // You can log or handle the response as needed
-      fetchData(); // Refresh the pharmacists list after successful removal
+      const username = pharmacist.username;
+      const response = await fetch(`http://localhost:8000/admin/addremove/removePharmacist`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data) {
+        console.log('Pharmacist removed', data);
+        alert('Pharmacist removed');
+        fetchData();//to refresh table
+
+      } else {
+        console.error('Can not remove pharmacist', data);
+        alert('Can not remove pharmacist');
+      }
     } catch (error) {
-      console.error('Error removing pharmacist:', error);
+      console.error('Error removing pharmacist', error);
+      alert('An error occurred while removing the pharmacist');
     }
   };
 
@@ -79,9 +104,23 @@ const PharmacistView = () => {
 
   return (
     <div>
+      <br />
       <h1>Pharmacists List</h1>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px', marginTop: '50px', marginLeft: '150px' }}>
+        <button
+          onClick={handleAddSalaryClick}
+          style={{
+            backgroundColor: isStartOfMonth ? 'green' : 'grey',
+            color: 'white',
+            padding: '8px 12px',
+            cursor: isStartOfMonth ? 'pointer' : 'not-allowed',
+            marginRight: '750px'
+
+          }}
+        >
+          Add Salary to All
+        </button>
         <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
           Enter Pharmacist Username:
           <input
@@ -95,6 +134,7 @@ const PharmacistView = () => {
             <br />
           </button>
         </label>
+
       </div>
 
       {pharmacist && (
@@ -111,6 +151,8 @@ const PharmacistView = () => {
                 <th>Affiliation</th>
                 <th>Educational Background</th>
                 <th>National ID</th>
+                <th>Working License</th>
+                <th>Pharmacy Degree</th>
               </tr>
             </thead>
             <tbody>
@@ -122,9 +164,23 @@ const PharmacistView = () => {
                 <td>{pharmacist.hourly_rate}</td>
                 <td>{pharmacist.affiliation}</td>
                 <td>{pharmacist.educational_background}</td>
-                <td>{pharmacist.nationalID.name}</td>
                 <td>
-                  <button onClick={() => removePharmacistHandler(pharmacist)} style={{ backgroundColor: 'red', color: 'white' }}>
+                  <a href={`http://localhost:8000/uploads/${pharmacist.nationalID.name}`} target="_blank" rel="noopener noreferrer">
+                    View National ID
+                  </a>
+                </td>
+                <td>
+                  <a href={`http://localhost:8000/uploads/${pharmacist.workingLicense.name}`} target="_blank" rel="noopener noreferrer">
+                    View Working License
+                  </a>
+                </td>
+                <td>
+                  <a href={`http://localhost:8000/uploads/${pharmacist.pharmacyDegree.name}`} target="_blank" rel="noopener noreferrer">
+                    View Pharmacy Degree
+                  </a>
+                </td>
+                <td>
+                  <button onClick={() => removePharmacistHandler(pharmacist)} style={{ backgroundColor: '#cc0000', color: 'white' }}>
                     Remove
                   </button>
                 </td>
@@ -135,19 +191,9 @@ const PharmacistView = () => {
       )}
 
       <h3>All Pharmacists</h3>
-      <button
-        onClick={handleAddSalaryClick}
-        style={{
-          backgroundColor: isStartOfMonth ? 'green' : 'grey',
-          color: 'white',
-          padding: '8px 12px',
-          cursor: isStartOfMonth ? 'pointer' : 'not-allowed',
-          float: 'right',
-          marginRight: '10px'
-        }}
-      >
-        Add Salary to All
-      </button>
+
+      <br />
+      <br />
 
       <table className={styles.pharmacistTable}>
         <thead>
@@ -190,7 +236,7 @@ const PharmacistView = () => {
                 </a>
               </td>
               <td>
-                <button onClick={() => removePharmacistHandler(pharmacist)} style={{ backgroundColor: 'red', color: 'white' }}>
+                <button onClick={() => removePharmacistHandler(pharmacist)} style={{ backgroundColor: '#cc0000', color: 'white' }}>
                   Remove
                 </button>
               </td>

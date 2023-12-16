@@ -17,7 +17,9 @@ function SuccessPayment() {
   console.log(receipt);
   const handleSubmit = () => {
     sessionStorage.removeItem('cartItems');
-    window.location.href = 'http://localhost:5174/patient';
+    //window.location.href = 'http://localhost:5174/patient';
+    //window.location.reload();
+    navigate('/patient');
   }
 
   //new part
@@ -140,7 +142,7 @@ function SuccessPayment() {
                 </ul>
               </div>
               <p style={{ marginTop: "20px" }}>
-                <strong>Total:</strong> {totalSum.toFixed(2)} EGP
+                <strong>Total:</strong> {totalSum.toFixed(2)} LE
               </p>
               <p style={{ marginTop: "10px" }}>
                 <strong>Delivery Address:</strong> {receipt.deliveryAddress}

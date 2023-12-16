@@ -225,8 +225,10 @@ const CheckoutAddress = () => {
     }
     return (
         <>
+            <br />
 
             <h1>Checkout</h1>
+            <br />
             < div>
                 <table className={styles["checkout-table"]}>
                     <thead>
@@ -256,7 +258,8 @@ const CheckoutAddress = () => {
             </div>
 
             <div className={styles["Delivery-header"]}> Delivery Address </div>
-            <div>
+
+            <div className={styles["ddl-container"]}>
                 {isAddingNewAddress ? (
                     <div>
                         <input
@@ -266,12 +269,17 @@ const CheckoutAddress = () => {
                             value={streetApartment}
                             onChange={(e) => setStreetApartment(e.target.value)}
                         />
+                        <br />
+                        <br />
+
                         <div className={styles["ddl-newAddContainer"]}>
                             <select
                                 className={styles["ddl-newAddselect"]}
                                 value={selectedCity}
                                 onChange={(e) => setSelectedCity(e.target.value)}
                             >
+                                <br />
+
                                 <option value="">Select City</option>
                                 <option value="Cairo">Cairo</option>
                                 <option value="Giza">Giza</option>
@@ -293,19 +301,23 @@ const CheckoutAddress = () => {
                                 <option value="6th of October City">6th of October City</option>
                             </select>
                         </div>
+                        <br />
+
                         <button className={styles["saveAddress-button"]} onClick={handleSaveNewAddress}>
                             Save Address
                         </button>
                         <button className={styles["cancel-button"]} onClick={handleCancelNewAddress}>
                             Cancel
                         </button>
+                        <br />
+                        <br />
+
                     </div>
                 ) : (
                     <button className={styles["addAddress-button"]} onClick={handleAddNewAddress}>Add New Address</button>
                 )}
 
-            </div>
-            <div className={styles["ddl-container"]}>
+
                 <select className={styles["ddl-select"]} value={deliveryAddress} onChange={handleSelectExistingAddress}>
                     <option value=""> Select Delivery Address </option>
                     {

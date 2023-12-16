@@ -31,10 +31,10 @@ export function useOTPContext() {
 }
 
 export function AuthProvider({ children }) {
-/*     const [accessToken, setAccessToken] = useState("Bearer  ");
-    const [refreshToken, setRefreshToken] = useState("");
-    const [username, setUsername] = useState("");
-    const [userType, setUserType] = useState(""); */
+    /*     const [accessToken, setAccessToken] = useState("Bearer  ");
+        const [refreshToken, setRefreshToken] = useState("");
+        const [username, setUsername] = useState("");
+        const [userType, setUserType] = useState(""); */
 
     const [accessToken, setAccessToken] = useState(sessionStorage.getItem("accessToken") ? sessionStorage.getItem("accessToken") : "Bearer  ");
     const [refreshToken, setRefreshToken] = useState(sessionStorage.getItem("refreshToken") ? sessionStorage.getItem("refreshToken") : "");
@@ -55,12 +55,12 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{accessToken: accessToken, refreshToken: refreshToken}}>
-            <AuthUpdateContext.Provider value={{updateAccessToken: updateAccessToken, updateRefreshToken: updateRefreshToken}}>
-                <UsernameContext.Provider value={{username: username, setUsername: setUsername}}>
-                    <UserTypeContext.Provider value={{userType: userType, setUserType: setUserType}}>
-                        <RecoveryContext.Provider value={{otp, setOTP, email, setEmail}}>
-                            <OTPContext.Provider value={{otpSent, otpVerified, setOtpSent, setOtpVerified}}>
+        <AuthContext.Provider value={{ accessToken: accessToken, refreshToken: refreshToken }}>
+            <AuthUpdateContext.Provider value={{ updateAccessToken: updateAccessToken, updateRefreshToken: updateRefreshToken }}>
+                <UsernameContext.Provider value={{ username: username, setUsername: setUsername }}>
+                    <UserTypeContext.Provider value={{ userType: userType, setUserType: setUserType }}>
+                        <RecoveryContext.Provider value={{ otp, setOTP, email, setEmail }}>
+                            <OTPContext.Provider value={{ otpSent, otpVerified, setOtpSent, setOtpVerified }}>
                                 {children}
                             </OTPContext.Provider>
                         </RecoveryContext.Provider>
