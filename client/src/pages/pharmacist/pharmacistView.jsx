@@ -3,6 +3,8 @@ import axios from 'axios';
 import searchIcon from '../../assets/img/searchicon.png';
 
 import styles from './pharmacistView.module.css';
+import { Modal } from '../../components/modalCard/modalCard';
+
 
 const PharmacistView = () => {
   const [pharmacists, setPharmacists] = useState([]);

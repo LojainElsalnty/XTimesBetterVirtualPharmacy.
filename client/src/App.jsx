@@ -58,7 +58,7 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ResponsiveAppBar/>
+        {/* <ResponsiveAppBar/> */}
         <Routes>          
           {/* Home Path */}
           {/* <Route path='/' element={<MainPage />} ></Route> */}
@@ -82,7 +82,7 @@ function App() {
 
           {/* <Route path="/patient/UpdatePrescription/:prescriptionId" element={<MyPCart />} /> */}
 
-          <Route path='*' element={<Navigate to='/' />} />
+          <Route path='*' element={<Navigate to='/login' />} />
         </Routes >
       </AuthProvider>
     </>

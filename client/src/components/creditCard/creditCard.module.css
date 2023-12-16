@@ -1,10 +1,7 @@
 .card {
   width: 100%;
   height: 100%;
-
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap");
 
 * {
   padding: 0;
@@ -16,13 +13,14 @@
 .container {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(
+/*   background-image: linear-gradient(
     109.6deg,
     rgba(62, 161, 219, 1) 11.2%,
-    rgba(93, 52, 236, 1) 100.2%
-  );
+    rgb(15, 25, 85) 100.2%
+  ); */
 }
 
 /* Background Circle*/
@@ -58,16 +56,25 @@
 /* Card */
 
 .card {
+  background-repeat: no-repeat;
   width: 380px;
   height: 230px;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.4);
+  /* background: rgba(255, 255, 255, 0.4); */
   border-radius: 10px;
   z-index: 1;
   overflow: hidden;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   position: relative;
+  background-color: currentcolor;
+  background-size: cover;
+  background-image: url(/src/assets/img/wallet.svg);
+  display: flex;
+  align-content: flex-end;
+  align-items: center;
+  justify-content: flex-end;
+
 }
 
 .visa_logo {
@@ -81,12 +88,16 @@
 }
 
 .visa_info {
-  padding: 10px;
-  margin: 30px 0;
+  height: 50%;
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+  background: linear-gradient(45deg, black, transparent);
+  border-radius: 10px;
+  padding: 10px;
 }
+
 .visa_info img {
   width: 60px;
   height: 45px;

@@ -10,7 +10,7 @@ import styles from './loginPage.module.css';
 import { useState } from 'react';
 
 // Home Made Hooks
-import { useAuthUpdate, useUsername, useUserType, useRecoveryContext } from '../../../components/hooks/useAuth';
+import { useAuthUpdate, useUsername, useUserType, useRecoveryContext, useOTPContext } from '../../../components/hooks/useAuth';
 
 // React Router
 import { useNavigate } from 'react-router-dom';
@@ -22,21 +22,28 @@ import { AlertMessageCard } from '../../../components/alertMessageCard/alertMess
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
+import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiveNavBar';
+
+
 export const LoginPage = () => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [accessToken, setAccessToken] = useState("");
     const [refreshToken, setRefreshToken] = useState("");
     const [error, setError] = useState(false);
-    const { updateAccessToken, updateRefreshToken } = useAuthUpdate();
-    const { username, setUsername } = useUsername();
-    const { userType, setUserType } = useUserType();
+    const {updateAccessToken, updateRefreshToken} = useAuthUpdate();
+    const {username, setUsername} = useUsername();
+    const {userType, setUserType} = useUserType();
     const navigate = useNavigate();
+    const {setOtpSent, setOtpVerified} = useOTPContext();
     // clear access token and refresh token and username stored in the browser
     sessionStorage.setItem("accessToken", "Bearer  ");
     sessionStorage.setItem("refreshToken", "");
     sessionStorage.setItem("username", "");
     sessionStorage.setItem("userType", "");
+
+    setOtpSent(false);
+    setOtpVerified(false);
 
     function handleUsernameChange(event) {
         setName(event.target.value);
@@ -61,7 +68,6 @@ export const LoginPage = () => {
             })
             .then((response) => {
                 console.log(`Refresh Token: ${response.data.refreshToken}`);
-                console.log(`User Type: ${response.data.userType}`);
     
                 setAccessToken(response.data.accessToken);
                 setRefreshToken(response.data.refreshToken);
@@ -99,12 +105,14 @@ export const LoginPage = () => {
         }
     }
 
-    function handleGoBackButtonClicked() {
+    function handleGoBackButtonClicked () {
         navigate('/');
     }
 
     return (
-        <div className={styles['login-main-div']}>
+        <>
+            <ResponsiveAppBar array={[]}/>
+            <div className={styles['login-main-div']}>
             <div className={styles['login-back-button-div']}>
                 {/* <button className={styles['login-back-button']} onClick={handleGoBackButtonClicked}>
                     <FontAwesomeIcon icon={faHouse} />
@@ -118,7 +126,7 @@ export const LoginPage = () => {
                         <label className={styles['login-username-label']}>Username</label>
                     </div>
                     <div className={styles['username-input-div']}>
-                        <input className={styles['searchbar-input']} value={name} placeholder="Enter username ..." type="text" onChange={handleUsernameChange} />
+                        <input className={styles['searchbar-input']} value={name} placeholder="Enter username ..." type="text" onChange={handleUsernameChange}/>
                     </div>
                 </div>
 
@@ -127,7 +135,7 @@ export const LoginPage = () => {
                         <label className={styles['login-password-label']}>Password</label>
                     </div>
                     <div className={styles['password-input-div']}>
-                        <input className={styles['searchbar-input']} value={password} placeholder="Enter password ..." type="password" onChange={handlePasswordChange} />
+                        <input className={styles['searchbar-input']} value={password} placeholder="Enter password ..." type="password" onChange={handlePasswordChange}/>
                     </div>
                 </div>
                 <a className={styles['reset-password-a']} href={"/sendOTP"}>Reset Password</a>
@@ -138,5 +146,7 @@ export const LoginPage = () => {
             </div>
             {error && (<AlertMessageCard message={"Invalid username or password"} showAlertMessage={setError}></AlertMessageCard>)}
         </div>
+        </>
+        
     )
 }

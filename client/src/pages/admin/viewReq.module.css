@@ -4,3 +4,34 @@
     width: 90%;
     /* Example width to ensure the table doesn't stretch the full width of the container */
 }
+
+.main__div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub__div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sales__label {
+    margin: 10px;
+}
+
+.sales__btn {
+    width: 30%;
+    background-color: #125592;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin: 30px;
+}

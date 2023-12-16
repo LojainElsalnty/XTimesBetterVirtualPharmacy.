@@ -3,12 +3,16 @@ import axios from 'axios';
 
 import styles from './viewReq.module.css';
 
+import { useNavigate } from 'react-router-dom';
+import { TitleCard } from '../../components/titleCard/titleCard';
+
 const SalesView = () => {
 
   //Authenticate part
   const accessToken = sessionStorage.getItem('accessToken');
   const [load, setLoad] = useState(true);
   const [username, setUsername] = useState('');
+  const navigate = useNavigate();
 
   console.log(accessToken);
   useEffect(() => {
@@ -76,20 +80,19 @@ const SalesView = () => {
   }
 
   return (
-    <div>
-      <h1>Sales Report</h1>
-      <div>
-        <label>
-          Start Date:
+    <div className={styles['main__div']}>
+      <TitleCard title='Sales Report'></TitleCard>
+      <div className={styles['sub__div']}>
+        <label className={styles['sales__label']}>
+          <p>Start Date:</p>
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
         </label>
-        <p>     </p>
-        <label>
-          End Date:
+        <label className={styles['sales__label']}>
+          <p>End Date:</p>
           <input
             type="date"
             value={endDate}
@@ -98,7 +101,7 @@ const SalesView = () => {
         </label>
       </div>
       <div>
-        <button onClick={handleFilter} style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>
+        <button className={styles['sales__btn']} onClick={handleFilter}>
           View
         </button>
       </div>

@@ -30,3 +30,122 @@
   background-color: #e0e0e0;
   /* Change the background color on hover */
 }
+
+.searchbar-main-div {
+  width: 50%;
+  height: 110px;
+  margin: 10px 5px;
+  padding: 10px;
+  position: relative;
+  border-radius: var(--border-radius);
+  background-image: linear-gradient(35deg, #0F2027 0%, #125594 50%, #2C5364 100%);
+  z-index: 100;
+}
+
+.searchbar-main-div > a {
+  height: 20%;
+  display: flex;
+  color: black;
+}
+
+.searchbar-sub-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  border-radius: var(--border-radius);
+}
+
+.searchbar-input-div {
+  --top-shadow: inset 1px 1px 3px #ffffff, inset 2px 2px 6px #e2c5e3;
+  --bottom-shadow: inset -2px -2px 4px rgba(95, 95, 95, 0.7);
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin: 10px;
+}
+
+.searchbar-input {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: 0px;
+  position: relative;
+  background-color: #ffffff;
+  top: -2px;
+}
+
+.criteria__li:hover {
+  background-image: linear-gradient(35deg, #206b8b 0%, #83acd3 50%, #f0f0f0 100%);
+  color: black;
+}
+
+.searchbar-input:focus {
+  outline: none;
+}
+
+/* <BUTTON> Class Selector */
+.searchbar-button, .searchfilter-button, .clearfilter-button {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.searchbar-icon-div {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin__input {
+  width: 50%;
+  height: 20%;
+  margin-left: 10px;
+  padding: 10px;
+  position: relative;
+  top: -2px;
+}
+
+.admin__label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+.add__admin__sub__div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  border-radius: var(--border-radius);
+  margin: 10px;
+}
+
+.add__admin__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add__admin__btn {
+  width: 50%;
+  margin: 10px;
+  background-color: #125992;
+  color: white; 
+  padding: 8px 12px;
+  cursor: pointer;
+}

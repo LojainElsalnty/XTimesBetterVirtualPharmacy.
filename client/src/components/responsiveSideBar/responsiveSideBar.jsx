@@ -24,6 +24,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ChatIcon from '@mui/icons-material/Chat';
 import HomeIcon from '@mui/icons-material/Home';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 // Tooltip
 import 'react-tooltip/dist/react-tooltip.css'
@@ -107,7 +108,7 @@ export const ResponsiveSideBar = ({ array }) => {
                     >
             <ArrowForwardIcon></ArrowForwardIcon>
           </Button>
-        <Button sx={{color: "white", '&:hover': {
+        {/* <Button sx={{color: "white", '&:hover': {
                     backgroundColor: "#125594",
                     color: "white"
                     }}} className={styles['view-button']} onClick={toggleDrawer("left", true)}
@@ -116,20 +117,25 @@ export const ResponsiveSideBar = ({ array }) => {
                     data-tooltip-place="bottom"
             >
             <DehazeIcon></DehazeIcon>
-        </Button>
-        <Button sx={{color: "white", '&:hover': {
-                    backgroundColor: "#125594",
-                    color: "white"
-                    }}} 
-                    className={styles['view-button']}
-                    component="a"
-                    href={`/${userType}/profile`}
-                    data-tooltip-id="home"
-                    data-tooltip-content="Home"
-                    data-tooltip-place="bottom"
-          >
-            <HomeIcon></HomeIcon>
-        </Button>
+        </Button> */}
+
+        {
+          sessionStorage.getItem("userType") === "admin" ? <></> :
+            <Button sx={{color: "white", '&:hover': {
+                      backgroundColor: "#125594",
+                      color: "white"
+                      }}} 
+                      className={styles['view-button']}
+                      component="a"
+                      href={`/${userType}/profile`}
+                      data-tooltip-id="home"
+                      data-tooltip-content="Home"
+                      data-tooltip-place="bottom"
+            >
+              <HomeIcon></HomeIcon>
+          </Button>
+        }
+
             
 
           {
@@ -149,6 +155,26 @@ export const ResponsiveSideBar = ({ array }) => {
                     data-tooltip-place="bottom"
               >
               <ChatIcon></ChatIcon>
+            </Button>
+          }
+
+        {
+          sessionStorage.getItem("userType") !== "pharmacist" ? <></> :
+            <Button 
+                    sx={{color: "white",
+                      '&:hover': {
+                      backgroundColor: "#125594",
+                      color: "white"
+                      }
+                    }} 
+                    className={styles['view-button']}                   
+                    component="a"
+                    href={`/${userType}/notifications`}
+                    data-tooltip-id="notification"
+                    data-tooltip-content="Notification"
+                    data-tooltip-place="bottom"
+              >
+              <NotificationsIcon></NotificationsIcon>
             </Button>
           }
 

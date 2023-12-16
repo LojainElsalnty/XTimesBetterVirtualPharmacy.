@@ -5,6 +5,7 @@ const AuthUpdateContext = React.createContext();
 const UsernameContext = React.createContext();
 const UserTypeContext = React.createContext();
 const RecoveryContext = React.createContext();
+const OTPContext = React.createContext();
 
 export function useAuth() {
     return useContext(AuthContext);
@@ -25,6 +26,9 @@ export function useRecoveryContext() {
     return useContext(RecoveryContext);
 }
 
+export function useOTPContext() {
+    return useContext(OTPContext);
+}
 
 export function AuthProvider({ children }) {
 /*     const [accessToken, setAccessToken] = useState("Bearer  ");
@@ -39,6 +43,8 @@ export function AuthProvider({ children }) {
 
     const [email, setEmail] = useState("");
     const [otp, setOTP] = useState("");
+    const [otpSent, setOtpSent] = useState(false);
+    const [otpVerified, setOtpVerified] = useState(false);
 
     function updateAccessToken(token) {
         setAccessToken(token);
@@ -54,7 +60,9 @@ export function AuthProvider({ children }) {
                 <UsernameContext.Provider value={{username: username, setUsername: setUsername}}>
                     <UserTypeContext.Provider value={{userType: userType, setUserType: setUserType}}>
                         <RecoveryContext.Provider value={{otp, setOTP, email, setEmail}}>
-                            {children}
+                            <OTPContext.Provider value={{otpSent, otpVerified, setOtpSent, setOtpVerified}}>
+                                {children}
+                            </OTPContext.Provider>
                         </RecoveryContext.Provider>
                     </UserTypeContext.Provider>
                 </UsernameContext.Provider>

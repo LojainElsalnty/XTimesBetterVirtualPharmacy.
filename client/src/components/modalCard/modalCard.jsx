@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle } from '@fortawesome/free-solid-svg-icons';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
+import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 /** This is a simple example of how the component works **/
 export const Example = () => {
@@ -66,11 +66,11 @@ export const Modal = ({
         ReactDOM.createPortal(
         <div className={styles[`cc-modal-container${addedClasses}`]} id={styles["modal"]}>
 
-            {/* <button
+            <button
             className={styles["cc-modal-overlay"]}
             onClick={() => setOpen(!open)}
             aria-label="Close Modal"
-            /> */}
+            />
             <div className={styles["cc-modal"]}>
 
             {size !== 'dialog' 
@@ -87,7 +87,7 @@ export const Modal = ({
             </div>
             : 
             <button className={styles["cc-modal-fixed-close"]} onClick={() => setOpen(!open)}>
-              <CloseIcon></CloseIcon>
+              {<CloseIcon></CloseIcon>}
             </button>
             }
           
@@ -103,8 +103,25 @@ export const Modal = ({
 
   return (
   <>
-    {!open && hasBtn ?
-      <KeyboardArrowDownIcon
+  {
+    icon === 'search' ?
+    <FontAwesomeIcon icon={faSearch}
+    className={styles["cc-open-modal"]}
+    onClick={() => setOpen(!open)}
+    aria-haspopup="dialog"
+    aria-controls={modalId}
+    />
+    :
+    icon === 'plus' ?
+    <FontAwesomeIcon icon={faPlus}
+    className={styles["cc-open-modal"]}
+    onClick={() => setOpen(!open)}
+    aria-haspopup="dialog"
+    aria-controls={modalId}
+    />
+    :
+    !open && hasBtn && !icon ?
+    <KeyboardArrowDownIcon
         className={styles["cc-open-modal"]}
         onClick={() => setOpen(!open)}
         aria-haspopup="dialog"
@@ -117,7 +134,7 @@ export const Modal = ({
       aria-haspopup="dialog"
       aria-controls={modalId}
     />
-    }
+  }
     {modalComponent}
   </>
 )};

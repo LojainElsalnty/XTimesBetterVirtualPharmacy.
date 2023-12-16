@@ -32,6 +32,7 @@ import { ChatPage } from '../ChatPage/chatPage';
 // Components 
 import { Navbar } from '../../../components/navbar/navbar';
 import { ResponsiveSideBar } from '../../../components/responsiveSideBar/responsiveSideBar';
+import { ResponsiveAppBar } from '../../../components/responsiveNavBar/responsiveNavBar';
 
 // User Defined Hooks
 import { useAuth } from '../../../components/hooks/useAuth';
@@ -92,16 +93,6 @@ export const ViewPharmacistMainPage = () => {
             url: "/pharmacist/viewSales",
             pageName: "Sales Report",
         },
-        {
-            url: "/pharmacist/viewWalletNumber",
-            pageName: "Wallet",
-        },
-        {
-            url: "/pharmacist/notifications",
-            pageName: "notifications",
-            icon: <BellIcon boxSize={25} />,
-
-        },
     ];
 
     if (load) {
@@ -112,6 +103,7 @@ export const ViewPharmacistMainPage = () => {
 
         <div className={styles['main-div']}>
            {/*  <Navbar name="Pharmacist" list={list} /> */}
+            <ResponsiveAppBar array={list}/>
             <ResponsiveSideBar array={list}/>
             <> 
                 <Routes>

@@ -128,7 +128,7 @@ const AdminTable = () => {
       }
     }
   };
-  
+
 
   const handleRemoveAdmin = async (adminUsername) => {
     try {
@@ -271,7 +271,7 @@ const AdminTable = () => {
               </div>
               <br />
               <button type="submit" style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer', marginRight: '10px' }}>Add Admin</button>
-  <button type="button" onClick={handlePopupClose} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button><br />
+              <button type="button" onClick={handlePopupClose} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button><br />
               {error && <p>{error}</p>}
               <br />
             </form>

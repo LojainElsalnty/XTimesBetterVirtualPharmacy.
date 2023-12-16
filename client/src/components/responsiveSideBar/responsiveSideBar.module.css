@@ -7,7 +7,8 @@
     align-items: center;
     justify-content: flex-start;
 
-    background-image: linear-gradient(35deg, #252525 0%, #252525 100%);
+    background-color: black;
+    /* background-image: linear-gradient(35deg, #252525 0%, #252525 100%); */
 
     position: relative;
 

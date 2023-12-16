@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import searchIcon from '../../assets/img/searchicon.png';
 import styles from '../pharmacist/pharmacistView.module.css';
+import { Modal } from '../../components/modalCard/modalCard';
+import { TitleCard } from '../../components/titleCard/titleCard';
+
 
 function PatientView() {
   const [username, setUsername] = useState('');
@@ -52,62 +55,65 @@ function PatientView() {
   };
 
   return (
-    <div>
-      <h1>Patients List</h1>
+    <div style={{padding: '12px'}}>
+      <TitleCard title='Patients List' />
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
-
-
-        <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-          Enter Patient Username:
-          <input
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-          />
-          <button className={styles["find-button"]} onClick={fetchPatientInfo}>
-            <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
-          </button>
-        </label>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
+            <div className={styles['searchbar-main-div']}>
+              <div className={styles['searchbar-sub-div']}>
+                  <div className={styles['searchbar-input-div']}>
+                      <input className={styles['searchbar-input']} value={username} placeholder="Enter patient username" type="text"  onChange={handleUsernameChange}/>
+                  </div>
+                  <div className={styles['searchbar-icon-div']}>
+                    <button 
+                          style={{margin: '10px'}}
+                          data-tooltip-id="my__search__icon"
+                          data-tooltip-content="Search"
+                          data-tooltip-place="top"
+                          onClick={fetchPatientInfo}
+                      >
+                      <Modal title='Patient' icon='search' className={styles['searchbar-button']}>                   
+                      {patient && (
+                        <div>
+                          <h3>Patient Details for {username}</h3>
+                          <table className={styles.pharmacistTable}>
+                            <thead>
+                              <tr>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Date of Birth</th>
+                                <th>Gender</th>
+                                <th>Mobile</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr key={patient._id}>
+                                <td>{patient.username}</td>
+                                <td>{patient.name}</td>
+                                <td>{patient.email}</td>
+                                <td>{patient.dob}</td>
+                                <td>{patient.gender}</td>
+                                <td>{patient.mobile}</td>
+                                <td>
+                                  <button
+                                    onClick={() => removePatientHandler(patient)}
+                                    style={{ backgroundColor: 'red', color: 'white' }}
+                                  >
+                                    Remove
+                                  </button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                      </Modal>
+                      </button>
+                </div>
+              </div>
+            </div>
       </div>
-
-      {patient && (
-        <div>
-          <h3>Patient Details for {username}</h3>
-          <table className={styles.pharmacistTable}>
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Date of Birth</th>
-                <th>Gender</th>
-                <th>Mobile</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr key={patient._id}>
-                <td>{patient.username}</td>
-                <td>{patient.name}</td>
-                <td>{patient.email}</td>
-                <td>{patient.dob}</td>
-                <td>{patient.gender}</td>
-                <td>{patient.mobile}</td>
-                <td>
-                  <button
-                    onClick={() => removePatientHandler(patient)}
-                    style={{ backgroundColor: 'red', color: 'white' }}
-                  >
-                    Remove
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      <h3>All Patients</h3>
       <table className={styles.pharmacistTable}>
         <thead>
           <tr>
