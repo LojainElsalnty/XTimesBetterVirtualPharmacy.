@@ -105,7 +105,19 @@ return res.status(400).json({ message: 'Username does not exist!', registeredIn:
 }
     
 });
+const  addAmountToAllPharmacists= asyncHandler(async (req, res) => {
+  // Update the walletAmount for all pharmacists by adding 2000
+  const update = { $inc: { walletAmount: 2000 } };
+
+  // Set new to true to return the modified documents
+  const options = { new: true };
+
+  // Update all pharmacists
+  const updatedPharmacists = await pharmacistModel.updateMany({}, update, options);
+
+  res.status(200).json(updatedPharmacists);
+});
 
 
 
-module.exports= {addAdmin,removeAdmin, getAdmins,getPatients,getPharmacists,removePatient, removePharmacist};
+module.exports= {addAdmin,removeAdmin,addAmountToAllPharmacists, getAdmins,getPatients,getPharmacists,removePatient, removePharmacist};

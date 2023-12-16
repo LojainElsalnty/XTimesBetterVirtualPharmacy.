@@ -128,6 +128,7 @@ const AdminTable = () => {
       }
     }
   };
+  
 
   const handleRemoveAdmin = async (adminUsername) => {
     try {
@@ -180,12 +181,8 @@ const AdminTable = () => {
       <h1>Admins List</h1>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
-
-
         <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-
           Enter Admin Username:
-
           <input
             type="text"
             value={searchUsername}
@@ -193,13 +190,12 @@ const AdminTable = () => {
           />
           <button className={styles['find-button']} onClick={fetchSelectedAdmin}>
             <br />
-
             <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
             <br />
-
           </button>
         </label>
       </div>
+
       {selectedAdmin && (
         <div>
           <h3>Admin Information for {selectedAdmin.username}</h3>
@@ -209,7 +205,6 @@ const AdminTable = () => {
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-
               </tr>
             </thead>
             <tbody>
@@ -226,9 +221,8 @@ const AdminTable = () => {
         </div>
       )}
 
-
-
       <button onClick={handleAddAdminClick} style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}> Add Admin</button>
+
       {showAddAdminPopup && (
         <div className="popup">
           <div className="popup-content">
@@ -238,7 +232,7 @@ const AdminTable = () => {
             <h2>Add Admin</h2>
             <form onSubmit={handleAddAdminSubmit}>
               <div>
-                <label>Username:</label>
+                <label style={{ display: 'block' }}>Username:</label>
                 <input
                   type="text"
                   name="username"
@@ -248,7 +242,7 @@ const AdminTable = () => {
                 />
               </div>
               <div>
-                <label>Password:</label>
+                <label style={{ display: 'block' }}>Password:</label>
                 <input
                   type="password"
                   name="password"
@@ -258,32 +252,33 @@ const AdminTable = () => {
                 />
               </div>
               <div>
-                <label>First Name:</label>
+                <label style={{ display: 'block' }}>First Name:</label>
                 <input
                   type="text"
                   name="firstName"
                   value={newAdminData.firstName}
                   onChange={handleInputChange}
-
                 />
               </div>
               <div>
-                <label>Last Name:</label>
+                <label style={{ display: 'block' }}>Last Name:</label>
                 <input
                   type="text"
                   name="lastName"
                   value={newAdminData.lastName}
                   onChange={handleInputChange}
-
                 />
               </div>
-              <button type="submit" style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Add Admin</button>
-              <button type="button" onClick={handlePopupClose} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button>
+              <br />
+              <button type="submit" style={{ backgroundColor: 'blue', color: 'white', padding: '8px 12px', cursor: 'pointer', marginRight: '10px' }}>Add Admin</button>
+  <button type="button" onClick={handlePopupClose} style={{ backgroundColor: 'red', color: 'white', padding: '8px 12px', cursor: 'pointer' }}>Cancel</button><br />
               {error && <p>{error}</p>}
+              <br />
             </form>
           </div>
         </div>
       )}
+
       <table className={styles.pharmacistTable}>
         <thead>
           <tr>

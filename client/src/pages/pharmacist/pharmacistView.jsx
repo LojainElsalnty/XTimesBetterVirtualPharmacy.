@@ -9,16 +9,16 @@ const PharmacistView = () => {
   const [username, setUsername] = useState('');
   const [pharmacist, setPharmacist] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/pharmaRoutes/viewAllPharma');
-        setPharmacists(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/pharmaRoutes/viewAllPharma');
+      setPharmacists(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -50,17 +50,38 @@ const PharmacistView = () => {
     }
   };
 
+  const addSalaryToAll = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/admin/addremove/gettt');
+      console.log(response.data); // You can log or handle the response as needed
+      fetchData();
+      alert('Salary added to all pharmacists'); // Refresh the pharmacists list after successful salary addition
+    } catch (error) {
+      console.error('Error adding salary to all pharmacists:', error);
+    }
+  };
+
+  // Get the current date
+  const currentDate = new Date();
+
+  // Check if today is the start of the month
+  const isStartOfMonth = currentDate.getDate() === 1;
+
+  const handleAddSalaryClick = () => {
+    if (!isStartOfMonth) {
+      alert('Cannot add salary until the start of the month.');
+    } else {
+      addSalaryToAll();
+    }
+  };
+
   return (
     <div>
       <h1>Pharmacists List</h1>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '20px' }}>
-
-
         <label style={{ display: 'flex', alignItems: 'center', marginRight: '20px' }}>
-
           Enter Pharmacist Username:
-
           <input
             type="text"
             value={username}
@@ -68,10 +89,8 @@ const PharmacistView = () => {
           />
           <button className={styles['find-button']} onClick={fetchPharmacistInfo}>
             <br />
-
             <img src={searchIcon} alt="Search" style={{ width: '25px', height: '25px' }} />
             <br />
-
           </button>
         </label>
       </div>
@@ -114,6 +133,20 @@ const PharmacistView = () => {
       )}
 
       <h3>All Pharmacists</h3>
+      <button
+        onClick={handleAddSalaryClick}
+        style={{
+          backgroundColor: isStartOfMonth ? 'green' : 'grey',
+          color: 'white',
+          padding: '8px 12px',
+          cursor: isStartOfMonth ? 'pointer' : 'not-allowed',
+          float: 'right',
+          marginRight: '10px'
+        }}
+      >
+        Add Salary to All
+      </button>
+
       <table className={styles.pharmacistTable}>
         <thead>
           <tr>
