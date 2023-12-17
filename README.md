@@ -11,8 +11,13 @@ The code style is enforced using eslint and prettier. The code style is enforced
 
 
 ## Screenshots
-- ![Screenshot 1](link-to-screenshot-1)
-- ![Screenshot 2](link-to-screenshot-2)
+- ![Screenshot 1](Images/login.png)
+- ![Screenshot 2](Images/AdminsList.png)
+- ![Screenshot 3](Images/successOrderPlacement.png)
+- ![Screenshot 4](Images/PharmacistMedicineList.png)
+- ![Screenshot 5](Images/resetPassword.png)
+- ![Screenshot 6](Images/pharmacistReq.png)
+
 
 
 ## Tech/Framework used
