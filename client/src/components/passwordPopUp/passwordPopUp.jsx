@@ -121,7 +121,7 @@ export const PasswordPopUp = ({ showPasswordCard }) => {
             <div className={styles['logout-message-div']}>
                 <div className={styles['confirm-message-div']}>
                     <div className={styles['logout__message__div']}>
-                        <h3>Change Password</h3>
+                        <h3>Are you sure you want to log out?</h3>
                     </div>
                     <div className={styles['cross-div']}>
                         <img className={styles['cross-message-img']} src={crossImage} onClick={handleExitPasswordCard}></img>

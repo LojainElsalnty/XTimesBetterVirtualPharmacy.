@@ -9,7 +9,7 @@ import crossImage from '../../assets/img/cross.png';
 // Hooks
 import { useState, useEffect } from 'react';
 
-export const AlertMessageCard = ({message, status, showAlertMessage}) => {
+export const AlertMessageCard = ({ message, status, showAlertMessage }) => {
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
